@@ -1,4 +1,4 @@
-import type { Brand as ContractBrand, BrandColor as ContractBrandColor } from '@open-design/contracts';
+import type { Brand as ContractBrand, BrandColor as ContractBrandColor } from '@nn-design/contracts';
 import type { SeedToken } from './engine/types.js';
 
 export const ASSET_KINDS = ['landing', 'deck', 'poster', 'email', 'newsletter', 'form'] as const;

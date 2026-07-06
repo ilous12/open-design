@@ -3,7 +3,7 @@ import type {
   ProjectLocationsResponse,
   ScanProjectLocationsResponse,
   UpdateProjectLocationsRequest,
-} from '@open-design/contracts';
+} from '@nn-design/contracts';
 
 export async function fetchProjectLocations(): Promise<ProjectLocation[]> {
   try {

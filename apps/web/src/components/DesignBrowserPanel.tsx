@@ -13,8 +13,8 @@ import { createPortal, flushSync } from 'react-dom';
 import {
   clearHostBrowserData,
   isOpenDesignHostAvailable,
-} from '@open-design/host';
-import type { TrackingReferenceBoardCategory } from '@open-design/contracts/analytics';
+} from '@nn-design/host';
+import type { TrackingReferenceBoardCategory } from '@nn-design/contracts/analytics';
 import { useAnalytics } from '../analytics/provider';
 import {
   trackReferenceBoardClick,
@@ -710,7 +710,7 @@ export function browserUsePrompt(action: BrowserUseAction, context: BrowserUsePr
   return [
     '@agent-browser',
     '',
-    'Use the selected Open Design Browser tab as the bound target.',
+    'Use the selected Design For AIR Browser tab as the bound target.',
     'Browser tab context:',
     `- tab: ${tabLabel}`,
     `- title: ${title}`,

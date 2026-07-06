@@ -8,7 +8,7 @@
 // behavioural funnel can split AMR / BYOK / CLI on the server-side events.
 
 import { describe, expect, it } from 'vitest';
-import { deriveConfigureGlobals } from '@open-design/contracts/analytics';
+import { deriveConfigureGlobals } from '@nn-design/contracts/analytics';
 import { runtimeTypeForRunAnalytics } from '../src/run-analytics-observability.js';
 
 describe('runtime_type on daemon run analytics', () => {

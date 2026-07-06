@@ -30,7 +30,7 @@ import type {
   InstalledPluginRecord,
   McpServerConfig,
   WorkspaceContextItem,
-} from '@open-design/contracts';
+} from '@nn-design/contracts';
 import { DesignSystemPicker } from './DesignSystemPicker';
 import type { SkillSummary } from '../types';
 import { Icon, type IconName } from './Icon';
@@ -90,7 +90,7 @@ import { LibraryPicker } from './LibraryPicker';
 import { SessionModeToggle } from './SessionModeToggle';
 import { assetTitle } from './LibraryAssetMeta';
 import { libraryAssetRawUrl } from '../providers/registry';
-import type { LibraryAsset } from '@open-design/contracts';
+import type { LibraryAsset } from '@nn-design/contracts';
 import { WorkingDirPicker } from './WorkingDirPicker';
 import {
   ProjectReferenceModal,
@@ -1206,7 +1206,7 @@ export const HomeHero = forwardRef<HomeHeroHandle, Props>(function HomeHero(
         <span className="home-hero__brand-mark">
           <img src="/app-icon.svg" alt="" draggable={false} />
         </span>
-        <span className="home-hero__brand-name">Open Design</span>
+        <span className="home-hero__brand-name">Design For AIR</span>
       </div>
       <h1 className="home-hero__title">{t('homeHero.title')}</h1>
       <p className="home-hero__subtitle">

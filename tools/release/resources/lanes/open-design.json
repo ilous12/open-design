@@ -3,28 +3,28 @@
     "beta": {
       "channel": "beta",
       "storagePrefix": "beta",
-      "productName": "Open Design Beta"
+      "productName": "Design For AIR Beta"
     },
     "betas": {
       "channel": "betas",
       "storagePrefix": "betas",
-      "productName": "Open Design Betas",
+      "productName": "Design For AIR Betas",
       "publicOrigin": "https://s3.nexu.space/od-releases"
     },
     "prerelease": {
       "channel": "prerelease",
       "storagePrefix": "prerelease",
-      "productName": "Open Design Prerelease"
+      "productName": "Design For AIR Prerelease"
     },
     "preview": {
       "channel": "preview",
       "storagePrefix": "preview",
-      "productName": "Open Design Preview"
+      "productName": "Design For AIR Preview"
     },
     "stable": {
       "channel": "stable",
       "storagePrefix": "stable",
-      "productName": "Open Design"
+      "productName": "Design For AIR"
     }
   }
 }

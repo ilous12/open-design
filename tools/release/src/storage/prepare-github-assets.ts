@@ -1,7 +1,7 @@
 import { copyFileSync, mkdirSync, readdirSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { basename, dirname, join, relative, resolve } from "node:path";
 import { optional, required, writeJson } from "./common.ts";
-import { releaseChannelDescriptor } from "@open-design/release";
+import { releaseChannelDescriptor } from "@nn-design/release";
 
 const releaseChannel = releaseChannelDescriptor(required("RELEASE_CHANNEL")).channel;
 const releaseVersion = required("RELEASE_VERSION");

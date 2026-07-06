@@ -40,7 +40,7 @@ describe("verifyPackagedDataRootWritable", () => {
       }
 
       expect(captured).toBeInstanceOf(PackagedPathAccessError);
-      expect((captured as Error).message).toContain("Open Design could not create or write to:");
+      expect((captured as Error).message).toContain("Design For AIR could not create or write to:");
       expect((captured as Error).message).toContain(join(blocker, "data"));
       expect((captured as Error).message).toContain("Current user:");
       expect((captured as Error).message).toContain("Try in Terminal:");

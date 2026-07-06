@@ -14,7 +14,7 @@ import {
   type ReactNode,
 } from 'react';
 import { createPortal } from 'react-dom';
-import { hasOdCard } from '@open-design/contracts';
+import { hasOdCard } from '@nn-design/contracts';
 import { useAnalytics } from '../analytics/provider';
 import { getResolvedDeviceId } from '../analytics/client';
 import { trackChatPanelClick, trackMessageQueueClick, trackRunFailedToastSurfaceView } from '../analytics/events';
@@ -33,8 +33,8 @@ import { takeComposerSeedFor } from '../state/libraryHandoff';
 import { splitOnQuestionForms } from '../artifacts/question-form';
 import { stripArtifact } from '../artifacts/strip';
 import type { TodoItem } from '../runtime/todos';
-import type { AppliedPluginSnapshot, ChatSessionMode, WorkspaceContextItem } from '@open-design/contracts';
-import type { TrackingProjectKind } from '@open-design/contracts/analytics';
+import type { AppliedPluginSnapshot, ChatSessionMode, WorkspaceContextItem } from '@nn-design/contracts';
+import type { TrackingProjectKind } from '@nn-design/contracts/analytics';
 import {
   DESIGN_SYSTEM_WORKSPACE_DISPLAY_DESCRIPTION,
   DESIGN_SYSTEM_WORKSPACE_DISPLAY_TITLE,
@@ -499,7 +499,7 @@ interface Props {
   ) => Promise<{ message?: string; url?: string } | void> | { message?: string; url?: string } | void;
   activePluginActionPaths?: Set<string>;
   hiddenPluginActionPaths?: Set<string>;
-  // "Share to Open Design" button on each completed assistant message —
+  // "Share to Design For AIR" button on each completed assistant message —
   // wired by ProjectView to handleSend with the bundled
   // `od-share-to-community` scenario's trigger prompt.
   onShareToOpenDesign?: (assistantMessageId: string) => void;
@@ -3634,7 +3634,7 @@ export function buildRunErrorDiagnosticText(input: RunErrorDiagnosticInput): str
   }
 
   lines.push(
-    'Open Design run error diagnostics',
+    'Design For AIR run error diagnostics',
     `trace_id: ${input.traceId ?? 'n/a'}`,
     `run_id: ${input.traceId ?? 'n/a'}`,
     `error_code: ${input.errorCode ?? 'n/a'}`,

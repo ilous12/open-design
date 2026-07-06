@@ -2,7 +2,7 @@ import { spawn, type ChildProcessByStdio } from 'node:child_process';
 import { once } from 'node:events';
 import type { Readable } from 'node:stream';
 
-import type { ReleaseChannel } from '@open-design/release';
+import type { ReleaseChannel } from '@nn-design/release';
 
 export type ToolsServeUpdaterFixture = {
   close: () => Promise<void>;

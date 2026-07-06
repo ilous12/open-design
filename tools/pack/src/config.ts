@@ -6,9 +6,9 @@ import path from "node:path";
 import {
   OPEN_DESIGN_SIDECAR_CONTRACT,
   SIDECAR_DEFAULTS,
-} from "@open-design/sidecar-proto";
-import { resolveNamespace } from "@open-design/sidecar";
-import { releaseChannelFromVersion, releaseNamespace } from "@open-design/release";
+} from "@nn-design/sidecar-proto";
+import { resolveNamespace } from "@nn-design/sidecar";
+import { releaseChannelFromVersion, releaseNamespace } from "@nn-design/release";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -89,7 +89,7 @@ export type ToolPackConfig = {
   telemetryRelayUrl?: string;
   /**
    * PostHog product-analytics ingest key, sourced from process.env.POSTHOG_KEY
-   * at packaging time. Baked into open-design-config.json so the packaged
+   * at packaging time. Baked into nn.design-config.json so the packaged
    * daemon can read it as POSTHOG_KEY env at launch — only official Open
    * Design builds (CI with the secret set) ship with this; forks compiling
    * locally produce binaries that omit the key and the integration
@@ -110,7 +110,7 @@ export type ToolPackConfig = {
    */
   posthogCliApiKey?: string;
   /**
-   * PostHog project ID (e.g. `420348` for the official Open Design project)
+   * PostHog project ID (e.g. `420348` for the official Design For AIR project)
    * used by `@posthog/cli sourcemap upload`. Sourced from
    * `POSTHOG_CLI_PROJECT_ID` (or the alias `POSTHOG_PROJECT_ID`) in CI.
    * Required for upload to be attempted; missing → strip-only path.

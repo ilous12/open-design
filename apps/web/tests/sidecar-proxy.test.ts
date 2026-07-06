@@ -41,7 +41,7 @@ describe('resolveStandaloneServerEntry', () => {
   it('resolves the traced monorepo standalone server entry', async () => {
     const previousDistDir = process.env.OD_WEB_DIST_DIR;
     delete process.env.OD_WEB_DIST_DIR;
-    const webRoot = await mkdtemp(join(tmpdir(), 'open-design-web-standalone-'));
+    const webRoot = await mkdtemp(join(tmpdir(), 'nn.design-web-standalone-'));
     const nestedRoot = join(webRoot, '.next', 'standalone', 'apps', 'web');
     const fallbackRoot = join(webRoot, '.next', 'standalone');
 

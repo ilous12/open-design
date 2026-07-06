@@ -12,8 +12,8 @@ import {
   SIDECAR_SOURCES,
   normalizeDesktopSidecarMessage,
   type SidecarStamp,
-} from "@open-design/sidecar-proto";
-import { bootstrapSidecarRuntime, createJsonIpcServer, resolveAppIpcPath } from "@open-design/sidecar";
+} from "@nn-design/sidecar-proto";
+import { bootstrapSidecarRuntime, createJsonIpcServer, resolveAppIpcPath } from "@nn-design/sidecar";
 
 import { PACKAGED_NAMESPACE_ENV, type PackagedConfig } from "./config.js";
 import { writePackagedDesktopIdentity, writePackagedWebIdentity } from "./identity.js";
@@ -33,7 +33,7 @@ function resolveHeadlessNamespaceBaseRoot(): string {
     xdgDataHome != null && xdgDataHome.length > 0
       ? xdgDataHome
       : join(homedir(), ".local", "share");
-  return join(dataBase, "open-design", "namespaces");
+  return join(dataBase, "nn.design", "namespaces");
 }
 
 function resolveHeadlessAmrProfile(): PackagedConfig["amrProfile"] {
@@ -52,11 +52,11 @@ function resolveHeadlessConfig(): PackagedConfig {
   const namespaceBaseRoot = resolveHeadlessNamespaceBaseRoot();
 
   // OD_RESOURCE_ROOT may be set by a launcher script; otherwise default to a
-  // sibling open-design/ directory relative to the node_modules that contain
+  // sibling nn.design/ directory relative to the node_modules that contain
   // this file — the layout written by tools-pack linux headless-install.
   const resourceRoot =
     process.env.OD_RESOURCE_ROOT ??
-    join(__dirname, "..", "..", "..", "open-design");
+    join(__dirname, "..", "..", "..", "nn.design");
 
   return {
     amrProfile: resolveHeadlessAmrProfile(),
@@ -152,7 +152,7 @@ async function main(): Promise<void> {
   }
 
   const shutdown = async (): Promise<void> => {
-    process.stdout.write("\n Shutting down Open Design...\n");
+    process.stdout.write("\n Shutting down Design For AIR...\n");
     await ipcServer.close().catch(() => undefined);
     await sidecars.close().catch(() => undefined);
     await identity.close().catch(() => undefined);
@@ -182,7 +182,7 @@ async function main(): Promise<void> {
   });
   await confirmPackagedLauncherRuntime(launcherRuntime);
 
-  process.stdout.write(`\n Open Design is running\n\n`);
+  process.stdout.write(`\n Design For AIR is running\n\n`);
   process.stdout.write(` ➜ ${colorize(webUrl)}\n\n`);
   process.stdout.write(` Press Ctrl+C to stop\n\n`);
 

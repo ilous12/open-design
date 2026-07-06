@@ -8,7 +8,7 @@ import {
   APP_KEYS,
   SIDECAR_MODES,
   SIDECAR_SOURCES,
-} from '@open-design/sidecar-proto';
+} from '@nn-design/sidecar-proto';
 
 const stopRuntime = vi.fn(async () => undefined);
 const startDaemonRuntime = vi.fn(async () => ({

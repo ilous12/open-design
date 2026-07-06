@@ -2,7 +2,7 @@
 
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import type { ConnectorDetail } from '@open-design/contracts';
+import type { ConnectorDetail } from '@nn-design/contracts';
 
 import {
   buildDesignSystemPackageAuditRepairPrompt,
@@ -760,7 +760,7 @@ describe('DesignSystemCreationFlow', () => {
     await waitFor(() => expect(mocks.patchProject).toHaveBeenCalledWith(
       project.id,
       expect.objectContaining({
-        pendingPrompt: expect.stringContaining('Create this project as a complete Open Design design system workspace.'),
+        pendingPrompt: expect.stringContaining('Create this project as a complete Design For AIR design system workspace.'),
       }),
     ));
     await waitFor(() => expect(onProjectPrepared).toHaveBeenCalledWith(
@@ -847,7 +847,7 @@ describe('DesignSystemCreationFlow', () => {
     expect(mocks.patchProject).toHaveBeenCalledWith(
       project.id,
       expect.objectContaining({
-        pendingPrompt: expect.stringContaining('Create this project as a complete Open Design design system workspace.'),
+        pendingPrompt: expect.stringContaining('Create this project as a complete Design For AIR design system workspace.'),
       }),
     );
     expect(mocks.patchProject).toHaveBeenCalledWith(
@@ -1923,12 +1923,12 @@ describe('DesignSystemCreationFlow', () => {
   it.skip('adds website source links with Enter and keeps them out of GitHub intake', async () => {
     const system: DesignSystemDetail = {
       id: 'user:open-design-website-design-system',
-      title: 'Open Design Website Design System',
+      title: 'Design For AIR Website Design System',
       category: 'Custom',
-      summary: 'Open Design website source.',
+      summary: 'Design For AIR website source.',
       swatches: [],
       surface: 'web',
-      body: '# Open Design Website Design System\n',
+      body: '# Design For AIR Website Design System\n',
       source: 'user',
       status: 'draft',
       isEditable: true,
@@ -1936,7 +1936,7 @@ describe('DesignSystemCreationFlow', () => {
     };
     const project: Project = {
       id: 'ds-open-design-website-design-system',
-      name: 'Open Design Website Design System',
+      name: 'Design For AIR Website Design System',
       skillId: null,
       designSystemId: system.id,
       createdAt: 1,
@@ -1970,7 +1970,7 @@ describe('DesignSystemCreationFlow', () => {
     expect(sourceInput.value).toBe('');
 
     fireEvent.change(screen.getByPlaceholderText(/Mission Impastabowl/i), {
-      target: { value: 'Open Design website source' },
+      target: { value: 'Design For AIR website source' },
     });
     continueToGeneration();
     continueToGeneration();
@@ -2023,7 +2023,7 @@ describe('DesignSystemCreationFlow', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Show access methods' }));
     expect(screen.getByText('This device')).toBeTruthy();
-    expect(screen.getByText('Open Design account')).toBeTruthy();
+    expect(screen.getByText('Design For AIR account')).toBeTruthy();
     expect(screen.getByText('Connector platform')).toBeTruthy();
     expect(screen.getByText('Coming soon')).toBeTruthy();
     expect(screen.getByText('Not configured')).toBeTruthy();
@@ -2197,7 +2197,7 @@ describe('DesignSystemCreationFlow', () => {
         redirectUrl: 'https://example.com/oauth',
         expiresAt: '2099-05-08T10:00:00.000Z',
       },
-      error: 'Popup blocked. Allow popups for Open Design and try again.',
+      error: 'Popup blocked. Allow popups for Design For AIR and try again.',
     });
     const openSpy = vi.spyOn(window, 'open').mockImplementation(() => ({ closed: false } as Window));
     const config = {
@@ -2218,7 +2218,7 @@ describe('DesignSystemCreationFlow', () => {
       fireEvent.click(screen.getByRole('button', { name: 'Connect via Composio' }));
 
       await waitFor(() => expect(screen.getByText('Pending')).toBeTruthy());
-      expect(screen.getByText('Popup blocked. Allow popups for Open Design and try again.')).toBeTruthy();
+      expect(screen.getByText('Popup blocked. Allow popups for Design For AIR and try again.')).toBeTruthy();
 
       fireEvent.click(screen.getByRole('button', { name: 'Open authorization' }));
 

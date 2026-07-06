@@ -17,7 +17,7 @@ import {
   releaseChannelDescriptor,
   releaseMetadataVersionFields,
   type CountedReleaseChannel,
-} from "@open-design/release";
+} from "@nn-design/release";
 
 type PlatformManifest = {
   artifacts?: Record<string, { url?: string }>;

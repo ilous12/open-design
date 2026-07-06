@@ -23,7 +23,7 @@ import {
   type RegisterDesktopAuthResult,
   type SidecarStamp,
   type WebStatusSnapshot,
-} from "@open-design/sidecar-proto";
+} from "@nn-design/sidecar-proto";
 import { dirname, join } from "node:path";
 
 import {
@@ -35,8 +35,8 @@ import {
   resolveRuntimeNamespaceRoot,
   type JsonIpcServerHandle,
   type SidecarRuntimeContext,
-} from "@open-design/sidecar";
-import { readProcessStamp } from "@open-design/platform";
+} from "@nn-design/sidecar";
+import { readProcessStamp } from "@nn-design/platform";
 
 import { createDesktopRuntime, type DesktopRuntime } from "./runtime.js";
 import { attachDesktopProcessErrorFilter } from "./uncaught-exception.js";
@@ -125,7 +125,7 @@ export type DesktopMainOptions = {
   discoverWebUrl?: () => Promise<string | null>;
   /**
    * Round-7 (lefarcen P2 @ runtime.ts:336): packaged builds report the
-   * renderer URL (`od://app/`) over `discoverWebUrl`, but Node-side
+   * renderer URL (`nd://app/`) over `discoverWebUrl`, but Node-side
    * fetch can't resolve a custom Electron protocol. Optional. When
    * provided, runtime API calls (`/api/import/folder`,
    * `/api/projects/:id`) target this URL instead. tools-dev callers

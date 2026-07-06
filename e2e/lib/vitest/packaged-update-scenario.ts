@@ -3,7 +3,7 @@ import {
   isReleaseChannel,
   parseReleaseVersion,
   type ReleaseChannel,
-} from '@open-design/release';
+} from '@nn-design/release';
 
 export type PackagedUpdateChannel = ReleaseChannel;
 

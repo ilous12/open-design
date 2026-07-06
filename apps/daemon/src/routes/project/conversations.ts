@@ -1,5 +1,5 @@
 import type { Express } from 'express';
-import { type ChatSessionMode } from '@open-design/contracts';
+import { type ChatSessionMode } from '@nn-design/contracts';
 import { readAnalyticsContext } from '../../analytics.js';
 import { backfillBrandExtractionTranscriptForProject } from '../../brands/index.js';
 import type { RouteDeps } from '../../server-context.js';

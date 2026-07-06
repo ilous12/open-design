@@ -2401,7 +2401,7 @@ async function openHandoffCliTab(page: Page): Promise<Locator> {
 }
 
 async function dismissPrivacyDialog(page: Page) {
-  const privacyRegion = page.getByRole('region', { name: /Help us improve Open Design/i });
+  const privacyRegion = page.getByRole('region', { name: /Help us improve Design For AIR/i });
   if (await privacyRegion.isVisible().catch(() => false)) {
     await privacyRegion.getByRole('button', { name: /I get it|not now|got it/i }).click();
     await expect(privacyRegion).toBeHidden();

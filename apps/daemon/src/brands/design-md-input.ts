@@ -1,4 +1,4 @@
-import type { Brand, BrandColor, BrandColorRole, BrandFontSpec } from '@open-design/contracts';
+import type { Brand, BrandColor, BrandColorRole, BrandFontSpec } from '@nn-design/contracts';
 
 import { luminance, normalizeHex, saturation } from './seed.js';
 import { validateBrand } from './validate.js';

@@ -5,17 +5,17 @@ import { dirname, join } from "node:path";
 import { posix } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { requestJsonIpc, resolveAppIpcPath } from "@open-design/sidecar";
+import { requestJsonIpc, resolveAppIpcPath } from "@nn-design/sidecar";
 import {
   APP_KEYS,
   OPEN_DESIGN_SIDECAR_CONTRACT,
   SIDECAR_MODES,
   SIDECAR_SOURCES,
-} from "@open-design/sidecar-proto";
+} from "@nn-design/sidecar-proto";
 import { describe, expect, it, vi } from "vitest";
 
-vi.mock("@open-design/sidecar", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("@open-design/sidecar")>();
+vi.mock("@nn-design/sidecar", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@nn-design/sidecar")>();
   return {
     ...actual,
     requestJsonIpc: vi.fn(async () => {
@@ -546,10 +546,10 @@ describe("resolveProductionInstallCommand", () => {
 describe("renderDesktopTemplate", () => {
   const template = `[Desktop Entry]
 Type=Application
-Name=Open Design (@@NAMESPACE@@)
+Name=Design For AIR (@@NAMESPACE@@)
 Exec=env OD_PACKAGED_NAMESPACE=@@NAMESPACE@@ @@EXEC_PATH@@ --appimage-extract-and-run %U
 Icon=@@ICON_PATH@@
-MimeType=x-scheme-handler/od;
+MimeType=x-scheme-handler/nd;
 `;
 
   it("substitutes all @@TOKEN@@ placeholders", () => {
@@ -558,7 +558,7 @@ MimeType=x-scheme-handler/od;
       execPath: "/home/u/.local/bin/Open-Design.default.AppImage",
       iconName: "open-design-default",
     });
-    expect(out).toContain("Name=Open Design (default)");
+    expect(out).toContain("Name=Design For AIR (default)");
     expect(out).toContain(
       "Exec=env OD_PACKAGED_NAMESPACE=default /home/u/.local/bin/Open-Design.default.AppImage --appimage-extract-and-run %U",
     );
@@ -593,13 +593,13 @@ MimeType=x-scheme-handler/od;
     expect(out).not.toMatch(/@@[A-Z_]+@@/);
   });
 
-  it("preserves the MimeType=x-scheme-handler/od; line", () => {
+  it("preserves the MimeType=x-scheme-handler/nd; line", () => {
     const out = renderDesktopTemplate(template, {
       namespace: "ns",
       execPath: "/x",
       iconName: "open-design-ns",
     });
-    expect(out).toContain("MimeType=x-scheme-handler/od;");
+    expect(out).toContain("MimeType=x-scheme-handler/nd;");
   });
 });
 
@@ -662,8 +662,8 @@ describe("inspectPackedLinuxApp", () => {
     const requestJsonIpcMock = vi.mocked(requestJsonIpc);
     requestJsonIpcMock.mockReset();
     requestJsonIpcMock
-      .mockResolvedValueOnce({ state: "running", url: "od://app/" })
-      .mockResolvedValueOnce({ ok: true, value: "Open Design" })
+      .mockResolvedValueOnce({ state: "running", url: "nd://app/" })
+      .mockResolvedValueOnce({ ok: true, value: "Design For AIR" })
       .mockResolvedValueOnce({ path: "/tmp/open-design-linux.png" });
 
     const result = await inspectPackedLinuxApp(makeConfig(), {
@@ -672,9 +672,9 @@ describe("inspectPackedLinuxApp", () => {
     });
 
     expect(result).toEqual({
-      eval: { ok: true, value: "Open Design" },
+      eval: { ok: true, value: "Design For AIR" },
       screenshot: { path: "/tmp/open-design-linux.png" },
-      status: { state: "running", url: "od://app/" },
+      status: { state: "running", url: "nd://app/" },
     });
     expect(requestJsonIpcMock).toHaveBeenCalledTimes(3);
   });
@@ -727,7 +727,7 @@ describe("matchesAppImageProcess", () => {
     const ok = matchesAppImageProcess(
       {
         pid: 1234,
-        executable: "/tmp/appimage_extracted_fe548e54/Open Design",
+        executable: "/tmp/appimage_extracted_fe548e54/Design For AIR",
         env: { APPIMAGE: installPath },
       },
       installPath,
@@ -739,7 +739,7 @@ describe("matchesAppImageProcess", () => {
     const ok = matchesAppImageProcess(
       {
         pid: 1234,
-        executable: "/tmp/appimage_extracted_fe548e54/Open Design",
+        executable: "/tmp/appimage_extracted_fe548e54/Design For AIR",
         env: { APPIMAGE: "/elsewhere/Other.AppImage" },
       },
       installPath,

@@ -131,7 +131,7 @@ function storageRef(projectId: string, runId: string, objectClass: ObjectClass, 
   const safeRun = sanitizeSegment(runId || 'unknown-run') || 'unknown-run';
   const safeClass = sanitizeSegment(objectClass);
   const safeId = sanitizeSegment(id);
-  return `od://objects/workspaces/unknown/projects/${safeProject}/runs/${safeRun}/${safeClass}/${safeId}`;
+  return `nd://objects/workspaces/unknown/projects/${safeProject}/runs/${safeRun}/${safeClass}/${safeId}`;
 }
 
 function inferRelayUrl(env: NodeJS.ProcessEnv): string | null {

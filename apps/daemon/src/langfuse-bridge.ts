@@ -12,7 +12,7 @@ import { createHash } from 'node:crypto';
 import os from 'node:os';
 import path from 'node:path';
 
-import { modelIdForTracking } from '@open-design/contracts/analytics';
+import { modelIdForTracking } from '@nn-design/contracts/analytics';
 
 import { readAppConfig } from './app-config.js';
 import type { AppVersionInfo } from './app-version.js';
@@ -623,7 +623,7 @@ function objectStorageRef(args: {
     ? args.projectId
     : 'unknown-project';
   return [
-    'od://objects',
+    'nd://objects',
     'workspaces',
     'unknown',
     'projects',

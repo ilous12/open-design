@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
 import express from 'express';
-import { SIDECAR_ENV } from '@open-design/sidecar-proto';
+import { SIDECAR_ENV } from '@nn-design/sidecar-proto';
 import { afterAll, afterEach, beforeAll, describe, expect, it } from 'vitest';
 import { isLocalSameOrigin } from '../src/origin-validation.js';
 import { buildMcpInstallPayload } from '../src/mcp-install-info.js';
@@ -246,7 +246,7 @@ describe('GET /api/mcp/install-info', () => {
     const { port, server } = await startHarness(
       cliPath,
       {
-        [SIDECAR_ENV.IPC_PATH]: '/tmp/open-design/ipc/default/daemon.sock',
+        [SIDECAR_ENV.IPC_PATH]: '/tmp/nn.design/ipc/default/daemon.sock',
       },
       dataDir,
     );
@@ -256,7 +256,7 @@ describe('GET /api/mcp/install-info', () => {
       expect(body.args).toEqual([cliPath, 'mcp']);
       expect(body.env).toEqual({
         OD_DATA_DIR: dataDir,
-        [SIDECAR_ENV.IPC_PATH]: '/tmp/open-design/ipc/default/daemon.sock',
+        [SIDECAR_ENV.IPC_PATH]: '/tmp/nn.design/ipc/default/daemon.sock',
       });
     } finally {
       await new Promise<void>((done) => server?.close(() => done()));
@@ -267,7 +267,7 @@ describe('GET /api/mcp/install-info', () => {
     const { port, server } = await startHarness(
       cliPath,
       {
-        [SIDECAR_ENV.IPC_PATH]: '/tmp/open-design/ipc/foo/daemon.sock',
+        [SIDECAR_ENV.IPC_PATH]: '/tmp/nn.design/ipc/foo/daemon.sock',
       },
       dataDir,
     );
@@ -277,7 +277,7 @@ describe('GET /api/mcp/install-info', () => {
       expect(body.args).toEqual([cliPath, 'mcp']);
       expect(body.env).toEqual({
         OD_DATA_DIR: dataDir,
-        [SIDECAR_ENV.IPC_PATH]: '/tmp/open-design/ipc/foo/daemon.sock',
+        [SIDECAR_ENV.IPC_PATH]: '/tmp/nn.design/ipc/foo/daemon.sock',
       });
     } finally {
       await new Promise<void>((done) => server?.close(() => done()));

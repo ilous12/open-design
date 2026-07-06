@@ -1,9 +1,9 @@
 {
-  "name": "@open-design/host",
+  "name": "@nn-design/host",
   "version": "0.12.1",
   "private": true,
   "type": "module",
-  "description": "Open Design renderer host bridge protocol.",
+  "description": "Design For AIR renderer host bridge protocol.",
   "main": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [
@@ -29,7 +29,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.tests.json --noEmit"
   },
   "dependencies": {
-    "@open-design/release": "workspace:*"
+    "@nn-design/release": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "24.12.2",

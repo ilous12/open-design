@@ -199,7 +199,7 @@ describe('error-tracking', () => {
     const error = new Error('scrub-target');
     error.stack = [
       'Error: scrub-target',
-      '    at handleClick (file:///Applications/Open Design.app/Contents/Resources/apps/web/src/FileViewer.tsx:147:23)',
+      '    at handleClick (file:///Applications/Design For AIR.app/Contents/Resources/apps/web/src/FileViewer.tsx:147:23)',
       '    at /Users/jane/dev/checkout/apps/web/src/index.tsx:12:1',
     ].join('\n');
     reportHandledException(error);
@@ -215,7 +215,7 @@ describe('error-tracking', () => {
       const filename = frame.filename;
       if (typeof filename === 'string') {
         expect(filename).toMatch(/^app:\/\/apps\/web\//);
-        expect(filename).not.toContain('Applications/Open Design.app');
+        expect(filename).not.toContain('Applications/Design For AIR.app');
         expect(filename).not.toContain('/Users/jane');
       }
     }
@@ -297,7 +297,7 @@ describe('error-tracking', () => {
   // Regression: `TypeError: Failed to fetch` from the packaged renderer's
   // daemon connection dropping (restart, boot race, navigation abort,
   // offline) was ~90% of all captured exceptions — environmental noise.
-  // Drop it, but ONLY when it originates in packaged app code (od:// scheme).
+  // Drop it, but ONLY when it originates in packaged app code (nd:// scheme).
   it('drops packaged-app fetch noise but keeps the same error from the web app', () => {
     setExceptionTrackingContext({
       apiKey: 'phc_test',
@@ -305,12 +305,12 @@ describe('error-tracking', () => {
       distinctId: 'user-noise',
     });
 
-    // Packaged: the failing fetch ran in od:// app code → dropped.
+    // Packaged: the failing fetch ran in nd:// app code → dropped.
     const packaged = new TypeError('Failed to fetch');
     packaged.stack = [
       'TypeError: Failed to fetch',
-      '    at window.fetch (od://app/_next/static/chunks/abc.js:1:100)',
-      '    at poll (od://app/_next/static/chunks/abc.js:1:200)',
+      '    at window.fetch (nd://app/_next/static/chunks/abc.js:1:100)',
+      '    at poll (nd://app/_next/static/chunks/abc.js:1:200)',
     ].join('\n');
     reportHandledException(packaged);
     expect(fetchMock).not.toHaveBeenCalled();
@@ -330,7 +330,7 @@ describe('error-tracking', () => {
     );
   });
 
-  // Packaged exceptions don't only arrive as od:// frames — source-mapped
+  // Packaged exceptions don't only arrive as nd:// frames — source-mapped
   // frames surface as `file:///…/<Channel>.app/Contents/Resources/…` (the
   // shape scrub.ts rewrites). Those packaged fetch failures must be dropped
   // too, otherwise part of the noise path leaks through.
@@ -344,7 +344,7 @@ describe('error-tracking', () => {
     const bundled = new TypeError('Failed to fetch');
     bundled.stack = [
       'TypeError: Failed to fetch',
-      '    at fetchProjects (file:///Applications/Open Design.app/Contents/Resources/apps/web/src/state/projects.ts:88:14)',
+      '    at fetchProjects (file:///Applications/Design For AIR.app/Contents/Resources/apps/web/src/state/projects.ts:88:14)',
     ].join('\n');
     reportHandledException(bundled);
     expect(fetchMock).not.toHaveBeenCalled();
@@ -353,7 +353,7 @@ describe('error-tracking', () => {
     const beta = new TypeError('Failed to fetch');
     beta.stack = [
       'TypeError: Failed to fetch',
-      '    at fetchProjects (file:///Applications/Open Design Beta.app/Contents/Resources/apps/web/src/state/projects.ts:88:14)',
+      '    at fetchProjects (file:///Applications/Design For AIR Beta.app/Contents/Resources/apps/web/src/state/projects.ts:88:14)',
     ].join('\n');
     reportHandledException(beta);
     expect(fetchMock).not.toHaveBeenCalled();
@@ -369,7 +369,7 @@ describe('error-tracking', () => {
     });
     const aborted = new Error('the operation was aborted.');
     aborted.name = 'AbortError';
-    aborted.stack = 'AbortError: the operation was aborted.\n    at x (od://app/_next/static/chunks/y.js:1:1)';
+    aborted.stack = 'AbortError: the operation was aborted.\n    at x (nd://app/_next/static/chunks/y.js:1:1)';
     reportHandledException(aborted);
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect((lastFetchedBody().properties as Record<string, unknown>).$exception_type).toBe(
@@ -381,7 +381,7 @@ describe('error-tracking', () => {
   // manufacture another exception. In the real browser the beacon's own
   // `fetch` rejection is swallowed by the `.catch()` in dispatch(); if it
   // ever surfaces anyway — as an unhandledrejection whose TypeError
-  // originates in our od:// transport code — the packaged noise filter is the
+  // originates in our nd:// transport code — the packaged noise filter is the
   // backstop that stops it re-entering as a second `$exception`/beacon. This
   // exercises that backstop (the part observable under jsdom — Node routes
   // promise rejections to `process`, not `window.onunhandledrejection`, so
@@ -400,11 +400,11 @@ describe('error-tracking', () => {
     fetchMock.mockClear();
 
     // Now simulate that beacon's own request failing and surfacing as an
-    // unhandledrejection from our od:// transport code.
+    // unhandledrejection from our nd:// transport code.
     const beaconFailure = new TypeError('Failed to fetch');
     beaconFailure.stack = [
       'TypeError: Failed to fetch',
-      '    at dispatch (od://app/_next/static/chunks/error-tracking.js:1:42)',
+      '    at dispatch (nd://app/_next/static/chunks/error-tracking.js:1:42)',
     ].join('\n');
     const rejection = new Event('unhandledrejection') as Event & {
       reason?: unknown;

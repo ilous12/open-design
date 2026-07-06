@@ -26,7 +26,7 @@ stage. It's the natural counterpart to `diff-review`.
 | --- | --- |
 | `cli` | the user runs `od files read` against the project; no extra push |
 | `desktop` | open the project in the OD desktop app |
-| `web` | publish to the public marketplace via spec §13's `od://` deep link |
+| `web` | publish to the public marketplace via spec §13's `nd://` deep link |
 | `docker` | wrap the artifact into a self-contained container (calls the §15.4 image) |
 | `github` | open a PR via `od plugin publish --to <catalog>` |
 | `figma` | round-trip back into the figma-migration source file |

@@ -769,7 +769,7 @@ describe('langfuse-bridge.reportRunCompletedFromDaemon', () => {
     });
     expect(trace.metadata.input_text_snapshot_manifest[0]).not.toHaveProperty('reason');
     expect(JSON.stringify(trace.metadata)).toContain(
-      'od://objects/workspaces/unknown/projects/proj-1/runs/run-id-1',
+      'nd://objects/workspaces/unknown/projects/proj-1/runs/run-id-1',
     );
   });
 
@@ -845,7 +845,7 @@ describe('langfuse-bridge.reportRunCompletedFromDaemon', () => {
     expect(registrationBatch[0].body.metadata.artifact_manifest[0]).toMatchObject({
       object_class: 'artifact',
       storage_ref: expect.stringContaining(
-        'od://objects/workspaces/unknown/projects/proj-1/runs/run-id-1/artifact/',
+        'nd://objects/workspaces/unknown/projects/proj-1/runs/run-id-1/artifact/',
       ),
     });
     expect(finalBatch[0].body.metadata.artifact_manifest[0]).toMatchObject({

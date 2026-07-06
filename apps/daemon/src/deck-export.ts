@@ -3,7 +3,7 @@ import path from 'node:path';
 
 import { PDFDocument } from 'pdf-lib';
 import * as PptxGenJSModule from 'pptxgenjs';
-import type { DesktopRenderSlidesInput } from '@open-design/sidecar-proto';
+import type { DesktopRenderSlidesInput } from '@nn-design/sidecar-proto';
 
 // pptxgenjs ships a default-export class, but its NodeNext typings resolve the
 // default to the module namespace (no construct signature). At runtime the ESM
@@ -148,7 +148,7 @@ export async function buildScreenshotPptx(
     pptx.defineLayout({ name: 'OD_DECK', width: PPTX_SLIDE_WIDTH_IN, height });
     pptx.layout = 'OD_DECK';
   }
-  pptx.author = 'Open Design';
+  pptx.author = 'Design For AIR';
   if (opts.title) pptx.title = opts.title;
   pptx.subject = 'Screenshot-based PPTX';
   for (const img of images) {

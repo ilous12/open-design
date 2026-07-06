@@ -68,9 +68,9 @@ function createEnv(kv: TestKv) {
 
 describe("newsletter subscribe welcome email", () => {
   it("allows packaged desktop app requests from the od protocol", () => {
-    const headers = __newsletterSubscribeTest.corsHeaders("od://app");
+    const headers = __newsletterSubscribeTest.corsHeaders("nd://app");
 
-    assert.equal(headers["Access-Control-Allow-Origin"], "od://app");
+    assert.equal(headers["Access-Control-Allow-Origin"], "nd://app");
   });
 
   it("allows localhost web runtime requests", () => {
@@ -96,8 +96,8 @@ describe("newsletter subscribe welcome email", () => {
     assert.equal(calls[1]?.init.headers?.["Idempotency-Key" as keyof HeadersInit], "newsletter-welcome-sub:abc");
 
     const emailBody = JSON.parse(String(calls[1]?.init.body));
-    assert.equal(emailBody.from, "Open Design <updates@open-design.ai>");
-    assert.equal(emailBody.reply_to, "updates@open-design.ai");
+    assert.equal(emailBody.from, "Design For AIR <updates@nn-design.ai>");
+    assert.equal(emailBody.reply_to, "updates@nn-design.ai");
     assert.equal(emailBody.to, "user@example.com");
     assert.equal(emailBody.subject, "Welcome to OpenDesign — you're in 🎉");
     assert.match(emailBody.text, /Thanks for subscribing to the OpenDesign newsletter/);

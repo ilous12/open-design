@@ -14,8 +14,8 @@ import {
   type DesktopUpdateResult,
   type SidecarStamp,
   type WebStatusSnapshot,
-} from "@open-design/sidecar-proto";
-import { createSidecarLaunchEnv, requestJsonIpc, resolveAppIpcPath } from "@open-design/sidecar";
+} from "@nn-design/sidecar-proto";
+import { createSidecarLaunchEnv, requestJsonIpc, resolveAppIpcPath } from "@nn-design/sidecar";
 import {
   collectProcessTreePids,
   createProcessStampArgs,
@@ -24,7 +24,7 @@ import {
   readLogTail,
   spawnBackgroundProcess,
   stopProcesses,
-} from "@open-design/platform";
+} from "@nn-design/platform";
 
 import type { ToolPackConfig } from "../config.js";
 import { resolveToolPackLauncherLayout } from "../launcher-layout.js";
@@ -213,9 +213,9 @@ export async function installPackedWinApp(config: ToolPackConfig): Promise<WinIn
 }
 
 async function writeInstalledLaunchPackagedConfig(config: ToolPackConfig, executablePath: string): Promise<string> {
-  const installedConfigPath = join(dirname(executablePath), "resources", "open-design-config.json");
+  const installedConfigPath = join(dirname(executablePath), "resources", "nn.design-config.json");
   const raw = JSON.parse(await readFile(installedConfigPath, "utf8")) as Record<string, unknown>;
-  const launchConfigPath = join(config.roots.runtime.namespaceRoot, "runtime", "launch-open-design-config.json");
+  const launchConfigPath = join(config.roots.runtime.namespaceRoot, "runtime", "launch-nn.design-config.json");
   await mkdir(dirname(launchConfigPath), { recursive: true });
   await writeFile(
     launchConfigPath,

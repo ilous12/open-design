@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import type { SocialSharePlatform, SocialShareResponse } from '@open-design/contracts';
+import type { SocialSharePlatform, SocialShareResponse } from '@nn-design/contracts';
 import { useT } from '../i18n';
 import { copyToClipboard } from '../lib/copy-to-clipboard';
 import { RemixIcon } from './RemixIcon';

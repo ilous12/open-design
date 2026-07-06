@@ -37,13 +37,13 @@ Then edit `.env` and configure one of these before first start:
 - recommended default: paste the generated token into `OD_API_TOKEN=`
 - trusted authenticated reverse proxy only: leave `OD_API_TOKEN=` empty and set `OPEN_DESIGN_DISABLE_API_AUTH=1`
 
-If you expose Open Design through a reverse proxy, also set:
+If you expose Design For AIR through a reverse proxy, also set:
 
 ```bash
 OPEN_DESIGN_ALLOWED_ORIGINS=https://yourdomain.com
 ```
 
-## Step 3: Start Open Design
+## Step 3: Start Design For AIR
 
 ```bash
 docker-compose up -d
@@ -78,15 +78,15 @@ Success looks like:
 
 ![curl HTTP 200 output (sanitized)](../screenshots/deployment/docker/05-curl-http-200-proof.png)
 
-## Step 6: Open Open Design in Your Browser
+## Step 6: Open Design For AIR in Your Browser
 
 Open:
 - `http://localhost:7456/`
 
-You should see the Open Design interface.
+You should see the Design For AIR interface.
 
-![Open Design home (desktop)](../screenshots/deployment/docker/01-open-design-home.png)
-![Open Design home (mobile)](../screenshots/deployment/docker/03-open-design-mobile.png)
+![Design For AIR home (desktop)](../screenshots/deployment/docker/01-open-design-home.png)
+![Design For AIR home (mobile)](../screenshots/deployment/docker/03-open-design-mobile.png)
 
 ## Common Issues
 

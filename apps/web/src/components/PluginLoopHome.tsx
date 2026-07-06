@@ -6,7 +6,7 @@ import type {
   ProjectKind,
   ProjectMetadata,
   RunContextSelection,
-} from '@open-design/contracts';
+} from '@nn-design/contracts';
 import {
   applyPlugin,
   duplicatePluginAsProject,

@@ -1,5 +1,5 @@
 import type { ChangeEvent, ClipboardEvent, CSSProperties } from 'react';
-import { Button, Textarea } from '@open-design/components';
+import { Button, Textarea } from '@nn-design/components';
 import { useLayoutEffect, useRef, useState } from 'react';
 
 import type { PreviewCommentSnapshot } from '../comments';

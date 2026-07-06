@@ -11,7 +11,7 @@ import {
   type ChatRunStatusResponse,
   type ProjectMetadata as ContractProjectMetadata,
   type RunResultPackageResponse,
-} from '@open-design/contracts';
+} from '@nn-design/contracts';
 import {
   agentIdToTracking,
   deriveConfigureGlobals,
@@ -20,8 +20,8 @@ import {
   type TrackingDesignSystemSource,
   type TrackingDesignSystemKind,
   type TrackingDesignSystemEditSurface,
-} from '@open-design/contracts/analytics';
-import type { OdNativeEvent } from '@open-design/agui-adapter';
+} from '@nn-design/contracts/analytics';
+import type { OdNativeEvent } from '@nn-design/agui-adapter';
 import { newInsertId, readAnalyticsContext } from '../analytics.js';
 import type { AnalyticsContext } from '../analytics.js';
 import { spawnEnvForAgent } from '../agents.js';
@@ -1327,7 +1327,7 @@ export function registerRunRoutes(app: Express, ctx: RegisterRunRoutesDeps) {
     if (!runId) return sendApiError(res, 400, 'BAD_REQUEST', 'run id missing');
     const run = design.runs.get(runId);
     if (!run) return sendApiError(res, 404, 'NOT_FOUND', 'run not found');
-    const { encodeOdEventForAgui } = await import('@open-design/agui-adapter');
+    const { encodeOdEventForAgui } = await import('@nn-design/agui-adapter');
     const sse = createSseResponse(res);
     const lastEventId = Number(req.get('Last-Event-ID') || req.query.after || 0);
     const emitMapped = (record: RunEventRecord) => {

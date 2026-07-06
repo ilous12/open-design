@@ -4,7 +4,7 @@ import { access, mkdir, mkdtemp, rm, symlink, writeFile } from 'node:fs/promises
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import type { InstalledPluginRecord, Project } from '@open-design/contracts';
+import type { InstalledPluginRecord, Project } from '@nn-design/contracts';
 import { duplicatePluginExampleIntoProject } from '../src/plugins/duplicate-project.js';
 import { registerPluginRoutes } from '../src/routes/plugins/index.js';
 

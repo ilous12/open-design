@@ -3,7 +3,7 @@
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import type { BrandSummary } from '@open-design/contracts';
+import type { BrandSummary } from '@nn-design/contracts';
 
 vi.mock('../../src/providers/registry', () => ({
   projectRawUrl: (projectId: string, filePath: string) => `/raw/${projectId}/${filePath}`,

@@ -3,7 +3,7 @@ import {
   isOpenDesignHostAvailable,
   pickAndImportHostProject,
   type OpenDesignHostProjectImportSuccess,
-} from '@open-design/host';
+} from '@nn-design/host';
 import { pickLocalFolderPath } from '../state/projects';
 import { formatPickAndImportFailure } from '../utils/pickAndImportError';
 

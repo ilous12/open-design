@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import type { CSSProperties, Dispatch, SetStateAction } from 'react';
-import { Button, VisuallyHidden } from '@open-design/components';
-import type { AmrWalletSnapshot } from '@open-design/contracts';
-import { validateBaseUrl } from '@open-design/contracts/api/connectionTest';
+import { Button, VisuallyHidden } from '@nn-design/components';
+import type { AmrWalletSnapshot } from '@nn-design/contracts';
+import { validateBaseUrl } from '@nn-design/contracts/api/connectionTest';
 import {
   agentIdToTracking,
   byokProtocolToTracking,
   executionModeToTracking,
   settingsSectionToTracking,
-} from '@open-design/contracts/analytics';
+} from '@nn-design/contracts/analytics';
 import { useAnalytics } from '../analytics/provider';
 import {
   amrHandoffDeviceId,
@@ -802,7 +802,7 @@ function cleanAgentVersionLabel(
 }
 
 function displayAgentName(agent: Pick<AgentInfo, 'id' | 'name'>): string {
-  return agent.id === 'amr' ? 'Open Design' : agent.name;
+  return agent.id === 'amr' ? 'Design For AIR' : agent.name;
 }
 
 const AGENT_CLI_ENV_FIELDS = [
@@ -7378,7 +7378,7 @@ function MediaProvidersSection({
 // Important: every snippet uses absolute paths to the daemon's current
 // Node-compatible runtime and built cli.js, fetched at runtime. macOS
 // and Linux ship a system /usr/bin/od (octal-dump) that shadows any
-// `od` we might add to PATH, and most Open Design users run from
+// `od` we might add to PATH, and most Design For AIR users run from
 // source where `od` is not installed globally. The installer panel
 // must NOT reference bare `od`.
 type McpClientId =

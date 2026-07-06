@@ -36,9 +36,9 @@ jobs:
 
       - name: Prebuild workspace type declarations
         run: |
-          pnpm --filter @open-design/daemon build
-          pnpm --filter @open-design/desktop build
-          pnpm --filter @open-design/web build:sidecar
+          pnpm --filter @nn-design/daemon build
+          pnpm --filter @nn-design/desktop build
+          pnpm --filter @nn-design/web build:sidecar
 
       - name: Capture baseline screenshots
         env:

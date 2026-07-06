@@ -16,7 +16,7 @@
   gnumake,
   pkg-config,
 }:
-# Builds the @open-design/daemon workspace package — produces $out/bin/od.
+# Builds the @nn-design/daemon workspace package — produces $out/bin/od.
 #
 # Implementation note on dream2nix:
 #   The flake takes `dream2nix` as an input (per the project's Nix
@@ -184,11 +184,11 @@ in
       # the copied node_modules tree so Nix fixup does not fail on broken
       # links.
       rm -f \
-        $out/lib/open-design/node_modules/@open-design/components \
-        $out/lib/open-design/node_modules/@open-design/tools-dev \
-        $out/lib/open-design/node_modules/@open-design/tools-pack \
-        $out/lib/open-design/node_modules/@open-design/tools-release \
-        $out/lib/open-design/node_modules/@open-design/tools-serve \
+        $out/lib/open-design/node_modules/@nn-design/components \
+        $out/lib/open-design/node_modules/@nn-design/tools-dev \
+        $out/lib/open-design/node_modules/@nn-design/tools-pack \
+        $out/lib/open-design/node_modules/@nn-design/tools-release \
+        $out/lib/open-design/node_modules/@nn-design/tools-serve \
         $out/lib/open-design/node_modules/.bin/tools-dev \
         $out/lib/open-design/node_modules/.bin/tools-pack \
         $out/lib/open-design/node_modules/.bin/tools-release \
@@ -208,7 +208,7 @@ in
     };
 
     meta = with lib; {
-      description = "Open Design daemon — local agent orchestrator + API (`od` CLI)";
+      description = "Design For AIR daemon — local agent orchestrator + API (`od` CLI)";
       homepage = "https://github.com/nexu-io/open-design";
       license = licenses.asl20;
       mainProgram = "od";

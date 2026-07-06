@@ -97,10 +97,10 @@ jobs:
           key: playwright-${{ runner.os }}-${{ steps.playwright-version.outputs.version }}
 
       - name: Install Playwright Chromium
-        run: pnpm --filter @open-design/landing-page exec playwright install --with-deps chromium
+        run: pnpm --filter @nn-design/landing-page exec playwright install --with-deps chromium
 
       - name: Typecheck landing page
-        run: pnpm --filter @open-design/landing-page typecheck
+        run: pnpm --filter @nn-design/landing-page typecheck
 
       # Generate previews before build so they end up in `out/previews/`.
       # Soft vs. hard failure is enforced inside the script itself:
@@ -117,7 +117,7 @@ jobs:
         # deploy skip the slowest step (Playwright screenshotting) while a
         # skill/template change still re-renders.
         if: steps.previews-cache.outputs.cache-hit != 'true'
-        run: pnpm --filter @open-design/landing-page previews
+        run: pnpm --filter @nn-design/landing-page previews
 
       # No PUBLIC_GA_MEASUREMENT_ID on staging: leaving it unset omits the
       # Google Analytics tag entirely, so test-environment traffic does not
@@ -128,7 +128,7 @@ jobs:
       - name: Build landing page
         env:
           OD_LANDING_NOINDEX: '1'
-        run: pnpm --filter @open-design/landing-page build:static
+        run: pnpm --filter @nn-design/landing-page build:static
 
       - name: Verify zero external JavaScript
         run: |

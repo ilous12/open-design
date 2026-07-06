@@ -58,7 +58,7 @@ const ALLOWED_ORIGINS = [
   "https://open-design.ai",
   "https://www.open-design.ai",
   "https://staging.open-design.ai",
-  "od://app",
+  "nd://app",
   "tauri://localhost",
   "http://localhost",
   "http://127.0.0.1",

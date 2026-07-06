@@ -25,7 +25,7 @@ import {
   type PluginConnectorRef,
   type PluginPipeline,
   type ResolvedContext,
-} from '@open-design/contracts';
+} from '@nn-design/contracts';
 
 type SqliteDb = Database.Database;
 type DbRow = Record<string, unknown>;

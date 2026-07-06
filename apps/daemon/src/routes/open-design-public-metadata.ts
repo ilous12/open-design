@@ -3,7 +3,7 @@ import type {
   OpenDesignDiscordPresenceResponse,
   OpenDesignGithubLatestReleaseResponse,
   OpenDesignGithubRepoResponse,
-} from '@open-design/contracts';
+} from '@nn-design/contracts';
 import type { RouteDeps } from '../server-context.js';
 import {
   OPEN_DESIGN_DISCORD_INVITE_URL,

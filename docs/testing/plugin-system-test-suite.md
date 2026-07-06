@@ -42,17 +42,17 @@
 ```bash
 pnpm guard
 pnpm typecheck
-pnpm --filter @open-design/contracts test
-pnpm --filter @open-design/plugin-runtime test
-pnpm --filter @open-design/registry-protocol test
-pnpm --filter @open-design/daemon test
-pnpm --filter @open-design/web test
+pnpm --filter @nn-design/contracts test
+pnpm --filter @nn-design/plugin-runtime test
+pnpm --filter @nn-design/registry-protocol test
+pnpm --filter @nn-design/daemon test
+pnpm --filter @nn-design/web test
 ```
 
 验收标准：
 
 - 所有命令退出码为 `0`。
-- 如 `@open-design/daemon test` 出现非插件相关历史失败，必须在发布记录里列出文件名、失败用例、是否已知，不能只写“daemon failed”。
+- 如 `@nn-design/daemon test` 出现非插件相关历史失败，必须在发布记录里列出文件名、失败用例、是否已知，不能只写“daemon failed”。
 
 ### 2.2 插件聚焦回归
 
@@ -94,7 +94,7 @@ pnpm --dir apps/web exec vitest run -c vitest.config.ts \
 ```
 
 ```bash
-pnpm --filter @open-design/landing-page build
+pnpm --filter @nn-design/landing-page build
 ```
 
 验收标准：
@@ -195,7 +195,7 @@ pnpm tools-dev run web --daemon-port 17456 --web-port 17573
 | PS-E05 | Provenance | marketplace install 保留 sourceMarketplaceId、entry name/version、resolved ref、integrity | `apps/daemon/tests/plugins-installer.test.ts` |
 | PS-E06 | Lockfile replay | daemon-managed plugin lockfile 可以重放 exact install；测试文档不得定义 daemon 数据路径，必须阅读 root `AGENTS.md` → **Daemon data directory contract** | `apps/daemon/tests/plugins-lockfile.test.ts` |
 | PS-E07 | Marketplace doctor | invalid name/source/capability/license/yank reason 被报告 | `apps/daemon/tests/plugins-marketplace-doctor.test.ts` |
-| PS-E08 | Public site renderer | `/plugins`、detail route、`/plugins/search.json` build 通过 | `pnpm --filter @open-design/landing-page build` |
+| PS-E08 | Public site renderer | `/plugins`、detail route、`/plugins/search.json` build 通过 | `pnpm --filter @nn-design/landing-page build` |
 
 ### F. Pipeline, GenUI, Atoms
 
@@ -271,7 +271,7 @@ pnpm tools-dev run web --daemon-port 17456 --web-port 17573
 
 | ID | 步骤 | 期望 |
 | --- | --- | --- |
-| MAN-016 | `pnpm --filter @open-design/landing-page build` | 静态 `/plugins` 和 `search.json` 生成成功 |
+| MAN-016 | `pnpm --filter @nn-design/landing-page build` | 静态 `/plugins` 和 `search.json` 生成成功 |
 | MAN-017 | 复制 `plugins/registry/community/open-design-marketplace.json` 到临时 URL 或本地 fixture server | daemon 能 add/search/install |
 | MAN-018 | 按 `docs/self-hosting-a-registry.md` 新建第三方 catalog | 只需替换 catalog name/url/source 两类配置，不改 daemon/web 代码 |
 | MAN-019 | 用 `od plugin publish --to marketplace-json --catalog <path>` | catalog 稳定 upsert，source 可复现 |

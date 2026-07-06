@@ -117,7 +117,7 @@ jobs:
           # commits. The reactor's base-freshness gate skips a behind PR so the next bake re-renders
           # on the newer tip.
           git config user.name "open-design-bot"
-          git config user.email "bot@open-design.ai"
+          git config user.email "bot@nn-design.ai"
           git checkout -B "$BRANCH"
           git add "$OLD"
           git commit -m "chore(plugin-previews): refresh baked preview manifest"

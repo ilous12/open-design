@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useId, useMemo, useRef, useState, type ClipboardEvent as ReactClipboardEvent, type CSSProperties, type DragEvent as ReactDragEvent, type MouseEvent as ReactMouseEvent, type ReactNode } from 'react';
 import { createPortal, flushSync } from 'react-dom';
-import { Button, Input, Select } from '@open-design/components';
+import { Button, Input, Select } from '@nn-design/components';
 import { APP_CHROME_FILE_ACTIONS_ID, APP_CHROME_FILE_ACTIONS_SELECTOR } from './AppChromeHeader';
 import {
   buildSocialSharePayload,
@@ -8,14 +8,14 @@ import {
   type ProjectFileVersion,
   type SocialShareRequest,
   type SocialShareResponse,
-} from '@open-design/contracts';
+} from '@nn-design/contracts';
 import {
   anonymizeArtifactId,
   artifactKindToTracking,
   type TrackingFileVersionSource,
   type TrackingProjectKind,
   type TrackingDeployProvider,
-} from '@open-design/contracts/analytics';
+} from '@nn-design/contracts/analytics';
 import { useAnalytics } from '../analytics/provider';
 import { trackIframeLoad } from '../observability/iframe-error';
 import {
@@ -1487,7 +1487,7 @@ export function LiveArtifactViewer({
   const previewScale = zoom / 100;
 
   // Instrument the live-artifact iframe so failed loads — usually a
-  // missing artifact file or a stuck `od://` resolver — surface in
+  // missing artifact file or a stuck `nd://` resolver — surface in
   // PostHog. iframe load errors don't propagate to window.error, so
   // observability/install.ts cannot catch them globally.
   useEffect(() => {
@@ -8887,7 +8887,7 @@ function HtmlViewer({
     await waitForAnimationFrame();
     // Prefer the daemon's off-screen render (desktop only): viewport-independent
     // and, rendering the artifact alone in a hidden window, it can never capture
-    // Open Design's own UI. `wholeDeck` (Export as image) stitches every slide
+    // Design For AIR's own UI. `wholeDeck` (Export as image) stitches every slide
     // top-to-bottom into one long image — matching the slide count the viewer
     // reports; otherwise (Copy screenshot, Mark/Draw capture) it grabs the
     // CURRENT slide, mirroring what's on screen. An ordinary page is its

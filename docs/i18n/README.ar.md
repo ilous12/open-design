@@ -1,15 +1,15 @@
 <div dir="rtl">
 
-<h1 align="center">Open Design: البديل مفتوح المصدر لـ Claude Design</h1>
+<h1 align="center">Design For AIR: البديل مفتوح المصدر لـ Claude Design</h1>
 
-> 🔥 **‏Open Design 0.10.0 وصل: مساحة عمل التصميم الوكيلة الكل-في-واحد.** الحِرفة كلها تعيش الآن في نافذة واحدة — من فكرة غامضة إلى اكتشاف المراجع، وجمع المواد، والتحرير التفاعلي، ووضع التعليقات في قائمة الانتظار، وصقل الحركة، وتسليم النتيجة إلى محرر أو Code Agent — دون مغادرة التطبيق. ومع الجلسات المتوازية، لم يعد يبدو كمساعد واحد، بل كفريق تصميم محلي كامل يعمل من أجلك. [حمّل 0.10.0](https://github.com/nexu-io/open-design/releases) · [انضم إلى النقاش](https://github.com/nexu-io/open-design/discussions/4153)
+> 🔥 **‏Design For AIR 0.10.0 وصل: مساحة عمل التصميم الوكيلة الكل-في-واحد.** الحِرفة كلها تعيش الآن في نافذة واحدة — من فكرة غامضة إلى اكتشاف المراجع، وجمع المواد، والتحرير التفاعلي، ووضع التعليقات في قائمة الانتظار، وصقل الحركة، وتسليم النتيجة إلى محرر أو Code Agent — دون مغادرة التطبيق. ومع الجلسات المتوازية، لم يعد يبدو كمساعد واحد، بل كفريق تصميم محلي كامل يعمل من أجلك. [حمّل 0.10.0](https://github.com/nexu-io/open-design/releases) · [انضم إلى النقاش](https://github.com/nexu-io/open-design/discussions/4153)
 >
-> ⚡ **‏Open Design AMR (Agentic Model Router) — خدمة النماذج الرسمية.** شحنة واحدة لاستخدام GPT وClaude وGemini وDeepSeek داخل Open Design: أكثر من 20 نموذجًا رائدًا، بدون أي إعداد، وفوترة حسب الاستخدام الفعلي للرموز. [جرّب AMR](https://open-design.ai/amr/)
+> ⚡ **‏Design For AIR AMR (Agentic Model Router) — خدمة النماذج الرسمية.** شحنة واحدة لاستخدام GPT وClaude وGemini وDeepSeek داخل Design For AIR: أكثر من 20 نموذجًا رائدًا، بدون أي إعداد، وفوترة حسب الاستخدام الفعلي للرموز. [جرّب AMR](https://open-design.ai/amr/)
 >
-> 🏅 **برنامج Open Design Fellow مفتوح الآن.** إن كنت تؤمن أنت أيضًا بأن التصميم يجب أن يكون مفتوحًا — كُن Open Design Fellow، وشارك في تشكيل المنتج جنبًا إلى جنب مع الفريق الأساسي، وساعد المزيد من الناس على المشاركة في تحديد مستقبل التصميم. التفاصيل ← [`MAINTAINERS.md`](../../MAINTAINERS.md) و[Discord](https://discord.gg/mHAjSMV6gz).
+> 🏅 **برنامج Design For AIR Fellow مفتوح الآن.** إن كنت تؤمن أنت أيضًا بأن التصميم يجب أن يكون مفتوحًا — كُن Design For AIR Fellow، وشارك في تشكيل المنتج جنبًا إلى جنب مع الفريق الأساسي، وساعد المزيد من الناس على المشاركة في تحديد مستقبل التصميم. التفاصيل ← [`MAINTAINERS.md`](../../MAINTAINERS.md) و[Discord](https://discord.gg/mHAjSMV6gz).
 
 <p align="center">
-  <img src="https://repo-assets.open-design.ai/resources/images/hero.png" alt="Open Design — The open-source Claude Design alternative · 150 Design Systems · 261 Plugins · 21 Coding Agents · 14 Media Providers" width="100%" />
+  <img src="https://repo-assets.open-design.ai/resources/images/hero.png" alt="Design For AIR — The open-source Claude Design alternative · 150 Design Systems · 261 Plugins · 21 Coding Agents · 14 Media Providers" width="100%" />
 </p>
 
 <p align="center">
@@ -31,11 +31,11 @@
 
 ---
 
-## ما هو Open Design
+## ما هو Design For AIR
 
 🎨 **البديل مفتوح المصدر القائم على الجهاز المحلي أولًا لـ [Claude Design][cd].** &nbsp;🖥️ **تطبيق سطح مكتب أصلي لنظامي macOS وWindows.** &nbsp;⚡ **أكثر من 100 مهارة** · ✨ **150 نظام `DESIGN.md` بجودة العلامة التجارية** · 📦 **261 إضافة جاهزة للاستخدام.** &nbsp;🖼️ يولّد **نماذج أولية للويب · سطح المكتب · الجوال**، و**لوحات معلومات / مخرجات حية**، و**عروضًا تقديمية**، و**صورًا**، و**فيديو**، إضافة إلى رسوميات حركية بـ **HyperFrames**. 🔒 معاينة iframe معزولة · تصدير بصيغ HTML / PDF / PPTX / MP4. &nbsp;🤖 **يعمل على Claude Code · OpenClaw · Codex · Cursor · OpenCode · Qwen · Copilot · Hermes · Kimi · Antigravity و21 واجهة CLI محلية**، أو أي نقطة نهاية متوافقة مع OpenAI عبر BYOK.
 
-‏Open Design هو ما تحصل عليه حين تتوقف الحلقة **الأصيلة للوكلاء (agent-native)** التي أطلقتها Anthropic مع Claude Design — اكتشاف الموجز، تثبيت الاتجاه، بثّ المخرَج، النقد، التسليم — عن كونها مغلقة وتتحول إلى **نظام ملفات من المهارات وأنظمة التصميم والإضافات** يستطيع وكلاء البرمجة الموجودون أصلًا على حاسوبك المحمول قراءته والكتابة عليه وإعادة مزجه. تصبح واجهة CLI لديك محرك التصميم، ويصبح حاسوبك المحمول هو الاستوديو، ويصبح ملف `DESIGN.md` الخاص بفريقك هو عقد العلامة التجارية.
+‏Design For AIR هو ما تحصل عليه حين تتوقف الحلقة **الأصيلة للوكلاء (agent-native)** التي أطلقتها Anthropic مع Claude Design — اكتشاف الموجز، تثبيت الاتجاه، بثّ المخرَج، النقد، التسليم — عن كونها مغلقة وتتحول إلى **نظام ملفات من المهارات وأنظمة التصميم والإضافات** يستطيع وكلاء البرمجة الموجودون أصلًا على حاسوبك المحمول قراءته والكتابة عليه وإعادة مزجه. تصبح واجهة CLI لديك محرك التصميم، ويصبح حاسوبك المحمول هو الاستوديو، ويصبح ملف `DESIGN.md` الخاص بفريقك هو عقد العلامة التجارية.
 
 كما أنه **بديل Figma لعصر الوكلاء** — فبدلًا من تحريك البكسلات على لوحة رسم، يسلّم مخرجات من صفحة واحدة بـ CSS حقيقي وخطوط حقيقية ومكونات حقيقية، تُصدَّر مباشرة إلى HTML / PDF / PPTX / MP4 — مصاغة مسبقًا وفق نظام التصميم لديك، وقابلة للتشغيل مباشرة داخل الوكيل الذي تستخدمه كل يوم.
 
@@ -45,7 +45,7 @@
 
 ## جولة في المنتج
 
-نظرة سريعة على ماهية Open Design وما يفعله. ابدأ من **الصفحة الرئيسية**، ونسّق سير العمل المتكرر عبر **الأتمتة**، واستخلص عقد علامة تجارية في **نظام التصميم**، ووسّع الإمكانات عبر **الإضافات** و**عمليات التكامل**؛ وداخل **الاستوديو** الخاص بأي مشروع، يبثّ نظام التصميم نفسه نماذج أولية ومخرجات حية وHyperFrames وعروضًا تقديمية وصورًا.
+نظرة سريعة على ماهية Design For AIR وما يفعله. ابدأ من **الصفحة الرئيسية**، ونسّق سير العمل المتكرر عبر **الأتمتة**، واستخلص عقد علامة تجارية في **نظام التصميم**، ووسّع الإمكانات عبر **الإضافات** و**عمليات التكامل**؛ وداخل **الاستوديو** الخاص بأي مشروع، يبثّ نظام التصميم نفسه نماذج أولية ومخرجات حية وHyperFrames وعروضًا تقديمية وصورًا.
 
 ### الصفحات الأساسية
 
@@ -76,7 +76,7 @@
 </td>
 <td width="50%" valign="top">
 <img src="https://repo-assets.open-design.ai/resources/images/product/integrations.png" alt="Integrations page" /><br/>
-<sub><b>عمليات التكامل</b> — اربط الأنظمة الخارجية وأدوات MCP، واستخدم Open Design من أي بيئة تطوير أو سكربت أو أتمتة.</sub>
+<sub><b>عمليات التكامل</b> — اربط الأنظمة الخارجية وأدوات MCP، واستخدم Design For AIR من أي بيئة تطوير أو سكربت أو أتمتة.</sub>
 </td>
 </tr>
 </table>
@@ -112,7 +112,7 @@
 
 ## توافق المنصات
 
-> يُشحَن Open Design على هيئة **مهارات وواجهة CLI وخادم MCP** تستهلكها وكلاء البرمجة السائدة بشكل أصلي. بمجرد تثبيت OD، يربط أمر واحد `od mcp install <agent>` خادم MCP في إعدادات ذلك الوكيل، فتستدعي الأدوات نفسها من داخل أي وكيل.
+> يُشحَن Design For AIR على هيئة **مهارات وواجهة CLI وخادم MCP** تستهلكها وكلاء البرمجة السائدة بشكل أصلي. بمجرد تثبيت OD، يربط أمر واحد `od mcp install <agent>` خادم MCP في إعدادات ذلك الوكيل، فتستدعي الأدوات نفسها من داخل أي وكيل.
 
 | وكيل البرمجة / المنصة &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | الحالة &nbsp;&nbsp; | تثبيت خادم MCP بأمر واحد &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
 |---|:---:|---|
@@ -135,7 +135,7 @@
 `od mcp install <agent> --print` لمعاينة تجريبية دون تنفيذ · `--uninstall` للإزالة · القائمة الكاملة عبر `od mcp install --help`.
 
 <p align="center">
-  <img src="https://repo-assets.open-design.ai/resources/images/coding-agents.png" alt="The 21 coding-agent CLIs Open Design supports — Claude Code · Codex · OpenCode · Hermes · Antigravity · Gemini · Grok Build · Kimi · Cursor Agent · Qwen · Qoder · GitHub Copilot · Pi · Kiro · Kilo · Mistral Vibe · DeepSeek · Reasonix · Aider · Devin · Trae" width="100%" />
+  <img src="https://repo-assets.open-design.ai/resources/images/coding-agents.png" alt="The 21 coding-agent CLIs Design For AIR supports — Claude Code · Codex · OpenCode · Hermes · Antigravity · Gemini · Grok Build · Kimi · Cursor Agent · Qwen · Qoder · GitHub Copilot · Pi · Kiro · Kilo · Mistral Vibe · DeepSeek · Reasonix · Aider · Devin · Trae" width="100%" />
 </p>
 
 **لا توجد واجهة CLI مثبَّتة؟** يمنحك وكيل BYOK على `POST /api/proxy/{anthropic,openai,azure,google,ollama,senseaudio}/stream` الحلقة نفسها (دون إنشاء عملية) — الصق `baseUrl` + `apiKey` + `model`، مع دعم OpenAI وAnthropic وAzure OpenAI وGoogle Gemini وOllama وLM Studio وvLLM، أو أي نقطة نهاية متوافقة مع OpenAI. تمنع حماية SSRF لكل هدف عناوين IP الداخلية / link-local / CGNAT عند حافة الـ daemon.
@@ -235,7 +235,7 @@
 
 ### 5 · الفيديو وHyperFrames — رسوميات حركية أصيلة للوكلاء
 
-**[HyperFrames][hyperframes]** هو إطار عمل الفيديو مفتوح المصدر والأصيل للوكلاء من HeyGen، مدمج كمواطن من الدرجة الأولى في Open Design. يكتب الوكيل HTML + CSS + GSAP، وتصيّره HyperFrames إلى ملف MP4 حتمي عبر Chrome بدون واجهة + FFmpeg. اقرنه بـ **Seedance 2.0** لتحويل النص إلى فيديو / الصورة إلى فيديو السينمائي، و**Veo 3 / Sora 2 / Kling 2** للنماذج المُوجَّهة المتنوعة، و**Suno v5 / Lyria 2** لطبقة الصوت.
+**[HyperFrames][hyperframes]** هو إطار عمل الفيديو مفتوح المصدر والأصيل للوكلاء من HeyGen، مدمج كمواطن من الدرجة الأولى في Design For AIR. يكتب الوكيل HTML + CSS + GSAP، وتصيّره HyperFrames إلى ملف MP4 حتمي عبر Chrome بدون واجهة + FFmpeg. اقرنه بـ **Seedance 2.0** لتحويل النص إلى فيديو / الصورة إلى فيديو السينمائي، و**Veo 3 / Sora 2 / Kling 2** للنماذج المُوجَّهة المتنوعة، و**Suno v5 / Lyria 2** لطبقة الصوت.
 
 <table>
 <tr>
@@ -258,11 +258,11 @@
 
 ---
 
-## لماذا Open Design
+## لماذا Design For AIR
 
 > **في أبريل 2026، أطلقت Anthropic [Claude Design][cd] — وهي المرة الأولى التي يتوقف فيها نموذج لغوي كبير عن كتابة النثر ويبدأ في تسليم مخرجات تصميم مباشرة.** انتشر بسرعة كبيرة. لكنه ظل مغلق المصدر، مدفوعًا فقط، سحابيًا فقط، مقيَّدًا بنموذج Anthropic ومهارات Anthropic وسطح Anthropic. لا دفع، ولا استضافة ذاتية، ولا نشر على Vercel، ولا إمكانية تبديل بوكيلك الخاص.
 
-‏Open Design (OD) هو البديل مفتوح المصدر. الحلقة نفسها، والنموذج الذهني نفسه القائم على المخرجات أولًا، دون أي تقييد:
+‏Design For AIR (OD) هو البديل مفتوح المصدر. الحلقة نفسها، والنموذج الذهني نفسه القائم على المخرجات أولًا، دون أي تقييد:
 
 - 🤖 **أصيل للوكلاء، محايد تجاه النموذج.** نحن لا نشحن وكيلًا. أدوات `claude` / `codex` / `cursor-agent` / `copilot` / `hermes` / `kimi` الموجودة أصلًا في `PATH` لديك هي محرك التصميم. بدّلها بنقرة واحدة.
 - 🧠 **بجودة العلامة التجارية افتراضيًا.** كل عملية تصيير تقرأ ملف `DESIGN.md` النشِط — وهو مخطط من 9 أقسام يغطي لوحة الألوان والخطوط والمباعدة والحركة والنبرة والأنماط المضادة. يُشحَن مع المستودع 150 نظامًا (Linear وStripe وVercel وAirbnb وApple وTesla وNotion وAnthropic وCursor وSupabase وFigma…). أسقِط مجلدًا، فيعثر عليه المُنتقي.
@@ -273,7 +273,7 @@
 
 ### مقارنة
 
-| | [Claude Design][cd] | Figma | Lovable / v0 / Bolt | **Open Design** |
+| | [Claude Design][cd] | Figma | Lovable / v0 / Bolt | **Design For AIR** |
 |---|---|---|---|---|
 | مفتوح المصدر | ❌ | ❌ | ❌ | **✅ Apache-2.0** |
 | استضافة ذاتية / سطح مكتب | ❌ | ❌ | ❌ | **✅ macOS + Windows + Vercel** |
@@ -290,7 +290,7 @@
 
 ### 🖥️ تنزيل تطبيق سطح المكتب (موصى به — بلا إعداد)
 
-أسرع طريقة لاستخدام Open Design. لا Node، ولا pnpm، ولا استنساخ.
+أسرع طريقة لاستخدام Design For AIR. لا Node، ولا pnpm، ولا استنساخ.
 
 - **macOS** (Apple Silicon · Intel x64) ← [**open-design.ai**](https://open-design.ai/) أو [إصدارات GitHub](https://github.com/nexu-io/open-design/releases)
 - **Windows** (x64) ← [**open-design.ai**](https://open-design.ai/) أو [إصدارات GitHub](https://github.com/nexu-io/open-design/releases)
@@ -300,7 +300,7 @@
 
 ### 🤖 التثبيت داخل وكيل البرمجة لديك (دون واجهة مستخدم)
 
-يمكنك استخدام Open Design دون فتح الواجهة الرسومية أبدًا — استدعِه كمهارة أو إضافة أو خادم MCP داخل Claude Code وCodex وCursor وCopilot وOpenClaw وAntigravity وHermes وKimi والمزيد.
+يمكنك استخدام Design For AIR دون فتح الواجهة الرسومية أبدًا — استدعِه كمهارة أو إضافة أو خادم MCP داخل Claude Code وCodex وCursor وCopilot وOpenClaw وAntigravity وHermes وKimi والمزيد.
 
 ```bash
 # One-line install into the agent you're using:
@@ -332,7 +332,7 @@ docker compose up -d
 
 [![Deploy on Sealos](https://sealos.io/Deploy-on-Sealos.svg)](https://sealos.io/products/app-store/open-design/)
 
-يشغّل قالب Sealos App Store صورة Docker المنشورة لـ Open Design مع تخزين دائم لمساحة العمل وBasic Auth على الوكيل العام. لعمليات نشر Docker العامة أو المشتركة المخصصة، اتبع إرشادات الوكيل العكسي و`OPEN_DESIGN_ALLOWED_ORIGINS` في [`deploy/README.md`](../../deploy/README.md#local-compose).
+يشغّل قالب Sealos App Store صورة Docker المنشورة لـ Design For AIR مع تخزين دائم لمساحة العمل وBasic Auth على الوكيل العام. لعمليات نشر Docker العامة أو المشتركة المخصصة، اتبع إرشادات الوكيل العكسي و`OPEN_DESIGN_ALLOWED_ORIGINS` في [`deploy/README.md`](../../deploy/README.md#local-compose).
 
 ### 🧑‍💻 التشغيل من المصدر
 
@@ -353,13 +353,13 @@ pnpm tools-dev run web
 2. **يثبّت مصمم (أو الوكيل) الاتجاه.** لا علامة تجارية؟ اختر من 5 اتجاهات منسّقة. لديك علامة تجارية؟ أسقِط لقطة شاشة / رابطًا ← يربط الوكيل GitHub، ويستورد Figma، ويصوغ ملف `DESIGN.md` قابلًا لإعادة الاستخدام.
 3. **يصدر الوكيل أول `<artifact>`.** الإضافة + المهارة + `DESIGN.md` مربوطة. يبثّ داخل iframe معزول، قابل للتحرير في مكانه — لا "إعادة توليد من الصفر".
 4. **سلّم إلى الهندسة.** المخرَج هو HTML/CSS حقيقي — أسقِطه في Cursor أو Codex أو Claude Code لمواصلة البناء كشفرة. أو صدّر PPTX / PDF / MP4 مباشرة إلى التسويق.
-5. **يصبح Open Design أذكى كلما استخدمته.** تتراكم لقطات شاشتك وخطوطك ولوحات ألوانك ومخرجاتك المؤكَّدة كقيم افتراضية للجلسة التالية. عمل معاد أقل، وانحراف أقل.
+5. **يصبح Design For AIR أذكى كلما استخدمته.** تتراكم لقطات شاشتك وخطوطك ولوحات ألوانك ومخرجاتك المؤكَّدة كقيم افتراضية للجلسة التالية. عمل معاد أقل، وانحراف أقل.
 
 ---
 
-## استخدام Open Design من وكيل البرمجة لديك
+## استخدام Design For AIR من وكيل البرمجة لديك
 
-يشحن Open Design **خادم MCP عبر stdio** و**سكربتات تثبيت** لكل وكيل. يستطيع أي وكيل متوافق مع MCP في مستودع آخر قراءة الملفات من مشاريع Open Design المحلية لديك مباشرة — رموز CSS، ومكونات JSX، وHTML الدخول — كواجهة API مهيكلة قابلة للاستعلام بالاسم. يرى الوكيل دائمًا الملف الحي، لا تصديرًا قديمًا.
+يشحن Design For AIR **خادم MCP عبر stdio** و**سكربتات تثبيت** لكل وكيل. يستطيع أي وكيل متوافق مع MCP في مستودع آخر قراءة الملفات من مشاريع Design For AIR المحلية لديك مباشرة — رموز CSS، ومكونات JSX، وHTML الدخول — كواجهة API مهيكلة قابلة للاستعلام بالاسم. يرى الوكيل دائمًا الملف الحي، لا تصديرًا قديمًا.
 
 ```bash
 # One-line install (16+ CLIs supported):
@@ -449,7 +449,7 @@ od skill list --scenario marketing
 
 ## الإضافات
 
-**261 إضافة رسمية** تقيم في [`plugins/_official/`](../../plugins/_official/). كل إضافة هي **مجلد مهارة-وكيل قابل للنقل** — ملف `SKILL.md` (قابل للقراءة من أي وكيل يدعم Agent Skills)، إضافة إلى بيان `open-design.json` اختياري يمنح Open Design بيانات وصفية للسوق، ومدخلات، ومعاينات، وخطوط أنابيب، وتصريحات قدرات. انتقل مباشرة إلى فئة:
+**261 إضافة رسمية** تقيم في [`plugins/_official/`](../../plugins/_official/). كل إضافة هي **مجلد مهارة-وكيل قابل للنقل** — ملف `SKILL.md` (قابل للقراءة من أي وكيل يدعم Agent Skills)، إضافة إلى بيان `open-design.json` اختياري يمنح Design For AIR بيانات وصفية للسوق، ومدخلات، ومعاينات، وخطوط أنابيب، وتصريحات قدرات. انتقل مباشرة إلى فئة:
 
 | الفئة | العدد | المحتويات |
 |---|---|---|
@@ -491,7 +491,7 @@ od plugin uninstall od-default       # uninstall
 
 ### بناء إضافة
 
-تحتاج الإضافة **إلى ملف `SKILL.md` كحد أدنى فقط**؛ ولإدراجها في سوق Open Design، أضف ملف `open-design.json`:
+تحتاج الإضافة **إلى ملف `SKILL.md` كحد أدنى فقط**؛ ولإدراجها في سوق Design For AIR، أضف ملف `open-design.json`:
 
 ```
 my-plugin/
@@ -509,15 +509,15 @@ my-plugin/
 ```bash
 od plugin scaffold --id my-plugin --title "My Plugin"   # generate the skeleton
 od plugin validate ./my-plugin                          # check manifest / file layout
-pnpm guard && pnpm --filter @open-design/plugin-runtime typecheck
+pnpm guard && pnpm --filter @nn-design/plugin-runtime typecheck
 ```
 
 مجموعة الحقول الكاملة وعقد وقت التشغيل ← [`plugins/spec/SPEC.md`](../../plugins/spec/SPEC.md)؛ تطوير إضافة بوكيل برمجة ← [`plugins/spec/AGENT-DEVELOPMENT.md`](../../plugins/spec/AGENT-DEVELOPMENT.md)؛ قوالب دنيا جاهزة للصق ← [`plugins/spec/examples/`](../../plugins/spec/examples/).
 
 ### المساهمة بإضافة
 
-1. أسقِط مجلد الإضافة في [`plugins/community/`](../../plugins/community/) (الإضافات الخارجية)، أو — لشحنها مجمَّعة مع Open Design — في المستوى المطابق ضمن [`plugins/_official/`](../../plugins/_official/).
-2. اجتز التحقق: `od plugin validate` و`pnpm guard` و`pnpm --filter @open-design/plugin-runtime typecheck`.
+1. أسقِط مجلد الإضافة في [`plugins/community/`](../../plugins/community/) (الإضافات الخارجية)، أو — لشحنها مجمَّعة مع Design For AIR — في المستوى المطابق ضمن [`plugins/_official/`](../../plugins/_official/).
+2. اجتز التحقق: `od plugin validate` و`pnpm guard` و`pnpm --filter @nn-design/plugin-runtime typecheck`.
 3. املأ الـ PR باستخدام القالب في [`plugins/spec/CONTRIBUTING.md`](../../plugins/spec/CONTRIBUTING.md) (المعرّف، الإصدار، المسار، الوضع، القدرات، أمثلة التشغيل؛ أرفِق لقطة شاشة / معاينة للإضافات البصرية).
 4. للنشر على سجل خارجي (skills.sh / ClawHub / GitHub مستقل) ← [`plugins/spec/PUBLISHING-REGISTRIES.md`](../../plugins/spec/PUBLISHING-REGISTRIES.md).
 
@@ -579,7 +579,7 @@ pnpm guard && pnpm --filter @open-design/plugin-runtime typecheck
 - [x] بروتوكول جانبي + سطح مكتب Electron + أتمتة IPC
 - [x] واجهة API لفحص المخرجات + بوابة نقد ذاتي بخمسة أبعاد قبل الإصدار
 - [x] **0.8.0** — بنية تحتية لسوق الإضافات (261 إضافة رسمية، مواصفة البيان، سكربتات تثبيت لكل وكيل)
-- [x] **0.9.0** — Open Design AMR (Model Router الرسمي مدمج في التطبيق: بلا إعداد، تسجيل دخول بنقرة واحدة)
+- [x] **0.9.0** — Design For AIR AMR (Model Router الرسمي مدمج في التطبيق: بلا إعداد، تسجيل دخول بنقرة واحدة)
 - [x] إصدارات Electron مجمَّعة — macOS (Apple Silicon + Intel) + Windows (x64) + Linux AppImage (مسار اختياري)
 - [ ] تعديلات جراحية في وضع التعليق — مشحونة جزئيًا؛ الترقيع المستهدف الموثوق قيد التنفيذ
 - [ ] تجربة استخدام لوحة تعديلات يصدرها الذكاء الاصطناعي — لم تُنفَّذ بعد
@@ -607,7 +607,7 @@ pnpm guard && pnpm --filter @open-design/plugin-runtime typecheck
 
 ## المساهمة
 
-يظل Open Design يتحرك لأن المساهمين — مصممين ومهندسين ومؤلفي موجّهات — يواصلون الحضور. الكثير من أكثر المهارات وأنظمة التصميم والإضافات استخدامًا كتبها أشخاص خارج الفريق الأساسي.
+يظل Design For AIR يتحرك لأن المساهمين — مصممين ومهندسين ومؤلفي موجّهات — يواصلون الحضور. الكثير من أكثر المهارات وأنظمة التصميم والإضافات استخدامًا كتبها أشخاص خارج الفريق الأساسي.
 
 ### 🎯 من أين تبدأ (أقصى أثر، أقل تغيير)
 
@@ -636,7 +636,7 @@ gh issue develop <number>   # create a branch and worktree
 
 # 3. Make the change, run the checks
 pnpm guard && pnpm typecheck
-pnpm --filter @open-design/<package> test
+pnpm --filter @nn-design/<package> test
 
 # 4. Open the PR
 gh pr create --fill
@@ -644,9 +644,9 @@ gh pr create --fill
 
 سير المساهمة الكامل الصديق للوكلاء، وأسلوب الشفرة، ومستوى الـ PR ← [`CONTRIBUTING.md`](../../CONTRIBUTING.md) ([Deutsch](CONTRIBUTING.de.md) · [Français](CONTRIBUTING.fr.md) · [简体中文](CONTRIBUTING.zh-CN.md) · [日本語](CONTRIBUTING.ja-JP.md) · [Português](CONTRIBUTING.pt-BR.md)).
 
-### 🏅 برنامج Open Design Fellow
+### 🏅 برنامج Design For AIR Fellow
 
-نوظّف **Open Design Fellows** حول العالم — يشكّل الزملاء المنتج جنبًا إلى جنب مع الفريق الأساسي، ويمثّلون Open Design رسميًا في منطقتهم، وينمّون المجتمع محليًا، مدعومين بدعم مموَّل ($1,000 / MR)، ورصيد LLM مجاني، ومسار مراجعة مباشر. التفاصيل ← [`MAINTAINERS.md`](../../MAINTAINERS.md) والإعلان على [Discord](https://discord.gg/mHAjSMV6gz).
+نوظّف **Design For AIR Fellows** حول العالم — يشكّل الزملاء المنتج جنبًا إلى جنب مع الفريق الأساسي، ويمثّلون Design For AIR رسميًا في منطقتهم، وينمّون المجتمع محليًا، مدعومين بدعم مموَّل ($1,000 / MR)، ورصيد LLM مجاني، ومسار مراجعة مباشر. التفاصيل ← [`MAINTAINERS.md`](../../MAINTAINERS.md) والإعلان على [Discord](https://discord.gg/mHAjSMV6gz).
 
 ---
 
@@ -680,7 +680,7 @@ gh pr create --fill
 شكرًا لكل من شارك — شفرة، وثائق، ملاحظات، مشكلة دقيقة، مهارة جديدة، نظام تصميم جديد.
 
 <a href="https://github.com/nexu-io/open-design/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=nexu-io/open-design&max=500&columns=20&anon=1&cache_bust=2026-06-29" alt="Open Design contributors" />
+  <img src="https://contrib.rocks/image?repo=nexu-io/open-design&max=500&columns=20&anon=1&cache_bust=2026-06-29" alt="Design For AIR contributors" />
 </a>
 
 ---
@@ -688,7 +688,7 @@ gh pr create --fill
 ## نشاط المستودع
 
 <picture>
-  <img alt="Open Design — repository metrics" src="https://repo-assets.open-design.ai/resources/images/github-metrics.svg" />
+  <img alt="Design For AIR — repository metrics" src="https://repo-assets.open-design.ai/resources/images/github-metrics.svg" />
 </picture>
 
 يُعاد توليد ملف SVG أعلاه يوميًا بواسطة [`.github/workflows/metrics.yml`](../../.github/workflows/metrics.yml) باستخدام [`lowlighter/metrics`](https://github.com/lowlighter/metrics).
@@ -698,7 +698,7 @@ gh pr create --fill
 ## امنحنا نجمة
 
 <p align="center">
-  <a href="https://github.com/nexu-io/open-design"><img src="https://repo-assets.open-design.ai/resources/images/star-us.png" alt="Star Open Design on GitHub — github.com/nexu-io/open-design" width="100%" /></a>
+  <a href="https://github.com/nexu-io/open-design"><img src="https://repo-assets.open-design.ai/resources/images/star-us.png" alt="Star Design For AIR on GitHub — github.com/nexu-io/open-design" width="100%" /></a>
 </p>
 
 إن وفّر عليك هذا ثلاثين دقيقة، فامنحه ★. النجوم لا تدفع الإيجار — لكنها تخبر المصمم والوكيل والمساهم التالي بأن هذه التجربة تستحق اهتمامهم. نقرة واحدة، وثلاث ثوانٍ، وإشارة حقيقية.
@@ -707,7 +707,7 @@ gh pr create --fill
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=nexu-io/open-design&type=Date&theme=dark&cache_bust=2026-06-29" />
     <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=nexu-io/open-design&type=Date&cache_bust=2026-06-29" />
-    <img alt="Open Design star history" src="https://api.star-history.com/svg?repos=nexu-io/open-design&type=Date&cache_bust=2026-06-29" />
+    <img alt="Design For AIR star history" src="https://api.star-history.com/svg?repos=nexu-io/open-design&type=Date&cache_bust=2026-06-29" />
   </picture>
 </a>
 
@@ -725,7 +725,7 @@ gh pr create --fill
 | [`multica-ai/multica`](https://github.com/multica-ai/multica) | بنية الـ daemon + المحوّل — اكتشاف الوكلاء بمسح PATH، الـ daemon المحلي بصفته العملية المميَّزة الوحيدة. |
 | [`VoltAgent/awesome-design-md`](https://github.com/VoltAgent/awesome-design-md) | مصدر مخطط `DESIGN.md` ذي الأقسام التسعة و70 نظام منتج. |
 | [`bergside/awesome-design-skills`](https://github.com/bergside/awesome-design-skills) | مصدر مهارات التصميم الـ 57 المضافة ضمن `design-systems/`. |
-| [`heygen-com/hyperframes`](https://github.com/heygen-com/hyperframes) | إطار الرسوميات الحركية HTML→MP4، مدمج بصفته `hyperframes-html` من الدرجة الأولى في Open Design. |
+| [`heygen-com/hyperframes`](https://github.com/heygen-com/hyperframes) | إطار الرسوميات الحركية HTML→MP4، مدمج بصفته `hyperframes-html` من الدرجة الأولى في Design For AIR. |
 | [Claude Code skills][skill] | اصطلاح `SKILL.md` الذي نعتمده حرفيًا. |
 
 النَّسَب التفصيلي ← [`docs/references.md`](../../docs/references.md).

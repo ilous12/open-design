@@ -8,7 +8,7 @@ import {
   workspaceContextDetailLine,
   workspaceContextKindLabel,
 } from '../../src/components/workspace-context';
-import type { WorkspaceContextItem } from '@open-design/contracts';
+import type { WorkspaceContextItem } from '@nn-design/contracts';
 
 afterEach(cleanup);
 

@@ -11,7 +11,7 @@ import {
   type ProjectFileVersionPromptSource,
   type ProjectFileVersionSource,
   type ProjectFileVersionWarning,
-} from '@open-design/contracts';
+} from '@nn-design/contracts';
 import { readMeta as readBrandMeta } from '../../brands/store.js';
 import { createProjectArtifactFile } from '../../artifacts/create.js';
 import { ArtifactPublicationBlockedError } from '../../artifacts/publication-guard.js';
@@ -44,15 +44,14 @@ import { listSkills } from '../../skills.js';
 import { isSafeId } from '../../projects.js';
 import {
   BUILT_IN_PROJECT_LOCATION_ID,
-  allProjectLocations,
   createLocationProjectDir,
-  ensureProjectLocation,
-  scanProjectLocation,
   writeProjectManifest,
 } from '../../project-locations.js';
+import { createProjectLocationService } from '../../services/project-locations.js';
 import { auditDesignSystemPackage } from '../../tools-connectors-cli.js';
 import { parseOrchestratorWorkspace } from '../../workspace-contract.js';
 import { registerProjectConversationRoutes } from './conversations.js';
+import { registerProjectLocationRoutes } from './locations.js';
 
 export interface RegisterProjectRoutesDeps extends RouteDeps<'db' | 'design' | 'http' | 'paths' | 'projectStore' | 'projectFiles' | 'conversations' | 'templates' | 'status' | 'events' | 'ids' | 'telemetry' | 'appConfig' | 'agents' | 'validation'> {}
 
@@ -1027,7 +1026,7 @@ function buildDesignSystemCopySourceContext(input: {
   return [
     '# Source Project Context',
     '',
-    'This design-system workspace was created from an existing Open Design project. Treat the copied project files as the primary source evidence for the generated design system.',
+    'This design-system workspace was created from an existing Design For AIR project. Treat the copied project files as the primary source evidence for the generated design system.',
     '',
     '## Source project',
     '',
@@ -1057,7 +1056,7 @@ function buildDesignSystemCopySourceContext(input: {
     '- Read this file before editing design-system outputs.',
     '- Read the copied files directly from the project workspace; they are source evidence, not generated design-system output.',
     '- Preserve high-signal assets, source examples, UI surfaces, copy, tokens, typography, and interaction patterns from the copied project.',
-    '- Generate a reusable Open Design design-system package in this same project: DESIGN.md, README.md, SKILL.md, colors_and_type.css, context/provenance, focused preview cards, preserved assets/build/fonts when available, and ui_kits/app/.',
+    '- Generate a reusable Design For AIR design-system package in this same project: DESIGN.md, README.md, SKILL.md, colors_and_type.css, context/provenance, focused preview cards, preserved assets/build/fonts when available, and ui_kits/app/.',
     '- Before final response, run `"$OD_NODE_BIN" "$OD_BIN" tools connectors design-system-package-audit --path . --fail-on-warnings` and fix every actionable issue.',
     '',
   ].join('\n');
@@ -1077,7 +1076,7 @@ function buildDesignSystemCopyPendingPrompt(input: {
     .slice(0, 140)
     .map((name) => `  - ${name}`);
   return [
-    'Create this project as a complete Open Design design system workspace.',
+    'Create this project as a complete Design For AIR design system workspace.',
     '',
     'Autonomy requirement:',
     '- Do not ask setup or clarification questions during design-system generation.',
@@ -1136,6 +1135,25 @@ export function registerProjectRoutes(app: Express, ctx: RegisterProjectRoutesDe
   const { subscribeFileEvents, activeProjectEventSinks } = ctx.events;
   const { randomId } = ctx.ids;
   const { validateProjectDesignSystemId, validateProjectSkillId } = ctx.validation;
+  const projectLocationService = createProjectLocationService({
+    db,
+    runtimeDataDir: ctx.paths.RUNTIME_DATA_DIR,
+    runtimeDataDirCanonical: ctx.paths.RUNTIME_DATA_DIR_CANONICAL,
+    projectsDir: PROJECTS_DIR,
+    readAppConfig,
+    writeAppConfig,
+    validateLinkedDirs,
+    listProjects,
+    getProject,
+    insertProject,
+    insertConversation,
+    randomId,
+  });
+  const {
+    configuredProjectLocations,
+    projectVisibleForLocations,
+    resolveCreateProjectLocationId,
+  } = projectLocationService;
   async function loadPluginRegistryView() {
     const [skills, designSystems] = await Promise.all([
       listSkills(SKILLS_DIR),
@@ -1185,194 +1203,9 @@ export function registerProjectRoutes(app: Express, ctx: RegisterProjectRoutesDe
     return Array.from(byTaskKind.values());
   }
 
-  async function configuredProjectLocations() {
-    const config = await readAppConfig(ctx.paths.RUNTIME_DATA_DIR);
-    const all = allProjectLocations(PROJECTS_DIR, config.projectLocations);
-    const valid = all[0] ? [all[0]] : [];
-    for (const location of all.slice(1)) {
-      const validated = validateLinkedDirs([location.path]);
-      if (validated.error) continue;
-      const canonical = validated.dirs[0];
-      if (!canonical) continue;
-      if (locationOverlapsDaemonData(canonical)) continue;
-      valid.push({ ...location, path: canonical });
-    }
-    return valid;
-  }
-
-  function locationOverlapsDaemonData(locationPath: string): boolean {
-    const runtimeDir = ctx.paths.RUNTIME_DATA_DIR_CANONICAL || ctx.paths.RUNTIME_DATA_DIR;
-    const projectsDir = path.join(runtimeDir, 'projects');
-    const relativeToRuntime = pathRelative(runtimeDir, locationPath);
-    const runtimeInsideLocation = pathRelative(locationPath, runtimeDir);
-    const relativeToProjects = pathRelative(projectsDir, locationPath);
-    const projectsInsideLocation = pathRelative(locationPath, projectsDir);
-    return isInsideOrSame(relativeToRuntime) || isInsideOrSame(runtimeInsideLocation)
-      || isInsideOrSame(relativeToProjects) || isInsideOrSame(projectsInsideLocation);
-  }
-
-  function pathRelative(from: string, to: string): string {
-    return path.relative(from, to);
-  }
-
-  function isInsideOrSame(relative: string): boolean {
-    return relative === '' || (!relative.startsWith('..') && !path.isAbsolute(relative));
-  }
-
-  function projectBelongsToLocation(project: any, location: { id: string; path: string }): boolean {
-    const metadata = project?.metadata;
-    if (typeof metadata?.baseDir !== 'string') return metadata?.projectLocationId === location.id;
-    const relative = path.relative(location.path, metadata.baseDir);
-    return isInsideOrSame(relative) && relative !== '';
-  }
-
-  function isProjectLocationProject(project: any): boolean {
-    const metadata = project?.metadata;
-    return metadata?.importedFrom === 'project-location'
-      || typeof metadata?.projectLocationId === 'string';
-  }
-
-  function projectVisibleForLocations(
-    project: any,
-    locations: Array<{ id: string; path: string; builtIn?: boolean }>,
-  ): boolean {
-    if (!isProjectLocationProject(project)) return true;
-    return locations.some((location) => !location.builtIn && projectBelongsToLocation(project, location));
-  }
-
-  async function resolveCreateProjectLocationId(explicitProjectLocationId: unknown): Promise<string> {
-    if (typeof explicitProjectLocationId === 'string' && explicitProjectLocationId.trim()) {
-      return explicitProjectLocationId.trim();
-    }
-    const config = await readAppConfig(ctx.paths.RUNTIME_DATA_DIR);
-    const configuredDefault = typeof config.defaultProjectLocationId === 'string'
-      ? config.defaultProjectLocationId.trim()
-      : '';
-    if (!configuredDefault || configuredDefault === BUILT_IN_PROJECT_LOCATION_ID) {
-      return BUILT_IN_PROJECT_LOCATION_ID;
-    }
-    const locations = await configuredProjectLocations();
-    return locations.some((location) => !location.builtIn && location.id === configuredDefault)
-      ? configuredDefault
-      : BUILT_IN_PROJECT_LOCATION_ID;
-  }
-
-  function unregisterProjectsForRemovedLocations(
-    previousLocations: Array<{ id: string; path: string; builtIn?: boolean }>,
-    nextLocations: Array<{ id?: string; path: string }>,
-  ): string[] {
-    const nextIds = new Set(nextLocations.map((location) => location.id).filter(Boolean));
-    const nextPaths = new Set(nextLocations.map((location) => location.path));
-    const removed = previousLocations.filter(
-      (location) => !location.builtIn && !nextIds.has(location.id) && !nextPaths.has(location.path),
-    );
-    if (removed.length === 0) return [];
-    return listProjects(db)
-      .filter((project: any) => removed.some((location) => projectBelongsToLocation(project, location)))
-      .map((project: any) => project.id);
-  }
-
-  app.get('/api/project-locations', async (_req, res) => {
-    try {
-      const locations = await configuredProjectLocations();
-      /** @type {import('@open-design/contracts').ProjectLocationsResponse} */
-      const body = { locations };
-      res.json(body);
-    } catch (err: any) {
-      sendApiError(res, 500, 'INTERNAL_ERROR', String(err));
-    }
-  });
-
-  app.put('/api/project-locations', async (req, res) => {
-    try {
-      const requested = Array.isArray(req.body?.locations) ? req.body.locations : null;
-      if (!requested) return sendApiError(res, 400, 'BAD_REQUEST', 'locations must be an array');
-      const previousLocations = await configuredProjectLocations();
-      const prepared = [];
-      for (const loc of requested) {
-        if (!loc || typeof loc !== 'object' || typeof loc.path !== 'string') continue;
-        const canonicalPath = await ensureProjectLocation(loc.path);
-        const validated = validateLinkedDirs([canonicalPath]);
-        if (validated.error) return sendApiError(res, 400, 'BAD_REQUEST', validated.error);
-        if (locationOverlapsDaemonData(canonicalPath)) {
-          return sendApiError(res, 400, 'BAD_REQUEST', 'project location cannot overlap daemon data');
-        }
-        prepared.push({
-          id: typeof loc.id === 'string' ? loc.id : undefined,
-          name: typeof loc.name === 'string' ? loc.name : undefined,
-          path: canonicalPath,
-        });
-      }
-      const config = await writeAppConfig(ctx.paths.RUNTIME_DATA_DIR, { projectLocations: prepared });
-      const locations = allProjectLocations(PROJECTS_DIR, config.projectLocations);
-      const removedProjectIds = unregisterProjectsForRemovedLocations(previousLocations, config.projectLocations ?? []);
-      /** @type {import('@open-design/contracts').ProjectLocationsResponse} */
-      const body = { locations, removedProjectIds };
-      res.json(body);
-    } catch (err: any) {
-      sendApiError(res, 400, 'BAD_REQUEST', String(err));
-    }
-  });
-
-  app.post('/api/project-locations/scan', async (_req, res) => {
-    try {
-      const locations = (await configuredProjectLocations()).filter((loc: any) => !loc.builtIn);
-      const imported = [];
-      const existing: string[] = [];
-      const skipped: Array<{ path: string; reason: string }> = [];
-      let scanned = 0;
-      const now = Date.now();
-      for (const location of locations) {
-        let found;
-        try {
-          found = await scanProjectLocation(location);
-        } catch (err: any) {
-          skipped.push({ path: location.path, reason: String(err?.message ?? err) });
-          continue;
-        }
-        scanned += found.length;
-        for (const entry of found) {
-          const { manifest } = entry;
-          if (getProject(db, manifest.id)) {
-            existing.push(manifest.id);
-            continue;
-          }
-          try {
-            const project = insertProject(db, {
-              id: manifest.id,
-              name: manifest.name,
-              skillId: manifest.skillId ?? null,
-              designSystemId: manifest.designSystemId ?? null,
-              pendingPrompt: null,
-              metadata: {
-                kind: 'prototype',
-                baseDir: entry.dir,
-                importedFrom: 'project-location',
-                projectLocationId: location.id,
-              },
-              customInstructions: null,
-              createdAt: manifest.createdAt,
-              updatedAt: manifest.updatedAt,
-            });
-            insertConversation(db, {
-              id: randomId(),
-              projectId: manifest.id,
-              title: null,
-              createdAt: now,
-              updatedAt: now,
-            });
-            if (project) imported.push(project);
-          } catch (err: any) {
-            skipped.push({ path: entry.dir, reason: String(err?.message ?? err) });
-          }
-        }
-      }
-      /** @type {import('@open-design/contracts').ScanProjectLocationsResponse} */
-      const body = { scanned, imported, existing, skipped };
-      res.json(body);
-    } catch (err: any) {
-      sendApiError(res, 400, 'BAD_REQUEST', String(err));
-    }
+  registerProjectLocationRoutes(app, {
+    http: { sendApiError },
+    projectLocations: projectLocationService,
   });
 
   app.get('/api/projects', async (_req, res) => {
@@ -1396,7 +1229,7 @@ export function registerProjectRoutes(app: Express, ctx: RegisterProjectRoutesDe
           }
         }
       }
-      /** @type {import('@open-design/contracts').ProjectsResponse} */
+      /** @type {import('@nn-design/contracts').ProjectsResponse} */
       const body = {
         projects: listProjects(db)
           .filter((project: any) => projectVisibleForLocations(project, locations))
@@ -1703,7 +1536,7 @@ export function registerProjectRoutes(app: Express, ctx: RegisterProjectRoutesDe
           }
         }
       }
-      /** @type {import('@open-design/contracts').CreateProjectResponse} */
+      /** @type {import('@nn-design/contracts').CreateProjectResponse} */
       const body = {
         project: resolvedSnapshot?.ok ? getProject(db, id) ?? project : project,
         conversationId: cid,
@@ -1794,7 +1627,7 @@ export function registerProjectRoutes(app: Express, ctx: RegisterProjectRoutesDe
           // Open-tabs state is convenience metadata; file duplication succeeds
           // without it.
         }
-        /** @type {import('@open-design/contracts').DuplicateProjectResponse} */
+        /** @type {import('@nn-design/contracts').DuplicateProjectResponse} */
         const body = {
           project,
           conversationId,
@@ -1830,7 +1663,7 @@ export function registerProjectRoutes(app: Express, ctx: RegisterProjectRoutesDe
       const targetProjectId = randomId();
       const targetName = normalizeDesignSystemCopyName(req.body?.name, sourceProject);
       const requestedPendingPrompt = normalizePendingPrompt(req.body?.pendingPrompt);
-      const sourceNotes = `Created from Open Design project "${sourceProject.name}" (${sourceProject.id}).`;
+      const sourceNotes = `Created from Design For AIR project "${sourceProject.name}" (${sourceProject.id}).`;
       let createdDesignSystemId: string | null = null;
       let insertedProject = false;
       try {
@@ -1933,7 +1766,7 @@ export function registerProjectRoutes(app: Express, ctx: RegisterProjectRoutesDe
           metadata,
         );
         await linkUserDesignSystemProject(USER_DESIGN_SYSTEMS_DIR, designSystem.id, targetProjectId);
-        /** @type {import('@open-design/contracts').CreateDesignSystemProjectFromProjectResponse} */
+        /** @type {import('@nn-design/contracts').CreateDesignSystemProjectFromProjectResponse} */
         const body = {
           project,
           conversationId,
@@ -1975,7 +1808,7 @@ export function registerProjectRoutes(app: Express, ctx: RegisterProjectRoutesDe
       }
     }
     const resolvedDir = projectDetailResolvedDir(PROJECTS_DIR, project, resolveProjectDir);
-    /** @type {import('@open-design/contracts').ProjectResponse} */
+    /** @type {import('@nn-design/contracts').ProjectResponse} */
     const body = { project, resolvedDir };
     res.json(body);
   });
@@ -2125,7 +1958,7 @@ export function registerProjectRoutes(app: Express, ctx: RegisterProjectRoutesDe
       const project = updateProject(db, req.params.id, patch);
       if (!project)
         return sendApiError(res, 404, 'PROJECT_NOT_FOUND', 'not found');
-      /** @type {import('@open-design/contracts').ProjectResponse} */
+      /** @type {import('@nn-design/contracts').ProjectResponse} */
       const body = { project };
       res.json(body);
     } catch (err: any) {
@@ -2137,7 +1970,7 @@ export function registerProjectRoutes(app: Express, ctx: RegisterProjectRoutesDe
     try {
       dbDeleteProject(db, req.params.id);
       await removeProjectDir(PROJECTS_DIR, req.params.id).catch(() => {});
-      /** @type {import('@open-design/contracts').OkResponse} */
+      /** @type {import('@nn-design/contracts').OkResponse} */
       const body = { ok: true };
       res.json(body);
     } catch (err: any) {
@@ -2789,7 +2622,7 @@ export function registerProjectFileRoutes(app: Express, ctx: RegisterProjectFile
         since: Number.isFinite(since) ? since : undefined,
         metadata: project?.metadata,
       });
-      /** @type {import('@open-design/contracts').ProjectFilesResponse} */
+      /** @type {import('@nn-design/contracts').ProjectFilesResponse} */
       const body = { files };
       res.json(body);
     } catch (err: any) {
@@ -2827,7 +2660,7 @@ export function registerProjectFileRoutes(app: Express, ctx: RegisterProjectFile
       const folders = await listProjectFolders(PROJECTS_DIR, req.params.id, {
         metadata: project.metadata,
       });
-      /** @type {import('@open-design/contracts').ProjectFoldersResponse} */
+      /** @type {import('@nn-design/contracts').ProjectFoldersResponse} */
       const body = { folders };
       res.json(body);
     } catch (err: any) {
@@ -2851,7 +2684,7 @@ export function registerProjectFileRoutes(app: Express, ctx: RegisterProjectFile
         name,
         project.metadata,
       );
-      /** @type {import('@open-design/contracts').ProjectFolderResponse} */
+      /** @type {import('@nn-design/contracts').ProjectFolderResponse} */
       const body = { folder };
       res.json(body);
     } catch (err: any) {
@@ -2875,7 +2708,7 @@ export function registerProjectFileRoutes(app: Express, ctx: RegisterProjectFile
         folderPath,
         project.metadata,
       );
-      /** @type {import('@open-design/contracts').DeleteProjectFolderResponse} */
+      /** @type {import('@nn-design/contracts').DeleteProjectFolderResponse} */
       const body = { ok: true };
       res.json(body);
     } catch (err: any) {
@@ -2914,7 +2747,7 @@ export function registerProjectFileRoutes(app: Express, ctx: RegisterProjectFile
         project.metadata,
       );
       const scope = projectPreviewScopes.mint(project.id);
-      /** @type {import('@open-design/contracts').ProjectPreviewUrlResponse} */
+      /** @type {import('@nn-design/contracts').ProjectPreviewUrlResponse} */
       const body = {
         url: `/api/projects/${encodeURIComponent(project.id)}/preview/${scope}/${encodeProjectPathForUrl(meta.name)}`,
         file: meta.name,
@@ -3076,7 +2909,7 @@ export function registerProjectFileRoutes(app: Express, ctx: RegisterProjectFile
       const project = getProject(db, projectId);
       await deleteProjectFile(PROJECTS_DIR, projectId, rawSplat, project?.metadata);
       await markProjectFileVersionStoreDeleted(PROJECTS_DIR, projectId, rawSplat, project?.metadata);
-      /** @type {import('@open-design/contracts').DeleteProjectFileResponse} */
+      /** @type {import('@nn-design/contracts').DeleteProjectFileResponse} */
       const body = { ok: true };
       res.json(body);
     } catch (err: any) {
@@ -3147,7 +2980,7 @@ export function registerProjectFileRoutes(app: Express, ctx: RegisterProjectFile
       if (!file) {
         return sendApiError(res, 404, 'FILE_NOT_FOUND', 'file not found');
       }
-      /** @type {import('@open-design/contracts').ProjectFileVersionsResponse} */
+      /** @type {import('@nn-design/contracts').ProjectFileVersionsResponse} */
       const body = { file, versions };
       res.setHeader('Cache-Control', 'no-store');
       res.json(body);
@@ -3211,7 +3044,7 @@ export function registerProjectFileRoutes(app: Express, ctx: RegisterProjectFile
       if (!version) {
         return sendApiError(res, 400, 'BAD_REQUEST', 'version could not be created');
       }
-      /** @type {import('@open-design/contracts').CreateProjectFileVersionResponse} */
+      /** @type {import('@nn-design/contracts').CreateProjectFileVersionResponse} */
       const body = { version };
       res.json(body);
     } catch (err: any) {
@@ -3278,7 +3111,7 @@ export function registerProjectFileRoutes(app: Express, ctx: RegisterProjectFile
           return { file, version, versionWarning };
         },
       );
-      /** @type {import('@open-design/contracts').RestoreProjectFileVersionResponse} */
+      /** @type {import('@nn-design/contracts').RestoreProjectFileVersionResponse} */
       const body = { file, version, ...(versionWarning ? { versionWarning } : {}) };
       res.json(body);
     } catch (err: any) {
@@ -3310,7 +3143,7 @@ export function registerProjectFileRoutes(app: Express, ctx: RegisterProjectFile
         versionId,
         project.metadata,
       );
-      /** @type {import('@open-design/contracts').ProjectFileVersionResponse} */
+      /** @type {import('@nn-design/contracts').ProjectFileVersionResponse} */
       const typedBody = body;
       res.setHeader('Cache-Control', 'no-store');
       res.json(typedBody);
@@ -3418,7 +3251,7 @@ export function registerProjectFileRoutes(app: Express, ctx: RegisterProjectFile
                 (versionLock) => writeAndCapture(versionLock),
               )
               : await writeAndCapture();
-            /** @type {import('@open-design/contracts').ProjectFileResponse} */
+            /** @type {import('@nn-design/contracts').ProjectFileResponse} */
             const body = {
               file: meta,
               ...(versionCapture?.versionWarning ? { versionWarning: versionCapture.versionWarning } : {}),
@@ -3525,7 +3358,7 @@ export function registerProjectFileRoutes(app: Express, ctx: RegisterProjectFile
             (versionLock) => writeAndCapture(versionLock),
           )
           : await writeAndCapture();
-        /** @type {import('@open-design/contracts').ProjectFileResponse} */
+        /** @type {import('@nn-design/contracts').ProjectFileResponse} */
         const body = {
           file: meta,
           ...(versionCapture?.versionWarning ? { versionWarning: versionCapture.versionWarning } : {}),
@@ -3587,7 +3420,7 @@ export function registerProjectFileRoutes(app: Express, ctx: RegisterProjectFile
         result.newName,
         project?.metadata,
       );
-      /** @type {import('@open-design/contracts').RenameProjectFileResponse} */
+      /** @type {import('@nn-design/contracts').RenameProjectFileResponse} */
       const body = result;
       res.json(body);
     } catch (err: any) {
@@ -3608,7 +3441,7 @@ export function registerProjectFileRoutes(app: Express, ctx: RegisterProjectFile
       const delProject = getProject(db, req.params.id);
       await deleteProjectFile(PROJECTS_DIR, req.params.id, req.params.name, delProject?.metadata);
       await markProjectFileVersionStoreDeleted(PROJECTS_DIR, req.params.id, req.params.name, delProject?.metadata);
-      /** @type {import('@open-design/contracts').DeleteProjectFileResponse} */
+      /** @type {import('@nn-design/contracts').DeleteProjectFileResponse} */
       const body = { ok: true };
       res.json(body);
     } catch (err: any) {
@@ -3657,7 +3490,7 @@ export function registerProjectUploadRoutes(app: Express, ctx: RegisterProjectUp
             // skip files that vanished mid-flight
           }
         }
-        /** @type {import('@open-design/contracts').UploadProjectFilesResponse} */
+        /** @type {import('@nn-design/contracts').UploadProjectFilesResponse} */
         const body = { files: out };
         res.json(body);
       } catch (err: any) {

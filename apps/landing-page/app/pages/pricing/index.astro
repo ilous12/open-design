@@ -64,9 +64,9 @@ const enterprise = getEnterprise(locale);
 const LF = enterprise.leadForm;
 
 const SITE = Astro.site?.toString() ?? 'https://open-design.ai/';
-const title = 'Pricing — Open Design';
+const title = 'Pricing — Design For AIR';
 const description =
-  'Open Design subscription plans. Plus, Pro, and Max tiers with monthly credits, one-click deployments, and auto top-up — one unified balance for every Open Design call.';
+  'Design For AIR subscription plans. Plus, Pro, and Max tiers with monthly credits, one-click deployments, and auto top-up — one unified balance for every Design For AIR call.';
 
 const tiers: PlanTierConfig[] = PRICING_SNAPSHOT.tiers;
 const usd = (n: number) => `$${Math.round(n).toLocaleString('en-US')}`;
@@ -114,18 +114,18 @@ const jsonLd = [
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Open Design', item: absUrl('/') },
+      { '@type': 'ListItem', position: 1, name: 'Design For AIR', item: absUrl('/') },
       { '@type': 'ListItem', position: 2, name: 'Pricing', item: absUrl('/pricing/') },
     ],
   },
   {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: 'Open Design Subscription',
+    name: 'Design For AIR Subscription',
     description,
     offers: tiers.map((t) => ({
       '@type': 'Offer',
-      name: `Open Design ${t.tier}`,
+      name: `Design For AIR ${t.tier}`,
       price: String(t.monthly.priceUsd),
       priceCurrency: 'USD',
       url: CLOUD_CONSOLE_URL,
@@ -136,7 +136,7 @@ const jsonLd = [
 
 <Layout title={title} description={description} active="pricing" jsonLd={jsonLd}>
   <nav class="breadcrumb" aria-label="Breadcrumb">
-    <a href={href('/')}>Open Design</a>
+    <a href={href('/')}>Design For AIR</a>
     <span>/</span>
     <span aria-current="page">Pricing</span>
   </nav>

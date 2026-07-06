@@ -5,7 +5,7 @@ import type {
   ProxyMessage,
   ProxyMessageContent,
   ProxyTextContentBlock,
-} from '@open-design/contracts';
+} from '@nn-design/contracts';
 import { projectFileUrl } from './registry';
 import type { StreamHandlers } from './anthropic';
 import { parseSseFrame } from './sse';

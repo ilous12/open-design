@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Button, VisuallyHidden } from '@open-design/components';
+import { Button, VisuallyHidden } from '@nn-design/components';
 import { useAnalytics } from '../analytics/provider';
 import {
   trackDesignSystemsTemplateCardClick,
@@ -8,11 +8,11 @@ import {
   trackDesignSystemEditClick,
   trackPageView,
 } from '../analytics/events';
-import type { DesignSystemEditClickProps } from '@open-design/contracts/analytics';
+import type { DesignSystemEditClickProps } from '@nn-design/contracts/analytics';
 import type {
   TrackingDesignSystemStatusAction,
   TrackingDesignSystemStatusValue,
-} from '@open-design/contracts/analytics';
+} from '@nn-design/contracts/analytics';
 import { useI18n } from '../i18n';
 import type { Locale } from '../i18n/types';
 import {

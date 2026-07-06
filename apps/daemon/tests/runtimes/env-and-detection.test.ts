@@ -3,7 +3,7 @@ import { test, vi } from 'vitest';
 import { homedir } from 'node:os';
 import { dirname, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import * as platform from '@open-design/platform';
+import * as platform from '@nn-design/platform';
 import {
   assert, chmodSync, detectAgents, inspectAgentExecutableResolution, join, minimalAgentDef, mkdirSync, mkdtempSync, opencode, resolveAgentExecutable, rmSync, spawnEnvForAgent, tmpdir, withEnvSnapshot, withPlatform, writeFileSync,
 } from './helpers/test-helpers.js';
@@ -15,7 +15,7 @@ const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../../../..')
 
 // Claude Code owns its own auth resolution. Preserve credentials from the
 // inherited environment so users who run the local CLI with API-key auth get
-// the same behavior through Open Design.
+// the same behavior through Design For AIR.
 test('spawnEnvForAgent preserves inherited Anthropic API credentials for the claude adapter', () => {
   const env = spawnEnvForAgent('claude', {
     ANTHROPIC_API_KEY: 'sk-leak',
@@ -1190,7 +1190,7 @@ test('spawnEnvForAgent preserves Anthropic credentials for non-claude adapters',
 
 // Codex CLI owns its own auth resolution. Preserve credentials from the
 // inherited environment so users who run the local CLI with API-key auth get
-// the same behavior through Open Design.
+// the same behavior through Design For AIR.
 test('spawnEnvForAgent preserves inherited OPENAI_API_KEY for the codex adapter', () => {
   const env = spawnEnvForAgent('codex', {
     OPENAI_API_KEY: 'sk-stale-byok',

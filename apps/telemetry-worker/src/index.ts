@@ -174,8 +174,8 @@ function validateObjectScopeBody(value: unknown, maxObjects: number): string | n
 
   for (const [index, object] of value.objects.entries()) {
     if (!isRecord(object)) return `body.objects[${index}] must be an object`;
-    if (typeof object.storage_ref !== 'string' || !object.storage_ref.startsWith('od://objects/')) {
-      return `body.objects[${index}].storage_ref must be an od://objects reference`;
+    if (typeof object.storage_ref !== 'string' || !object.storage_ref.startsWith('nd://objects/')) {
+      return `body.objects[${index}].storage_ref must be an nd://objects reference`;
     }
     if (!isAllowedObjectClass(object.object_class)) {
       return `body.objects[${index}].object_class must be an allowed object class`;
@@ -417,11 +417,11 @@ function expectedStorageRefPrefix(
   const safeRun = safeObjectSegment(runId);
   const safeClass = safeObjectSegment(objectClass);
   if (!safeProject || !safeRun || !safeClass) return null;
-  return `od://objects/workspaces/unknown/projects/${safeProject}/runs/${safeRun}/${safeClass}/`;
+  return `nd://objects/workspaces/unknown/projects/${safeProject}/runs/${safeRun}/${safeClass}/`;
 }
 
 function keyFromStorageRef(storageRef: string, prefix: string): string | null {
-  const marker = 'od://objects/';
+  const marker = 'nd://objects/';
   if (!storageRef.startsWith(marker)) return null;
   const suffix = safeObjectSegment(storageRef.slice(marker.length));
   if (!suffix) return null;
@@ -511,8 +511,8 @@ function validateObjectBody(value: unknown): string | null {
 
   for (const [index, object] of value.objects.entries()) {
     if (!isRecord(object)) return `body.objects[${index}] must be an object`;
-    if (typeof object.storage_ref !== 'string' || !object.storage_ref.startsWith('od://objects/')) {
-      return `body.objects[${index}].storage_ref must be an od://objects reference`;
+    if (typeof object.storage_ref !== 'string' || !object.storage_ref.startsWith('nd://objects/')) {
+      return `body.objects[${index}].storage_ref must be an nd://objects reference`;
     }
     if (!isAllowedObjectClass(object.object_class)) {
       return `body.objects[${index}].object_class must be an allowed object class`;

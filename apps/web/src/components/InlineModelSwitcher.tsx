@@ -17,13 +17,13 @@ import {
   type Dispatch,
   type SetStateAction,
 } from 'react';
-import type { AmrWalletSnapshot } from '@open-design/contracts';
+import type { AmrWalletSnapshot } from '@nn-design/contracts';
 import { useT } from '../i18n';
 import {
   agentIdToTracking,
   byokProtocolToTracking,
   modelIdForTracking,
-} from '@open-design/contracts/analytics';
+} from '@nn-design/contracts/analytics';
 import { useAnalytics } from '../analytics/provider';
 import {
   amrHandoffDeviceId,
@@ -139,11 +139,11 @@ function markAmrReminderSeen(): void {
 }
 
 function displayAgentName(agent: Pick<AgentInfo, 'id' | 'name'>): string {
-  return agent.id === 'amr' ? 'Open Design' : agent.name;
+  return agent.id === 'amr' ? 'Design For AIR' : agent.name;
 }
 
 function displayAgentChipName(agent: Pick<AgentInfo, 'id' | 'name'>): string {
-  return agent.id === 'amr' ? 'Open Design' : displayAgentName(agent);
+  return agent.id === 'amr' ? 'Design For AIR' : displayAgentName(agent);
 }
 
 export function InlineModelSwitcher({
@@ -835,7 +835,7 @@ export function InlineModelSwitcher({
                     type="button"
                     role="radio"
                     aria-checked={config.agentId === 'amr'}
-                    aria-label={`Open Design ${amrInlineStatus}`}
+                    aria-label={`Design For AIR ${amrInlineStatus}`}
                     className="inline-switcher__account-id inline-switcher__account-select"
                     data-testid="inline-model-switcher-agent-amr"
                     title={amrLoginPending ? amrPendingHoverLabel : undefined}
@@ -854,7 +854,7 @@ export function InlineModelSwitcher({
                     <span className="inline-switcher__account-text">
                       <span className="inline-switcher__account-name-row">
                         <span className="inline-switcher__account-name">
-                          Open Design
+                          Design For AIR
                         </span>
                         {amrLoggedIn ? (
                           <PlanBadge plan={amrPlanLabel} size="md" />

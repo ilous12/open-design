@@ -50,10 +50,10 @@ describe("open-design host contract", () => {
       ...pkg.devDependencies,
       ...pkg.optionalDependencies,
       ...pkg.peerDependencies,
-    }).not.toHaveProperty("@open-design/contracts");
+    }).not.toHaveProperty("@nn-design/contracts");
 
     const offenders = filesUnder(join(hostRoot, "src")).filter((path) =>
-      readFileSync(path, "utf8").includes("@open-design/contracts"),
+      readFileSync(path, "utf8").includes("@nn-design/contracts"),
     );
     expect(offenders).toEqual([]);
   });
@@ -245,7 +245,7 @@ describe("open-design host contract", () => {
       },
       channel: "beta" as const,
       currentVersion: "1.0.0-beta.0",
-      downloadPath: "/tmp/Open Design Beta.dmg",
+      downloadPath: "/tmp/Design For AIR Beta.dmg",
       enabled: true,
       mode: "package-launcher" as const,
       platform: "darwin",

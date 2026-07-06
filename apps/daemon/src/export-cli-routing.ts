@@ -1,4 +1,4 @@
-// Pure routing helper for the `od export` CLI, extracted so it can be unit
+// Pure routing helper for the `nd export` CLI, extracted so it can be unit
 // tested without executing the CLI entrypoint (cli.ts runs argv dispatch on
 // import). All three formats rasterize through the desktop screenshot renderer
 // so the CLI output matches the web UI exactly.

@@ -23,11 +23,11 @@ const REPO = 'https://github.com/nexu-io/open-design';
 const REPO_DISCUSSIONS = `${REPO}/discussions`;
 const DISCORD = 'https://discord.gg/mHAjSMV6gz';
 const X_PROFILE = 'https://x.com/OpenDesignHQ';
-// Open Design Cloud product surface on the production site.
+// Design For AIR Cloud product surface on the production site.
 // Single destination for the Agent dropdown entry and cloud account surfaces.
 const CLOUD_URL = 'https://open-design.ai/cloud/';
 
-// Open Design Cloud endpoints for the header sign-in module.
+// Design For AIR Cloud endpoints for the header sign-in module.
 // Production defaults; overridable at build time via PUBLIC_* env so a
 // preview/staging build can point at a non-prod cloud. These are surfaced to
 // the runtime via `data-*` on `.nav-account` because the auth logic lives in
@@ -187,7 +187,7 @@ export function Header({
           <img
             className='brand-logo'
             src='/logo-lockup.svg'
-            alt='Open Design'
+            alt='Design For AIR'
             width={225}
             height={83}
           />
@@ -211,7 +211,7 @@ export function Header({
         </button>
         <nav id='primary-nav' data-nav-primary>
           <ul className='nav-links'>
-            {/* Product — the Open Design products. The trigger lights up only
+            {/* Product — the Design For AIR products. The trigger lights up only
                 for its own family; every other section maps to its own
                 trigger below, so a sub-page never marks Product by accident.
                 It is a <button> (not a link) so it never navigates — Product
@@ -576,7 +576,7 @@ export function Header({
             {headerCopy.download}
           </a>
           {/*
-            Open Design Cloud account entry. Renders BOTH states up front
+            Design For AIR Cloud account entry. Renders BOTH states up front
             and lets `header-enhancer.astro` toggle them at runtime: the
             signed-out "Sign in" link is visible by default (so no-JS / pre-hydration
             shows a working login link), and the signed-in avatar menu stays

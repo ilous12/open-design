@@ -24,7 +24,7 @@ import {
   downloadCopyAndClear,
   type ManagedDownloadChecksum,
   type ManagedDownloadProgress,
-} from "@open-design/download";
+} from "@nn-design/download";
 import {
   LAUNCHER_SCHEMA_VERSION,
   buildLauncherAfterQuitArgs,
@@ -36,7 +36,7 @@ import {
   type LauncherCleanupDescriptor,
   type LauncherCleanupEntry,
   type LauncherRuntimeDescriptor,
-} from "@open-design/launcher-proto";
+} from "@nn-design/launcher-proto";
 import {
   DESKTOP_UPDATE_CHANNELS,
   DESKTOP_UPDATE_MODES,
@@ -55,8 +55,8 @@ import {
   type DesktopUpdateStatusSnapshot,
   type DesktopUpdateState,
   type SidecarSource,
-} from "@open-design/sidecar-proto";
-import { releaseChannelFromVersion } from "@open-design/release";
+} from "@nn-design/sidecar-proto";
+import { releaseChannelFromVersion } from "@nn-design/release";
 
 import {
   markInstallerObservationOpenFailed,
@@ -743,7 +743,7 @@ async function ensureOwnedUpdateRoot(
           ok: false,
           error: createError(
             "update-root-not-owned",
-            `update root is not empty and has no Open Design updater ownership marker: ${realRoot}`,
+            `update root is not empty and has no Design For AIR updater ownership marker: ${realRoot}`,
           ),
         };
       }
@@ -1168,7 +1168,7 @@ async function assertLauncherPayloadBootConfig(input: {
   if (!resourcesEntry.isDirectory() || resourcesEntry.isSymbolicLink()) {
     throw new Error("launcher payload resources must be a plain directory");
   }
-  const packagedConfigPath = join(resourcesPath, "open-design-config.json");
+  const packagedConfigPath = join(resourcesPath, "nn.design-config.json");
   if (!containsPath(input.stagingRoot, packagedConfigPath)) {
     throw new Error("launcher payload config path escaped extracted payload");
   }
@@ -1176,7 +1176,7 @@ async function assertLauncherPayloadBootConfig(input: {
   if (!isRecord(rawConfig)) throw new Error("launcher payload config must be a JSON object");
   const resourceRoot = typeof rawConfig.resourceRoot === "string" && rawConfig.resourceRoot.length > 0
     ? rawConfig.resourceRoot
-    : join(resourcesPath, "open-design");
+    : join(resourcesPath, "nn.design");
   const resourceRootEntry = await lstat(resourceRoot);
   if (!resourceRootEntry.isDirectory() || resourceRootEntry.isSymbolicLink()) {
     throw new Error("launcher payload resource root must be a plain directory");

@@ -2,7 +2,7 @@
 
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import type { SkillSummary } from '@open-design/contracts';
+import type { SkillSummary } from '@nn-design/contracts';
 
 import { ComposerPlusMenu } from '../../src/components/ComposerPlusMenu';
 

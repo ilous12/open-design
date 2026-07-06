@@ -6,7 +6,7 @@
  * shape for client-side reconciliation and smoke checks.
  *
  * Keep `PRICING_SNAPSHOT` and `public/pricing/plans.json` in lockstep until
- * Open Design Cloud exposes an external JSON contract that can replace this
+ * Design For AIR Cloud exposes an external JSON contract that can replace this
  * static landing-page contract.
  */
 
@@ -50,7 +50,7 @@ export interface PricingContract {
   tiers: PlanTierConfig[];
 }
 
-/** Production public host for the Open Design Cloud commerce app. */
+/** Production public host for the Design For AIR Cloud commerce app. */
 export const CLOUD_BASE_URL = 'https://open-design.ai/cloud';
 
 /** Public pricing contract served by the landing page. */

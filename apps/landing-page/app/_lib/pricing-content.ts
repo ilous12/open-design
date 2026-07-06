@@ -118,7 +118,7 @@ const EN: PricingContent = {
   labels: {
     heroTitle: 'Choose the right plan',
     footnote: 'Prices shown in USD. Checkout, billing, and auto top-up are handled in the {console}. Adjust or cancel your plan anytime.',
-    consoleLabel: 'Open Design Cloud console',
+    consoleLabel: 'Design For AIR Cloud console',
     monthly: 'Monthly',
     yearly: 'Yearly',
     yearlySave: 'Save up to 51%',
@@ -188,7 +188,7 @@ const ZH_CN: PricingContent = {
   labels: {
     heroTitle: '选择适合你的订阅计划',
     footnote: '价格以美元计。结账、账单与自动充值均在 {console} 完成。可随时调整或取消套餐。',
-    consoleLabel: 'Open Design Cloud 控制台',
+    consoleLabel: 'Design For AIR Cloud 控制台',
     monthly: '月付',
     yearly: '年付',
     yearlySave: '省最多 51%',
@@ -258,7 +258,7 @@ const ZH_TW: PricingContent = {
   labels: {
     heroTitle: '選擇適合你的訂閱方案',
     footnote: '價格以美元計。結帳、帳單與自動加值皆於 {console} 完成。可隨時調整或取消方案。',
-    consoleLabel: 'Open Design Cloud 主控台',
+    consoleLabel: 'Design For AIR Cloud 主控台',
     monthly: '月付',
     yearly: '年付',
     yearlySave: '最多省 51%',
@@ -328,7 +328,7 @@ const ES: PricingContent = {
   labels: {
     heroTitle: 'Elige el plan adecuado',
     footnote: 'Precios en USD. El pago, la facturación y la recarga automática se gestionan en la {console}. Cambia o cancela tu plan cuando quieras.',
-    consoleLabel: 'consola de Open Design Cloud',
+    consoleLabel: 'consola de Design For AIR Cloud',
     monthly: 'Mensual',
     yearly: 'Anual',
     yearlySave: 'Ahorra hasta 51%',
@@ -398,7 +398,7 @@ const PT_BR: PricingContent = {
   labels: {
     heroTitle: 'Escolha o plano certo',
     footnote: 'Preços em USD. Pagamento, faturamento e recarga automática são feitos no {console}. Ajuste ou cancele seu plano quando quiser.',
-    consoleLabel: 'console do Open Design Cloud',
+    consoleLabel: 'console do Design For AIR Cloud',
     monthly: 'Mensal',
     yearly: 'Anual',
     yearlySave: 'Economize até 51%',
@@ -468,7 +468,7 @@ const RU: PricingContent = {
   labels: {
     heroTitle: 'Выберите подходящий план',
     footnote: 'Цены указаны в USD. Оплата, выставление счетов и автопополнение выполняются в {console}. Изменение или отмена тарифа в любое время.',
-    consoleLabel: 'консоли Open Design Cloud',
+    consoleLabel: 'консоли Design For AIR Cloud',
     monthly: 'Месяц',
     yearly: 'Год',
     yearlySave: 'Экономия до 51%',
@@ -538,7 +538,7 @@ const FR: PricingContent = {
   labels: {
     heroTitle: 'Choisir le bon plan',
     footnote: 'Prix indiqués en USD. Le paiement, la facturation et la recharge automatique se gèrent dans la {console}. Ajustez ou résiliez votre forfait à tout moment.',
-    consoleLabel: 'console Open Design Cloud',
+    consoleLabel: 'console Design For AIR Cloud',
     monthly: 'Mensuel',
     yearly: 'Annuel',
     yearlySave: 'Économisez jusqu’à 51%',
@@ -608,7 +608,7 @@ const KO: PricingContent = {
   labels: {
     heroTitle: '알맞은 플랜 선택',
     footnote: '가격은 USD 기준입니다. 결제, 청구, 자동 충전은 {console}에서 처리됩니다. 플랜 변경 또는 취소는 언제든 가능합니다.',
-    consoleLabel: 'Open Design Cloud 콘솔',
+    consoleLabel: 'Design For AIR Cloud 콘솔',
     monthly: '월간',
     yearly: '연간',
     yearlySave: '최대 51% 절약',
@@ -678,7 +678,7 @@ const DE: PricingContent = {
   labels: {
     heroTitle: 'Wähle den passenden Plan',
     footnote: 'Preise in USD. Checkout, Abrechnung und automatisches Aufladen erfolgen in der {console}. Plan jederzeit anpassen oder kündigen.',
-    consoleLabel: 'Open Design Cloud Konsole',
+    consoleLabel: 'Design For AIR Cloud Konsole',
     monthly: 'Monatlich',
     yearly: 'Jährlich',
     yearlySave: 'Bis zu 51% sparen',
@@ -748,7 +748,7 @@ const JA: PricingContent = {
   labels: {
     heroTitle: '最適なプランを選択',
     footnote: '価格は米ドル表示です。決済・請求・自動チャージは {console} で行います。プランの変更・解約はいつでも可能です。',
-    consoleLabel: 'Open Design Cloud コンソール',
+    consoleLabel: 'Design For AIR Cloud コンソール',
     monthly: '月額',
     yearly: '年額',
     yearlySave: '最大 51% オフ',

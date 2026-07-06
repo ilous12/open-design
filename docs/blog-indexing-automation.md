@@ -1,6 +1,6 @@
 # Blog indexing automation
 
-The Open Design landing page automates the parts of search-engine
+The Design For AIR landing page automates the parts of search-engine
 indexing that are tied to a production promotion. It does not request
 indexing through unsupported Google APIs or browser automation.
 
@@ -97,7 +97,7 @@ fail with `email not found`.
    ```bash
    GSC_OAUTH_CLIENT_ID='<client-id>' \
    GSC_OAUTH_CLIENT_SECRET='<client-secret>' \
-   pnpm --filter @open-design/landing-page exec tsx \
+   pnpm --filter @nn-design/landing-page exec tsx \
      scripts/blog-indexing/authorize-gsc-oauth.ts \
      --out /tmp/open-design-gsc-refresh-token.txt
    ```

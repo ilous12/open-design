@@ -26,7 +26,7 @@ import {
   type TrackingFeedbackReasonCode,
   type TrackingFeedbackRatingWithNone,
   type TrackingProjectKind,
-} from "@open-design/contracts/analytics";
+} from "@nn-design/contracts/analytics";
 import {
   splitOnQuestionForms,
   stripTrailingOpenQuestionForm,
@@ -39,7 +39,7 @@ import {
   type ChatSessionMode,
   type OdCard,
   type OdCardBrandBrowserAssist,
-} from "@open-design/contracts";
+} from "@nn-design/contracts";
 import { OdCardView, type BrandBrowserAssistConfirm } from "./OdCard";
 import { parseSubmittedAnswers } from "./QuestionForm";
 import { splitStreamingArtifact, stripArtifact, stripRecoveredHtmlFallbackForDisplay } from "../artifacts/strip";
@@ -250,7 +250,7 @@ function SkillPluginCandidateCard({
         { action },
       );
       setNotice({
-        message: `Open Design contribution task started for ${data?.path ?? "the draft"}.`,
+        message: `Design For AIR contribution task started for ${data?.path ?? "the draft"}.`,
       });
     } catch (err) {
       setNotice({ message: err instanceof Error ? err.message : String(err) });
@@ -334,7 +334,7 @@ interface Props {
   ) => Promise<{ message?: string; url?: string } | void> | { message?: string; url?: string } | void;
   activePluginActionPaths?: Set<string>;
   hiddenPluginActionPaths?: Set<string>;
-  // Click handler for the post-completion "Share to Open Design" submission
+  // Click handler for the post-completion "Share to Design For AIR" submission
   // action. ProjectView wires this to handleSend with the bundled
   // `od-share-to-community` trigger prompt.
   onShareToOpenDesign?: () => void;
@@ -2216,7 +2216,7 @@ function PluginActionPanel({
                   <span>
                     {actionBusy && busyKey === `contribute:${folder.path}`
                       ? "Sending..."
-                      : "Open Design PR"}
+                      : "Design For AIR PR"}
                   </span>
                 </button>
                 {onRequestOpenFile ? (
@@ -2312,7 +2312,7 @@ function pathMatchesFolderFileBasename(
 }
 
 function hasPluginFinalActionHint(content: string): boolean {
-  return /\b(Add to My plugins|Open Design PR|Publish repo|plugin publish|ready to publish|ready to add)\b/i.test(
+  return /\b(Add to My plugins|Design For AIR PR|Publish repo|plugin publish|ready to publish|ready to add)\b/i.test(
     content,
   );
 }

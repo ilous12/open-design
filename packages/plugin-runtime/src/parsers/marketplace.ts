@@ -1,4 +1,4 @@
-import { MarketplaceManifestSchema, type MarketplaceManifest } from '@open-design/contracts';
+import { MarketplaceManifestSchema, type MarketplaceManifest } from '@nn-design/contracts';
 
 export interface MarketplaceParseSuccess {
   ok: true;

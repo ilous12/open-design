@@ -298,7 +298,7 @@ describe("packaged smoke workflow", () => {
     expect(job).toContain("fromJSON(needs.runners.outputs.runs_on).windows_tools");
     expect(job).toContain("toJSON(fromJSON(needs.runners.outputs.runs_on).windows_tools)");
     expect(job).toContain("needs.scopes.outputs.run_windows_tools_pack_payload_tests == 'true'");
-    expect(job).toContain("pnpm --filter @open-design/tools-pack exec vitest run tests/launcher-payload.test.ts");
+    expect(job).toContain("pnpm --filter @nn-design/tools-pack exec vitest run tests/launcher-payload.test.ts");
     expect(validate).toContain("windows_tools_pack_payload_tests");
   });
 
@@ -598,12 +598,12 @@ process.stdin.on("end", () => {
       ]);
       await Promise.all([
         writeJson("package.json", { name: "root", version: "0.12.0", dependencies: { untouched: "0.12.0" } }),
-        writeJson("apps/web/package.json", { name: "@open-design/web", version: "0.12.0" }),
+        writeJson("apps/web/package.json", { name: "@nn-design/web", version: "0.12.0" }),
         writeJson("apps/telemetry-worker/package.json", { name: "telemetry-worker", version: "0.1.0" }),
-        writeJson("packages/platform/package.json", { name: "@open-design/platform", version: "0.12.0" }),
-        writeJson("packages/components/package.json", { name: "@open-design/components", version: "0.5.0" }),
-        writeJson("tools/dev/package.json", { name: "@open-design/dev", version: "0.12.0" }),
-        writeJson("e2e/package.json", { name: "@open-design/e2e", version: "0.12.0" }),
+        writeJson("packages/platform/package.json", { name: "@nn-design/platform", version: "0.12.0" }),
+        writeJson("packages/components/package.json", { name: "@nn-design/components", version: "0.5.0" }),
+        writeJson("tools/dev/package.json", { name: "@nn-design/dev", version: "0.12.0" }),
+        writeJson("e2e/package.json", { name: "@nn-design/e2e", version: "0.12.0" }),
       ]);
 
       await execFileAsync("bash", ["-c", script], {
@@ -1706,7 +1706,7 @@ process.stdin.on("end", () => {
           {
         artifacts: {
           dmg: {
-            url: "https://releases.open-design.ai/betas/versions/1.2.3-beta.3.unsigned/Open Design Beta.dmg",
+            url: "https://releases.open-design.ai/betas/versions/1.2.3-beta.3.unsigned/Design For AIR Beta.dmg",
           },
         },
         channel: "beta",
@@ -1790,7 +1790,7 @@ process.stdin.on("end", () => {
           {
         artifacts: {
           dmg: {
-            url: "https://releases.open-design.ai/betas/versions/1.2.3-beta.4.unsigned/Open Design Beta.dmg",
+            url: "https://releases.open-design.ai/betas/versions/1.2.3-beta.4.unsigned/Design For AIR Beta.dmg",
           },
         },
         channel: "beta",
@@ -1874,7 +1874,7 @@ process.stdin.on("end", () => {
           {
         artifacts: {
           dmg: {
-            url: "https://releases.open-design.ai/betas/versions/1.2.3-beta.4.unsigned/Open Design Beta.dmg",
+            url: "https://releases.open-design.ai/betas/versions/1.2.3-beta.4.unsigned/Design For AIR Beta.dmg",
           },
         },
         channel: "beta",
@@ -2352,8 +2352,8 @@ function stablePrereleaseMetadataFixture(baseVersion: string, prereleaseVersion:
       mac: {
         arch: "arm64",
         artifacts: {
-          dmg: artifact("Open Design.dmg"),
-          zip: artifact("Open Design-mac-arm64.zip"),
+          dmg: artifact("Design For AIR.dmg"),
+          zip: artifact("Design For AIR-mac-arm64.zip"),
         },
         enabled: true,
         signed: true,
@@ -2361,8 +2361,8 @@ function stablePrereleaseMetadataFixture(baseVersion: string, prereleaseVersion:
       macIntel: {
         arch: "x64",
         artifacts: {
-          dmg: artifact("Open Design Intel.dmg"),
-          zip: artifact("Open Design-mac-x64.zip"),
+          dmg: artifact("Design For AIR Intel.dmg"),
+          zip: artifact("Design For AIR-mac-x64.zip"),
         },
         enabled: true,
         signed: true,
@@ -2370,7 +2370,7 @@ function stablePrereleaseMetadataFixture(baseVersion: string, prereleaseVersion:
       win: {
         arch: "x64",
         artifacts: {
-          installer: artifact("Open Design Setup.exe"),
+          installer: artifact("Design For AIR Setup.exe"),
         },
         enabled: true,
       },

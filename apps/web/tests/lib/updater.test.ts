@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import type { OpenDesignHostUpdaterStatusSnapshot } from '@open-design/host';
-import { installMockOpenDesignHost } from '@open-design/host/testing';
+import type { OpenDesignHostUpdaterStatusSnapshot } from '@nn-design/host';
+import { installMockOpenDesignHost } from '@nn-design/host/testing';
 
 import {
   checkForUpdaterUpdate,
@@ -16,10 +16,10 @@ function downloadedStatus(overrides: Partial<OpenDesignHostUpdaterStatusSnapshot
   return {
     arch: 'arm64',
     artifact: {
-      name: 'Open Design Beta.dmg',
+      name: 'Design For AIR Beta.dmg',
       platformKey: 'macAppleSilicon',
       type: 'dmg',
-      url: 'https://fixture.test/Open Design Beta.dmg',
+      url: 'https://fixture.test/Design For AIR Beta.dmg',
     },
     availableVersion: '1.2.3-beta.4',
     capabilities: {
@@ -30,7 +30,7 @@ function downloadedStatus(overrides: Partial<OpenDesignHostUpdaterStatusSnapshot
     },
     channel: 'beta',
     currentVersion: '1.2.3-beta.3',
-    downloadPath: '/tmp/open-design-updater/Open Design Beta.dmg',
+    downloadPath: '/tmp/open-design-updater/Design For AIR Beta.dmg',
     enabled: true,
     mode: 'package-launcher',
     platform: 'darwin',
@@ -139,10 +139,10 @@ describe('web updater model', () => {
         incoming: {
           arch: 'arm64',
           artifact: {
-            name: 'Open Design Beta 1.2.3-beta.5.dmg',
+            name: 'Design For AIR Beta 1.2.3-beta.5.dmg',
             platformKey: 'macAppleSilicon',
             type: 'dmg',
-            url: 'https://fixture.test/Open Design Beta 1.2.3-beta.5.dmg',
+            url: 'https://fixture.test/Design For AIR Beta 1.2.3-beta.5.dmg',
           },
           channel: 'beta',
           key: '1.2.3-beta.5-mac-arm64',
@@ -170,7 +170,7 @@ describe('web updater model', () => {
         installResult: {
           dryRun: true,
           openedAt: '2026-05-19T00:00:00.000Z',
-          path: '/tmp/open-design-updater/Open Design Beta.dmg',
+          path: '/tmp/open-design-updater/Design For AIR Beta.dmg',
         },
       }),
       { hostAvailable: true },
@@ -193,7 +193,7 @@ describe('web updater model', () => {
       installResult: {
         dryRun: true,
         openedAt: '2026-05-19T00:00:00.000Z',
-        path: status.downloadPath ?? '/tmp/open-design-updater/Open Design Beta.dmg',
+        path: status.downloadPath ?? '/tmp/open-design-updater/Design For AIR Beta.dmg',
       },
     }));
     const quit = vi.fn(async () => ({ ok: true as const }));

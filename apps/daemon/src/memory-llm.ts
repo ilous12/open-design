@@ -43,7 +43,7 @@
 // — produces a record in `memory-extractions.ts` so the settings panel
 // can show running / skipped / success / failed states in real time.
 
-import { MEMORY_TYPES } from '@open-design/contracts';
+import { MEMORY_TYPES } from '@nn-design/contracts';
 import {
   composeMemoryBody,
   listMemoryEntries,
@@ -64,7 +64,7 @@ import { resolveProviderConfig } from './media/config.js';
 import { AIHUBMIX_APP_CODE } from './integrations/aihubmix.js';
 import { spawn } from 'node:child_process';
 import os from 'node:os';
-import { createCommandInvocation } from '@open-design/platform';
+import { createCommandInvocation } from '@nn-design/platform';
 import {
   applyAgentLaunchEnv,
   getAgentDef,

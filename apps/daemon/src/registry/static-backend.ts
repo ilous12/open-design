@@ -1,4 +1,4 @@
-import type { MarketplaceManifest, MarketplacePluginEntry } from '@open-design/contracts';
+import type { MarketplaceManifest, MarketplacePluginEntry } from '@nn-design/contracts';
 import type {
   RegistryBackend,
   RegistryDoctorReport,
@@ -7,11 +7,11 @@ import type {
   RegistrySearchResult,
   RegistryTrust,
   ResolvedRegistryEntry,
-} from '@open-design/registry-protocol';
+} from '@nn-design/registry-protocol';
 import {
   RegistryEntrySchema,
   RegistrySearchQuerySchema,
-} from '@open-design/registry-protocol';
+} from '@nn-design/registry-protocol';
 import {
   parsePluginSpecifier,
   resolveMarketplaceEntryVersion,

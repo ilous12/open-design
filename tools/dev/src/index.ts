@@ -18,8 +18,8 @@ import {
   type DesktopStatusSnapshot,
   type DesktopUpdateResult,
   type WebStatusSnapshot,
-} from "@open-design/sidecar-proto";
-import { createSidecarLaunchEnv, requestJsonIpc } from "@open-design/sidecar";
+} from "@nn-design/sidecar-proto";
+import { createSidecarLaunchEnv, requestJsonIpc } from "@nn-design/sidecar";
 import {
   collectProcessTreePids,
   createPackageManagerInvocation,
@@ -30,7 +30,7 @@ import {
   spawnBackgroundProcess,
   stopProcesses,
   type StopProcessesResult,
-} from "@open-design/platform";
+} from "@nn-design/platform";
 
 import {
   ALL_APPS,
@@ -271,7 +271,7 @@ function printRunForegroundResult(started: Partial<Record<ToolDevAppName, unknow
   const daemonUrl = stringField(daemonStatus ?? {}, "url");
 
   if (webUrl != null || daemonUrl != null) {
-    process.stdout.write("\n  Open Design dev server ready\n\n");
+    process.stdout.write("\n  Design For AIR dev server ready\n\n");
     if (webUrl != null) process.stdout.write(`  ➜  Web:    ${colorizeLink(normalizeDisplayUrl(webUrl))}\n`);
     if (daemonUrl != null) process.stdout.write(`  ➜  Daemon: ${colorizeLink(normalizeDisplayUrl(daemonUrl))}\n`);
     process.stdout.write("\n  Press Ctrl+C to stop\n\n");
@@ -496,8 +496,8 @@ async function spawnWebRuntime(config: ToolDevConfig, options: CliOptions): Prom
 }
 
 async function buildDesktop(config: ToolDevConfig, logHandle: FileHandle): Promise<void> {
-  await logHandle.write(`\n[tools-dev] building @open-design/desktop at ${new Date().toISOString()}\n`);
-  const invocation = createPackageManagerInvocation(["--filter", "@open-design/desktop", "build"], process.env);
+  await logHandle.write(`\n[tools-dev] building @nn-design/desktop at ${new Date().toISOString()}\n`);
+  const invocation = createPackageManagerInvocation(["--filter", "@nn-design/desktop", "build"], process.env);
   await runLoggedCommand({
     args: invocation.args,
     command: invocation.command,
@@ -534,8 +534,8 @@ async function ensureDaemonCliBuild(config: ToolDevConfig, logHandle: FileHandle
   if (distMtime > 0 && distMtime >= sourceMtime) return;
 
   const reason = distMtime > 0 ? "source is newer than apps/daemon/dist/cli.js" : "apps/daemon/dist/cli.js is missing";
-  await logHandle.write(`\n[tools-dev] building @open-design/daemon because ${reason} at ${new Date().toISOString()}\n`);
-  const invocation = createPackageManagerInvocation(["--filter", "@open-design/daemon", "build"], process.env);
+  await logHandle.write(`\n[tools-dev] building @nn-design/daemon because ${reason} at ${new Date().toISOString()}\n`);
+  const invocation = createPackageManagerInvocation(["--filter", "@nn-design/daemon", "build"], process.env);
   await runLoggedCommand({
     args: invocation.args,
     command: invocation.command,
@@ -1059,7 +1059,7 @@ async function runForeground(config: ToolDevConfig, appName: string | undefined,
       if (shuttingDown) return;
       shuttingDown = true;
       clearInterval(keepAlive);
-      process.stderr.write("\nStopping Open Design dev server...\n");
+      process.stderr.write("\nStopping Design For AIR dev server...\n");
       void runSequential(stopOrderFor(targets), (target) => stopApp(config, target)).finally(() => {
         for (const sig of ["SIGINT", "SIGTERM"] as const) {
           process.off(sig, shutdown);
@@ -1089,7 +1089,7 @@ function addPortOptions(command: ReturnType<typeof cli.command>) {
   return command
     .option("--daemon-port <port>", "force daemon port; conflict quick-fails")
     .option("--web-port <port>", "force web port; conflict quick-fails")
-    .option("--prod", "use production build (requires pnpm --filter @open-design/web build first)");
+    .option("--prod", "use production build (requires pnpm --filter @nn-design/web build first)");
 }
 
 addPortOptions(addSharedOptions(cli.command("start [app]", "Start daemon, web, desktop, or all when app is omitted"))).action(

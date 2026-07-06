@@ -15,14 +15,14 @@ import {
   type DesktopRenderSlidesResult,
   type MintImportTokenResult,
   type SidecarStamp,
-} from "@open-design/sidecar-proto";
+} from "@nn-design/sidecar-proto";
 import {
   createJsonIpcServer,
   requestJsonIpc,
   resolveAppIpcPath,
   type JsonIpcServerHandle,
   type SidecarRuntimeContext,
-} from "@open-design/sidecar";
+} from "@nn-design/sidecar";
 
 import { startDaemonRuntime, type StartedDaemonRuntime } from "../daemon-startup.js";
 import {

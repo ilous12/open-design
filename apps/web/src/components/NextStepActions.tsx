@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import type { ChatSessionMode } from '@open-design/contracts';
+import type { ChatSessionMode } from '@nn-design/contracts';
 import { useI18n } from '../i18n';
 import { localizeSkillDescription, localizeSkillName } from '../i18n/content';
 import type { Dict } from '../i18n/types';
@@ -223,7 +223,7 @@ interface Props {
   skills?: SkillSummary[];
   // Resolved `@skill` names per featured action, shown in the hover detail.
   toolboxSkillNames?: Partial<Record<DesignToolboxActionId, string | null>>;
-  // Contribute the artifact to the Open Design community gallery.
+  // Contribute the artifact to the Design For AIR community gallery.
   onShareToOpenDesign?: () => void;
   shareToOpenDesignBusy?: boolean;
   variant?: NextStepActionsVariant;

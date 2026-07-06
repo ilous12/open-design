@@ -20,7 +20,7 @@ function packagePath(target: string): string {
   return join(packageRoot, target.replace(/^\.\//, ''));
 }
 
-describe('@open-design/contracts package runtime shape', () => {
+describe('@nn-design/contracts package runtime shape', () => {
   it('exports built JavaScript instead of TypeScript source files', () => {
     const pkg = readPackageJson();
 
@@ -55,12 +55,12 @@ describe('@open-design/contracts package runtime shape', () => {
   });
 
   it('makes runtime exports importable through package exports', async () => {
-    const contracts = await import('@open-design/contracts');
-    const amrWallet = await import('@open-design/contracts/api/amrWallet');
-    const connectionTest = await import('@open-design/contracts/api/connectionTest');
-    const research = await import('@open-design/contracts/api/research');
-    const handoff = await import('@open-design/contracts/api/handoff');
-    const critique = await import('@open-design/contracts/critique');
+    const contracts = await import('@nn-design/contracts');
+    const amrWallet = await import('@nn-design/contracts/api/amrWallet');
+    const connectionTest = await import('@nn-design/contracts/api/connectionTest');
+    const research = await import('@nn-design/contracts/api/research');
+    const handoff = await import('@nn-design/contracts/api/handoff');
+    const critique = await import('@nn-design/contracts/critique');
 
     expect(contracts.composeSystemPrompt).toEqual(expect.any(Function));
     expect(contracts.exampleHealthResponse).toEqual({ ok: true, service: 'daemon' });

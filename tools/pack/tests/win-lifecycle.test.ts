@@ -2,7 +2,7 @@ import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 
-import { SIDECAR_MESSAGES } from "@open-design/sidecar-proto";
+import { SIDECAR_MESSAGES } from "@nn-design/sidecar-proto";
 import { describe, expect, it, vi } from "vitest";
 
 import type { ToolPackConfig } from "../src/config.js";
@@ -12,16 +12,16 @@ const listProcessSnapshots = vi.hoisted(() => vi.fn(async () => []));
 const spawnBackgroundProcess = vi.hoisted(() => vi.fn(async () => ({ pid: 12345 })));
 const stopProcesses = vi.hoisted(() => vi.fn(async () => undefined));
 
-vi.mock("@open-design/sidecar", async () => {
-  const actual = await vi.importActual<typeof import("@open-design/sidecar")>("@open-design/sidecar");
+vi.mock("@nn-design/sidecar", async () => {
+  const actual = await vi.importActual<typeof import("@nn-design/sidecar")>("@nn-design/sidecar");
   return {
     ...actual,
     requestJsonIpc,
   };
 });
 
-vi.mock("@open-design/platform", async () => {
-  const actual = await vi.importActual<typeof import("@open-design/platform")>("@open-design/platform");
+vi.mock("@nn-design/platform", async () => {
+  const actual = await vi.importActual<typeof import("@nn-design/platform")>("@nn-design/platform");
   return {
     ...actual,
     listProcessSnapshots,
@@ -87,7 +87,7 @@ describe("inspectPackedWinApp", () => {
         if (payload.type === SIDECAR_MESSAGES.STATUS) {
           if (ipc.includes("daemon")) return { state: "running", url: "http://127.0.0.1:1234" };
           if (ipc.includes("web")) return { state: "running", url: "http://127.0.0.1:5678" };
-          return { state: "running", url: "od://app/" };
+          return { state: "running", url: "nd://app/" };
         }
         if (payload.type === SIDECAR_MESSAGES.EVAL) {
           throw new Error("IPC request timed out: test-pipe");
@@ -97,7 +97,7 @@ describe("inspectPackedWinApp", () => {
 
       const result = await inspectPackedWinApp(createConfig(root), { expr: "document.title" });
 
-      expect(result.status).toEqual({ state: "running", url: "od://app/" });
+      expect(result.status).toEqual({ state: "running", url: "nd://app/" });
       expect(result.daemonStatus).toEqual({ state: "running", url: "http://127.0.0.1:1234" });
       expect(result.webStatus).toEqual({ state: "running", url: "http://127.0.0.1:5678" });
       expect(result.eval).toEqual({
@@ -186,7 +186,7 @@ describe("inspectPackedWinApp", () => {
         if (payload.type === SIDECAR_MESSAGES.STATUS) {
           if (ipc.includes("daemon")) return { state: "running", url: "http://127.0.0.1:1234" };
           if (ipc.includes("web")) return { state: "running", url: "http://127.0.0.1:5678" };
-          return { state: "running", url: "od://app/" };
+          return { state: "running", url: "nd://app/" };
         }
         if (payload.type === SIDECAR_MESSAGES.SHUTDOWN) return { accepted: true };
         throw new Error(`unexpected IPC message: ${String(payload.type)}`);
@@ -203,7 +203,7 @@ describe("inspectPackedWinApp", () => {
       expect(result.attempts).toHaveLength(2);
       expect(result.attempts[0]?.start.status).toBeNull();
       expect(result.attempts[0]?.statusPoll.samples).toHaveLength(2);
-      expect(result.attempts[0]?.statusPoll.samples[0]?.status).toEqual({ state: "running", url: "od://app/" });
+      expect(result.attempts[0]?.statusPoll.samples[0]?.status).toEqual({ state: "running", url: "nd://app/" });
       expect(spawnBackgroundProcess).toHaveBeenCalledTimes(2);
       expect(process.env.OD_JSON_IPC_TRACE).toBe("already-on");
     } finally {

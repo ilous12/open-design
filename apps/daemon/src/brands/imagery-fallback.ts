@@ -20,7 +20,7 @@ import { createHash } from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 
-import type { BrandImagerySample } from '@open-design/contracts';
+import type { BrandImagerySample } from '@nn-design/contracts';
 
 import { chromeDumpDom, findChrome } from './chrome.js';
 

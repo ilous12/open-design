@@ -30,7 +30,7 @@ const NSIS_LANGUAGES = [
 const WIN_NSIS_OVERLAY_RELATIVE_PATHS = [
   `${PRODUCT_NAME}.exe`,
   "resources/app/package.json",
-  "resources/open-design-config.json",
+  "resources/nn.design-config.json",
 ] as const;
 
 export const WIN_PAYLOAD_SEVEN_Z_CREATE_ARGS = ["-t7z", "-m0=LZMA2", "-mx=1", "-mf=off"] as const;

@@ -14,7 +14,7 @@
 // tabs collapse and the modal renders the spec sidebar by default.
 
 import { useCallback, useEffect, useState } from 'react';
-import type { InstalledPluginRecord } from '@open-design/contracts';
+import type { InstalledPluginRecord } from '@nn-design/contracts';
 import { useI18n } from '../../i18n';
 import { localizePluginChrome } from '../../i18n/plugin-content';
 import { localizePluginDescription, localizePluginTitle } from '../plugins-home/localization';

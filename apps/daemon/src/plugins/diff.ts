@@ -17,7 +17,7 @@
 // content) collapse to a single 'changed' summary with the count
 // of additions / removals.
 
-import type { InstalledPluginRecord, PluginManifest } from '@open-design/contracts';
+import type { InstalledPluginRecord, PluginManifest } from '@nn-design/contracts';
 
 export interface PluginDiffEntry {
   field:    string;

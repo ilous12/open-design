@@ -195,7 +195,7 @@ describe('telemetry worker', () => {
     fetchSpy.mockRestore();
   });
 
-  it('rejects requests without the Open Design client marker', async () => {
+  it('rejects requests without the Design For AIR client marker', async () => {
     const response = await worker.fetch(
       new Request('https://telemetry.open-design.ai/api/langfuse', {
         method: 'POST',
@@ -264,7 +264,7 @@ describe('telemetry worker', () => {
         run_id: 'run-1',
         objects: [
           {
-            storage_ref: 'od://objects/workspaces/unknown/projects/proj-1/runs/run-1/attachment/att-1/brief.txt',
+            storage_ref: 'nd://objects/workspaces/unknown/projects/proj-1/runs/run-1/attachment/att-1/brief.txt',
             object_class: 'attachment',
             mime: 'text/plain',
             content_base64: base64('hello object'),
@@ -288,7 +288,7 @@ describe('telemetry worker', () => {
     );
     const body = await response.json() as { objects: Array<Record<string, unknown>> };
     expect(body.objects[0]).toMatchObject({
-      storage_ref: 'od://objects/workspaces/unknown/projects/proj-1/runs/run-1/attachment/att-1/brief.txt',
+      storage_ref: 'nd://objects/workspaces/unknown/projects/proj-1/runs/run-1/attachment/att-1/brief.txt',
       status: 'available',
       size_bytes: 12,
     });
@@ -314,7 +314,7 @@ describe('telemetry worker', () => {
           run_id: 'run-1',
           objects: [
             {
-              storage_ref: 'od://objects/workspaces/unknown/projects/proj-1/runs/run-1/attachment/att-1/brief.txt',
+              storage_ref: 'nd://objects/workspaces/unknown/projects/proj-1/runs/run-1/attachment/att-1/brief.txt',
               object_class: 'attachment',
               size_bytes: content.length,
               sha256: `sha256:${requireSha256(content)}`,
@@ -357,7 +357,7 @@ describe('telemetry worker', () => {
                 projectId: 'proj-1',
                 attachment_manifest: [
                   {
-                    storage_ref: 'od://objects/workspaces/unknown/projects/proj-1/runs/run-1/attachment/att-1/brief.txt',
+                    storage_ref: 'nd://objects/workspaces/unknown/projects/proj-1/runs/run-1/attachment/att-1/brief.txt',
                     object_class: 'attachment',
                     size_bytes: content.length,
                     sha256: `sha256:${requireSha256(content)}`,
@@ -392,7 +392,7 @@ describe('telemetry worker', () => {
           run_id: 'run-1',
           objects: [
             {
-              storage_ref: 'od://objects/workspaces/unknown/projects/proj-1/runs/run-1/attachment/att-1/brief.txt',
+              storage_ref: 'nd://objects/workspaces/unknown/projects/proj-1/runs/run-1/attachment/att-1/brief.txt',
               object_class: 'attachment',
               size_bytes: content.length,
               sha256: `sha256:${requireSha256(content)}`,
@@ -442,7 +442,7 @@ describe('telemetry worker', () => {
                 projectId: 'proj-1',
                 artifact_manifest: [
                   {
-                    storage_ref: 'od://objects/workspaces/unknown/projects/proj-1/runs/run-1/artifact/art-1/index.html',
+                    storage_ref: 'nd://objects/workspaces/unknown/projects/proj-1/runs/run-1/artifact/art-1/index.html',
                     object_class: 'artifact',
                     size_bytes: content.length,
                     sha256: `sha256:${requireSha256(content)}`,
@@ -494,7 +494,7 @@ describe('telemetry worker', () => {
                 projectId: 'proj-1',
                 artifact_manifest: [
                   {
-                    storage_ref: 'od://objects/workspaces/unknown/projects/proj-1/runs/run-1/artifact/art-1/index.html',
+                    storage_ref: 'nd://objects/workspaces/unknown/projects/proj-1/runs/run-1/artifact/art-1/index.html',
                     object_class: 'artifact',
                     size_bytes: 12,
                     sha256: `sha256:${requireSha256('hello object')}`,
@@ -540,7 +540,7 @@ describe('telemetry worker', () => {
         run_id: 'run-1',
         objects: [
           {
-            storage_ref: 'od://objects/workspaces/unknown/projects/proj-1/runs/run-1/attachment/att-1/brief.txt',
+            storage_ref: 'nd://objects/workspaces/unknown/projects/proj-1/runs/run-1/attachment/att-1/brief.txt',
             object_class: 'attachment',
             mime: 'text/plain',
             content_base64: base64('hello object'),
@@ -602,7 +602,7 @@ describe('telemetry worker', () => {
         run_id: 'run-1',
         objects: [
           {
-            storage_ref: 'od://objects/workspaces/unknown/projects/proj-1/runs/run-1/attachment/att-1/brief.txt',
+            storage_ref: 'nd://objects/workspaces/unknown/projects/proj-1/runs/run-1/attachment/att-1/brief.txt',
             object_class: 'attachment',
             mime: 'text/plain',
             content_base64: base64('hello object'),
@@ -659,7 +659,7 @@ describe('telemetry worker', () => {
         run_id: 'run-1',
         objects: [
           {
-            storage_ref: 'od://objects/workspaces/unknown/projects/proj-2/runs/run-1/attachment/att-1/brief.txt',
+            storage_ref: 'nd://objects/workspaces/unknown/projects/proj-2/runs/run-1/attachment/att-1/brief.txt',
             object_class: 'attachment',
             mime: 'text/plain',
             content_base64: base64('hello object'),
@@ -689,7 +689,7 @@ describe('telemetry worker', () => {
         run_id: 'run-1',
         objects: [
           {
-            storage_ref: 'od://objects/workspaces/unknown/projects/proj-1/runs/run-1/artifact/art-1/index.html',
+            storage_ref: 'nd://objects/workspaces/unknown/projects/proj-1/runs/run-1/artifact/art-1/index.html',
             object_class: 'artifact',
             mime: 'text/html',
             content_base64: base64('too large'),
@@ -709,7 +709,7 @@ describe('telemetry worker', () => {
     expect(await response.json()).toEqual({
       objects: [
         {
-          storage_ref: 'od://objects/workspaces/unknown/projects/proj-1/runs/run-1/artifact/art-1/index.html',
+          storage_ref: 'nd://objects/workspaces/unknown/projects/proj-1/runs/run-1/artifact/art-1/index.html',
           status: 'unavailable',
           reason: 'object_too_large',
           size_bytes: 9,

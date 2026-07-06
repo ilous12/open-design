@@ -7,7 +7,7 @@
 // daemon endpoint is required.
 
 import { useCallback, useState } from 'react';
-import type { Brand } from '@open-design/contracts';
+import type { Brand } from '@nn-design/contracts';
 import {
   fetchProjectFileText,
   uploadProjectFile,

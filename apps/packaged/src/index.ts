@@ -4,15 +4,15 @@ import {
   SIDECAR_MODES,
   SIDECAR_SOURCES,
   type SidecarStamp,
-} from "@open-design/sidecar-proto";
-import { parseLauncherAfterQuitArgs } from "@open-design/launcher-proto";
+} from "@nn-design/sidecar-proto";
+import { parseLauncherAfterQuitArgs } from "@nn-design/launcher-proto";
 import {
   bootstrapSidecarRuntime,
   createSidecarLaunchEnv,
   resolveAppIpcPath,
-} from "@open-design/sidecar";
-import { applyOsLocaleSwitch, createSplashWindow, setSplashStage } from "@open-design/desktop/main";
-import { readProcessStamp } from "@open-design/platform";
+} from "@nn-design/sidecar";
+import { applyOsLocaleSwitch, createSplashWindow, setSplashStage } from "@nn-design/desktop/main";
+import { readProcessStamp } from "@nn-design/platform";
 import { join } from "node:path";
 import { app, dialog } from "electron";
 
@@ -205,7 +205,7 @@ async function main(): Promise<void> {
   setSplashStage(splash.window, "workspace");
   registerOdProtocol(sidecars.web.url ?? "http://127.0.0.1:0");
 
-  const { runDesktopMain } = await import("@open-design/desktop/main");
+  const { runDesktopMain } = await import("@nn-design/desktop/main");
   await runDesktopMain(runtime, {
     splashWindow: splash.window,
     splashStartedAt: splash.startedAt,
@@ -221,7 +221,7 @@ async function main(): Promise<void> {
     },
     // Round-7 (lefarcen P2 @ runtime.ts:336): packaged main-process
     // fetch targets the daemon sidecar's real http URL — never the
-    // od://app/ renderer URL, which Node/undici cannot resolve through
+    // nd://app/ renderer URL, which Node/undici cannot resolve through
     // Electron's protocol handler.
     async discoverDaemonUrl() {
       return sidecars.daemon.url;

@@ -11,7 +11,7 @@ function resolveToolsPackRoot(startDir: string): string {
     try {
       const raw = readFileSync(join(current, "package.json"), "utf8");
       const parsed = JSON.parse(raw) as { name?: unknown };
-      if (parsed.name === "@open-design/tools-pack") {
+      if (parsed.name === "@nn-design/tools-pack") {
         return current;
       }
     } catch {
@@ -47,7 +47,7 @@ export const winResources = {
 
 export const linuxResources = {
   icon: join(resourcesRoot, "linux", "icon.png"),
-  desktopTemplate: join(resourcesRoot, "linux", "open-design.desktop.template"),
+  desktopTemplate: join(resourcesRoot, "linux", "nn.design.desktop.template"),
 } as const;
 
 const BUNDLED_RESOURCE_TREES = [

@@ -1,7 +1,7 @@
 // Plan §3.K3 / spec §10.3.5 — od.genui.surfaces[].component manifest field.
 //
 // Two contracts:
-//   1. The Zod schema in @open-design/contracts accepts the new
+//   1. The Zod schema in @nn-design/contracts accepts the new
 //      `component: { path, export?, sandbox? }` field on a surface.
 //   2. doctorPlugin() flags a surface that ships a component without
 //      the matching `genui:custom-component` capability, and rejects
@@ -10,12 +10,12 @@
 //      first-class top-level capability.
 
 import { describe, expect, it } from 'vitest';
-import { GenUISurfaceSpecSchema } from '@open-design/contracts';
-import { validateSafe } from '@open-design/plugin-runtime';
+import { GenUISurfaceSpecSchema } from '@nn-design/contracts';
+import { validateSafe } from '@nn-design/plugin-runtime';
 import { doctorPlugin } from '../src/plugins/doctor.js';
 import { validateCapabilityList } from '../src/plugins/trust.js';
 import { FIRST_PARTY_ATOMS, type AtomCatalogEntry } from '../src/plugins/atoms.js';
-import type { InstalledPluginRecord, PluginManifest } from '@open-design/contracts';
+import type { InstalledPluginRecord, PluginManifest } from '@nn-design/contracts';
 
 const REGISTRY = {
   skills:        [],

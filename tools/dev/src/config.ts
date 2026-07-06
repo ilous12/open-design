@@ -7,7 +7,7 @@ import {
   OPEN_DESIGN_SIDECAR_CONTRACT,
   SIDECAR_ENV,
   SIDECAR_SOURCES,
-} from "@open-design/sidecar-proto";
+} from "@nn-design/sidecar-proto";
 import {
   resolveAppIpcPath,
   resolveAppRuntimePath,
@@ -16,7 +16,7 @@ import {
   resolveNamespaceRoot,
   resolveSidecarBase,
   resolveSourceRuntimeRoot,
-} from "@open-design/sidecar";
+} from "@nn-design/sidecar";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

@@ -2,9 +2,9 @@ import {
   releaseChannelFromNamespace,
   releaseChannelFromVersion,
   releaseInstallIdentity,
-} from "@open-design/release";
+} from "@nn-design/release";
 
-const DEFAULT_WINDOW_TITLE = "Open Design";
+const DEFAULT_WINDOW_TITLE = "Design For AIR";
 
 export function resolvePackagedWindowTitle(config: { appVersion: string | null; namespace: string }): string {
   const channel =

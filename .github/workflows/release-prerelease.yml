@@ -203,8 +203,8 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build daemon and desktop (typecheck dependencies)
         run: |
-          pnpm --filter @open-design/daemon build
-          pnpm --filter @open-design/desktop build
+          pnpm --filter @nn-design/daemon build
+          pnpm --filter @nn-design/desktop build
       - name: Typecheck workspaces
         run: pnpm -r --workspace-concurrency=4 --if-present run typecheck
       - name: Check repository layout policies
@@ -380,7 +380,7 @@ jobs:
           output="$RUNNER_TEMP/mac-framework-diagnostics.txt"
           source_resolve_log="$RUNNER_TEMP/mac-framework-source-resolve.err"
           source_framework="$(node -e 'const path = require("node:path"); const { createRequire } = require("node:module"); const requireFromDesktop = createRequire(path.join(process.cwd(), "apps/desktop/package.json")); const electron = requireFromDesktop.resolve("electron"); process.stdout.write(path.join(path.dirname(electron), "dist", "Electron.app", "Contents", "Frameworks", "Electron Framework.framework"));' 2>"$source_resolve_log" || true)"
-          built_framework="$RUNNER_TEMP/tools-pack/out/mac/namespaces/release-prerelease/builder/mac-arm64/Open Design Prerelease.app/Contents/Frameworks/Electron Framework.framework"
+          built_framework="$RUNNER_TEMP/tools-pack/out/mac/namespaces/release-prerelease/builder/mac-arm64/Design For AIR Prerelease.app/Contents/Frameworks/Electron Framework.framework"
           dump_framework() {
             local label="$1"
             local framework="$2"
@@ -523,7 +523,7 @@ jobs:
           RELEASE_ASSETS_DIR: ${{ runner.temp }}/release-assets/mac_arm64
           RELEASE_CHANNEL: prerelease
           RELEASE_NAMESPACE: release-prerelease
-          RELEASE_NOTES: Open Design Prerelease ${{ needs.metadata.outputs.release_version }}
+          RELEASE_NOTES: Design For AIR Prerelease ${{ needs.metadata.outputs.release_version }}
           RELEASE_PUBLIC_ORIGIN: ${{ vars.CLOUDFLARE_R2_RELEASES_PUBLIC_ORIGIN }}
           RELEASE_TARGET: mac_arm64
           RELEASE_VERSION: ${{ needs.metadata.outputs.release_version }}
@@ -1004,7 +1004,7 @@ jobs:
             -ReleaseAssetSuffix "" `
             -ReleaseChannel prerelease `
             -ReleasePublicOrigin "${{ vars.CLOUDFLARE_R2_RELEASES_PUBLIC_ORIGIN }}" `
-            -ReleaseNotes "Open Design Prerelease ${{ needs.metadata.outputs.release_version }}" `
+            -ReleaseNotes "Design For AIR Prerelease ${{ needs.metadata.outputs.release_version }}" `
             -IncludeZip $true
       - name: Publish windows prerelease platform
         env:

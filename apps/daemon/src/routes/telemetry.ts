@@ -1,6 +1,6 @@
 import express, { type Express } from 'express';
-import { SIDECAR_DEFAULTS, SIDECAR_ENV } from '@open-design/sidecar-proto';
-import { type ObservabilityEventRequest } from '@open-design/contracts/analytics';
+import { SIDECAR_DEFAULTS, SIDECAR_ENV } from '@nn-design/sidecar-proto';
+import { type ObservabilityEventRequest } from '@nn-design/contracts/analytics';
 import {
   createAnalyticsService,
   readPublicConfigResponse,

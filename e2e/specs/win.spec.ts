@@ -406,7 +406,7 @@ winDescribe('packaged windows runtime smoke', () => {
       expect(basename(install.startMenuShortcutPath)).toBe(`${installIdentity.displayName}.lnk`);
       expect(install.registryEntries.length).toBeGreaterThan(0);
       expect(JSON.stringify(install.registryEntries)).toContain(installIdentity.displayName);
-      expect(JSON.stringify(install.registryEntries)).toContain(`Open Design-${installIdentity.namespaceToken}`);
+      expect(JSON.stringify(install.registryEntries)).toContain(`Design For AIR-${installIdentity.namespaceToken}`);
       expect(install.installPayload.fileCount).toBeGreaterThan(0);
       expect(install.installPayload.totalBytes).toBeGreaterThan(0);
       expect(install.installPayload.topLevel.length).toBeGreaterThan(0);
@@ -658,8 +658,8 @@ winOnboardingDescribe('packaged windows onboarding AMR smoke', () => {
 
       const inspect = await measureSmokeStep(timings, 'wait healthy inspect eval', async () => waitForHealthyDesktop());
       expect(inspect.status?.state).toBe('running');
-      // A fresh install boots at `od://app/` and the SPA immediately redirects to the dedicated
-      // onboarding route (`od://app/onboarding`, since the #4513 cloud sign-in redesign). Whether
+      // A fresh install boots at `nd://app/` and the SPA immediately redirects to the dedicated
+      // onboarding route (`nd://app/onboarding`, since the #4513 cloud sign-in redesign). Whether
       // the desktop is reported healthy just before or just after that redirect is a race, so the
       // healthy URL/href may be either — match the prefix leniently exactly as the mac smoke and
       // the onboarding-landing assertion below do, instead of pinning the bare root (which flaked
@@ -678,7 +678,7 @@ winOnboardingDescribe('packaged windows onboarding AMR smoke', () => {
         'fresh packaged Windows onboarding cloud sign-in landing',
       );
       // Onboarding lives on a dedicated route since the #4513 cloud sign-in
-      // redesign, so the href is `od://app/onboarding` (packaged) — not the
+      // redesign, so the href is `nd://app/onboarding` (packaged) — not the
       // bare app root. Match the prefix the same lenient way the mac smoke
       // does instead of pinning the exact root path. Before the user-data
       // reset fix the app booted to Home and never reached this line, which
@@ -1144,7 +1144,7 @@ async function fetchPackagedHealth(daemonUrl: string): Promise<HealthEvalValue> 
       health: await response.json() as HealthEvalValue['health'],
       href: daemonUrl,
       status: response.status,
-      title: 'Open Design Beta',
+      title: 'Design For AIR Beta',
     };
   } finally {
     clearTimeout(timeout);

@@ -2,7 +2,7 @@ import type { Express } from 'express';
 import type Database from 'better-sqlite3';
 import path from 'node:path';
 import fs from 'node:fs';
-import type { DesignSystemTokenContractRebuildJobResponse } from '@open-design/contracts';
+import type { DesignSystemTokenContractRebuildJobResponse } from '@nn-design/contracts';
 import { detectAgents, detectAgentsStream } from '../agents.js';
 import {
   SkillImportError,
@@ -698,7 +698,7 @@ export function registerStaticResourceRoutes(app: Express, ctx: RegisterStaticRe
       try {
         const runtimeRoot = fs.realpathSync.native(RUNTIME_DATA_DIR_CANONICAL);
         if (sourceRoot === runtimeRoot || sourceRoot.startsWith(`${runtimeRoot}${path.sep}`)) {
-          return sendApiError(res, 400, 'BAD_REQUEST', 'cannot import Open Design runtime data');
+          return sendApiError(res, 400, 'BAD_REQUEST', 'cannot import Design For AIR runtime data');
         }
       } catch {
         // The runtime data directory may not exist yet in first-run tests.
@@ -882,7 +882,7 @@ function normalizeDesignSystemCraftApplies(value: unknown): string[] | undefined
 export function assembleExample(templateHtml: string, slidesHtml: string, title: string) {
   return templateHtml
     .replace('<!-- SLIDES_HERE -->', slidesHtml)
-    .replace(/<title>.*?<\/title>/, `<title>${title} | Open Design Example</title>`);
+    .replace(/<title>.*?<\/title>/, `<title>${title} | Design For AIR Example</title>`);
 }
 
 export function rewriteSkillAssetUrls(html: string, skillId: string) {

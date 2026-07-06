@@ -157,7 +157,7 @@ describe('readLangfuseConfig', () => {
 });
 
 describe('readTelemetrySinkConfig', () => {
-  it('prefers the Open Design telemetry relay when configured', () => {
+  it('prefers the Design For AIR telemetry relay when configured', () => {
     const cfg = readTelemetrySinkConfig({
       OPEN_DESIGN_TELEMETRY_RELAY_URL: 'https://telemetry.open-design.ai/api/langfuse//',
       LANGFUSE_PUBLIC_KEY: 'pk',
@@ -535,7 +535,7 @@ describe('buildTracePayload', () => {
           {
             attachment_id: 'att-1',
             object_class: 'attachment',
-            storage_ref: 'od://objects/workspaces/unknown/projects/proj-1/runs/run-1/attachment/att-1',
+            storage_ref: 'nd://objects/workspaces/unknown/projects/proj-1/runs/run-1/attachment/att-1',
             status: 'ok',
             project_id: 'proj-1',
             run_id: 'run-1',
@@ -557,7 +557,7 @@ describe('buildTracePayload', () => {
             artifact_id: 'art-1',
             object_class: 'artifact',
             type: 'html',
-            storage_ref: 'od://objects/workspaces/unknown/projects/proj-1/runs/run-1/artifact/art-1',
+            storage_ref: 'nd://objects/workspaces/unknown/projects/proj-1/runs/run-1/artifact/art-1',
             status: 'ok',
             project_id: 'proj-1',
             run_id: 'run-1',
@@ -593,7 +593,7 @@ describe('buildTracePayload', () => {
           {
             attachment_id: 'att-1',
             object_class: 'attachment',
-            storage_ref: 'od://objects/workspaces/unknown/projects/proj-1/runs/run-1/attachment/att-1',
+            storage_ref: 'nd://objects/workspaces/unknown/projects/proj-1/runs/run-1/attachment/att-1',
             status: 'ok',
             project_id: 'proj-1',
             run_id: 'run-1',
@@ -618,7 +618,7 @@ describe('buildTracePayload', () => {
             artifact_id: 'art-1',
             object_class: 'artifact',
             type: 'html',
-            storage_ref: 'od://objects/workspaces/unknown/projects/proj-1/runs/run-1/artifact/art-1',
+            storage_ref: 'nd://objects/workspaces/unknown/projects/proj-1/runs/run-1/artifact/art-1',
             status: 'partial',
             reason: 'size_unavailable',
             project_id: 'proj-1',
@@ -693,7 +693,7 @@ describe('buildTracePayload', () => {
       artifact_id: `art-${i}`,
       object_class: 'artifact' as const,
       type: 'html',
-      storage_ref: `od://objects/workspaces/unknown/projects/proj-1/runs/run-1/artifact/art-${i}`,
+      storage_ref: `nd://objects/workspaces/unknown/projects/proj-1/runs/run-1/artifact/art-${i}`,
       status: 'ok' as const,
       project_id: 'proj-1',
       run_id: 'run-1',
@@ -725,7 +725,7 @@ describe('buildTracePayload', () => {
     const many = Array.from({ length: 75 }, (_, i) => ({
       attachment_id: `att-${i}`,
       object_class: 'attachment' as const,
-      storage_ref: `od://objects/workspaces/unknown/projects/proj-1/runs/run-1/attachment/att-${i}`,
+      storage_ref: `nd://objects/workspaces/unknown/projects/proj-1/runs/run-1/attachment/att-${i}`,
       status: 'ok' as const,
       project_id: 'proj-1',
       run_id: 'run-1',
@@ -1086,7 +1086,7 @@ describe('buildTracePayload', () => {
           {
             attachment_id: 'att-1',
             object_class: 'attachment',
-            storage_ref: 'od://objects/workspaces/unknown/projects/proj-1/runs/run-spans/attachment/att-1',
+            storage_ref: 'nd://objects/workspaces/unknown/projects/proj-1/runs/run-spans/attachment/att-1',
             status: 'ok',
             project_id: 'proj-1',
             run_id: 'run-spans',
@@ -1731,7 +1731,7 @@ describe('reportRunCompleted', () => {
     expect(JSON.stringify(batch)).not.toContain('sk-raw');
   });
 
-  it('POSTs serialized ingestion batches to the Open Design telemetry relay', async () => {
+  it('POSTs serialized ingestion batches to the Design For AIR telemetry relay', async () => {
     const relayConfig: TelemetrySinkConfig = {
       kind: 'relay',
       relayUrl: 'https://telemetry.open-design.ai/api/langfuse',

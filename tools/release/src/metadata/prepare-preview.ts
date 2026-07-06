@@ -10,7 +10,7 @@ import {
   parseCountedReleaseVersion,
   parseReleaseBaseVersion,
   type ReleaseBaseVersionTuple,
-} from "@open-design/release";
+} from "@nn-design/release";
 
 const execFile = promisify(execFileCallback);
 
@@ -327,7 +327,7 @@ if (latestPreview != null) {
 
 const previewVersion = `${packagedVersion}-preview.${previewNumber}`;
 const commit = process.env.GITHUB_SHA ?? "";
-const releaseName = `Open Design Preview ${previewVersion}`;
+const releaseName = `Design For AIR Preview ${previewVersion}`;
 
 console.log("[release-preview] channel: preview");
 console.log(`[release-preview] base version: ${packagedVersion}`);

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import type { BrandSummary } from '@open-design/contracts';
+import type { BrandSummary } from '@nn-design/contracts';
 import { useT } from '../i18n';
 import { fetchDesignSystem } from '../providers/registry';
 import {

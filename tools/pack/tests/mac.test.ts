@@ -339,8 +339,8 @@ describe("writeLaunchPackagedConfig", () => {
     const root = await mkdtemp(join(tmpdir(), "open-design-tools-pack-mac-"));
     try {
       const config = makeConfig(root, { namespace: "release-beta", portable: true });
-      const appPath = join(root, "Open Design.app");
-      const embeddedConfigPath = join(appPath, "Contents", "Resources", "open-design-config.json");
+      const appPath = join(root, "Design For AIR.app");
+      const embeddedConfigPath = join(appPath, "Contents", "Resources", "nn.design-config.json");
       await mkdir(dirname(embeddedConfigPath), { recursive: true });
       await writeFile(
         embeddedConfigPath,
@@ -348,7 +348,7 @@ describe("writeLaunchPackagedConfig", () => {
           {
             appVersion: "0.5.1-beta.2",
             namespace: "packaged-default",
-            nodeCommandRelative: "open-design/bin/node",
+            nodeCommandRelative: "nn.design/bin/node",
             webOutputMode: "standalone",
           },
           null,
@@ -361,12 +361,12 @@ describe("writeLaunchPackagedConfig", () => {
       const launchConfig = JSON.parse(await readFile(launchConfigPath, "utf8")) as Record<string, unknown>;
       const embeddedConfig = JSON.parse(await readFile(embeddedConfigPath, "utf8")) as Record<string, unknown>;
 
-      expect(launchConfigPath).toBe(join(config.roots.runtime.namespaceRoot, "runtime", "open-design-config.json"));
+      expect(launchConfigPath).toBe(join(config.roots.runtime.namespaceRoot, "runtime", "nn.design-config.json"));
       expect(launchConfig).toMatchObject({
         appVersion: "0.5.1-beta.2",
         namespace: "release-beta",
         namespaceBaseRoot: config.roots.runtime.namespaceBaseRoot,
-        nodeCommandRelative: "open-design/bin/node",
+        nodeCommandRelative: "nn.design/bin/node",
         webOutputMode: "standalone",
       });
       expect(embeddedConfig).not.toHaveProperty("namespaceBaseRoot");

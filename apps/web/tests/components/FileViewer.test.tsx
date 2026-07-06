@@ -5,7 +5,7 @@ import { join } from 'node:path';
 import { useLayoutEffect, useRef, useState } from 'react';
 import { act, cleanup, createEvent, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { installMockOpenDesignHost } from '@open-design/host/testing';
+import { installMockOpenDesignHost } from '@nn-design/host/testing';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { ANNOTATION_EVENT } from '../../src/components/PreviewDrawOverlay';
 

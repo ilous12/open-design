@@ -28,13 +28,13 @@ describe("win standalone prebundle policy", () => {
   it("keeps server-mode package topology unchanged", () => {
     expect(
       shouldInstallInternalPackageForWinPrebundle({
-        packageName: "@open-design/web",
+        packageName: "@nn-design/web",
         webOutputMode: "server",
       }),
     ).toBe(true);
     expect(
       shouldInstallInternalPackageForWinPrebundle({
-        packageName: "@open-design/packaged",
+        packageName: "@nn-design/packaged",
         webOutputMode: "server",
       }),
     ).toBe(true);
@@ -42,12 +42,12 @@ describe("win standalone prebundle policy", () => {
 
   it("excludes internal packages replaced by win standalone prebundles", () => {
     for (const packageName of [
-      "@open-design/daemon",
-      "@open-design/desktop",
-      "@open-design/packaged",
-      "@open-design/sidecar",
-      "@open-design/sidecar-proto",
-      "@open-design/web",
+      "@nn-design/daemon",
+      "@nn-design/desktop",
+      "@nn-design/packaged",
+      "@nn-design/sidecar",
+      "@nn-design/sidecar-proto",
+      "@nn-design/web",
     ]) {
       expect(
         shouldInstallInternalPackageForWinPrebundle({
@@ -58,13 +58,13 @@ describe("win standalone prebundle policy", () => {
     }
     expect(
       shouldInstallInternalPackageForWinPrebundle({
-      packageName: "@open-design/contracts",
+      packageName: "@nn-design/contracts",
       webOutputMode: "standalone",
     }),
   ).toBe(true);
   expect(
     shouldInstallInternalPackageForWinPrebundle({
-      packageName: "@open-design/platform",
+      packageName: "@nn-design/platform",
       webOutputMode: "standalone",
     }),
   ).toBe(true);
@@ -132,7 +132,7 @@ describe("assertWinPrebundleMetafile", () => {
     try {
       await writeFile(
         metafilePath,
-        JSON.stringify({ inputs: { "/repo/node_modules/@open-design/web/dist/sidecar/index.js": {} } }),
+        JSON.stringify({ inputs: { "/repo/node_modules/@nn-design/web/dist/sidecar/index.js": {} } }),
         "utf8",
       );
 
@@ -167,11 +167,11 @@ describe("assertWinPrebundleMetafile", () => {
 describe("renderWinPackagedMainEntry", () => {
   it("renders the prebundled runtime entry shim", () => {
     expect(renderWinPackagedMainEntry(true)).toContain("./prebundled/packaged-main.mjs");
-    expect(renderWinPackagedMainEntry(true)).not.toContain("@open-design/packaged");
+    expect(renderWinPackagedMainEntry(true)).not.toContain("@nn-design/packaged");
   });
 
   it("renders the package entry shim for non-prebundled mode", () => {
-    expect(renderWinPackagedMainEntry(false)).toContain("@open-design/packaged");
+    expect(renderWinPackagedMainEntry(false)).toContain("@nn-design/packaged");
     expect(renderWinPackagedMainEntry(false)).not.toContain("./prebundled/packaged-main.mjs");
   });
 });

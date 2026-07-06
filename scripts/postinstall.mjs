@@ -255,7 +255,7 @@ if (needsRebuild) {
   );
   const rebuild = spawnSync(
     packageManager.command,
-    [...packageManager.argsPrefix, "--filter", "@open-design/daemon", "rebuild", "better-sqlite3"],
+    [...packageManager.argsPrefix, "--filter", "@nn-design/daemon", "rebuild", "better-sqlite3"],
     { cwd: repoRoot, stdio: "inherit" },
   );
   if (rebuild.error != null) throw rebuild.error;

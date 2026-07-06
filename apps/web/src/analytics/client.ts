@@ -9,7 +9,7 @@ import {
   type AnalyticsClientType,
   type AnalyticsConfigResponse,
   type AnalyticsConfigureGlobals,
-} from '@open-design/contracts/analytics';
+} from '@nn-design/contracts/analytics';
 import { scrubBeforeSend } from './scrub';
 import {
   clearExceptionTrackingContext,

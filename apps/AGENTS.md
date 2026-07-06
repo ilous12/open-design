@@ -7,7 +7,7 @@ Follow the root `AGENTS.md` first. This file only records module-level boundarie
 - `apps/web`: Next.js 16 App Router + React 18 web runtime. Entrypoints live in `apps/web/app/`; the main client shell is `apps/web/src/App.tsx`. During local `tools-dev` web runs, `apps/web/next.config.ts` rewrites `/api/*`, `/artifacts/*`, and `/frames/*` to `OD_PORT`.
 - `apps/daemon`: Express + SQLite local daemon and `od` bin. It owns REST/SSE APIs, agent CLI spawning, skills, design systems, artifact persistence, static serving, and daemon-managed data. Before describing or changing daemon data paths, read the root `AGENTS.md` section **Daemon data directory contract**; it is mandatory and must not be restated here.
 - `apps/desktop`: Electron shell. Desktop does not guess the web port; it reads runtime status through sidecar IPC and opens the reported web URL.
-- `apps/packaged`: Thin packaged Electron runtime entry. It starts packaged daemon/web sidecars, registers the `od://` entry protocol, and delegates desktop host behavior to `apps/desktop`.
+- `apps/packaged`: Thin packaged Electron runtime entry. It starts packaged daemon/web sidecars, registers the `nd://` entry protocol, and delegates desktop host behavior to `apps/desktop`.
 
 ## Daemon layout
 
@@ -47,13 +47,13 @@ Follow the root `AGENTS.md` first. This file only records module-level boundarie
 ## Common app commands
 
 ```bash
-pnpm --filter @open-design/web typecheck
-pnpm --filter @open-design/web test
-pnpm --filter @open-design/daemon typecheck
-pnpm --filter @open-design/daemon test
-pnpm --filter @open-design/daemon build
-pnpm --filter @open-design/desktop typecheck
-pnpm --filter @open-design/desktop build
-pnpm --filter @open-design/packaged typecheck
-pnpm --filter @open-design/packaged build
+pnpm --filter @nn-design/web typecheck
+pnpm --filter @nn-design/web test
+pnpm --filter @nn-design/daemon typecheck
+pnpm --filter @nn-design/daemon test
+pnpm --filter @nn-design/daemon build
+pnpm --filter @nn-design/desktop typecheck
+pnpm --filter @nn-design/desktop build
+pnpm --filter @nn-design/packaged typecheck
+pnpm --filter @nn-design/packaged build
 ```

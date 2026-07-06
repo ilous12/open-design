@@ -1,7 +1,7 @@
 import { access, readFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 
-import { SIDECAR_DEFAULTS, normalizeNamespace } from "@open-design/sidecar-proto";
+import { SIDECAR_DEFAULTS, normalizeNamespace } from "@nn-design/sidecar-proto";
 
 // `electron` is loaded lazily so this module can also be imported from the
 // headless entry, which runs in a plain Node process without the electron
@@ -80,7 +80,7 @@ async function readJsonIfExists(filePath: string): Promise<RawPackagedConfig | n
 }
 
 function resolveDefaultConfigPath(): string {
-  return join(process.resourcesPath, "open-design-config.json");
+  return join(process.resourcesPath, "nn.design-config.json");
 }
 
 async function readRawPackagedConfig(): Promise<RawPackagedConfig> {
@@ -94,7 +94,7 @@ async function readRawPackagedConfig(): Promise<RawPackagedConfig> {
   const electronApp = await loadElectronApp();
   return (
     (await readJsonIfExists(resolveDefaultConfigPath())) ??
-    (await readJsonIfExists(join(electronApp.getAppPath(), "open-design-config.json"))) ??
+    (await readJsonIfExists(join(electronApp.getAppPath(), "nn.design-config.json"))) ??
     {}
   );
 }
@@ -135,7 +135,7 @@ function resolvePackagedWebStandaloneRoot(
   const configured = resolveOptionalPath(value);
   if (configured != null) return configured;
   if (webOutputMode !== "standalone") return null;
-  return join(process.resourcesPath, "open-design-web-standalone");
+  return join(process.resourcesPath, "nn.design-web-standalone");
 }
 
 async function resolvePackagedRelativeEntry(value: string | undefined): Promise<string | null> {
@@ -156,10 +156,10 @@ export async function readPackagedConfig(): Promise<PackagedConfig> {
   const electronApp = await loadElectronApp();
   const namespaceBaseRoot =
     resolveOptionalPath(raw.namespaceBaseRoot) ?? join(electronApp.getPath("userData"), "namespaces");
-  const resourceRoot = resolveOptionalPath(raw.resourceRoot) ?? join(process.resourcesPath, "open-design");
+  const resourceRoot = resolveOptionalPath(raw.resourceRoot) ?? join(process.resourcesPath, "nn.design");
   const relativeNodeCommand =
     raw.nodeCommandRelative == null || raw.nodeCommandRelative.length === 0
-      ? join("open-design", "bin", "node")
+      ? join("nn.design", "bin", "node")
       : raw.nodeCommandRelative;
   const nodeCommandCandidate = join(process.resourcesPath, relativeNodeCommand);
   const nodeCommand = (await pathExists(nodeCommandCandidate)) ? nodeCommandCandidate : null;

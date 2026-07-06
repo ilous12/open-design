@@ -3,7 +3,7 @@ import type {
   ProjectFileVersion,
   ProjectFileVersionPromptSource,
   ProjectFileVersionSource,
-} from '@open-design/contracts';
+} from '@nn-design/contracts';
 import { createHash, randomUUID } from 'node:crypto';
 import { mkdir, readFile, readdir, rename, rm, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';

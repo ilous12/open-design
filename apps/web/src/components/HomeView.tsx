@@ -8,7 +8,7 @@
 // textarea can live centered in the hero.
 
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
-import { Dialog, DialogFooter, DialogTitle } from '@open-design/components';
+import { Dialog, DialogFooter, DialogTitle } from '@nn-design/components';
 import type {
   ApplyResult,
   ChatSessionMode,
@@ -19,9 +19,9 @@ import type {
   ProjectKind,
   AudioVoiceOption,
   WorkspaceContextItem,
-} from '@open-design/contracts';
-import { DEFAULT_UNSELECTED_SCENARIO_PLUGIN_ID } from '@open-design/contracts';
-import { projectKindFromMetadataToTracking } from '@open-design/contracts/analytics';
+} from '@nn-design/contracts';
+import { DEFAULT_UNSELECTED_SCENARIO_PLUGIN_ID } from '@nn-design/contracts';
+import { projectKindFromMetadataToTracking } from '@nn-design/contracts/analytics';
 import { useAnalytics } from '../analytics/provider';
 import {
   trackCommunityGalleryClick,
@@ -64,7 +64,7 @@ import {
   openFolderDialog,
   pushRecentLinkedDir,
 } from '../providers/registry';
-import { isOpenDesignHostAvailable, pickHostWorkingDir } from '@open-design/host';
+import { isOpenDesignHostAvailable, pickHostWorkingDir } from '@nn-design/host';
 import type {
   DesignSystemSummary,
   Project,
@@ -202,9 +202,9 @@ interface PendingPluginUseHandoff {
 }
 
 const AUTHORING_DEFAULT_SCENARIO_INPUTS = {
-  artifactKind: 'Open Design plugin',
-  audience: 'Open Design plugin authors',
-  topic: 'packaging a reusable workflow as an Open Design plugin',
+  artifactKind: 'Design For AIR plugin',
+  audience: 'Design For AIR plugin authors',
+  topic: 'packaging a reusable workflow as an Design For AIR plugin',
 };
 
 
@@ -1307,7 +1307,7 @@ export function HomeView({
       // auth gate and surface as a confusing late create-time failure.
       // Surface the host error instead and keep the existing working dir.
       setError(
-        `Couldn't open the folder picker (${'reason' in result ? result.reason : 'host unavailable'}). Please update Open Design and try again.`,
+        `Couldn't open the folder picker (${'reason' in result ? result.reason : 'host unavailable'}). Please update Design For AIR and try again.`,
       );
       return null;
     }
@@ -1332,7 +1332,7 @@ export function HomeView({
       }
       if ('canceled' in result && result.canceled) return null;
       setError(
-        `Couldn't open the folder picker (${'reason' in result ? result.reason : 'host unavailable'}). Please update Open Design and try again.`,
+        `Couldn't open the folder picker (${'reason' in result ? result.reason : 'host unavailable'}). Please update Design For AIR and try again.`,
       );
       return null;
     }

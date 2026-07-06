@@ -148,7 +148,7 @@ describe('asInProjectFilePath', () => {
     });
 
     it('Electron od: protocol', () => {
-      expect(asInProjectFilePath('od://app/projects/123')).toBeNull();
+      expect(asInProjectFilePath('nd://app/projects/123')).toBeNull();
     });
 
     it('blob: URLs', () => {

@@ -13,13 +13,13 @@ import {
   LAUNCHER_AFTER_QUIT_TIMEOUT_MS_ARG,
   LAUNCHER_SCHEMA_VERSION,
   resolveLauncherPaths,
-} from "@open-design/launcher-proto";
+} from "@nn-design/launcher-proto";
 import {
   DESKTOP_UPDATE_CHANNELS,
   DESKTOP_UPDATE_STATES,
   SIDECAR_SOURCES,
-} from "@open-design/sidecar-proto";
-import type { ReleaseChannel } from "@open-design/release";
+} from "@nn-design/sidecar-proto";
+import type { ReleaseChannel } from "@nn-design/release";
 
 import {
   compareVersions,
@@ -442,7 +442,7 @@ describe("desktop updater", () => {
       version: "1.0.0-beta.3",
     });
     const launcherRuntimePath = join(root, "launcher", "runtime.json");
-    const launcherLaunchPath = join(root, "installed", "Open Design Beta.exe");
+    const launcherLaunchPath = join(root, "installed", "Design For AIR Beta.exe");
     try {
       await mkdir(join(root, "installed"), { recursive: true });
       await writeFile(launcherLaunchPath, "");
@@ -499,7 +499,7 @@ describe("desktop updater", () => {
     const launcherRuntimePath = join(root, "launcher", "runtime.json");
     const launcherRoot = root;
     const versionRoot = join(root, "launcher", "channels", "beta", "namespaces", "release-beta-win", "versions");
-    const launcherLaunchPath = join(root, "installed", "Open Design Beta.exe");
+    const launcherLaunchPath = join(root, "installed", "Design For AIR Beta.exe");
     const launches: Array<{ appPid: number; launchPath: string; root: string }> = [];
     let extractCount = 0;
     try {
@@ -536,14 +536,14 @@ describe("desktop updater", () => {
         extractLauncherPayloadArchive: async ({ destinationRoot }) => {
           extractCount += 1;
           await mkdir(join(destinationRoot, "payload", "resources", "open-design"), { recursive: true });
-          await writeFile(join(destinationRoot, "payload", "Open Design.exe"), "");
+          await writeFile(join(destinationRoot, "payload", "Design For AIR.exe"), "");
           await writeFile(
             join(destinationRoot, "manifest.json"),
             `${JSON.stringify({
               channel: "beta",
               entry: {
                 cwd: "payload",
-                executable: "payload/Open Design.exe",
+                executable: "payload/Design For AIR.exe",
               },
               namespace: "release-beta-win",
               payloadRoot: "payload",
@@ -552,7 +552,7 @@ describe("desktop updater", () => {
               version: "1.0.0-beta.2",
             })}\n`,
           );
-          await writeFile(join(destinationRoot, "payload", "resources", "open-design-config.json"), "{}\n");
+          await writeFile(join(destinationRoot, "payload", "resources", "nn.design-config.json"), "{}\n");
         },
         launchAppAfterQuit: async (input) => {
           launches.push({
@@ -562,7 +562,7 @@ describe("desktop updater", () => {
           });
           return { helperLogPath: join(root, "updates", "helpers", "open-app-after-quit-test.log") };
         },
-        processExecPath: "C:\\Program Files\\Open Design Beta\\Open Design Beta.exe",
+        processExecPath: "C:\\Program Files\\Design For AIR Beta\\Design For AIR Beta.exe",
         processPid: 4242,
       });
 
@@ -627,7 +627,7 @@ describe("desktop updater", () => {
     const launcherRuntimePath = join(root, "launcher", "runtime.json");
     const launcherRoot = root;
     const versionRoot = join(root, "launcher", "channels", "beta", "namespaces", "release-beta-win", "versions");
-    const launcherLaunchPath = join(root, "installed", "Open Design Beta.exe");
+    const launcherLaunchPath = join(root, "installed", "Design For AIR Beta.exe");
     const launches: Array<{ appPid: number; launchPath: string; root: string }> = [];
     let extractCount = 0;
     try {
@@ -663,14 +663,14 @@ describe("desktop updater", () => {
         extractLauncherPayloadArchive: async ({ destinationRoot }) => {
           extractCount += 1;
           await mkdir(join(destinationRoot, "payload", "resources", "open-design"), { recursive: true });
-          await writeFile(join(destinationRoot, "payload", "Open Design.exe"), "");
+          await writeFile(join(destinationRoot, "payload", "Design For AIR.exe"), "");
           await writeFile(
             join(destinationRoot, "manifest.json"),
             `${JSON.stringify({
               channel: "beta",
               entry: {
                 cwd: "payload",
-                executable: "payload/Open Design.exe",
+                executable: "payload/Design For AIR.exe",
               },
               namespace: "release-beta-win",
               payloadRoot: "payload",
@@ -679,7 +679,7 @@ describe("desktop updater", () => {
               version: "1.0.0-beta.2",
             })}\n`,
           );
-          await writeFile(join(destinationRoot, "payload", "resources", "open-design-config.json"), "{}\n");
+          await writeFile(join(destinationRoot, "payload", "resources", "nn.design-config.json"), "{}\n");
         },
         launchAppAfterQuit: async (input) => {
           launches.push({
@@ -689,7 +689,7 @@ describe("desktop updater", () => {
           });
           return { helperLogPath: join(root, "updates", "helpers", "open-app-after-quit-test.log") };
         },
-        processExecPath: "C:\\Program Files\\Open Design Beta\\Open Design Beta.exe",
+        processExecPath: "C:\\Program Files\\Design For AIR Beta\\Design For AIR Beta.exe",
         processPid: 4242,
       });
 
@@ -726,7 +726,7 @@ describe("desktop updater", () => {
     });
     const namespaceRoot = join(root, "launcher", "channels", "beta", "namespaces", "release-beta-win");
     const launcherRuntimePath = join(root, "launcher", "runtime.json");
-    const launcherLaunchPath = join(root, "installed", "Open Design Beta.exe");
+    const launcherLaunchPath = join(root, "installed", "Design For AIR Beta.exe");
     try {
       await mkdir(join(root, "installed"), { recursive: true });
       await writeFile(launcherLaunchPath, "");
@@ -758,14 +758,14 @@ describe("desktop updater", () => {
       }, {
         extractLauncherPayloadArchive: async ({ destinationRoot }) => {
           await mkdir(join(destinationRoot, "payload", "resources"), { recursive: true });
-          await writeFile(join(destinationRoot, "payload", "Open Design.exe"), "");
+          await writeFile(join(destinationRoot, "payload", "Design For AIR.exe"), "");
           await writeFile(
             join(destinationRoot, "manifest.json"),
             `${JSON.stringify({
               channel: "beta",
               entry: {
                 cwd: "payload",
-                executable: "payload/Open Design.exe",
+                executable: "payload/Design For AIR.exe",
               },
               namespace: "release-beta-win",
               payloadRoot: "payload",
@@ -781,7 +781,7 @@ describe("desktop updater", () => {
 
       expect(checked.state).toBe(DESKTOP_UPDATE_STATES.ERROR);
       expect(checked.error?.code).toBe("launcher-payload-prepare-failed");
-      expect(checked.error?.message).toContain("open-design-config.json");
+      expect(checked.error?.message).toContain("nn.design-config.json");
       expect(existsSync(join(namespaceRoot, "versions", "1.0.0-beta.2"))).toBe(false);
       expect(JSON.parse(await readFile(launcherRuntimePath, "utf8"))).toMatchObject({
         active: { generation: 0, version: "1.0.0-beta.1" },
@@ -804,7 +804,7 @@ describe("desktop updater", () => {
       version: "1.0.0-beta.2",
     });
     const launcherRuntimePath = join(root, "launcher", "runtime.json");
-    const launcherLaunchPath = join(root, "missing", "Open Design Beta.exe");
+    const launcherLaunchPath = join(root, "missing", "Design For AIR Beta.exe");
     try {
       await mkdir(join(root, "launcher"), { recursive: true });
       await mkdir(join(root, "launcher", "channels", "beta", "namespaces", "release-beta-win", "versions", "1.0.0-beta.1"), { recursive: true });
@@ -832,7 +832,7 @@ describe("desktop updater", () => {
         namespace: "release-beta-win",
         source: SIDECAR_SOURCES.PACKAGED,
       }, {
-        processExecPath: "C:\\Users\\runneradmin\\AppData\\Roaming\\Open Design Beta\\launcher\\channels\\beta\\namespaces\\release-beta-win\\versions\\1.0.0-beta.1\\payload\\Open Design.exe",
+        processExecPath: "C:\\Users\\runneradmin\\AppData\\Roaming\\Design For AIR Beta\\launcher\\channels\\beta\\namespaces\\release-beta-win\\versions\\1.0.0-beta.1\\payload\\Design For AIR.exe",
       });
 
       const checked = await updater.checkForUpdates();
@@ -858,7 +858,7 @@ describe("desktop updater", () => {
     });
     const launcherRuntimePath = join(root, "launcher", "runtime.json");
     const launcherRoot = root;
-    const launcherLaunchPath = join(root, "installed", "Open Design Beta.app");
+    const launcherLaunchPath = join(root, "installed", "Design For AIR Beta.app");
     const launches: Array<{ appPid: number; launchPath: string; root: string }> = [];
     try {
       await mkdir(launcherLaunchPath, { recursive: true });
@@ -890,17 +890,17 @@ describe("desktop updater", () => {
         source: SIDECAR_SOURCES.PACKAGED,
       }, {
         extractLauncherPayloadArchive: async ({ destinationRoot }) => {
-          await mkdir(join(destinationRoot, "payload", "Open Design Beta.app", "Contents", "MacOS"), { recursive: true });
-          await mkdir(join(destinationRoot, "payload", "Open Design Beta.app", "Contents", "Resources", "open-design"), { recursive: true });
-          await writeFile(join(destinationRoot, "payload", "Open Design Beta.app", "Contents", "MacOS", "Open Design Beta"), "");
-          await writeFile(join(destinationRoot, "payload", "Open Design Beta.app", "Contents", "Resources", "open-design-config.json"), "{}\n");
+          await mkdir(join(destinationRoot, "payload", "Design For AIR Beta.app", "Contents", "MacOS"), { recursive: true });
+          await mkdir(join(destinationRoot, "payload", "Design For AIR Beta.app", "Contents", "Resources", "open-design"), { recursive: true });
+          await writeFile(join(destinationRoot, "payload", "Design For AIR Beta.app", "Contents", "MacOS", "Design For AIR Beta"), "");
+          await writeFile(join(destinationRoot, "payload", "Design For AIR Beta.app", "Contents", "Resources", "nn.design-config.json"), "{}\n");
           await writeFile(
             join(destinationRoot, "manifest.json"),
             `${JSON.stringify({
               channel: "beta",
               entry: {
-                cwd: "payload/Open Design Beta.app",
-                executable: "payload/Open Design Beta.app/Contents/MacOS/Open Design Beta",
+                cwd: "payload/Design For AIR Beta.app",
+                executable: "payload/Design For AIR Beta.app/Contents/MacOS/Design For AIR Beta",
               },
               namespace: "release-beta",
               payloadRoot: "payload",
@@ -918,7 +918,7 @@ describe("desktop updater", () => {
           });
           return {};
         },
-        processExecPath: join(root, "launcher", "channels", "beta", "namespaces", "release-beta", "versions", "1.0.0-beta.2", "payload", "Open Design Beta.app", "Contents", "MacOS", "Open Design Beta"),
+        processExecPath: join(root, "launcher", "channels", "beta", "namespaces", "release-beta", "versions", "1.0.0-beta.2", "payload", "Design For AIR Beta.app", "Contents", "MacOS", "Design For AIR Beta"),
         processPid: 4243,
       });
 
@@ -958,7 +958,7 @@ describe("desktop updater", () => {
     });
     const launcherRuntimePath = join(root, "launcher", "runtime.json");
     const launcherRoot = root;
-    const launcherLaunchPath = join(root, "installed", "Open Design.exe");
+    const launcherLaunchPath = join(root, "installed", "Design For AIR.exe");
     const launches: Array<{ appPid: number; launchPath: string; root: string }> = [];
     try {
       await mkdir(join(root, "installed"), { recursive: true });
@@ -992,15 +992,15 @@ describe("desktop updater", () => {
       }, {
         extractLauncherPayloadArchive: async ({ destinationRoot }) => {
           await mkdir(join(destinationRoot, "payload", "resources", "open-design"), { recursive: true });
-          await writeFile(join(destinationRoot, "payload", "Open Design.exe"), "");
-          await writeFile(join(destinationRoot, "payload", "resources", "open-design-config.json"), "{}\n");
+          await writeFile(join(destinationRoot, "payload", "Design For AIR.exe"), "");
+          await writeFile(join(destinationRoot, "payload", "resources", "nn.design-config.json"), "{}\n");
           await writeFile(
             join(destinationRoot, "manifest.json"),
             `${JSON.stringify({
               channel: "beta",
               entry: {
                 cwd: "payload",
-                executable: "payload/Open Design.exe",
+                executable: "payload/Design For AIR.exe",
               },
               namespace: "release-beta-win",
               payloadRoot: "payload",
@@ -1018,7 +1018,7 @@ describe("desktop updater", () => {
           });
           return {};
         },
-        processExecPath: "C:\\Users\\runneradmin\\AppData\\Roaming\\Open Design Beta\\launcher\\channels\\beta\\namespaces\\release-beta-win\\versions\\1.0.0-beta.2\\payload\\Open Design.exe",
+        processExecPath: "C:\\Users\\runneradmin\\AppData\\Roaming\\Design For AIR Beta\\launcher\\channels\\beta\\namespaces\\release-beta-win\\versions\\1.0.0-beta.2\\payload\\Design For AIR.exe",
         processPid: 4244,
       });
 
@@ -1058,7 +1058,7 @@ describe("desktop updater", () => {
     });
     const launcherRuntimePath = join(root, "launcher", "runtime.json");
     const launcherRoot = root;
-    const launcherLaunchPath = join(root, "installed", "Open Design.exe");
+    const launcherLaunchPath = join(root, "installed", "Design For AIR.exe");
     const launches: Array<{ appPid: number; launchPath: string; root: string }> = [];
     try {
       await mkdir(join(root, "installed"), { recursive: true });
@@ -1092,15 +1092,15 @@ describe("desktop updater", () => {
       }, {
         extractLauncherPayloadArchive: async ({ destinationRoot }) => {
           await mkdir(join(destinationRoot, "payload", "resources", "open-design"), { recursive: true });
-          await writeFile(join(destinationRoot, "payload", "Open Design.exe"), "");
-          await writeFile(join(destinationRoot, "payload", "resources", "open-design-config.json"), "{}\n");
+          await writeFile(join(destinationRoot, "payload", "Design For AIR.exe"), "");
+          await writeFile(join(destinationRoot, "payload", "resources", "nn.design-config.json"), "{}\n");
           await writeFile(
             join(destinationRoot, "manifest.json"),
             `${JSON.stringify({
               channel: "beta",
               entry: {
                 cwd: "payload",
-                executable: "payload/Open Design.exe",
+                executable: "payload/Design For AIR.exe",
               },
               namespace: "release-beta-win",
               payloadRoot: "payload",
@@ -1129,7 +1129,7 @@ describe("desktop updater", () => {
 
       expect(installed.state).toBe(DESKTOP_UPDATE_STATES.ERROR);
       expect(installed.error?.code).toBe("payload-relaunch-failed");
-      expect(installed.error?.message).toContain("Open Design.exe");
+      expect(installed.error?.message).toContain("Design For AIR.exe");
       expect(launches).toEqual([]);
     } finally {
       await fixture.close();
@@ -1149,7 +1149,7 @@ describe("desktop updater", () => {
     });
     const launcherRuntimePath = join(root, "launcher", "runtime.json");
     const launcherRoot = root;
-    const launcherLaunchPath = join(root, "installed", "Open Design.exe");
+    const launcherLaunchPath = join(root, "installed", "Design For AIR.exe");
     const spawned: Array<{ args: string[]; command: string; options: unknown }> = [];
     const unref = vi.fn();
     try {
@@ -1184,15 +1184,15 @@ describe("desktop updater", () => {
       }, {
         extractLauncherPayloadArchive: async ({ destinationRoot }) => {
           await mkdir(join(destinationRoot, "payload", "resources", "open-design"), { recursive: true });
-          await writeFile(join(destinationRoot, "payload", "Open Design.exe"), "");
-          await writeFile(join(destinationRoot, "payload", "resources", "open-design-config.json"), "{}\n");
+          await writeFile(join(destinationRoot, "payload", "Design For AIR.exe"), "");
+          await writeFile(join(destinationRoot, "payload", "resources", "nn.design-config.json"), "{}\n");
           await writeFile(
             join(destinationRoot, "manifest.json"),
             `${JSON.stringify({
               channel: "beta",
               entry: {
                 cwd: "payload",
-                executable: "payload/Open Design.exe",
+                executable: "payload/Design For AIR.exe",
               },
               namespace: "release-beta-win",
               payloadRoot: "payload",
@@ -1246,7 +1246,7 @@ describe("desktop updater", () => {
     const namespaceRoot = join(root, "launcher", "channels", "beta", "namespaces", "release-beta-win");
     const launcherRuntimePath = join(root, "launcher", "runtime.json");
     const existingVersionRoot = join(namespaceRoot, "versions", "1.0.0-beta.2");
-    const launcherLaunchPath = join(root, "installed", "Open Design Beta.exe");
+    const launcherLaunchPath = join(root, "installed", "Design For AIR Beta.exe");
     try {
       await mkdir(join(root, "installed"), { recursive: true });
       await writeFile(launcherLaunchPath, "");
@@ -1279,12 +1279,12 @@ describe("desktop updater", () => {
       }, {
         extractLauncherPayloadArchive: async ({ destinationRoot }) => {
           await mkdir(join(destinationRoot, "payload"), { recursive: true });
-          await writeFile(join(destinationRoot, "payload", "Open Design.exe"), "");
+          await writeFile(join(destinationRoot, "payload", "Design For AIR.exe"), "");
           await writeFile(
             join(destinationRoot, "manifest.json"),
             `${JSON.stringify({
               channel: "beta",
-              entry: { cwd: "payload", executable: "payload/Open Design.exe" },
+              entry: { cwd: "payload", executable: "payload/Design For AIR.exe" },
               namespace: "release-beta-win",
               payloadRoot: "payload",
               platform: "win32",

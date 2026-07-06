@@ -1,8 +1,8 @@
 // Brand validation + normalization.
 //
-// Ported from the branding-agent schema, retargeted onto the '@open-design/
+// Ported from the branding-agent schema, retargeted onto the '@nn-design/
 // contracts' Brand type and BRAND_COLOR_ROLES. The SeedToken / seed-override
-// path from the source is dropped — Open Design brands carry no Ant seed.
+// path from the source is dropped — Design For AIR brands carry no Ant seed.
 
 import {
   BRAND_COLOR_ROLES,
@@ -11,7 +11,7 @@ import {
   type BrandColorRole,
   type BrandFontSpec,
   type BrandImagerySample,
-} from '@open-design/contracts';
+} from '@nn-design/contracts';
 
 const isStr = (v: unknown): v is string => typeof v === 'string';
 const strArr = (v: unknown): string[] => (Array.isArray(v) ? v.filter(isStr) : []);

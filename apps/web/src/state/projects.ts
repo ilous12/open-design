@@ -22,7 +22,7 @@ import type {
   PluginShareAction,
   ProjectPluginFolderInstallRequest,
   TerminalSession,
-} from '@open-design/contracts';
+} from '@nn-design/contracts';
 import { randomUUID } from '../utils/uuid';
 import type {
   ChatMessage,
@@ -33,8 +33,8 @@ import type {
   ProjectTemplate,
 } from '../types';
 
-export type { PluginInstallOutcome } from '@open-design/contracts';
-export type { PluginShareAction } from '@open-design/contracts';
+export type { PluginInstallOutcome } from '@nn-design/contracts';
+export type { PluginShareAction } from '@nn-design/contracts';
 
 export async function listProjects(options?: { throwOnError?: boolean }): Promise<Project[]> {
   try {
@@ -100,7 +100,7 @@ export async function createProject(input: {
 }): Promise<{ project: Project; conversationId: string; appliedPluginSnapshotId?: string }> {
   try {
     // `randomUUID` falls back to `crypto.getRandomValues` / `Math.random`
-    // when `crypto.randomUUID` is unavailable. Open Design served over
+    // when `crypto.randomUUID` is unavailable. Design For AIR served over
     // plain HTTP on a LAN IP (Docker / unRAID self-hosting) is a
     // non-secure context, where `crypto.randomUUID` is undefined and
     // calling it directly throws — the surrounding try/catch then turns

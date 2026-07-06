@@ -9,11 +9,11 @@ import path from 'node:path';
 import type {
   InstalledPluginRecord,
   PluginManifest,
-} from '@open-design/contracts';
+} from '@nn-design/contracts';
 import { applyPlugin } from '../src/plugins/apply.js';
 import { openDatabase } from '../src/db.js';
 import { upsertInstalledPlugin } from '../src/plugins/registry.js';
-import { resolveAppliedPipeline, type ScenarioRegistryEntry } from '@open-design/plugin-runtime';
+import { resolveAppliedPipeline, type ScenarioRegistryEntry } from '@nn-design/plugin-runtime';
 
 let tmpRoot: string;
 

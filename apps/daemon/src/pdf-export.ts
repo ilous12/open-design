@@ -5,7 +5,7 @@ import type {
   DesktopExportArtifactImageFormat,
   DesktopExportArtifactInput,
   DesktopExportPdfInput,
-} from '@open-design/sidecar-proto';
+} from '@nn-design/sidecar-proto';
 
 import { readProjectFile } from './projects.js';
 

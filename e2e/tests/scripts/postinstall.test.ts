@@ -247,7 +247,7 @@ describe("postinstall script contract", () => {
     const targets = postinstallBuildTargetList();
     expect(missingBuildTargets).toEqual([]);
     expect(missingTsconfigs).toEqual([]);
-    expect(dependencySpecifier(rootManifest, "@open-design/daemon")).toBe("workspace:*");
+    expect(dependencySpecifier(rootManifest, "@nn-design/daemon")).toBe("workspace:*");
     expect(targets.indexOf("packages/release")).toBeGreaterThanOrEqual(0);
     expect(targets.indexOf("packages/contracts")).toBeGreaterThanOrEqual(0);
     expect(targets.indexOf("packages/release")).toBeLessThan(targets.indexOf("packages/contracts"));
@@ -256,16 +256,16 @@ describe("postinstall script contract", () => {
   it("[P2] skips absent tsconfig targets in partial install contexts on the default path", () => {
     const sandbox = createSandbox();
     try {
-      writeTarget(sandbox, "packages/release", { name: "@open-design/release" });
+      writeTarget(sandbox, "packages/release", { name: "@nn-design/release" });
       writeTarget(sandbox, "packages/contracts", {
-        dependencies: { "@open-design/release": "workspace:*" },
-        name: "@open-design/contracts",
+        dependencies: { "@nn-design/release": "workspace:*" },
+        name: "@nn-design/contracts",
       });
       writeTarget(sandbox, "packages/components", {
-        dependencies: { "@open-design/contracts": "workspace:*" },
-        name: "@open-design/components",
+        dependencies: { "@nn-design/contracts": "workspace:*" },
+        name: "@nn-design/components",
       });
-      writeTarget(sandbox, "apps/daemon", { name: "@open-design/daemon", tsconfig: false });
+      writeTarget(sandbox, "apps/daemon", { name: "@nn-design/daemon", tsconfig: false });
       const invocationLog = writePnpmStub(sandbox);
 
       const result = runFixturePostinstall(sandbox, { OPEN_DESIGN_POSTINSTALL_CONCURRENCY: "" });
@@ -287,16 +287,16 @@ describe("postinstall script contract", () => {
   it("[P2] preserves workspace dependency ordering when postinstall builds in parallel", () => {
     const sandbox = createSandbox();
     try {
-      writeTarget(sandbox, "packages/release", { name: "@open-design/release" });
+      writeTarget(sandbox, "packages/release", { name: "@nn-design/release" });
       writeTarget(sandbox, "packages/contracts", {
-        dependencies: { "@open-design/release": "workspace:*" },
-        name: "@open-design/contracts",
+        dependencies: { "@nn-design/release": "workspace:*" },
+        name: "@nn-design/contracts",
       });
       writeTarget(sandbox, "packages/components", {
-        dependencies: { "@open-design/contracts": "workspace:*" },
-        name: "@open-design/components",
+        dependencies: { "@nn-design/contracts": "workspace:*" },
+        name: "@nn-design/components",
       });
-      writeTarget(sandbox, "packages/download", { name: "@open-design/download" });
+      writeTarget(sandbox, "packages/download", { name: "@nn-design/download" });
       const invocationLog = writePnpmStub(sandbox);
 
       const result = runFixturePostinstall(sandbox, { OPEN_DESIGN_POSTINSTALL_CONCURRENCY: "2" });

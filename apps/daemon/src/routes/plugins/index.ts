@@ -5,7 +5,7 @@ import type {
   PluginDuplicateProjectResponse,
   Project,
   ProjectMetadata,
-} from '@open-design/contracts';
+} from '@nn-design/contracts';
 import {
   duplicatePluginExampleIntoProject,
   PluginDuplicateProjectError,

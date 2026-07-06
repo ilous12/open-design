@@ -10,17 +10,17 @@ created: '2026-06-01'
 ### Problem Statement
 
 AMR model discovery currently rides on the general agent probing path. The
-Open Design AMR runtime still calls legacy `vela models`, waits for that
+Design For AIR AMR runtime still calls legacy `vela models`, waits for that
 catalog before `/api/agents` can return AMR model data, and parses
 production-shaped text ids that the new Vela model discovery contract no
-longer wants Open Design to treat as primary.
+longer wants Design For AIR to treat as primary.
 
 The Vela CLI now exposes a split contract:
 
 - `vela model preset --format json`: fast local picker seed.
 - `vela model list --format json`: authoritative remote AMR catalog.
 
-Open Design should use the fast preset to occupy AMR model pickers while a
+Design For AIR should use the fast preset to occupy AMR model pickers while a
 background remote catalog refresh fills a loading cache. `/api/agents` can
 keep its existing compatibility payload, but AMR UI surfaces should not rely
 on `/api/agents` for the AMR model list.
@@ -166,7 +166,7 @@ but AMR picker freshness no longer depends on general agent probing.
   `packages/contracts/src/api/registry.ts:15-18`.
 - Decision: Keep generic `fallback` behavior unchanged. Non-AMR runtime
   probing uses `"fallback"` for static runtime lists, while Vela preset is a
-  CLI-provided local seed, not an Open Design static fallback. Source:
+  CLI-provided local seed, not an Design For AIR static fallback. Source:
   `apps/daemon/src/runtimes/detection.ts:27-60`;
   `/private/tmp/open-design-amr-model-catalog-handoff.md:50-61`.
 - Decision: Parse new Vela JSON by `data[].id` directly and do not apply
@@ -303,7 +303,7 @@ Planned File Changes:
   existing `/api/agents` compatibility. Source:
   `apps/web/src/components/EntryShell.tsx:904-911,1651-1659`.
 - Final validation: run `pnpm guard`, `pnpm typecheck`,
-  `pnpm --filter @open-design/daemon test -- amr-acp-integration`, and
+  `pnpm --filter @nn-design/daemon test -- amr-acp-integration`, and
   focused web tests touched by the implementation. Source:
   `AGENTS.md` "Validation strategy".
 
@@ -358,11 +358,11 @@ Planned File Changes:
 
 ### Verification
 
-- Passed: `pnpm --filter @open-design/daemon exec vitest run -c vitest.config.ts tests/amr-acp-integration.test.ts`.
-- Passed after log-check import fix: `pnpm --filter @open-design/daemon typecheck`.
-- Passed: `pnpm --filter @open-design/daemon exec vitest run -c vitest.config.ts tests/chat-route.test.ts -t "retries transient AMR Link catalog failures"`.
-- Passed: `pnpm --filter @open-design/web exec vitest run -c vitest.config.ts tests/providers/daemon-amr-models.test.ts`.
-- Passed: `pnpm --filter @open-design/daemon typecheck && pnpm --filter @open-design/web typecheck && pnpm --filter @open-design/contracts typecheck`.
+- Passed: `pnpm --filter @nn-design/daemon exec vitest run -c vitest.config.ts tests/amr-acp-integration.test.ts`.
+- Passed after log-check import fix: `pnpm --filter @nn-design/daemon typecheck`.
+- Passed: `pnpm --filter @nn-design/daemon exec vitest run -c vitest.config.ts tests/chat-route.test.ts -t "retries transient AMR Link catalog failures"`.
+- Passed: `pnpm --filter @nn-design/web exec vitest run -c vitest.config.ts tests/providers/daemon-amr-models.test.ts`.
+- Passed: `pnpm --filter @nn-design/daemon typecheck && pnpm --filter @nn-design/web typecheck && pnpm --filter @nn-design/contracts typecheck`.
 - Passed: `pnpm typecheck`.
 - Failed: `pnpm guard` due an existing tools layout violation:
   `tools/pr/ -> tools/ top-level entries are allowlisted; expected only

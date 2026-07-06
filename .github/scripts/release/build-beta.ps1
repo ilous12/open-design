@@ -668,7 +668,7 @@ try {
   }
 
   Measure-Step "tools-pack build" {
-    Invoke-Node24 -Arguments @("pnpm.cmd", "--filter", "@open-design/tools-pack", "build")
+    Invoke-Node24 -Arguments @("pnpm.cmd", "--filter", "@nn-design/tools-pack", "build")
   }
 
   Measure-Step "electron dist repair" {

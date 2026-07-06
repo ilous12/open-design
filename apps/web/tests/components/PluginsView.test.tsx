@@ -2,7 +2,7 @@
 
 import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import type { InstalledPluginRecord, PluginSourceKind, TrustTier } from '@open-design/contracts';
+import type { InstalledPluginRecord, PluginSourceKind, TrustTier } from '@nn-design/contracts';
 import { PluginsView } from '../../src/components/PluginsView';
 import {
   addPluginMarketplace,
@@ -230,7 +230,7 @@ describe('PluginsView', () => {
         url: 'https://open-design.ai/marketplace/open-design-marketplace.json',
         trust: 'official',
         manifest: {
-          name: 'Open Design Official',
+          name: 'Design For AIR Official',
           version: '1.0.0',
           plugins: [
             {
@@ -632,7 +632,7 @@ describe('PluginsView', () => {
         url: 'https://open-design.ai/marketplace/open-design-marketplace.json',
         trust: 'official',
         manifest: {
-          name: 'Open Design Official',
+          name: 'Design For AIR Official',
           version: '0.1.0',
           plugins: [{
             name: 'open-design/official-plugin',
@@ -722,14 +722,14 @@ describe('PluginsView', () => {
         'bundled',
         'bundled',
         'Publish Plugin to GitHub',
-        'Creates a public GitHub repository for a local Open Design plugin using the GitHub CLI.',
+        'Creates a public GitHub repository for a local Design For AIR plugin using the GitHub CLI.',
       ),
       makePlugin(
         'od-plugin-contribute-open-design',
         'bundled',
         'bundled',
-        'Contribute Plugin to Open Design',
-        'Opens a pull request that adds a local Open Design plugin to the Open Design community catalog.',
+        'Contribute Plugin to Design For AIR',
+        'Opens a pull request that adds a local Design For AIR plugin to the Design For AIR community catalog.',
       ),
     ]);
     const onCreatePluginShareProject = vi.fn(async (): Promise<PluginShareProjectOutcome> => ({

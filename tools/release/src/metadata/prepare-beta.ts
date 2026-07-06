@@ -10,7 +10,7 @@ import {
   parseCountedReleaseVersion,
   parseReleaseBaseVersion,
   type ReleaseBaseVersionTuple,
-} from "@open-design/release";
+} from "@nn-design/release";
 
 const execFile = promisify(execFileCallback);
 
@@ -344,7 +344,7 @@ if (latestBeta != null) {
 const betaVersion = `${packagedVersion}-beta.${betaNumber}`;
 const branch = process.env.GITHUB_REF_NAME ?? "";
 const commit = process.env.GITHUB_SHA ?? "";
-const releaseName = `Open Design Beta ${betaVersion}`;
+const releaseName = `Design For AIR Beta ${betaVersion}`;
 
 console.log(`[release-beta] channel: beta`);
 console.log(`[release-beta] base version: ${packagedVersion}`);

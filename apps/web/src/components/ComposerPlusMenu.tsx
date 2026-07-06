@@ -13,7 +13,7 @@ import type {
   InstalledPluginRecord,
   McpServerConfig,
   SkillSummary,
-} from '@open-design/contracts';
+} from '@nn-design/contracts';
 import { useI18n, useT } from '../i18n';
 import type { Locale } from '../i18n/types';
 import { LIBRARY_UI_VISIBLE } from '../features/libraryUi';

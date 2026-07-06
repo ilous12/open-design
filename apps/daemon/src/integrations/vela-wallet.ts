@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 
-import type { AmrWalletSnapshot } from '@open-design/contracts';
+import type { AmrWalletSnapshot } from '@nn-design/contracts';
 
 import {
   readVelaControlApiContext,

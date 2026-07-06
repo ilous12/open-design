@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-import type { ProjectFileVersionPromptSource } from '@open-design/contracts';
+import type { ProjectFileVersionPromptSource } from '@nn-design/contracts';
 
 import { ensureCurrentProjectFileVersion } from './project-file-versions.js';
 import type { RunArtifactDiff } from './run-artifact-fs.js';

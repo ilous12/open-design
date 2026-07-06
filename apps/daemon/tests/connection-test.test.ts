@@ -9,7 +9,7 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { Socks5ProxyAgent } from 'undici';
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
-import * as platform from '@open-design/platform';
+import * as platform from '@nn-design/platform';
 import {
   createAgentSink,
   isSmokeOkReply,
@@ -2355,7 +2355,7 @@ console.log(JSON.stringify({ type: 'item.completed', item: { type: 'agent_messag
 setImmediate(() => process.exit(0));
 `,
         async () => {
-          // These keys come from the process environment, not Open Design
+          // These keys come from the process environment, not Design For AIR
           // BYOK/agentCliEnv. Preserve them so local CLI API-key auth works.
           const res = await realFetch(`${baseUrl}/api/test/connection`, {
             method: 'POST',

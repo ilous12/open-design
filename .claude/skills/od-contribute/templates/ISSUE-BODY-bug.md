@@ -10,7 +10,7 @@
 
 {{EXPECTED}}
 
-### Open Design version
+### Design For AIR version
 
 {{OD_VERSION}}
 

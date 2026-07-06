@@ -1,4 +1,4 @@
-import type { Brand, BrandColorRole } from '@open-design/contracts';
+import type { Brand, BrandColorRole } from '@nn-design/contracts';
 import {
   deleteProjectFile,
   fetchProjectFileText,

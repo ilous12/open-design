@@ -6,7 +6,7 @@ import { BrowserWindow } from "electron";
 import type {
   DesktopExportArtifactInput,
   DesktopExportArtifactResult,
-} from "@open-design/sidecar-proto";
+} from "@nn-design/sidecar-proto";
 
 import { DECK_PAGE_SIZE, DECK_PRINT_CSS, inferPageSize, waitForPrintableContent } from "./pdf-export.js";
 

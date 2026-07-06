@@ -14,7 +14,7 @@ import {
   releaseNamespace,
   type ReleaseBaseVersionTuple,
   type ReleaseChannel,
-} from "@open-design/release";
+} from "@nn-design/release";
 
 const execFile = promisify(execFileCallback);
 
@@ -589,7 +589,7 @@ if (latestStable != null && compareReleaseBaseVersions(packagedParsed, latestSta
 }
 
 let releaseVersion = packagedVersion;
-let releaseName = `Open Design ${packagedVersion}`;
+let releaseName = `Design For AIR ${packagedVersion}`;
 let prereleaseNumber = "";
 let stateSource = channel === "prerelease" ? "R2 metadata.json" : "GitHub Releases";
 
@@ -631,7 +631,7 @@ if (channel === "prerelease") {
 
   prereleaseNumber = String(nextPrereleaseNumber);
   releaseVersion = formatReleaseVersion("prerelease", packagedVersion, nextPrereleaseNumber);
-  releaseName = `Open Design Prerelease ${releaseVersion}`;
+  releaseName = `Design For AIR Prerelease ${releaseVersion}`;
   log(`latest prerelease: ${latestPrerelease.prereleaseVersion}`);
 } else {
   const stablePrerelease = await validateStablePrereleaseMetadata({

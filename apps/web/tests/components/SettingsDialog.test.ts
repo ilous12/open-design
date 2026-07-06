@@ -22,7 +22,7 @@ import {
   updateCurrentApiProtocolConfig,
 } from '../../src/components/SettingsDialog';
 import { deriveUpdaterModel } from '../../src/lib/updater';
-import type { OpenDesignHostUpdaterStatusSnapshot } from '@open-design/host';
+import type { OpenDesignHostUpdaterStatusSnapshot } from '@nn-design/host';
 import type { AppConfig, AppVersionInfo, ConnectionTestResponse } from '../../src/types';
 
 const originalFetch = globalThis.fetch;
@@ -131,10 +131,10 @@ describe('SettingsDialog about update control', () => {
           incoming: {
             arch: 'arm64',
             artifact: {
-              name: 'Open Design Beta.dmg',
+              name: 'Design For AIR Beta.dmg',
               platformKey: 'macAppleSilicon',
               type: 'dmg',
-              url: 'https://fixture.test/Open Design Beta.dmg',
+              url: 'https://fixture.test/Design For AIR Beta.dmg',
             },
             channel: 'beta',
             progress: {
@@ -164,13 +164,13 @@ describe('SettingsDialog about update control', () => {
       deriveUpdaterModel(
         updateStatus({
           artifact: {
-            name: 'Open Design Beta.dmg',
+            name: 'Design For AIR Beta.dmg',
             platformKey: 'macAppleSilicon',
             type: 'dmg',
-            url: 'https://fixture.test/Open Design Beta.dmg',
+            url: 'https://fixture.test/Design For AIR Beta.dmg',
           },
           availableVersion: '1.2.3-beta.4',
-          downloadPath: '/tmp/Open Design Beta.dmg',
+          downloadPath: '/tmp/Design For AIR Beta.dmg',
           state: 'downloaded',
         }),
         { hostAvailable: true },
@@ -224,17 +224,17 @@ describe('SettingsDialog about update control', () => {
       deriveUpdaterModel(
         updateStatus({
           artifact: {
-            name: 'Open Design Beta.dmg',
+            name: 'Design For AIR Beta.dmg',
             platformKey: 'macAppleSilicon',
             type: 'dmg',
-            url: 'https://fixture.test/Open Design Beta.dmg',
+            url: 'https://fixture.test/Design For AIR Beta.dmg',
           },
           availableVersion: '1.2.3-beta.4',
-          downloadPath: '/tmp/Open Design Beta.dmg',
+          downloadPath: '/tmp/Design For AIR Beta.dmg',
           installResult: {
             dryRun: true,
             openedAt: '2026-05-19T00:00:00.000Z',
-            path: '/tmp/Open Design Beta.dmg',
+            path: '/tmp/Design For AIR Beta.dmg',
           },
           state: 'downloaded',
         }),

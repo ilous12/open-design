@@ -5,8 +5,8 @@ import {
   SIDECAR_ENV,
   SIDECAR_MESSAGES,
   type DaemonStatusSnapshot,
-} from "@open-design/sidecar-proto";
-import { requestJsonIpc } from "@open-design/sidecar";
+} from "@nn-design/sidecar-proto";
+import { requestJsonIpc } from "@nn-design/sidecar";
 
 export const DEFAULT_DAEMON_URL = "http://127.0.0.1:7456";
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../..");

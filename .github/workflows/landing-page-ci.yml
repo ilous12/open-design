@@ -97,10 +97,10 @@ jobs:
         uses: ./.github/actions/setup-playwright
         with:
           package-json-path: apps/landing-page/package.json
-          install-command: pnpm --filter @open-design/landing-page exec playwright install --with-deps chromium
+          install-command: pnpm --filter @nn-design/landing-page exec playwright install --with-deps chromium
 
       - name: Typecheck landing page
-        run: pnpm --filter @open-design/landing-page typecheck
+        run: pnpm --filter @nn-design/landing-page typecheck
 
       # Generate the per-skill / per-template thumbnail PNGs *before*
       # the build so they ship in `out/previews/` automatically. The
@@ -114,7 +114,7 @@ jobs:
         # hit keeps cache-hit false, so we still regenerate — no stale-thumbnail
         # drift.
         if: steps.previews-cache.outputs.cache-hit != 'true'
-        run: pnpm --filter @open-design/landing-page previews
+        run: pnpm --filter @nn-design/landing-page previews
 
       # No PUBLIC_GA_MEASUREMENT_ID for PR/CI builds: the per-PR preview must
       # not report into the production GA property. OD_LANDING_NOINDEX=1 keeps
@@ -123,7 +123,7 @@ jobs:
       - name: Build landing page
         env:
           OD_LANDING_NOINDEX: '1'
-        run: pnpm --filter @open-design/landing-page build:static
+        run: pnpm --filter @nn-design/landing-page build:static
 
       - name: Lint changed blog SEO
         # The build above sets OD_LANDING_NOINDEX=1, so every rendered page in
@@ -140,7 +140,7 @@ jobs:
             # blog-indexing scripts' assertSafeGitRef rejects (no "^" allowed).
             BASE="$(git rev-parse HEAD^)"
           fi
-          pnpm --filter @open-design/landing-page exec tsx scripts/blog-indexing/lint-blog-seo.ts \
+          pnpm --filter @nn-design/landing-page exec tsx scripts/blog-indexing/lint-blog-seo.ts \
             --base "$BASE" \
             --head HEAD \
             --rendered-out apps/landing-page/out
@@ -154,7 +154,7 @@ jobs:
             # blog-indexing scripts' assertSafeGitRef rejects (no "^" allowed).
             BASE="$(git rev-parse HEAD^)"
           fi
-          pnpm --filter @open-design/landing-page exec tsx scripts/blog-indexing/check-blog-url-changes.ts \
+          pnpm --filter @nn-design/landing-page exec tsx scripts/blog-indexing/check-blog-url-changes.ts \
             --base "$BASE" \
             --head HEAD
 

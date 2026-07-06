@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Open Design needs imported design systems to satisfy four stakeholders at
+Design For AIR needs imported design systems to satisfy four stakeholders at
 once:
 
 - **Push channel**: system-prompt injection must stay small, dense,

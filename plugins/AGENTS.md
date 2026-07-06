@@ -1,6 +1,6 @@
 # Plugin Directory Guide
 
-This directory owns Open Design plugin content and plugin authoring material.
+This directory owns Design For AIR plugin content and plugin authoring material.
 
 ## Boundaries
 
@@ -25,7 +25,7 @@ For plugin content changes, run:
 
 ```bash
 pnpm guard
-pnpm --filter @open-design/plugin-runtime typecheck
+pnpm --filter @nn-design/plugin-runtime typecheck
 ```
 
 When the daemon CLI is built and available, also validate runnable plugin folders with:

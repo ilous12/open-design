@@ -1,9 +1,9 @@
 {
-  "name": "@open-design/release",
+  "name": "@nn-design/release",
   "version": "0.12.1",
   "private": true,
   "type": "module",
-  "description": "Open Design release domain primitives.",
+  "description": "Design For AIR release domain primitives.",
   "main": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [

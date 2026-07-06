@@ -1,6 +1,6 @@
-# Open Design — Nix flake
+# Design For AIR — Nix flake
 
-This flake exposes Open Design as a reproducible package, a `nix run` entry
+This flake exposes Design For AIR as a reproducible package, a `nix run` entry
 point, a dev shell, and Home Manager / NixOS modules. The architecture
 mirrors the runtime: the **daemon** (`od` CLI, Express API on `/api/*`)
 and the **web frontend** (Next.js static SPA at `apps/web/out/`) are
@@ -11,7 +11,7 @@ both.
 
 | Output                                     | What it is                                                                             |
 | ------------------------------------------ | -------------------------------------------------------------------------------------- |
-| `packages.<system>.daemon`                 | The `@open-design/daemon` package — produces `bin/od`. Default output.                 |
+| `packages.<system>.daemon`                 | The `@nn-design/daemon` package — produces `bin/od`. Default output.                 |
 | `packages.<system>.web`                    | The Next.js static export (`apps/web/out/`) ready to drop into any static file server. |
 | `apps.<system>.default`                    | `nix run github:nexu-io/open-design` — boots the daemon.                               |
 | `devShells.<system>.default`               | Node 24 + Corepack-pinned pnpm 10.33 — reproduces `pnpm install` locally.              |
@@ -86,7 +86,7 @@ configuration prefer the Home Manager module.
 
 ## (3) `webFrontend` — when to use it, when to bring your own server
 
-Open Design's frontend is a static SPA that issues relative `/api/*`,
+Design For AIR's frontend is a static SPA that issues relative `/api/*`,
 `/artifacts/*`, and `/frames/*` requests. Three serving options:
 
 | Option                                 | When                                                                                                                                                                                                              |
@@ -177,7 +177,7 @@ If you serve the static bundle yourself, replicate that shape:
   response compression.
 - SPA fallback for unmatched paths → `index.html`.
 
-The static-server's environment does not need any Open Design env
+The static-server's environment does not need any Design For AIR env
 vars — but **the daemon's environment usually does**, because its
 same-origin gate is built from `OD_BIND_HOST:port` (loopback hosts
 included). The browser's `Origin` and `Host` are whatever your proxy

@@ -1,4 +1,4 @@
-import type { InputFieldSpec } from '@open-design/contracts';
+import type { InputFieldSpec } from '@nn-design/contracts';
 import type { Locale } from './types';
 
 type PluginChromeKey =

@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 
 import { renderHook, waitFor } from '@testing-library/react';
-import type { ProjectMetadata } from '@open-design/contracts';
+import type { ProjectMetadata } from '@nn-design/contracts';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { useBrandReadyPrompt } from '../../src/runtime/useBrandReadyPrompt';

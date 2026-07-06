@@ -168,7 +168,7 @@ const HOME_PLUGINS = [
       name: 'example-live-artifact',
       title: 'Live Artifact',
       version: '0.1.0',
-      description: 'Create refreshable, auditable Open Design artifacts.',
+      description: 'Create refreshable, auditable Design For AIR artifacts.',
       od: {
         kind: 'scenario',
         taskKind: 'new-generation',
@@ -176,7 +176,7 @@ const HOME_PLUGINS = [
         scenario: 'live',
         useCase: {
           query:
-            'Create refreshable, auditable Open Design artifacts backed by connector or local data.',
+            'Create refreshable, auditable Design For AIR artifacts backed by connector or local data.',
         },
       },
     },
@@ -327,7 +327,7 @@ const PROMPT_TEMPLATES = [
 ];
 
 async function waitForLoadingToClear(page: Page) {
-  await expect(page.getByText('Loading Open Design…')).toHaveCount(0, { timeout: 15_000 });
+  await expect(page.getByText('Loading Design For AIR…')).toHaveCount(0, { timeout: 15_000 });
 }
 
 async function seedBrowserConfig(page: Page, config: Record<string, unknown>) {
@@ -352,7 +352,7 @@ async function seedBrowserLocale(page: Page, locale: string) {
 async function gotoEntryHome(page: Page) {
   await page.goto('/', { waitUntil: 'domcontentloaded' });
   await waitForLoadingToClear(page);
-  const privacyDialog = page.getByRole('dialog').filter({ hasText: 'Help us improve Open Design' });
+  const privacyDialog = page.getByRole('dialog').filter({ hasText: 'Help us improve Design For AIR' });
   if (await privacyDialog.isVisible().catch(() => false)) {
     await privacyDialog.getByRole('button', { name: /I get it|not now|got it|don't share/i }).click();
   }
@@ -1046,7 +1046,7 @@ test('[P1] selecting another example updates the composer input', async ({ page 
   await page
     .locator('[data-testid="home-hero-plugin-preset"][data-plugin-id="example-live-artifact"]')
     .click();
-  await expect(input).toHaveText('Create refreshable, auditable Open Design artifacts backed by connector or local data.');
+  await expect(input).toHaveText('Create refreshable, auditable Design For AIR artifacts backed by connector or local data.');
 });
 
 async function expectChipSelection(page: Page, chipId: string, _label: string) {

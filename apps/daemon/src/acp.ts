@@ -1,7 +1,7 @@
 import { spawn, type ChildProcess } from 'node:child_process';
 import type { Writable } from 'node:stream';
 import path from 'node:path';
-import type { ExecutionProfile } from '@open-design/contracts';
+import type { ExecutionProfile } from '@nn-design/contracts';
 import {
   createDsmlArtifactTextSuppressor,
   createToolCallTextSuppressor,
@@ -1309,7 +1309,7 @@ export function attachAcpSession({
     clearStageTimer();
     stdin.end();
     // Some ACP agents keep the child process alive after stdin closes,
-    // waiting for another prompt. Each Open Design run owns one process per
+    // waiting for another prompt. Each Design For AIR run owns one process per
     // turn, so close it once this prompt is cleanly complete.
     const cleanExitTimer = setTimeout(() => {
       if (!child.killed) child.kill('SIGTERM');

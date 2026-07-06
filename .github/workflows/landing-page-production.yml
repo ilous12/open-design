@@ -103,10 +103,10 @@ jobs:
           key: playwright-${{ runner.os }}-${{ steps.playwright-version.outputs.version }}
 
       - name: Install Playwright Chromium
-        run: pnpm --filter @open-design/landing-page exec playwright install --with-deps chromium
+        run: pnpm --filter @nn-design/landing-page exec playwright install --with-deps chromium
 
       - name: Typecheck landing page
-        run: pnpm --filter @open-design/landing-page typecheck
+        run: pnpm --filter @nn-design/landing-page typecheck
 
       # Generate previews before build so they end up in `out/previews/`.
       # Soft vs. hard failure is enforced inside the script itself:
@@ -120,12 +120,12 @@ jobs:
         # hit keeps cache-hit false, so we still regenerate — no stale-thumbnail
         # drift.
         if: steps.previews-cache.outputs.cache-hit != 'true'
-        run: pnpm --filter @open-design/landing-page previews
+        run: pnpm --filter @nn-design/landing-page previews
 
       - name: Build landing page
         env:
           PUBLIC_GA_MEASUREMENT_ID: ${{ vars.PUBLIC_GA_MEASUREMENT_ID }}
-        run: pnpm --filter @open-design/landing-page build:static
+        run: pnpm --filter @nn-design/landing-page build:static
 
       - name: Verify zero external JavaScript
         run: |

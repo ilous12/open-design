@@ -1,5 +1,5 @@
 {
-  "name": "@open-design/sidecar-proto",
+  "name": "@nn-design/sidecar-proto",
   "version": "0.12.1",
   "private": true,
   "type": "module",
@@ -20,7 +20,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.tests.json --noEmit"
   },
   "dependencies": {
-    "@open-design/release": "workspace:*"
+    "@nn-design/release": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "24.12.2",

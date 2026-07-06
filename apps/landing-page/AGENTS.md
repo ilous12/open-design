@@ -6,7 +6,7 @@ records module-level boundaries for `apps/landing-page/`.
 ## Purpose
 
 `apps/landing-page` is a stand-alone static Astro site that renders
-the Open Design marketing surface in the **Atelier Zero** style and
+the Design For AIR marketing surface in the **Atelier Zero** style and
 ships per-facet catalog pages for every skill, design system, craft
 principle, and live-artifact template in the repo root.
 
@@ -70,9 +70,9 @@ Tightly coupled with:
 ## Boundary constraints
 
 - Must remain a static Astro output.
-- Must not import from `@open-design/web`, `@open-design/daemon`,
-  `@open-design/desktop`, `@open-design/sidecar*`, or
-  `@open-design/contracts`. Those are product runtime concerns.
+- Must not import from `@nn-design/web`, `@nn-design/daemon`,
+  `@nn-design/desktop`, `@nn-design/sidecar*`, or
+  `@nn-design/contracts`. Those are product runtime concerns.
 - Must not introduce a `src/` shell — keep all source under `app/`.
   Component bundles live in `app/_components/<name>.{tsx,astro}`.
 - Must not depend on any non-Google web font.
@@ -132,10 +132,10 @@ feature.
 ## Common commands
 
 ```bash
-pnpm --filter @open-design/landing-page dev          # http://127.0.0.1:17574
-pnpm --filter @open-design/landing-page typecheck
-pnpm --filter @open-design/landing-page previews     # render thumbnails
-pnpm --filter @open-design/landing-page build        # static export → out/
+pnpm --filter @nn-design/landing-page dev          # http://127.0.0.1:17574
+pnpm --filter @nn-design/landing-page typecheck
+pnpm --filter @nn-design/landing-page previews     # render thumbnails
+pnpm --filter @nn-design/landing-page build        # static export → out/
 ```
 
 ## When to update this app

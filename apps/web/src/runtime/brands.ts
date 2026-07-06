@@ -14,7 +14,7 @@ import type {
   BrandExtractFromHtmlRequest,
   BrandFinalizeResponse,
   BrandSummary,
-} from '@open-design/contracts';
+} from '@nn-design/contracts';
 
 // One-shot cross-route handoff: the design-system id a navigation wants the
 // Design systems tab to preselect when it mounts. ProjectView's "design system

@@ -7,7 +7,7 @@ import {
   type CSSProperties,
 } from 'react';
 import { createPortal } from 'react-dom';
-import { Button } from '@open-design/components';
+import { Button } from '@nn-design/components';
 import { Icon, type IconName } from './Icon';
 import { ConnectorLogo, useResolvedTheme } from './ConnectorLogo';
 import { useT } from '../i18n';
@@ -31,7 +31,7 @@ import type {
   MemoryTreeNode,
   MemorySuggestion,
   MemoryType,
-} from '@open-design/contracts';
+} from '@nn-design/contracts';
 import {
   connectConnector,
   fetchConnectorStatuses,

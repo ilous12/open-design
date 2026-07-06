@@ -1,5 +1,5 @@
 {
-  "name": "@open-design/desktop",
+  "name": "@nn-design/desktop",
   "version": "0.12.1",
   "private": true,
   "type": "module",
@@ -19,14 +19,14 @@
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.tests.json --noEmit"
   },
   "dependencies": {
-    "@open-design/diagnostics": "workspace:*",
-    "@open-design/download": "workspace:*",
-    "@open-design/host": "workspace:*",
-    "@open-design/launcher-proto": "workspace:*",
-    "@open-design/platform": "workspace:*",
-    "@open-design/release": "workspace:*",
-    "@open-design/sidecar": "workspace:*",
-    "@open-design/sidecar-proto": "workspace:*"
+    "@nn-design/diagnostics": "workspace:*",
+    "@nn-design/download": "workspace:*",
+    "@nn-design/host": "workspace:*",
+    "@nn-design/launcher-proto": "workspace:*",
+    "@nn-design/platform": "workspace:*",
+    "@nn-design/release": "workspace:*",
+    "@nn-design/sidecar": "workspace:*",
+    "@nn-design/sidecar-proto": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "24.12.2",

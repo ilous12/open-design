@@ -35,7 +35,7 @@ import {
   streamViaDaemon,
 } from '../providers/daemon';
 import { fetchElevenLabsVoiceOptions } from '../providers/elevenlabs-voices';
-import { normalizeCustomReason } from '@open-design/contracts/analytics';
+import { normalizeCustomReason } from '@nn-design/contracts/analytics';
 import {
   deletePreviewComment,
   fetchConnectorStatuses,
@@ -61,19 +61,19 @@ import {
   type AudioVoiceOption,
   type MemorySystemPromptResponse,
   type ResearchOptions,
-} from '@open-design/contracts';
+} from '@nn-design/contracts';
 import {
   anonymizeArtifactId,
   artifactKindToTracking,
   projectKindFromMetadataToTracking,
   projectKindToTracking,
-} from '@open-design/contracts/analytics';
+} from '@nn-design/contracts/analytics';
 import type {
   TrackingArtifactKind,
   TrackingDesignSystemApplyTargetKind,
   TrackingDesignSystemOrigin,
   TrackingDesignSystemStatusValue,
-} from '@open-design/contracts/analytics';
+} from '@nn-design/contracts/analytics';
 import { useAnalytics } from '../analytics/provider';
 import {
   trackArtifactHeaderClick,
@@ -117,7 +117,7 @@ import {
   extractBrandFromHtml,
   finalizeBrandProject,
 } from '../runtime/brands';
-import { isOpenDesignHostAvailable } from '@open-design/host';
+import { isOpenDesignHostAvailable } from '@nn-design/host';
 import {
   getBrandBrowser,
   BRAND_BROWSER_TAB_ID,
@@ -173,7 +173,7 @@ import type {
   InstalledPluginRecord,
   RunContextSelection,
   WorkspaceContextItem,
-} from '@open-design/contracts';
+} from '@nn-design/contracts';
 import type {
   AgentEvent,
   AgentInfo,
@@ -582,7 +582,7 @@ function buildCreateDesignSystemFromProjectPrompt(input: {
       ]
     : ['- Active design system: (none)'];
   return [
-    'Create this project as a complete Open Design design system workspace.',
+    'Create this project as a complete Design For AIR design system workspace.',
     '',
     'Autonomy requirement:',
     '- Do not ask setup or clarification questions during design-system generation.',
@@ -671,7 +671,7 @@ function historyWithWorkspaceContext(
     '',
     '',
     '<active-workspace-context>',
-    'Open Design selected or inferred these workspace contexts for this turn. Treat absolute paths as reference context unless the user explicitly asks to edit them.',
+    'Design For AIR selected or inferred these workspace contexts for this turn. Treat absolute paths as reference context unless the user explicitly asks to edit them.',
     ...items.map((item, index) => {
       const details = [
         item.path ? `path: ${item.path}` : null,
@@ -5879,7 +5879,7 @@ export function ProjectView({
     ],
   );
 
-  // "Share to Open Design" — kicks off the bundled `od-share-to-community`
+  // "Share to Design For AIR" — kicks off the bundled `od-share-to-community`
   // scenario in the active conversation. We just inject the trigger prompt
   // through the standard chat-send path; the agent then loads SKILL.md and
   // drives the rest. Keep this preparing state alive for the resulting chat
@@ -8275,7 +8275,7 @@ function latestDesignSystemActivityEvents(messages: ChatMessage[]): AgentEvent[]
 }
 
 function pluginWorkflowTitle(action: PluginFolderAgentAction): string {
-  return action === 'publish' ? 'Publish repo' : 'Open Design PR';
+  return action === 'publish' ? 'Publish repo' : 'Design For AIR PR';
 }
 
 function pluginWorkflowCliCommand(action: PluginFolderAgentAction, relativePath: string): string {
@@ -8294,7 +8294,7 @@ function pluginWorkflowPlannedSteps(action: PluginFolderAgentAction): string[] {
     ];
   }
   return [
-    'Ensure the Open Design fork exists',
+    'Ensure the Design For AIR fork exists',
     'Clone the fork and prepare a branch',
     'Copy the plugin into plugins/community',
     'Push the branch and open the PR form',

@@ -9,7 +9,7 @@ created: '2026-06-08'
 
 ### Problem Statement
 
-Packaged Open Design needs a hidden desktop Develop menu for AMR testing.
+Packaged Design For AIR needs a hidden desktop Develop menu for AMR testing.
 Testers should be able to switch the packaged runtime's AMR Environment
 Profile among `local`, `test`, and `prod` while reusing the same bundled Vela
 / AMR CLI binary.
@@ -26,7 +26,7 @@ Profile among `local`, `test`, and `prod` while reusing the same bundled Vela
 ### Non-Goals
 
 - Do not change the AMR CLI binary selection model.
-- Do not redefine Open Design release channels as AMR environments.
+- Do not redefine Design For AIR release channels as AMR environments.
 - Do not change AMR account login semantics.
 - Do not add mock or placeholder profile behavior.
 
@@ -58,7 +58,7 @@ Profile among `local`, `test`, and `prod` while reusing the same bundled Vela
   `apps/desktop/src/main/index.ts:233-245`.
 - Packaged desktop passes a real daemon HTTP URL to desktop main through
   `discoverDaemonUrl`; comments state Node-side fetch must target the daemon
-  sidecar HTTP URL, not the `od://app/` renderer URL. Source:
+  sidecar HTTP URL, not the `nd://app/` renderer URL. Source:
   `apps/packaged/src/index.ts:148-156`.
 - `DesktopMainOptions` already models `discoverDaemonUrl` for packaged
   main-process API calls. Source: `apps/desktop/src/main/index.ts:105-117`.
@@ -458,14 +458,14 @@ Depends on: Step 1, Step 2, Step 3
   from `apps/daemon`: passed.
 - `pnpm exec vitest run -c vitest.config.ts tests/main/amr-environment-profile-menu.test.ts`
   from `apps/desktop`: passed.
-- `pnpm --filter @open-design/daemon typecheck`: passed.
-- `pnpm --filter @open-design/desktop typecheck`: passed.
+- `pnpm --filter @nn-design/daemon typecheck`: passed.
+- `pnpm --filter @nn-design/desktop typecheck`: passed.
 - `pnpm typecheck`: passed.
 - `pnpm guard`: failed on the pre-existing `tools/pr/` top-level tools
   allowlist violation. The initial sandbox run also failed before checks with
   `listen EPERM` from `tsx`; the elevated rerun reached repository checks and
   failed only on `tools/pr/`.
-- An accidental broad `pnpm --filter @open-design/daemon test --
+- An accidental broad `pnpm --filter @nn-design/daemon test --
   tests/runtimes/resolve-model.test.ts` run invoked the wider daemon suite and
   reported unrelated existing failures/timeouts; focused daemon coverage above
   passed with the direct Vitest command.

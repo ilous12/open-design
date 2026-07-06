@@ -4,7 +4,7 @@
 // upload, agent task, design-system staging, AI generation) with a source
 // badge, a kind badge, and back-links. Captures from the browser extension
 // stream in live over the `/api/library/events` SSE feed. The OD Clipper is
-// zero-config — it connects automatically whenever Open Design is running
+// zero-config — it connects automatically whenever Design For AIR is running
 // locally, so there is no pairing step here.
 //
 // Each card thumbnail is kind-aware (image / video / html / font / color) and
@@ -17,7 +17,7 @@
 // Library surface is a tracked follow-up.
 
 import { memo, useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
-import type { ChatAttachment, DesignSystemSummary, LibraryAsset } from '@open-design/contracts';
+import type { ChatAttachment, DesignSystemSummary, LibraryAsset } from '@nn-design/contracts';
 import {
   applyLibraryAsset,
   deleteLibraryAsset,
@@ -35,7 +35,7 @@ import { useInView } from './plugins-home/useInView';
 import { navigate } from '../router';
 import { setPendingDesignSystemCreateEntry } from '../analytics/ds-create-entry';
 import { setComposerSeed, setDesignSystemAssetSeed, setHomeComposerAssetSeed } from '../state/libraryHandoff';
-import { Button, Dialog, DialogDescription, DialogFooter, DialogTitle } from '@open-design/components';
+import { Button, Dialog, DialogDescription, DialogFooter, DialogTitle } from '@nn-design/components';
 import { Icon } from './Icon';
 import {
   KindIcon,
@@ -1115,7 +1115,7 @@ export function LibrarySection({ active, onOpenProject }: Props) {
             rel="noreferrer"
           >
             <Icon name="download" size={15} />
-            Get the Open Design Web Clipper
+            Get the Design For AIR Web Clipper
           </a>
         </div>
       </header>
@@ -1285,7 +1285,7 @@ export function LibrarySection({ active, onOpenProject }: Props) {
         <div className={styles.empty}>
           <p>No assets yet.</p>
           <p className={styles.emptyHint}>
-            Clip from any page with the Open Design Web Clipper, run{' '}
+            Clip from any page with the Design For AIR Web Clipper, run{' '}
             <code>od library import &lt;file&gt;</code>, or upload inside a project — everything
             lands here.
           </p>

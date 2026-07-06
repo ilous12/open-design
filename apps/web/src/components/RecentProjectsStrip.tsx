@@ -8,7 +8,7 @@
 
 import type { CSSProperties } from 'react';
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
-import { Dialog, DialogDescription, DialogFooter, DialogTitle } from '@open-design/components';
+import { Dialog, DialogDescription, DialogFooter, DialogTitle } from '@nn-design/components';
 import { useT } from '../i18n';
 import { fetchProjectFiles, fetchProjectFileText, projectFileUrl } from '../providers/registry';
 import type { DesignSystemSummary, Project, ProjectDisplayStatus, ProjectFile } from '../types';

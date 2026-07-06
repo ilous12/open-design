@@ -305,7 +305,7 @@ async function uploadFile(name, content) {
     `/api/projects/${encodeURIComponent(projectId)}/conversations/${encodeURIComponent(conversationId)}/messages/u-fixture`,
     {
       role: "user",
-      content: "Create a small Open Design plugin.",
+      content: "Create a small Design For AIR plugin.",
       createdAt: now - 2000,
     },
   );
@@ -1113,8 +1113,8 @@ docker run -d \
       pnpm install --frozen-lockfile
 
       echo "== prebuild =="
-      pnpm --filter @open-design/daemon build
-      pnpm --filter @open-design/tools-dev build
+      pnpm --filter @nn-design/daemon build
+      pnpm --filter @nn-design/tools-dev build
 
       if [ "${OD_DETERMINISTIC_VERIFIER}" = "web-static-export" ]; then
         echo "== deterministic verifier: web-static-export =="
@@ -1122,7 +1122,7 @@ docker run -d \
         (
           set -euo pipefail
           rm -rf apps/web/out apps/web/.next
-          OD_WEB_OUTPUT_MODE=server sh -lc '"'"'OD_WEB_OUTPUT_MODE= pnpm --filter @open-design/web build && test -d apps/web/out'"'"'
+          OD_WEB_OUTPUT_MODE=server sh -lc '"'"'OD_WEB_OUTPUT_MODE= pnpm --filter @nn-design/web build && test -d apps/web/out'"'"'
           test -f apps/web/out/index.html
         ) > /artifacts/deterministic-verifier.log 2>&1
         verifier_status=$?
@@ -1212,7 +1212,7 @@ This PR changes the web deployment/static-export path rather than an interactive
 
 \`\`\`bash
 rm -rf apps/web/out apps/web/.next
-OD_WEB_OUTPUT_MODE=server sh -c 'OD_WEB_OUTPUT_MODE= pnpm --filter @open-design/web build && test -d apps/web/out'
+OD_WEB_OUTPUT_MODE=server sh -c 'OD_WEB_OUTPUT_MODE= pnpm --filter @nn-design/web build && test -d apps/web/out'
 test -f apps/web/out/index.html
 \`\`\`
 

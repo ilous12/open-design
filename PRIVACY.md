@@ -1,10 +1,10 @@
 # Privacy
 
-This page describes what data the Open Design desktop and web app collects,
+This page describes what data the Design For AIR desktop and web app collects,
 when it collects it, and how you stay in control. It documents the behavior
 shipped in the app — the same controls live under **Settings → Privacy**.
 
-Open Design is **local-first**. Your projects, generated files, and BYOK API
+Design For AIR is **local-first**. Your projects, generated files, and BYOK API
 keys stay on your machine, and the app works fully offline. Usage telemetry,
 described below, is the one category of data the app may send — it is **on by
 default**, and you can turn it off at any time under **Settings → Privacy**.
@@ -23,7 +23,7 @@ below — and you can change your decision at any time.
 
 ## What is collected
 
-When telemetry is enabled, the app may send the following to the Open Design
+When telemetry is enabled, the app may send the following to the Design For AIR
 team. Each category is independently controllable in Settings.
 
 - **Anonymous metrics** — run counts, token usage, error rate, and duration.
@@ -45,7 +45,7 @@ team. Each category is independently controllable in Settings.
 ## How telemetry is sent
 
 Redacted telemetry batches are sent to a Cloudflare Worker relay operated by
-the Open Design team, which forwards them to [Langfuse](https://langfuse.com)
+the Design For AIR team, which forwards them to [Langfuse](https://langfuse.com)
 for analysis. The relay holds the Langfuse write credentials server-side, so
 packaged clients only ever ship a public relay URL — no secret keys. If the
 relay is unavailable the app retries quietly and keeps working; telemetry
@@ -65,13 +65,13 @@ policy.
 
 ## Bring your own key
 
-Open Design is BYOK at every layer. The API keys you configure for coding
+Design For AIR is BYOK at every layer. The API keys you configure for coding
 agents and model providers are stored locally and used only to talk to those
-providers directly. They are never sent to the Open Design team.
+providers directly. They are never sent to the Design For AIR team.
 
-## Open Design AMR
+## Design For AIR AMR
 
-“Open Design AMR” is Open Design’s official, first-party model service. Because
+“Design For AIR AMR” is Design For AIR’s official, first-party model service. Because
 the two are part of the same product family operated by the same team, we may
 share information between them as needed to provide, connect, and improve the
 combined experience — for example, to recognize that you arrived from Open

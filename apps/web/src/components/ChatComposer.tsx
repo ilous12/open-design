@@ -11,7 +11,7 @@ import {
   type ReactNode,
 } from "react";
 import { createPortal } from 'react-dom';
-import { Button } from '@open-design/components';
+import { Button } from '@nn-design/components';
 import { useI18n } from '../i18n';
 import { localizePluginDescription, localizePluginTitle } from './plugins-home/localization';
 import type { Dict, Locale } from '../i18n/types';
@@ -32,7 +32,7 @@ import {
 import type {
   ComposerBarClickProps,
   DesignToolboxClickProps,
-} from '@open-design/contracts/analytics';
+} from '@nn-design/contracts/analytics';
 import { deriveUploadCohort } from '../analytics/upload-tracking';
 import { projectRawUrl, uploadProjectFiles, openFolderDialog, fetchRecentLinkedDirs, pushRecentLinkedDir, dirExists, applyLibraryAsset, fetchLibraryAssetElementHtml } from "../providers/registry";
 import { WorkingDirPicker } from './WorkingDirPicker';
@@ -53,7 +53,7 @@ import type {
   ResearchOptions,
   RunContextSelection,
   WorkspaceContextItem,
-} from '@open-design/contracts';
+} from '@nn-design/contracts';
 import { buildVisualAnnotationAttachment, commentTargetDisplayName } from '../comments';
 import { Icon, type IconName } from "./Icon";
 import { ComposerPlusMenu, PLUS_SUBMENU_RESOURCE_KIND } from './ComposerPlusMenu';
@@ -66,7 +66,7 @@ import {
 } from './ProjectReferenceModal';
 import { assetTitle, elementMetaOf } from './LibraryAssetMeta';
 import { SessionModeToggle } from './SessionModeToggle';
-import type { LibraryAsset, LibraryElementMeta } from '@open-design/contracts';
+import type { LibraryAsset, LibraryElementMeta } from '@nn-design/contracts';
 import {
   DESIGN_TOOLBOX_ACTIONS,
   designToolboxActionBadge,

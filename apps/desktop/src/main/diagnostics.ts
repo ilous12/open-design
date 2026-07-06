@@ -4,7 +4,7 @@ import { join } from "node:path";
 
 import { BrowserWindow, app, dialog, ipcMain, shell } from "electron";
 
-import { DIAGNOSTICS_FILENAME_PREFIX, diagnosticsFileName } from "@open-design/diagnostics";
+import { DIAGNOSTICS_FILENAME_PREFIX, diagnosticsFileName } from "@nn-design/diagnostics";
 
 import { fetchDiagnosticsBundle } from "./diagnostics-fetch.js";
 
@@ -40,7 +40,7 @@ export async function exportDiagnosticsToFile(
   const defaultPath = join(downloadsDir, filename);
 
   const dialogOptions = {
-    title: "Export Open Design diagnostics",
+    title: "Export Design For AIR diagnostics",
     defaultPath,
     filters: [{ name: "Zip archive", extensions: ["zip"] }],
   };

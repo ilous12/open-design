@@ -31,7 +31,7 @@ import {
   classifyAIHubMixModel,
 } from '../integrations/aihubmix.js';
 import { isSafeId as isSafeProjectId } from '../projects.js';
-import { projectKindToTracking } from '@open-design/contracts/analytics';
+import { projectKindToTracking } from '@nn-design/contracts/analytics';
 import { proxyDispatcherRequestInit, validateBaseUrlResolved } from '../connectionTest.js';
 import { googleStreamGenerateContentUrl } from '../integrations/google-models.js';
 import { createRoleMarkerGuard } from '../role-marker-guard.js';
@@ -1007,7 +1007,7 @@ export function registerChatRoutes(app: Express, ctx: RegisterChatRoutesDeps) {
           Authorization: `Bearer ${apiKey}`,
           ...(validated.parsed!.hostname === 'openrouter.ai' ? {
             'HTTP-Referer': 'https://opendesign.dev',
-            'X-Title': 'Open Design',
+            'X-Title': 'Design For AIR',
           } : {}),
         },
         body: JSON.stringify(payload),

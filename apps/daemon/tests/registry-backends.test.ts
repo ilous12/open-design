@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import Database from 'better-sqlite3';
-import type { MarketplaceManifest } from '@open-design/contracts';
+import type { MarketplaceManifest } from '@nn-design/contracts';
 import { StaticRegistryBackend } from '../src/registry/static-backend.js';
 import {
   DatabaseRegistryBackend,

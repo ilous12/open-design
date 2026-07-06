@@ -1,5 +1,5 @@
 ---
-title: "Open Design is coming to Osaka / Kyoto"
+title: "Design For AIR is coming to Osaka / Kyoto"
 date: 2026-06-29
 category: "Community"
 readingTime: 3
@@ -7,7 +7,7 @@ summary: "A small meetup for designers, builders, and AI-native teams exploring 
 socialImage: "/blog/open-design-osaka-kyoto-meetup-cover.jpg"
 ctaKind: event-register
 ctaTitle: "Join the Osaka / Kyoto meetup"
-ctaBody: "Save your spot for the July 6 Open Design meetup / workshop."
+ctaBody: "Save your spot for the July 6 Design For AIR meetup / workshop."
 ctaLabel: "Register on Luma ↗"
 ctaHref: "https://luma.com/zd4pqs91?utm_source=open_design_blog&utm_medium=referral&utm_campaign=osaka_kyoto_meetup_2026_07_06&utm_content=bottom_cta"
 ---
@@ -16,7 +16,7 @@ AI design is moving past demos.
 
 The interesting question now is not whether an agent can generate a good-looking screen. It is whether agents can help teams move from ideas, references, and design systems into real editable projects.
 
-On July 6, Open Design is hosting a small meetup / workshop in Osaka / Kyoto for people exploring that shift in practice. We are keeping the room small, around 20 people, so the conversation can stay practical and direct.
+On July 6, Design For AIR is hosting a small meetup / workshop in Osaka / Kyoto for people exploring that shift in practice. We are keeping the room small, around 20 people, so the conversation can stay practical and direct.
 
 [Register for the Osaka / Kyoto meetup](https://luma.com/zd4pqs91?utm_source=open_design_blog&utm_medium=referral&utm_campaign=osaka_kyoto_meetup_2026_07_06&utm_content=hero_link)
 
@@ -31,7 +31,7 @@ On July 6, Open Design is hosting a small meetup / workshop in Osaka / Kyoto for
 
 ## Why we are gathering
 
-Open Design is built around a simple belief: the future of design tools will not be a single closed canvas.
+Design For AIR is built around a simple belief: the future of design tools will not be a single closed canvas.
 
 It will be local-first, agent-native, editable, and connected to the tools teams already use.
 

@@ -3,7 +3,7 @@ import type {
   LiveArtifactRefreshSsePayload,
   LiveArtifactSsePayload,
   ProjectConversationCreatedSsePayload,
-} from '@open-design/contracts';
+} from '@nn-design/contracts';
 export interface ProjectFileChangeEvent {
   type: 'file-changed';
   path: string;

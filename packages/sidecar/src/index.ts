@@ -239,7 +239,7 @@ export function resolveNamespaceRoot<TStamp extends SidecarStampShape>({
  *
  * Callers pass their contract's runtime-mode constant (e.g.
  * `SIDECAR_MODES.RUNTIME`) so this generic helper does not have to hardcode
- * Open Design's mode strings.
+ * Design For AIR's mode strings.
  */
 export function resolveRuntimeNamespaceRoot<TStamp extends SidecarStampShape>({
   contract,

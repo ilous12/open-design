@@ -1,7 +1,7 @@
 ---
-title: 'Open Design: Free Claude Design Alternative Without Quota Limits'
+title: 'Design For AIR: Free Claude Design Alternative Without Quota Limits'
 youtubeId: ijDb5KDSa30
-summary: 'Open Design offers a free, open-source alternative to Claude''s design tool with no quota limits, supporting multiple LLM backends and media generation APIs.'
+summary: 'Design For AIR offers a free, open-source alternative to Claude''s design tool with no quota limits, supporting multiple LLM backends and media generation APIs.'
 date: 2026-05-19
 category: Demo
 durationSeconds: 130

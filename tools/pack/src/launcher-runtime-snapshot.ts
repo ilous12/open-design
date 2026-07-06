@@ -5,7 +5,7 @@ import {
   type LauncherAttemptDescriptor,
   type LauncherRuntimeDescriptor,
   type LauncherVersionPointer,
-} from "@open-design/launcher-proto";
+} from "@nn-design/launcher-proto";
 
 import type { ToolPackConfig } from "./config.js";
 import { resolveToolPackLauncherLayout } from "./launcher-layout.js";

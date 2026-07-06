@@ -23,7 +23,7 @@ import {
   IMAGE_MODELS,
   VIDEO_MODELS,
 } from '../media/models.js';
-import type { MediaExecutionPolicy, MediaSurface } from '@open-design/contracts';
+import type { MediaExecutionPolicy, MediaSurface } from '@nn-design/contracts';
 
 function fmtList(ids: string[]): string {
   return ids.map((id) => `\`${id}\``).join(', ');
@@ -49,7 +49,7 @@ export function renderMediaGenerationContract(
 
 ## Media generation policy (load-bearing — overrides softer wording above)
 
-Open Design-owned media execution is **disabled for this run**. Do not call
+Design For AIR-owned media execution is **disabled for this run**. Do not call
 \`"$OD_NODE_BIN" "$OD_BIN" media generate\`, Codex built-in imagegen, OD media
 provider APIs, local renderers, or ad-hoc scripts that create media bytes on
 OD's behalf.

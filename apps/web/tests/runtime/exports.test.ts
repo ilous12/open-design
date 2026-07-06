@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { installMockOpenDesignHost } from '@open-design/host/testing';
+import { installMockOpenDesignHost } from '@nn-design/host/testing';
 import {
   archiveFilenameFrom,
   archiveRootFromFilePath,

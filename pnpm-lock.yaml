@@ -20,22 +20,22 @@ importers:
 
   .:
     devDependencies:
-      '@open-design/components':
+      '@nn-design/components':
         specifier: workspace:*
         version: link:packages/components
-      '@open-design/daemon':
+      '@nn-design/daemon':
         specifier: workspace:*
         version: link:apps/daemon
-      '@open-design/tools-dev':
+      '@nn-design/tools-dev':
         specifier: workspace:*
         version: link:tools/dev
-      '@open-design/tools-pack':
+      '@nn-design/tools-pack':
         specifier: workspace:*
         version: link:tools/pack
-      '@open-design/tools-release':
+      '@nn-design/tools-release':
         specifier: workspace:*
         version: link:tools/release
-      '@open-design/tools-serve':
+      '@nn-design/tools-serve':
         specifier: workspace:*
         version: link:tools/serve
       '@types/node':
@@ -53,31 +53,31 @@ importers:
       '@modelcontextprotocol/sdk':
         specifier: 1.29.0
         version: 1.29.0(zod@4.4.2)
-      '@open-design/agui-adapter':
+      '@nn-design/agui-adapter':
         specifier: workspace:*
         version: link:../../packages/agui-adapter
-      '@open-design/contracts':
+      '@nn-design/contracts':
         specifier: workspace:*
         version: link:../../packages/contracts
-      '@open-design/diagnostics':
+      '@nn-design/diagnostics':
         specifier: workspace:*
         version: link:../../packages/diagnostics
-      '@open-design/platform':
+      '@nn-design/platform':
         specifier: workspace:*
         version: link:../../packages/platform
-      '@open-design/plugin-runtime':
+      '@nn-design/plugin-runtime':
         specifier: workspace:*
         version: link:../../packages/plugin-runtime
-      '@open-design/registry-protocol':
+      '@nn-design/registry-protocol':
         specifier: workspace:*
         version: link:../../packages/registry-protocol
-      '@open-design/release':
+      '@nn-design/release':
         specifier: workspace:*
         version: link:../../packages/release
-      '@open-design/sidecar':
+      '@nn-design/sidecar':
         specifier: workspace:*
         version: link:../../packages/sidecar
-      '@open-design/sidecar-proto':
+      '@nn-design/sidecar-proto':
         specifier: workspace:*
         version: link:../../packages/sidecar-proto
       '@opentelemetry/api':
@@ -150,28 +150,28 @@ importers:
 
   apps/desktop:
     dependencies:
-      '@open-design/diagnostics':
+      '@nn-design/diagnostics':
         specifier: workspace:*
         version: link:../../packages/diagnostics
-      '@open-design/download':
+      '@nn-design/download':
         specifier: workspace:*
         version: link:../../packages/download
-      '@open-design/host':
+      '@nn-design/host':
         specifier: workspace:*
         version: link:../../packages/host
-      '@open-design/launcher-proto':
+      '@nn-design/launcher-proto':
         specifier: workspace:*
         version: link:../../packages/launcher-proto
-      '@open-design/platform':
+      '@nn-design/platform':
         specifier: workspace:*
         version: link:../../packages/platform
-      '@open-design/release':
+      '@nn-design/release':
         specifier: workspace:*
         version: link:../../packages/release
-      '@open-design/sidecar':
+      '@nn-design/sidecar':
         specifier: workspace:*
         version: link:../../packages/sidecar
-      '@open-design/sidecar-proto':
+      '@nn-design/sidecar-proto':
         specifier: workspace:*
         version: link:../../packages/sidecar-proto
     devDependencies:
@@ -251,28 +251,28 @@ importers:
 
   apps/packaged:
     dependencies:
-      '@open-design/daemon':
+      '@nn-design/daemon':
         specifier: workspace:*
         version: link:../daemon
-      '@open-design/desktop':
+      '@nn-design/desktop':
         specifier: workspace:*
         version: link:../desktop
-      '@open-design/launcher-proto':
+      '@nn-design/launcher-proto':
         specifier: workspace:*
         version: link:../../packages/launcher-proto
-      '@open-design/platform':
+      '@nn-design/platform':
         specifier: workspace:*
         version: link:../../packages/platform
-      '@open-design/release':
+      '@nn-design/release':
         specifier: workspace:*
         version: link:../../packages/release
-      '@open-design/sidecar':
+      '@nn-design/sidecar':
         specifier: workspace:*
         version: link:../../packages/sidecar
-      '@open-design/sidecar-proto':
+      '@nn-design/sidecar-proto':
         specifier: workspace:*
         version: link:../../packages/sidecar-proto
-      '@open-design/web':
+      '@nn-design/web':
         specifier: workspace:*
         version: link:../web
     devDependencies:
@@ -318,22 +318,22 @@ importers:
       '@lexical/utils':
         specifier: 0.36.2
         version: 0.36.2
-      '@open-design/components':
+      '@nn-design/components':
         specifier: workspace:*
         version: link:../../packages/components
-      '@open-design/contracts':
+      '@nn-design/contracts':
         specifier: workspace:*
         version: link:../../packages/contracts
-      '@open-design/host':
+      '@nn-design/host':
         specifier: workspace:*
         version: link:../../packages/host
-      '@open-design/platform':
+      '@nn-design/platform':
         specifier: workspace:*
         version: link:../../packages/platform
-      '@open-design/sidecar':
+      '@nn-design/sidecar':
         specifier: workspace:*
         version: link:../../packages/sidecar
-      '@open-design/sidecar-proto':
+      '@nn-design/sidecar-proto':
         specifier: workspace:*
         version: link:../../packages/sidecar-proto
       '@xterm/addon-fit':
@@ -418,10 +418,10 @@ importers:
       '@aws-sdk/client-s3':
         specifier: 3.1050.0
         version: 3.1050.0
-      '@open-design/contracts':
+      '@nn-design/contracts':
         specifier: workspace:*
         version: link:../packages/contracts
-      '@open-design/release':
+      '@nn-design/release':
         specifier: workspace:*
         version: link:../packages/release
       '@playwright/test':
@@ -451,7 +451,7 @@ importers:
 
   packages/agui-adapter:
     dependencies:
-      '@open-design/contracts':
+      '@nn-design/contracts':
         specifier: workspace:*
         version: link:../contracts
     devDependencies:
@@ -500,7 +500,7 @@ importers:
 
   packages/contracts:
     dependencies:
-      '@open-design/release':
+      '@nn-design/release':
         specifier: workspace:*
         version: link:../release
       zod:
@@ -538,7 +538,7 @@ importers:
 
   packages/download:
     dependencies:
-      '@open-design/platform':
+      '@nn-design/platform':
         specifier: workspace:*
         version: link:../platform
     devDependencies:
@@ -557,7 +557,7 @@ importers:
 
   packages/host:
     dependencies:
-      '@open-design/release':
+      '@nn-design/release':
         specifier: workspace:*
         version: link:../release
     devDependencies:
@@ -576,10 +576,10 @@ importers:
 
   packages/launcher-proto:
     dependencies:
-      '@open-design/release':
+      '@nn-design/release':
         specifier: workspace:*
         version: link:../release
-      '@open-design/sidecar-proto':
+      '@nn-design/sidecar-proto':
         specifier: workspace:*
         version: link:../sidecar-proto
     devDependencies:
@@ -632,7 +632,7 @@ importers:
 
   packages/plugin-runtime:
     dependencies:
-      '@open-design/contracts':
+      '@nn-design/contracts':
         specifier: workspace:*
         version: link:../contracts
       zod:
@@ -703,7 +703,7 @@ importers:
 
   packages/sidecar-proto:
     dependencies:
-      '@open-design/release':
+      '@nn-design/release':
         specifier: workspace:*
         version: link:../release
     devDependencies:
@@ -722,13 +722,13 @@ importers:
 
   tools/dev:
     dependencies:
-      '@open-design/platform':
+      '@nn-design/platform':
         specifier: workspace:*
         version: link:../../packages/platform
-      '@open-design/sidecar':
+      '@nn-design/sidecar':
         specifier: workspace:*
         version: link:../../packages/sidecar
-      '@open-design/sidecar-proto':
+      '@nn-design/sidecar-proto':
         specifier: workspace:*
         version: link:../../packages/sidecar-proto
       cac:
@@ -756,19 +756,19 @@ importers:
       '@electron/rebuild':
         specifier: 4.0.4
         version: 4.0.4
-      '@open-design/launcher-proto':
+      '@nn-design/launcher-proto':
         specifier: workspace:*
         version: link:../../packages/launcher-proto
-      '@open-design/platform':
+      '@nn-design/platform':
         specifier: workspace:*
         version: link:../../packages/platform
-      '@open-design/release':
+      '@nn-design/release':
         specifier: workspace:*
         version: link:../../packages/release
-      '@open-design/sidecar':
+      '@nn-design/sidecar':
         specifier: workspace:*
         version: link:../../packages/sidecar
-      '@open-design/sidecar-proto':
+      '@nn-design/sidecar-proto':
         specifier: workspace:*
         version: link:../../packages/sidecar-proto
       cac:
@@ -803,7 +803,7 @@ importers:
 
   tools/release:
     dependencies:
-      '@open-design/release':
+      '@nn-design/release':
         specifier: workspace:*
         version: link:../../packages/release
       cac:
@@ -828,7 +828,7 @@ importers:
 
   tools/serve:
     dependencies:
-      '@open-design/release':
+      '@nn-design/release':
         specifier: workspace:*
         version: link:../../packages/release
       cac:
