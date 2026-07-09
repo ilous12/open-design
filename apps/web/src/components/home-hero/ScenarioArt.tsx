@@ -2,9 +2,9 @@
 //
 // Each create-rail card used to show a single line icon, which reads the same
 // for every scenario at a glance. These mini-mockups instead *depict* the
-// artifact the card produces — a browser window for Prototype, a slide stack
-// for Slide deck, a page for Document, a waveform for Audio — so the user can
-// recognize the card by shape, like the reference design rails do.
+// prototype direction the card represents — a browser window for web and a
+// compact app surface for mobile — so the user can recognize the card by shape,
+// like the reference design rails do.
 //
 // Two-tone, token-driven, no hardcoded colors: neutral ink for structure
 // (`--text-muted`) plus a single `--accent` highlight per illustration so the
@@ -82,7 +82,7 @@ function MobileArt() {
 }
 
 function DeckArt() {
-  // Slide deck: a peeking back slide plus a front slide with accent title.
+  // Web prototype reference: a peeking back page plus a front page with accent title.
   return (
     <Frame>
       <rect x="15" y="6" width="38" height="24" rx="3" stroke={INK} strokeWidth="2" strokeOpacity="0.45" />
@@ -133,7 +133,7 @@ function HyperFramesArt() {
 }
 
 function LiveArtifactArt() {
-  // Dashboard: a panel of bars with the peak in accent.
+  // Web prototype reference: a panel of bars with the peak in accent.
   return (
     <Frame>
       <rect x="6" y="7" width="48" height="28" rx="4" stroke={INK} strokeWidth="2" />

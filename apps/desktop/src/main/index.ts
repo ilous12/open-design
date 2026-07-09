@@ -526,6 +526,7 @@ function installDesktopMenu(
 
 const REGISTER_DESKTOP_AUTH_RETRY_DELAYS_MS = [120, 240, 480, 960, 1500];
 const REGISTER_DESKTOP_AUTH_TIMEOUT_MS = 800;
+const DESKTOP_APP_NAME = "Design For AIR";
 
 function summarizeDesktopIpcInput(input: unknown): Record<string, unknown> | null {
   if (input == null || typeof input !== "object") return null;
@@ -607,6 +608,7 @@ export async function runDesktopMain(
   // apps/packaged/src/logging.ts; both must stay in sync until the
   // helper is promoted to a shared workspace package.
   attachDesktopProcessErrorFilter();
+  app.setName(DESKTOP_APP_NAME);
 
   // dev (tools-dev) enters here without a prior `whenReady` — so this
   // is where the `--lang` switch actually lands. In packaged builds

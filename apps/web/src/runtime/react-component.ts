@@ -33,7 +33,7 @@ export function buildReactComponentSrcdoc(
         margin: 16px;
         padding: 14px 16px;
         border: 1px solid #fecaca;
-        border-radius: 8px;
+        border-radius: var(--radius, 8px);
         background: #fff1f2;
         color: #991b1b;
         font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;

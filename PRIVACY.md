@@ -1,86 +1,58 @@
-# Privacy
+# 개인정보 및 데이터 처리 안내
 
-This page describes what data the Design For AIR desktop and web app collects,
-when it collects it, and how you stay in control. It documents the behavior
-shipped in the app — the same controls live under **Settings → Privacy**.
+이 문서는 Design For AIR 데스크톱/웹 앱이 어떤 데이터를 다루는지 설명합니다.  
+기본 원칙은 단순합니다.
 
-Design For AIR is **local-first**. Your projects, generated files, and BYOK API
-keys stay on your machine, and the app works fully offline. Usage telemetry,
-described below, is the one category of data the app may send — it is **on by
-default**, and you can turn it off at any time under **Settings → Privacy**.
+- 프로젝트와 산출물은 로컬 우선
+- 실행 설정과 키 정보는 사용자 통제 하에 보관
+- 텔레메트리는 제품 품질 개선 목적에 한해 제한적으로 사용
 
-## Telemetry is opt-out
+## 1. 로컬 우선 원칙
 
-Usage telemetry is **on by default**. On first run the app shows a privacy
-disclosure banner so you can see what is collected before doing anything else.
-It is an informed-disclosure notice with a single **I get it** acknowledgement,
-not an opt-in gate — and because telemetry is already enabled, the app may begin
-sending events (such as onboarding and UI-interaction events) from first launch.
+Design For AIR는 로컬 우선 제품입니다.
 
-You stay in control: the banner footer tells you sharing is on and points you to
-**Settings → Privacy**, where you can turn telemetry off and toggle each category
-below — and you can change your decision at any time.
+- 프로젝트 파일
+- 생성된 HTML/이미지 등 산출물
+- 로컬 실행 설정
+- BYOK API Key
 
-## What is collected
+위 정보는 기본적으로 사용자 환경 안에서 관리됩니다.
 
-When telemetry is enabled, the app may send the following to the Design For AIR
-team. Each category is independently controllable in Settings.
+## 2. 텔레메트리
 
-- **Anonymous metrics** — run counts, token usage, error rate, and duration.
-  No prompts and no project data.
-- **Conversation and tool content** — your prompts, assistant responses, tool
-  inputs, and tool outputs (truncated before send). API keys, tokens, JWTs,
-  emails, IP addresses, and credit-card numbers are stripped automatically
-  before anything leaves your machine.
-- **Project artifacts manifest** — filenames, types, and sizes of generated
-  files. The **contents** of those files are never sent.
+제품 품질 개선을 위해 사용량/오류 중심의 텔레메트리가 수집될 수 있습니다.  
+이 설정은 앱 내 개인정보 관련 화면에서 제어할 수 있어야 하며, 사용자는 언제든지 변경할 수 있습니다.
 
-## What is never collected
+수집 대상 예시는 아래와 같습니다.
 
-- The contents of your generated artifact files.
-- Your BYOK API keys, tokens, or other secrets — these are redacted before
-  send and are never part of telemetry.
-- Anything at all while telemetry is turned off.
+- 실행 횟수
+- 오류 발생 여부
+- 응답 시간
+- 토큰 사용량 요약
 
-## How telemetry is sent
+원칙적으로 산출물 본문 자체를 외부로 보내는 방향은 지양합니다.
 
-Redacted telemetry batches are sent to a Cloudflare Worker relay operated by
-the Design For AIR team, which forwards them to [Langfuse](https://langfuse.com)
-for analysis. The relay holds the Langfuse write credentials server-side, so
-packaged clients only ever ship a public relay URL — no secret keys. If the
-relay is unavailable the app retries quietly and keeps working; telemetry
-never blocks your workflow.
+## 3. 수집하지 않으려는 정보
 
-## Your anonymous ID
+다음 정보는 제품 차원에서 외부 전송 대상이 되지 않도록 관리하는 것이 원칙입니다.
 
-When telemetry is enabled the app generates a random, opaque installation ID
-so related events can be grouped. It is not tied to your name, email, or
-account, and it carries no personal information.
+- 생성된 산출물 원문 전체
+- BYOK API Key
+- 토큰/시크릿
+- 개인 식별성이 높은 민감 정보
 
-## Deleting your data
+## 4. 로컬 CLI와 API Key
 
-**Settings → Privacy → Delete my data** rotates your anonymous ID and stops
-sending. Telemetry already received ages out under the team's retention
-policy.
+Design For AIR는 현재 아래 3개의 로컬 CLI를 지원합니다.
 
-## Bring your own key
+- Codex CLI
+- Antigravity CLI
+- Claude Code CLI
 
-Design For AIR is BYOK at every layer. The API keys you configure for coding
-agents and model providers are stored locally and used only to talk to those
-providers directly. They are never sent to the Design For AIR team.
+또는 API Key 기반 실행 모드를 사용할 수 있습니다.  
+이때 키 정보는 사용자가 직접 설정하며, 제품 소개/문서 관점에서도 "사용자 통제"를 우선 원칙으로 둡니다.
 
-## Design For AIR AMR
+## 5. 문의 및 정정
 
-“Design For AIR AMR” is Design For AIR’s official, first-party model service. Because
-the two are part of the same product family operated by the same team, we may
-share information between them as needed to provide, connect, and improve the
-combined experience — for example, to recognize that you arrived from Open
-Design, to help you get set up, and to keep the products working well together.
-This sharing is between our own products, not with unrelated third parties, and
-any data involved still follows the controls described on this page.
-
-## Changes to this page
-
-This document tracks the data handling of the shipped app. When the telemetry
-behavior changes, this page is updated alongside it. For questions, open a
-[GitHub Discussion](https://github.com/nexu-io/open-design/discussions).
+정책이나 실제 구현이 달라졌다면 문서도 함께 수정되어야 합니다.  
+문구보다 실제 동작이 우선이며, 이 문서는 그 동작을 설명하는 보조 수단입니다.

@@ -16,25 +16,25 @@ import { buildAuthDiagnostic } from '../../src/runtimes/diagnostics.js';
 const posixTest = process.platform === 'win32' ? test.skip : test;
 
 function writeCursorAgent(dir: string, statusOutput: string): void {
-  const bin = join(dir, 'cursor-agent');
+  const bin = join(dir, 'claude');
   writeFileSync(
     bin,
     `#!/bin/sh\n` +
       `if [ "$1" = "--version" ]; then echo "2026.05.07-test"; exit 0; fi\n` +
-      `if [ "$1" = "models" ]; then echo "auto"; exit 0; fi\n` +
-      `if [ "$1" = "status" ]; then echo "${statusOutput}"; exit 0; fi\n` +
+      `if [ "$1" = "auth" ] && [ "$2" = "status" ]; then echo '${statusOutput}'; exit 0; fi\n` +
       `exit 0\n`,
   );
   chmodSync(bin, 0o755);
 }
 
-function writeOpenCode(dir: string): string {
-  const bin = join(dir, 'opencode');
+function writeCodex(dir: string): string {
+  const bin = join(dir, 'codex');
   writeFileSync(
     bin,
     `#!/bin/sh\n` +
-      `if [ "$1" = "--version" ]; then echo "opencode 1.17.3"; exit 0; fi\n` +
-      `if [ "$1" = "models" ]; then echo "openai/gpt-5"; exit 0; fi\n` +
+      `if [ "$1" = "--version" ]; then echo "codex 1.17.3"; exit 0; fi\n` +
+      `if [ "$1" = "debug" ] && [ "$2" = "models" ]; then echo '{"models":[{"id":"gpt-5.5"}]}'; exit 0; fi\n` +
+      `if [ "$1" = "login" ] && [ "$2" = "status" ]; then echo '{"loggedIn":true}'; exit 0; fi\n` +
       `exit 0\n`,
   );
   chmodSync(bin, 0o755);
@@ -42,7 +42,7 @@ function writeOpenCode(dir: string): string {
 }
 
 function writeNonExecutableCursorAgent(dir: string): string {
-  const bin = join(dir, 'cursor-agent');
+  const bin = join(dir, 'claude');
   writeFileSync(
     bin,
     `#!/bin/sh\n` +
@@ -57,16 +57,16 @@ posixTest('detectAgents emits a not-on-path diagnostic with searched dirs + fix 
   const dir = mkdtempSync(join(tmpdir(), 'od-diag-notpath-'));
   try {
     await withEnvSnapshot(['PATH', 'OD_AGENT_HOME'], async () => {
-      // Only cursor-agent is on PATH; everything else is unavailable.
+      // Only Claude Code is on PATH; unsupported CLIs stay out of the list.
       writeCursorAgent(dir, 'Authenticated');
       process.env.PATH = dir;
       process.env.OD_AGENT_HOME = dir;
 
       const agents = await detectAgents();
-      const qwen = agents.find((agent) => agent.id === 'qwen');
+      const codex = agents.find((agent) => agent.id === 'codex');
 
-      assert.equal(qwen?.available, false);
-      const diagnostic = qwen?.diagnostics?.[0];
+      assert.equal(codex?.available, false);
+      const diagnostic = codex?.diagnostics?.[0];
       assert.ok(diagnostic, 'expected a diagnostic on the unavailable agent');
       assert.equal(diagnostic?.reason, 'not-on-path');
       assert.equal(diagnostic?.severity, 'error');
@@ -83,22 +83,22 @@ posixTest('detectAgents emits a not-on-path diagnostic with searched dirs + fix 
   }
 });
 
-posixTest('detectAgents finds OpenCode when npm exposes only the opencode binary', async () => {
-  const dir = mkdtempSync(join(tmpdir(), 'od-opencode-npm-bin-'));
+posixTest('detectAgents finds Codex when the codex binary is on PATH', async () => {
+  const dir = mkdtempSync(join(tmpdir(), 'od-codex-bin-'));
   try {
     await withEnvSnapshot(['PATH', 'OD_AGENT_HOME'], async () => {
-      const bin = writeOpenCode(dir);
+      const bin = writeCodex(dir);
       process.env.PATH = dir;
       process.env.OD_AGENT_HOME = dir;
 
       const agents = await detectAgents();
-      const opencode = agents.find((agent) => agent.id === 'opencode');
+      const codex = agents.find((agent) => agent.id === 'codex');
 
-      assert.equal(opencode?.available, true);
-      assert.equal(opencode?.bin, 'opencode-cli');
-      assert.equal(opencode?.path, bin);
-      assert.equal(opencode?.version, 'opencode 1.17.3');
-      assert.equal(opencode?.diagnostics, undefined);
+      assert.equal(codex?.available, true);
+      assert.equal(codex?.bin, 'codex');
+      assert.equal(codex?.path, bin);
+      assert.equal(codex?.version, 'codex 1.17.3');
+      assert.equal(codex?.diagnostics, undefined);
     });
   } finally {
     rmSync(dir, { recursive: true, force: true });
@@ -114,10 +114,10 @@ posixTest('detectAgents emits a not-executable diagnostic for a PATH match witho
       process.env.OD_AGENT_HOME = dir;
 
       const agents = await detectAgents();
-      const cursor = agents.find((agent) => agent.id === 'cursor-agent');
+      const claude = agents.find((agent) => agent.id === 'claude');
 
-      assert.equal(cursor?.available, false);
-      const diagnostic = cursor?.diagnostics?.[0];
+      assert.equal(claude?.available, false);
+      const diagnostic = claude?.diagnostics?.[0];
       assert.ok(diagnostic, 'expected a diagnostic on the unavailable agent');
       assert.equal(diagnostic?.reason, 'not-executable');
       assert.equal(diagnostic?.severity, 'error');
@@ -140,20 +140,19 @@ posixTest('detectAgents emits an auth-missing diagnostic when the auth probe rep
   const dir = mkdtempSync(join(tmpdir(), 'od-diag-auth-'));
   try {
     await withEnvSnapshot(['PATH', 'OD_AGENT_HOME'], async () => {
-      writeCursorAgent(dir, 'Not authenticated');
+      writeCursorAgent(dir, '{"authenticated":false}');
       process.env.PATH = dir;
       process.env.OD_AGENT_HOME = dir;
 
       const agents = await detectAgents();
-      const cursor = agents.find((agent) => agent.id === 'cursor-agent');
+      const claude = agents.find((agent) => agent.id === 'claude');
 
-      assert.equal(cursor?.available, true);
-      assert.equal(cursor?.authStatus, 'missing');
-      const diagnostic = cursor?.diagnostics?.[0];
+      assert.equal(claude?.available, true);
+      assert.equal(claude?.authStatus, 'missing');
+      const diagnostic = claude?.diagnostics?.[0];
       assert.ok(diagnostic, 'expected an auth diagnostic');
       assert.equal(diagnostic?.reason, 'auth-missing');
       const intents = (diagnostic?.fixActions ?? []).map((a) => a.kind);
-      // cursor-agent has no daemon-driven OAuth, so it points at docs + rescan.
       assert.ok(intents.includes('openDocs'), 'expected openDocs fix intent');
       assert.ok(intents.includes('rescan'), 'expected rescan fix intent');
     });

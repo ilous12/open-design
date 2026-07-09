@@ -205,7 +205,7 @@ function ElementPanel({ asset }: { asset: LibraryAsset }) {
     color: 'var(--accent, #2563eb)',
     background: 'transparent',
     border: '1px solid var(--border, #e5e7eb)',
-    borderRadius: 6,
+    borderRadius: 'var(--radius)',
     padding: '3px 9px',
     cursor: 'pointer',
   };
@@ -213,7 +213,7 @@ function ElementPanel({ asset }: { asset: LibraryAsset }) {
     <div style={{ borderTop: '1px solid var(--border, #e5e7eb)', padding: '10px 16px', display: 'flex', flexDirection: 'column', gap: 8 }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
         <KindIcon kind="html" size={13} />
-        <code style={{ fontSize: 12, color: 'var(--text-strong, #111827)', background: 'var(--subtle, #f3f4f6)', padding: '2px 6px', borderRadius: 6 }}>
+        <code style={{ fontSize: 12, color: 'var(--text-strong, #111827)', background: 'var(--subtle, #f3f4f6)', padding: '2px 6px', borderRadius: 'var(--radius)' }}>
           {element.selector || element.tag}
         </code>
         {dims ? <span style={{ fontSize: 12, color: 'var(--text-muted, #6b7280)' }}>{dims}</span> : null}
@@ -240,7 +240,7 @@ function ElementPanel({ asset }: { asset: LibraryAsset }) {
                 margin: 0,
                 padding: '10px 12px',
                 background: 'var(--subtle, #f6f7f9)',
-                borderRadius: 8,
+                borderRadius: 'var(--radius)',
                 fontSize: 11,
                 lineHeight: 1.5,
                 whiteSpace: 'pre-wrap',

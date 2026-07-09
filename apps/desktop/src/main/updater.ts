@@ -84,7 +84,7 @@ export const DESKTOP_UPDATE_ENV = Object.freeze({
   PLATFORM: "OD_UPDATE_PLATFORM",
 } as const);
 
-const DEFAULT_RELEASE_ORIGIN = "https://releases.open-design.ai";
+const DEFAULT_RELEASE_ORIGIN = "https://updates.invalid";
 const OWNERSHIP_SENTINEL = ".open-design-updater-root.json";
 const STORE_METADATA_FILE = "metadata.json";
 const RELEASES_DIR = "releases";
@@ -401,7 +401,11 @@ function defaultPollIntervalMs(channel: DesktopUpdateChannel): number {
 export function resolveDesktopUpdaterConfig(input: DesktopUpdaterConfigInput): DesktopUpdaterConfig {
   const env = input.env ?? process.env;
   const mode = normalizeMode(env[DESKTOP_UPDATE_ENV.MODE], input.mode ?? DESKTOP_UPDATE_MODES.PACKAGE_LAUNCHER);
-  const defaultEnabled = input.source === SIDECAR_SOURCES.PACKAGED;
+  const hasExplicitMetadataUrl = typeof env[DESKTOP_UPDATE_ENV.METADATA_URL] === "string" &&
+    env[DESKTOP_UPDATE_ENV.METADATA_URL]!.trim().length > 0;
+  // Signed/package builds should not talk to a baked-in upstream. Updates stay
+  // opt-in until a first-party metadata URL is configured explicitly.
+  const defaultEnabled = input.source === SIDECAR_SOURCES.PACKAGED && hasExplicitMetadataUrl;
   const enabled = isTruthyEnv(env[DESKTOP_UPDATE_ENV.ENABLED]) ?? defaultEnabled;
   const runtimeBase = input.runtimeBase == null ? process.cwd() : input.runtimeBase;
   const downloadRoot = normalizeDownloadRoot(

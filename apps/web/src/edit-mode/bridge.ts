@@ -478,7 +478,7 @@ export function buildManualEditBridge(enabled: boolean): string {
       return;
     }
     if (activeTextEdit) finishActiveTextEdit(true);
-    if (el.getAttribute('contenteditable') === 'true') return;
+    if (el.hasAttribute('contenteditable')) return;
     var originalText = el.textContent || '';
     clearSelectedTarget();
     el.setAttribute('contenteditable', 'plaintext-only');
@@ -543,6 +543,38 @@ export function buildManualEditBridge(enabled: boolean): string {
       window.parent.postMessage({ type: 'od-edit-preview-style-applied', id: id, version: Number(version) || 0, ok: false, error: e && e.message ? String(e.message) : 'Could not apply preview styles' }, '*');
     }
   }
+  function applyPreviewContent(id, fields){
+    var el = findById(id);
+    if (!el) return;
+    fields = fields || {};
+    try {
+      if (typeof fields.outerHtml === 'string') {
+        var template = document.createElement('template');
+        template.innerHTML = fields.outerHtml.trim();
+        if (template.content.children.length === 1) {
+          var next = template.content.children[0];
+          if (el.getAttribute('data-od-id') && !next.getAttribute('data-od-id')) {
+            next.setAttribute('data-od-id', el.getAttribute('data-od-id') || '');
+          }
+          if (el.getAttribute(sourcePathAttr) && !next.getAttribute(sourcePathAttr)) {
+            next.setAttribute(sourcePathAttr, el.getAttribute(sourcePathAttr) || '');
+          }
+          el.replaceWith(next);
+        }
+        return;
+      }
+      if (typeof fields.text === 'string') el.textContent = fields.text;
+      if (typeof fields.href === 'string' && el.tagName && el.tagName.toLowerCase() === 'a') {
+        el.setAttribute('href', fields.href);
+      }
+      if (typeof fields.src === 'string' && el.tagName && el.tagName.toLowerCase() === 'img') {
+        el.setAttribute('src', fields.src);
+      }
+      if (typeof fields.alt === 'string' && el.tagName && el.tagName.toLowerCase() === 'img') {
+        el.setAttribute('alt', fields.alt);
+      }
+    } catch (e) {}
+  }
   window.addEventListener('message', function(ev){
     if (!ev.data) return;
     if (ev.data.type === 'od-edit-mode') {
@@ -569,6 +601,11 @@ export function buildManualEditBridge(enabled: boolean): string {
     }
     if (ev.data.type === 'od-edit-preview-style') {
       applyPreviewStyles(ev.data.id, ev.data.styles || {}, ev.data.version);
+      return;
+    }
+    if (ev.data.type === 'od-edit-preview-content') {
+      applyPreviewContent(ev.data.id, ev.data.fields || {});
+      postTargets();
       return;
     }
     if (ev.data.type === 'od-edit-text-finish') {

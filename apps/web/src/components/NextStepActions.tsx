@@ -2,22 +2,17 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import type { ChatSessionMode } from '@nn-design/contracts';
 import { useI18n } from '../i18n';
-import { localizeSkillDescription, localizeSkillName } from '../i18n/content';
+import { buildLocaleHiddenPrompt } from '../i18n/promptLanguage';
 import type { Dict } from '../i18n/types';
 import { useAnalytics } from '../analytics/provider';
 import { trackNextStepActionClick } from '../analytics/events';
 import { Icon, type IconName } from './Icon';
 import {
-  DESIGN_TOOLBOX_ACTIONS,
   FEATURED_DESIGN_TOOLBOX_ACTION_IDS,
   designToolboxActionBadge,
   designToolboxActionDescription,
-  designToolboxActionMatchesQuery,
   designToolboxActionTitle,
-  findDesignToolboxSkill,
   getDesignToolboxAction,
-  skillMatchesQuery,
-  type DesignToolboxAction,
   type DesignToolboxActionId,
 } from '../runtime/design-toolbox';
 import type { SkillSummary } from '../types';
@@ -52,10 +47,7 @@ export const DESIGN_SYSTEM_NEXT_STEP_ACTIONS = [
 ] as const;
 
 export const PROJECT_CONTINUE_PROMPT =
-  'Continue from the stopped or incomplete turn. Read the conversation, current project files, and any visible errors, then take the next concrete step. If a primary artifact already exists, update it in place; otherwise create the missing primary artifact and summarize what changed.';
-
-export const PROJECT_GENERATE_ARTIFACT_PROMPT =
-  'Generate the missing project artifact now. Use the current conversation and project context to create the primary previewable deliverable, usually index.html unless another file type is clearly requested. Save it into this project and include a concise summary of the files created.';
+  '중단되었거나 완료되지 않은 작업을 이어서 진행하세요. 먼저 현재 대화, 프로젝트 파일, 화면에 보이는 오류를 확인한 뒤 다음으로 필요한 구체적인 작업을 실행하세요. 주요 결과물이 이미 있으면 같은 파일을 직접 업데이트하고, 없으면 누락된 주요 결과물을 생성하세요. 변경한 내용과 수정된 파일을 짧게 요약하세요.';
 
 export const PROJECT_INCOMPLETE_NEXT_STEP_ACTIONS = [
   {
@@ -63,12 +55,6 @@ export const PROJECT_INCOMPLETE_NEXT_STEP_ACTIONS = [
     icon: 'refresh' as IconName,
     titleKey: 'nextStep.projectContinueTitle' as keyof Dict,
     prompt: PROJECT_CONTINUE_PROMPT,
-  },
-  {
-    id: 'project-generate-artifact',
-    icon: 'plus' as IconName,
-    titleKey: 'nextStep.projectGenerateArtifactTitle' as keyof Dict,
-    prompt: PROJECT_GENERATE_ARTIFACT_PROMPT,
   },
 ] as const;
 
@@ -169,13 +155,6 @@ const ALL_BRAND_EXTRACTION_NEXT_STEP_ACTIONS = [
   ...BRAND_AI_EXTRACTION_INCOMPLETE_NEXT_STEP_ACTIONS,
 ] as const;
 
-// Surfaced under More → Design toolbox. The two featured ids already have their
-// own rows at the top of the card, so we drop them here to avoid duplicating
-// the same action one level down.
-const NON_FEATURED_TOOLBOX_ACTIONS = DESIGN_TOOLBOX_ACTIONS.filter(
-  (action) => !FEATURED_DESIGN_TOOLBOX_ACTION_IDS.includes(action.id),
-);
-
 interface Props {
   // The previewable artifact this affordance is anchored to. Passed back to
   // share/download so the parent can act on the right file.
@@ -196,7 +175,7 @@ interface Props {
   // artifact polishing.
   onPromptAction?: (
     prompt: string,
-    options?: { sessionMode?: ChatSessionMode },
+    options?: { sessionMode?: ChatSessionMode; hiddenPrompt?: string },
   ) => void;
   // Run the deeper AI extraction pass for a programmatically-created brand
   // design system.
@@ -212,14 +191,13 @@ interface Props {
   // Create a new design using the active brand/design system.
   onCreateDesign?: () => void;
   createDesignBusy?: boolean;
-  // Create a new design-system project from the current regular project.
+  // Legacy parent props retained for compatibility; the More menu that used
+  // these actions is intentionally no longer rendered from Next step.
   onCreateDesignSystem?: () => void;
   createDesignSystemBusy?: boolean;
   // Seed the composer with a specific global skill resource picked from the toolbox.
   onPickSkill?: (skillId: string) => void;
-  // Available global skill resources. The full composer toolbox also includes
-  // MCP/plugins/connectors/files; this next-step flyout keeps the same shape
-  // while using the resource data already owned by the chat pane.
+  // Available global skill resources retained for caller compatibility.
   skills?: SkillSummary[];
   // Resolved `@skill` names per featured action, shown in the hover detail.
   toolboxSkillNames?: Partial<Record<DesignToolboxActionId, string | null>>;
@@ -232,15 +210,9 @@ interface Props {
 const FLYOUT_GAP = 8;
 const VIEWPORT_MARGIN = 8;
 const DETAIL_WIDTH = 240;
-const MENU_WIDTH = 200;
 // Conservative heights used to keep a flyout on-screen vertically (over-estimating
 // only shifts it further up, which is always safe).
 const DETAIL_HEIGHT = 180;
-const MENU_HEIGHT = 180;
-// The Design toolbox submenu mirrors the plus-menu panel: title/search,
-// follow-up actions, and global resources.
-const TOOLBOX_SUB_WIDTH = 300;
-const TOOLBOX_SUB_HEIGHT = 500;
 // Give users enough time to cross the small gap between flyout levels without
 // making dismissal feel sticky once the pointer leaves the whole affordance.
 const FLYOUT_CLOSE_DELAY_MS = 240;
@@ -265,7 +237,6 @@ function place(
 }
 
 type Anchor = { left: number; top: number };
-type SubKind = 'toolbox' | 'share';
 type BrandExtractionAction = (typeof ALL_BRAND_EXTRACTION_NEXT_STEP_ACTIONS)[number];
 type BrandExtractionActionId = BrandExtractionAction['id'];
 type PlanAction = (typeof PLAN_NEXT_STEP_ACTIONS)[number];
@@ -301,13 +272,11 @@ function promptActionPrompt(action: PromptNextStepAction, locale: string): strin
   if (locale !== 'zh-CN') return action.prompt;
   switch (action.id) {
     case 'project-continue':
-      return '从已停止或未完成的回合继续处理。先阅读当前对话、项目文件和可见错误，再执行下一个具体步骤。如果主产物已经存在，就在原文件上更新；否则创建缺失的主产物，并简要总结改了什么。';
-    case 'project-generate-artifact':
-      return '现在生成缺失的项目产物。基于当前对话和项目上下文创建主要的可预览交付物；除非明确要求其他文件类型，通常保存为 index.html。把文件保存到当前项目中，并简要说明创建了哪些文件。';
+      return PROJECT_CONTINUE_PROMPT;
     case 'design-system-ai-refine':
-      return '使用 AI 提取继续原地优化这个设计系统。读取当前 DESIGN.md、brand.json、source context、tokens、字体、色板、资产和组件套件预览；如果有链接的网站或源文件，请重新测量。保持同一个设计系统 id，不要创建重复系统。重点强化 token 角色、品牌语气、组件指导、明暗主题套件质量和可复用实现说明。最后总结改动和更新的文件。';
+      return 'AI 추출을 사용해 이 디자인 시스템을 제자리에서 계속 개선하세요. 현재 DESIGN.md, brand.json, source context, tokens, 타이포그래피, 팔레트, 에셋, 컴포넌트 키트 미리보기를 읽고, 연결된 웹사이트나 소스 파일이 있으면 다시 측정하세요. 같은 디자인 시스템 id를 유지하고 중복 시스템을 만들지 마세요. 토큰 역할, 브랜드 보이스, 컴포넌트 가이드, 라이트/다크 키트 품질, 재사용 가능한 구현 메모를 강화하세요. 마지막에는 변경 사항과 업데이트한 파일을 요약하세요.';
     case 'design-system-audit-kit':
-      return '审查这个设计系统是否已经可用。检查 DESIGN.md、brand.json、variables.css、theme.json、kit.html、kit.dark.html、生成产物、色彩对比度、字体样张、间距/圆角规则和组件覆盖度。直接修复最高影响的问题，保持同一个已注册设计系统 id，并在发布或用于其他项目之前报告剩余缺口。';
+      return '이 디자인 시스템의 사용 준비 상태를 점검하세요. DESIGN.md, brand.json, variables.css, theme.json, kit.html, kit.dark.html, 생성 산출물, 색상 대비, 타이포그래피 샘플, 간격/라운드 규칙, 컴포넌트 커버리지를 확인하세요. 영향도가 가장 큰 문제는 직접 수정하고, 같은 등록 디자인 시스템 id를 유지하며, 배포 또는 다른 프로젝트 적용 전에 남은 gaps를 보고하세요.';
     default:
       return (action as PromptNextStepAction).prompt;
   }
@@ -317,8 +286,6 @@ export function NextStepActions({
   fileName,
   planFileName,
   artifactFileName,
-  onShare,
-  onDownload,
   onToolboxAction,
   onPromptAction,
   onAiOptimize,
@@ -329,13 +296,7 @@ export function NextStepActions({
   continueAiExtractionBusy = false,
   onCreateDesign,
   createDesignBusy = false,
-  onCreateDesignSystem,
-  createDesignSystemBusy = false,
-  onPickSkill,
-  skills = [],
   toolboxSkillNames,
-  onShareToOpenDesign,
-  shareToOpenDesignBusy = false,
   variant = 'default',
 }: Props) {
   const { t, locale } = useI18n();
@@ -351,18 +312,9 @@ export function NextStepActions({
     });
   }, [analytics.track]);
 
-  // Three-level cascading hover menu, all portaled to <body> with fixed
-  // positioning so the narrow chat column never clips or occludes them:
-  //   featured row  → detail card (skill summary)
-  //   More          → [Design toolbox, Share]   (level 2)
-  //   Design toolbox → search + non-featured actions + global resources (level 3)
-  //   Share          → Share / Download / Contribute (level 3)
-  // A single close timer with hover-intent keeps the whole path open while the
-  // cursor travels between levels; entering any panel cancels the pending close.
+  // The featured rows still use a small detail tooltip, portaled to <body> so
+  // the narrow chat column never clips it.
   const [detail, setDetail] = useState<Detail | null>(null);
-  const [more, setMore] = useState<Anchor | null>(null);
-  const [sub, setSub] = useState<({ kind: SubKind } & Anchor) | null>(null);
-  const [toolboxQuery, setToolboxQuery] = useState('');
 
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const cancelClose = useCallback(() => {
@@ -373,8 +325,6 @@ export function NextStepActions({
   }, []);
   const closeAll = useCallback(() => {
     setDetail(null);
-    setMore(null);
-    setSub(null);
   }, []);
   const scheduleClose = useCallback(() => {
     cancelClose();
@@ -388,8 +338,6 @@ export function NextStepActions({
   const openDetail = useCallback(
     (id: DesignToolboxActionId, rect: DOMRect) => {
       cancelClose();
-      setMore(null);
-      setSub(null);
       setDetail({ kind: 'toolbox', id, ...place(rect, DETAIL_WIDTH, DETAIL_HEIGHT) });
     },
     [cancelClose],
@@ -397,39 +345,13 @@ export function NextStepActions({
   const openBrandDetail = useCallback(
     (id: BrandExtractionActionId, rect: DOMRect) => {
       cancelClose();
-      setMore(null);
-      setSub(null);
       setDetail({ kind: 'brand', id, ...place(rect, DETAIL_WIDTH, DETAIL_HEIGHT) });
-    },
-    [cancelClose],
-  );
-  const openMore = useCallback(
-    (rect: DOMRect) => {
-      cancelClose();
-      setDetail(null);
-      setSub(null);
-      setMore(place(rect, MENU_WIDTH, MENU_HEIGHT));
-    },
-    [cancelClose],
-  );
-  const openSub = useCallback(
-    (kind: SubKind, rect: DOMRect) => {
-      cancelClose();
-      if (kind === 'toolbox') setToolboxQuery('');
-      setSub({
-        kind,
-        ...place(
-          rect,
-          kind === 'toolbox' ? TOOLBOX_SUB_WIDTH : MENU_WIDTH,
-          kind === 'toolbox' ? TOOLBOX_SUB_HEIGHT : MENU_HEIGHT,
-        ),
-      });
     },
     [cancelClose],
   );
 
   const track = useCallback(
-    (element: 'share' | 'toolbox_action' | 'toolbox_more' | 'share_to_open_design', chipId?: string) => {
+    (element: 'toolbox_action', chipId?: string) => {
       trackNextStepActionClick(analytics.track, {
         page_name: 'chat_panel',
         area: 'next_step',
@@ -439,27 +361,6 @@ export function NextStepActions({
     },
     [analytics.track],
   );
-
-  const handleShare = useCallback(() => {
-    if (!fileName || !onShare) return;
-    track('share');
-    onShare(fileName);
-    closeAll();
-  }, [closeAll, fileName, onShare, track]);
-
-  const handleDownload = useCallback(() => {
-    if (!fileName || !onDownload) return;
-    track('share', 'download');
-    onDownload(fileName);
-    closeAll();
-  }, [closeAll, fileName, onDownload, track]);
-
-  const handleContribute = useCallback(() => {
-    if (!onShareToOpenDesign || shareToOpenDesignBusy) return;
-    track('share_to_open_design');
-    onShareToOpenDesign();
-    closeAll();
-  }, [closeAll, onShareToOpenDesign, shareToOpenDesignBusy, track]);
 
   const handleToolboxAction = useCallback(
     (id: DesignToolboxActionId) => {
@@ -472,7 +373,9 @@ export function NextStepActions({
   const handlePromptAction = useCallback(
     (action: PromptNextStepAction) => {
       track('toolbox_action', action.id);
-      onPromptAction?.(promptActionPrompt(action, locale));
+      onPromptAction?.(promptActionPrompt(action, locale), {
+        hiddenPrompt: buildLocaleHiddenPrompt(locale),
+      });
       closeAll();
     },
     [closeAll, locale, onPromptAction, track],
@@ -492,19 +395,21 @@ export function NextStepActions({
           : resolvedPlanFileName ?? resolvedArtifactFileName;
       if (!primaryFile) return;
       track('toolbox_action', action.id);
+      const prompt = t(action.promptKey, {
+        file: primaryFile,
+        document: resolvedPlanFileName ?? primaryFile,
+        artifact: resolvedArtifactFileName ?? primaryFile,
+      });
       onPromptAction?.(
-        t(action.promptKey, {
-          file: primaryFile,
-          document: resolvedPlanFileName ?? primaryFile,
-          artifact: resolvedArtifactFileName ?? primaryFile,
-        }),
+        prompt,
         {
           sessionMode: action.sessionMode,
+          hiddenPrompt: buildLocaleHiddenPrompt(locale),
         },
       );
       closeAll();
     },
-    [closeAll, onPromptAction, resolvedArtifactFileName, resolvedPlanFileName, t, track],
+    [closeAll, locale, onPromptAction, resolvedArtifactFileName, resolvedPlanFileName, t, track],
   );
 
   const handleAiOptimize = useCallback(() => {
@@ -520,13 +425,6 @@ export function NextStepActions({
     onCreateDesign?.();
     closeAll();
   }, [closeAll, createDesignBusy, onCreateDesign, track]);
-
-  const handleCreateDesignSystem = useCallback(() => {
-    if (createDesignSystemBusy) return;
-    track('toolbox_action', 'project-create-design-system');
-    onCreateDesignSystem?.();
-    closeAll();
-  }, [closeAll, createDesignSystemBusy, onCreateDesignSystem, track]);
 
   const handleContinueAiExtraction = useCallback(() => {
     if (continueAiExtractionBusy) return;
@@ -565,42 +463,6 @@ export function NextStepActions({
     ],
   );
 
-  const handlePickSkill = useCallback(
-    (skillId: string) => {
-      track('toolbox_more', skillId);
-      onPickSkill?.(skillId);
-      closeAll();
-    },
-    [closeAll, onPickSkill, track],
-  );
-
-  const visibleToolboxActions = useMemo(
-    () =>
-      NON_FEATURED_TOOLBOX_ACTIONS.filter((action) => {
-        const skill = findDesignToolboxSkill(action, skills);
-        return designToolboxActionMatchesQuery(
-          action,
-          toolboxQuery,
-          skill,
-          t,
-          skill ? [localizeSkillName(locale, skill), localizeSkillDescription(locale, skill)] : [],
-        );
-      }),
-    [toolboxQuery, skills, locale, t],
-  );
-
-  const visibleToolboxResources = useMemo(() => {
-    const source = toolboxQuery
-      ? skills.filter((skill) =>
-          skillMatchesQuery(skill, toolboxQuery, [
-            localizeSkillName(locale, skill),
-            localizeSkillDescription(locale, skill),
-          ]),
-        )
-      : defaultToolboxSkillResources(NON_FEATURED_TOOLBOX_ACTIONS, skills);
-    return source.slice(0, toolboxQuery ? 14 : 8);
-  }, [skills, toolboxQuery, locale]);
-
   const visiblePlanActions = useMemo(() => {
     if (resolvedPlanFileName && resolvedArtifactFileName) {
       return [PLAN_MERGE_DOC_ARTIFACT_ACTION, PLAN_IMPROVE_ARTIFACT_ACTION];
@@ -614,16 +476,6 @@ export function NextStepActions({
     return [];
   }, [resolvedArtifactFileName, resolvedPlanFileName]);
 
-  // Share group is available whenever any of its three actions can fire.
-  const canShare = !!(fileName && onShare);
-  const canDownload = !!(fileName && onDownload);
-  const canContribute = !!onShareToOpenDesign;
-  const hasShareGroup = canShare || canDownload || canContribute;
-  const showCreateDesignSystem = (
-    variant === 'default' ||
-    variant === 'project-incomplete'
-  ) && !!onCreateDesignSystem;
-  const hasMore = showCreateDesignSystem || !!onToolboxAction || hasShareGroup;
   const showToolbox = !!onToolboxAction;
   const showPlanRows = variant === 'plan' && visiblePlanActions.length > 0 && !!onPromptAction;
   const showProjectIncompleteRows = variant === 'project-incomplete' && !!onPromptAction;
@@ -649,13 +501,13 @@ export function NextStepActions({
         : !!onAiOptimize || !!onCreateDesign
     );
 
-  // Hover handlers shared by every flyout surface: stay open while hovered.
+  // Hover handlers shared by the detail tooltip: stay open while hovered.
   const keepOpen = { onMouseEnter: cancelClose, onMouseLeave: scheduleClose };
 
   return (
     <div className={styles.root} data-testid="next-step-actions">
       <div className={styles.label}>{t('nextStep.title')}</div>
-      {showBrandRows || showPlanRows || showProjectIncompleteRows || showDesignSystemRows || showToolbox || hasMore ? (
+      {showBrandRows || showPlanRows || showProjectIncompleteRows || showDesignSystemRows || showToolbox ? (
         <div className={styles.toolboxList} data-testid="next-step-toolbox">
           {showPlanRows
             ? visiblePlanActions.map((action) => {
@@ -780,21 +632,6 @@ export function NextStepActions({
                 );
               })
             : null}
-          {hasMore ? (
-            <button
-              type="button"
-              className={styles.moreRow}
-              data-testid="next-step-toolbox-more"
-              aria-expanded={!!more}
-              onMouseEnter={(e) => openMore(e.currentTarget.getBoundingClientRect())}
-              onMouseLeave={scheduleClose}
-              onClick={(e) => openMore(e.currentTarget.getBoundingClientRect())}
-            >
-              <Icon name="more-horizontal" size={14} className={styles.toolboxRowIcon} />
-              <span className={styles.toolboxRowTitle}>{t('nextStep.more')}</span>
-              <Icon name="chevron-right" size={13} className={styles.toolboxRowArrow} />
-            </button>
-          ) : null}
         </div>
       ) : null}
 
@@ -840,230 +677,6 @@ export function NextStepActions({
           )
         : null}
 
-      {/* Level 2: More → [Create design system, Design toolbox, Share] */}
-      {more && typeof document !== 'undefined'
-        ? createPortal(
-            <div
-              className={`${styles.flyout} ${styles.flyoutMenu}`}
-              role="menu"
-              data-testid="next-step-more-menu"
-              style={{ left: more.left, top: more.top }}
-              {...keepOpen}
-            >
-              {showCreateDesignSystem ? (
-                <button
-                  type="button"
-                  className={styles.flyoutRow}
-                  data-testid="next-step-more-create-design-system"
-                  disabled={createDesignSystemBusy}
-                  title={t('nextStep.createDesignSystemBody')}
-                  onClick={handleCreateDesignSystem}
-                >
-                  <Icon
-                    name={createDesignSystemBusy ? 'spinner' : 'blocks'}
-                    size={14}
-                    className={createDesignSystemBusy ? 'icon-spin' : styles.toolboxRowIcon}
-                  />
-                  <span className={styles.toolboxRowTitle}>
-                    {createDesignSystemBusy
-                      ? t('nextStep.createDesignSystemBusy')
-                      : t('nextStep.createDesignSystemTitle')}
-                  </span>
-                </button>
-              ) : null}
-              {showToolbox ? (
-                <button
-                  type="button"
-                  className={styles.flyoutRow}
-                  data-testid="next-step-more-toolbox"
-                  aria-expanded={sub?.kind === 'toolbox'}
-                  onMouseEnter={(e) => openSub('toolbox', e.currentTarget.getBoundingClientRect())}
-                  onClick={(e) => openSub('toolbox', e.currentTarget.getBoundingClientRect())}
-                >
-                  <Icon name="lightbulb" size={14} className={styles.toolboxRowIcon} />
-                  <span className={styles.toolboxRowTitle}>{t('chat.designToolbox.title')}</span>
-                  <Icon name="chevron-right" size={13} className={styles.toolboxRowArrow} />
-                </button>
-              ) : null}
-              {hasShareGroup ? (
-                <button
-                  type="button"
-                  className={styles.flyoutRow}
-                  data-testid="next-step-more-share"
-                  aria-expanded={sub?.kind === 'share'}
-                  onMouseEnter={(e) => openSub('share', e.currentTarget.getBoundingClientRect())}
-                  onClick={(e) => openSub('share', e.currentTarget.getBoundingClientRect())}
-                >
-                  <Icon name="share" size={14} className={styles.toolboxRowIcon} />
-                  <span className={styles.toolboxRowTitle}>{t('nextStep.share')}</span>
-                  <Icon name="chevron-right" size={13} className={styles.toolboxRowArrow} />
-                </button>
-              ) : null}
-            </div>,
-            document.body,
-          )
-        : null}
-
-      {/* Level 3a: search + non-featured toolbox actions + global resources */}
-      {sub?.kind === 'toolbox' && typeof document !== 'undefined'
-        ? createPortal(
-            <div
-              className={`${styles.flyout} ${styles.flyoutToolbox}`}
-              role="menu"
-              data-testid="next-step-toolbox-actions"
-              style={{ left: sub.left, top: sub.top }}
-              {...keepOpen}
-            >
-              <div className={styles.toolboxFlyoutTitle}>
-                <Icon name="lightbulb" size={14} />
-                <span>{t('chat.designToolbox.title')}</span>
-              </div>
-              <div className={styles.flyoutSearch}>
-                <Icon name="search" size={13} />
-                <input
-                  value={toolboxQuery}
-                  onChange={(e) => setToolboxQuery(e.currentTarget.value)}
-                  placeholder={t('chat.designToolbox.searchPlaceholder')}
-                  aria-label={t('chat.designToolbox.searchAria')}
-                />
-              </div>
-              <div className={styles.flyoutScroll}>
-                {visibleToolboxActions.length > 0 ? (
-                  <div className={styles.flyoutSectionLabel}>
-                    {t('chat.designToolbox.followupSection')}
-                  </div>
-                ) : null}
-                {visibleToolboxActions.map((action) => (
-                  <button
-                    key={action.id}
-                    type="button"
-                    className={styles.flyoutRow}
-                    data-testid={`next-step-toolbox-sub-action-${action.id}`}
-                    onClick={() => handleToolboxAction(action.id)}
-                  >
-                    <Icon name={action.icon} size={14} className={styles.toolboxRowIcon} />
-                    <span className={styles.toolboxRowTitle}>
-                      {designToolboxActionTitle(action, t)}
-                    </span>
-                  </button>
-                ))}
-                {visibleToolboxResources.length > 0 ? (
-                  <div className={styles.flyoutSectionLabel}>
-                    {t('chat.designToolbox.resourcesSection')}
-                  </div>
-                ) : null}
-                {visibleToolboxResources.map((skill) => (
-                  <button
-                    key={skill.id}
-                    type="button"
-                    className={styles.flyoutRow}
-                    data-testid={`next-step-toolbox-resource-${skill.id}`}
-                    onClick={() => handlePickSkill(skill.id)}
-                  >
-                    <Icon name={designToolboxSkillIcon(skill)} size={14} className={styles.toolboxRowIcon} />
-                    <span className={styles.toolboxRowTitle}>{localizeSkillName(locale, skill)}</span>
-                  </button>
-                ))}
-                {visibleToolboxActions.length === 0 && visibleToolboxResources.length === 0 ? (
-                  <div className={styles.flyoutEmpty}>
-                    {t('chat.designToolbox.noResources', { query: toolboxQuery })}
-                  </div>
-                ) : null}
-              </div>
-            </div>,
-            document.body,
-          )
-        : null}
-
-      {/* Level 3b: Share / Download / Contribute */}
-      {sub?.kind === 'share' && typeof document !== 'undefined'
-        ? createPortal(
-            <div
-              className={`${styles.flyout} ${styles.flyoutMenu}`}
-              role="menu"
-              data-testid="next-step-share-menu"
-              style={{ left: sub.left, top: sub.top }}
-              {...keepOpen}
-            >
-              {canShare ? (
-                <button
-                  type="button"
-                  className={styles.flyoutRow}
-                  data-testid="next-step-share-share"
-                  onClick={handleShare}
-                >
-                  <Icon name="share" size={14} className={styles.toolboxRowIcon} />
-                  <span className={styles.toolboxRowTitle}>{t('nextStep.share')}</span>
-                </button>
-              ) : null}
-              {canDownload ? (
-                <button
-                  type="button"
-                  className={styles.flyoutRow}
-                  data-testid="next-step-share-download"
-                  onClick={handleDownload}
-                >
-                  <Icon name="download" size={14} className={styles.toolboxRowIcon} />
-                  <span className={styles.toolboxRowTitle}>{t('nextStep.download')}</span>
-                </button>
-              ) : null}
-              {canContribute ? (
-                <button
-                  type="button"
-                  className={styles.flyoutRow}
-                  data-testid="next-step-share-contribute"
-                  disabled={shareToOpenDesignBusy}
-                  onClick={handleContribute}
-                >
-                  <Icon
-                    name={shareToOpenDesignBusy ? 'spinner' : 'globe'}
-                    size={14}
-                    className={shareToOpenDesignBusy ? 'icon-spin' : styles.toolboxRowIcon}
-                  />
-                  <span className={styles.toolboxRowTitle}>{t('nextStep.contribute')}</span>
-                </button>
-              ) : null}
-            </div>,
-            document.body,
-          )
-        : null}
     </div>
   );
-}
-
-function defaultToolboxSkillResources(
-  actions: DesignToolboxAction[],
-  skills: SkillSummary[],
-): SkillSummary[] {
-  const out: SkillSummary[] = [];
-  const seen = new Set<string>();
-  const add = (skill: SkillSummary | null | undefined) => {
-    if (!skill || seen.has(skill.id)) return;
-    seen.add(skill.id);
-    out.push(skill);
-  };
-
-  add(skills.find((skill) => skill.id === 'creative-director'));
-  for (const action of actions) {
-    add(
-      skills.find((skill) =>
-        action.preferredSkillIds.some((id) => skill.id === id || skill.name === id),
-      ),
-    );
-  }
-  for (const term of ['design', 'image', 'video', 'motion', 'figma']) {
-    for (const skill of skills) {
-      if (out.length >= 8) return out;
-      if (skillMatchesQuery(skill, term)) add(skill);
-    }
-  }
-  return out;
-}
-
-function designToolboxSkillIcon(skill: SkillSummary): IconName {
-  if (skill.mode === 'video' || skill.category === 'video-generation') return 'play';
-  if (skill.mode === 'image' || skill.category === 'image-generation') return 'image';
-  if (skill.category === 'animation-motion') return 'sliders';
-  if (skill.category === 'creative-direction') return 'sparkles';
-  return 'file';
 }

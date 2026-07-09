@@ -479,8 +479,8 @@ describe('HomeView prompt handoff', () => {
   afterEach(() => {
     vi.unstubAllGlobals();
     cleanup();
-    window.localStorage.clear();
-    window.sessionStorage.clear();
+    window.localStorage.clear?.();
+    window.sessionStorage.clear?.();
   });
 
   it('consumes a plugin authoring handoff once and focuses the textarea', async () => {
@@ -723,10 +723,21 @@ describe('HomeView prompt handoff', () => {
     expect(screen.queryByTestId('home-hero-active-plugin')).toBeNull();
     expect(onSubmit).toHaveBeenCalledWith(expect.objectContaining({
       prompt: 'Make a launch page for a robotics studio',
-      pluginId: 'od-default',
+      pluginId: 'example-web-prototype',
       appliedPluginSnapshotId: null,
-      pluginInputs: { prompt: 'Make a launch page for a robotics studio' },
-      projectKind: 'other',
+      pluginInputs: expect.objectContaining({
+        prompt: 'Make a launch page for a robotics studio',
+        artifactKind: 'web prototype',
+        fidelity: 'high-fidelity',
+      }),
+      projectKind: 'prototype',
+      projectMetadata: expect.objectContaining({
+        kind: 'prototype',
+        platform: 'responsive',
+        platformTargets: ['responsive'],
+        fidelity: 'high-fidelity',
+        skipDiscoveryBrief: true,
+      }),
     }));
   });
 
@@ -794,7 +805,7 @@ describe('HomeView prompt handoff', () => {
     }));
   });
 
-  it('binds the Home rail Prototype chip locally and applies it on submit', async () => {
+  it('routes Home submits to the default Prototype plugin without showing templates', async () => {
     const fetchMock = vi.fn<typeof fetch>(async (url) => {
       if (typeof url === 'string' && url === '/api/plugins') {
         return new Response(JSON.stringify({ plugins: [WEB_PROTOTYPE_PLUGIN] }), {
@@ -825,12 +836,10 @@ describe('HomeView prompt handoff', () => {
       />,
     );
 
-    await clearActiveTypeChip();
-    fireEvent.click(await screen.findByTestId('home-hero-rail-prototype'));
-
     await waitFor(() => {
-      expect(screen.getByTestId('home-hero-template-trigger').textContent).toContain('Prototype');
+      expect(screen.queryByTestId('home-hero-template-trigger')).toBeNull();
     });
+    expect(screen.queryByTestId('home-hero-rail-prototype')).toBeNull();
     expect(fetchMock.mock.calls.some(([url]) => (
       typeof url === 'string' && url.includes('/api/plugins/example-web-prototype/apply')
     ))).toBe(false);
@@ -847,7 +856,7 @@ describe('HomeView prompt handoff', () => {
     expect(screen.queryByTestId('home-hero-footer-option-designSystem')).toBeNull();
     expect(screen.getByTestId('home-hero-design-system-trigger')).toBeTruthy();
     expect(homeHeroPromptValue()).toBe('');
-    expect(screen.getByTestId('home-hero-plugin-presets')).toBeTruthy();
+    expect(screen.queryByTestId('home-hero-plugin-presets')).toBeNull();
     // Inline `{{slot}}` prompt widgets were removed in the Lexical migration;
     // these null checks now confirm the migrated editor never renders them.
     expect(screen.queryByTestId('home-hero-prompt-slot-fidelity')).toBeNull();
@@ -861,20 +870,6 @@ describe('HomeView prompt handoff', () => {
     await setPromptAndSettle('Build a pricing-page prototype.');
     fireEvent.click(screen.getByTestId('home-hero-submit'));
 
-    await waitFor(() => expect(fetchMock).toHaveBeenCalledWith(
-      '/api/plugins/example-web-prototype/apply',
-      expect.anything(),
-    ));
-    const applyCall = fetchMock.mock.calls.find(([url]) => (
-      typeof url === 'string' && url.includes('/api/plugins/example-web-prototype/apply')
-    ));
-    const protoApplyInputs = JSON.parse(String((applyCall?.[1] as RequestInit).body)).inputs;
-    expect(protoApplyInputs).toMatchObject({
-      artifactKind: 'web prototype',
-      audience: 'product evaluators',
-      designSystem: 'Refly Design System',
-      template: 'the bundled web prototype seed',
-    });
     await waitFor(() => expect(onSubmit).toHaveBeenCalledWith(expect.objectContaining({
       pluginId: 'example-web-prototype',
       projectKind: 'prototype',
@@ -884,13 +879,14 @@ describe('HomeView prompt handoff', () => {
         kind: 'prototype',
       }),
     })));
-    // Fidelity is deferred to first-turn discovery: the plugin is still applied
-    // with its full inputs, but its default must NOT be forwarded to the run, so
-    // the question-form flow collects it instead of inheriting a baked-in value.
+    // Home now runs Prototype by default and keeps fidelity fixed at high.
     const [{ pluginInputs: protoSubmittedInputs }] = onSubmit.mock.calls[0] as [
       { pluginInputs?: Record<string, unknown> },
     ];
-    expect(protoSubmittedInputs).not.toHaveProperty('fidelity');
+    expect(protoSubmittedInputs).toMatchObject({ fidelity: 'high-fidelity' });
+    expect(fetchMock.mock.calls.some(([url]) => (
+      typeof url === 'string' && url.includes('/api/plugins/example-web-prototype/apply')
+    ))).toBe(false);
     expect(screen.queryByRole('alert')).toBeNull();
   });
 

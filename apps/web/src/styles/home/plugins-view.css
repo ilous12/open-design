@@ -543,7 +543,7 @@
 .plugins-view__source-help code,
 .plugins-view__empty code {
   padding: 1px 5px;
-  border-radius: 3px;
+  border-radius: var(--radius);
   background: var(--bg-subtle);
   color: var(--text);
   font-size: 11px;

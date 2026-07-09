@@ -3654,6 +3654,12 @@ export interface Dict {
   'assistant.role': string;
   'assistant.workingLabel': string;
   'assistant.doneLabel': string;
+  'assistant.usageTotal': string;
+  'assistant.usageInput': string;
+  'assistant.usageOutput': string;
+  'assistant.usageReasoning': string;
+  'assistant.usageCached': string;
+  'assistant.usageCacheWrite': string;
   'assistant.copyMarkdown': string;
   'assistant.forkConversation': string;
   'assistant.forkingConversation': string;

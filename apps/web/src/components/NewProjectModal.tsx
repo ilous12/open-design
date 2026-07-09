@@ -131,7 +131,7 @@ function NewProjectModalBody({
       className="new-project-modal-backdrop"
       role="dialog"
       aria-modal="true"
-      aria-label="New project"
+      aria-label="새 프로젝트"
       data-testid="new-project-modal"
       onClick={(e) => {
         if (e.target === e.currentTarget && !creating) onClose();
@@ -149,15 +149,15 @@ function NewProjectModalBody({
         exit="exit"
       >
         <header className="new-project-modal__head">
-          <h2 className="new-project-modal__title">New project</h2>
+          <h2 className="new-project-modal__title">새 프로젝트</h2>
           <button
             ref={closeRef}
             type="button"
             className="new-project-modal__close"
             onClick={onClose}
             disabled={creating}
-            aria-label="Close"
-            title="Close (Esc)"
+            aria-label="닫기"
+            title="닫기 (Esc)"
           >
             <Icon name="close" size={14} />
           </button>

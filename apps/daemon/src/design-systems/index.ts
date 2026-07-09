@@ -1630,7 +1630,7 @@ export function buildDesignSystemSkillsMarkdown(input: {
   lines.push('---');
   lines.push('');
   lines.push(
-    'Generated with **Design For AIR** — the open-source, local-first Claude Design alternative. ' +
+    'Generated with **Design For AIR** — an agent-native, local-first design workspace. ' +
       'Generate decks, landing pages, dashboards, and brand systems with your favourite AI ' +
       'coding agent.',
   );

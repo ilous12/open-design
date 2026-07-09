@@ -51,10 +51,10 @@ describe('NewAutomationModal project picker', () => {
 
     // Open the project popover. It is the only PillButton on the row that
     // toggles `popover === 'project'`; the visible label is the current
-    // selection ("New project each run" by default) but the button still
+    // selection ("실행마다 새 프로젝트" by default) but the button still
     // shows the project icon, which we use as a stable accessible cue.
     const projectButton =
-      screen.getByRole('button', { name: /New project each run/i });
+      screen.getByRole('button', { name: /실행마다 새 프로젝트/i });
     fireEvent.click(projectButton);
 
     // Both project rows render, each with `title=<full name>` on the
@@ -65,11 +65,11 @@ describe('NewAutomationModal project picker', () => {
     const shortRow = screen.getByRole('button', { name: 'Short' });
     expect(shortRow.getAttribute('title')).toBe('Short');
 
-    // PopoverItems with fixed in-product copy ("New project each run")
+    // PopoverItems with fixed in-product copy ("실행마다 새 프로젝트")
     // intentionally do NOT carry a tooltip; the truncate optimisation
     // is project-name-specific.
     const fixedRows = screen.getAllByRole('button', {
-      name: /New project each run/i,
+      name: /실행마다 새 프로젝트/i,
     });
     // The first match is the PillButton trigger we just clicked; the
     // second is the PopoverItem inside the open popover.

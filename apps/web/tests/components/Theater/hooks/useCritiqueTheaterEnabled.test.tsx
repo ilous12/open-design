@@ -15,13 +15,31 @@ import {
   useCritiqueTheaterEnabled,
 } from '../../../../src/components/Theater/hooks/useCritiqueTheaterEnabled';
 
+function installLocalStorageShim(): void {
+  const values = new Map<string, string>();
+  Object.defineProperty(window, 'localStorage', {
+    configurable: true,
+    value: {
+      getItem: (key: string) => values.get(key) ?? null,
+      setItem: (key: string, value: string) => {
+        values.set(key, value);
+      },
+      removeItem: (key: string) => {
+        values.delete(key);
+      },
+      clear: () => {
+        values.clear();
+      },
+    },
+  });
+}
+
 afterEach(() => {
   cleanup();
-  window.localStorage.clear();
 });
 
 beforeEach(() => {
-  window.localStorage.clear();
+  installLocalStorageShim();
 });
 
 function Probe({ sink }: { sink: { enabled?: boolean } }) {
@@ -36,7 +54,7 @@ describe('useCritiqueTheaterEnabled (Phase 15.3)', () => {
     expect(sink.enabled).toBe(false);
   });
 
-  it('reads the toggle from the existing open-design:config blob', () => {
+  it('ignores a stored enabled toggle while the feature is disabled', () => {
     window.localStorage.setItem(
       'open-design:config',
       JSON.stringify({
@@ -46,24 +64,24 @@ describe('useCritiqueTheaterEnabled (Phase 15.3)', () => {
     );
     const sink: { enabled?: boolean } = {};
     render(<Probe sink={sink} />);
-    expect(sink.enabled).toBe(true);
+    expect(sink.enabled).toBe(false);
   });
 
-  it('flips when the same-tab CustomEvent fires (Settings save handshake)', () => {
+  it('stays disabled when the same-tab CustomEvent fires', () => {
     const sink: { enabled?: boolean } = {};
     render(<Probe sink={sink} />);
     expect(sink.enabled).toBe(false);
     act(() => {
       setCritiqueTheaterEnabled(true);
     });
-    expect(sink.enabled).toBe(true);
+    expect(sink.enabled).toBe(false);
     act(() => {
       setCritiqueTheaterEnabled(false);
     });
     expect(sink.enabled).toBe(false);
   });
 
-  it('preserves the rest of the stored config when writing the toggle', () => {
+  it('preserves the rest of the stored config when writing the disabled toggle', () => {
     window.localStorage.setItem(
       'open-design:config',
       JSON.stringify({
@@ -74,7 +92,7 @@ describe('useCritiqueTheaterEnabled (Phase 15.3)', () => {
     );
     setCritiqueTheaterEnabled(true);
     const stored = JSON.parse(window.localStorage.getItem('open-design:config') ?? '{}');
-    expect(stored.critiqueTheaterEnabled).toBe(true);
+    expect(stored.critiqueTheaterEnabled).toBe(false);
     // Other fields stay intact: the toggle handshake does not stomp
     // user config.
     expect(stored.mode).toBe('daemon');
@@ -88,7 +106,7 @@ describe('useCritiqueTheaterEnabled (Phase 15.3)', () => {
     expect(sink.enabled).toBe(false);
   });
 
-  it('reacts to cross-tab storage events', () => {
+  it('ignores cross-tab storage events that try to enable it', () => {
     const sink: { enabled?: boolean } = {};
     render(<Probe sink={sink} />);
     expect(sink.enabled).toBe(false);
@@ -104,7 +122,7 @@ describe('useCritiqueTheaterEnabled (Phase 15.3)', () => {
         }),
       );
     });
-    expect(sink.enabled).toBe(true);
+    expect(sink.enabled).toBe(false);
   });
 
   // ---------------------------------------------------------------------------
@@ -174,7 +192,7 @@ describe('useCritiqueTheaterEnabled (Phase 15.3)', () => {
     );
     const sink: { enabled?: boolean } = {};
     render(<Probe sink={sink} />);
-    expect(sink.enabled).toBe(true);
+    expect(sink.enabled).toBe(false);
     act(() => {
       window.dispatchEvent(
         new CustomEvent('open-design:critique-theater-toggle', {
@@ -182,9 +200,7 @@ describe('useCritiqueTheaterEnabled (Phase 15.3)', () => {
         }),
       );
     });
-    // Storage still says true; listener falls back to readToggle and
-    // keeps reporting true.
-    expect(sink.enabled).toBe(true);
+    expect(sink.enabled).toBe(false);
     act(() => {
       window.localStorage.setItem(
         'open-design:config',
@@ -235,9 +251,7 @@ describe('useCritiqueTheaterEnabled (Phase 15.3)', () => {
       act(() => {
         setCritiqueTheaterEnabled(true);
       });
-      // The dispatch path is exercised even though localStorage rejected
-      // the write: every mounted hook updates from the in-session event.
-      expect(sink.enabled).toBe(true);
+      expect(sink.enabled).toBe(false);
     } finally {
       restore();
     }
@@ -305,7 +319,7 @@ describe('useCritiqueTheaterEnabled (Phase 15.3)', () => {
         kind: 'template',
         templateId: 'modern-blog',
         linkedDirs: ['/Users/me/work'],
-        critiqueTheaterEnabled: true,
+        critiqueTheaterEnabled: false,
       },
     });
   });
@@ -335,7 +349,7 @@ describe('useCritiqueTheaterEnabled (Phase 15.3)', () => {
     });
     expect(fetchCalls).toHaveLength(2);
     const body = JSON.parse(fetchCalls[1]!.body ?? '{}');
-    expect(body).toEqual({ metadata: { critiqueTheaterEnabled: true } });
+    expect(body).toEqual({ metadata: { critiqueTheaterEnabled: false } });
   });
 
   it('skips the daemon PATCH when no projectId is supplied (bare integrator surface)', () => {
@@ -374,8 +388,7 @@ describe('useCritiqueTheaterEnabled (Phase 15.3)', () => {
     // Only the GET fired; the PATCH was skipped because we could not
     // build a safe merged body.
     expect(fetchCalls.map((c) => c.method)).toEqual(['GET']);
-    // In-session UI still flips via the CustomEvent.
-    expect(sink.enabled).toBe(true);
+    expect(sink.enabled).toBe(false);
   });
 
   it('swallows a rejected PATCH after a successful prefetch so the in-session UI still flips', async () => {
@@ -400,10 +413,6 @@ describe('useCritiqueTheaterEnabled (Phase 15.3)', () => {
       });
       await new Promise((r) => setTimeout(r, 0));
     });
-    // The localStorage write + the CustomEvent dispatch fire before
-    // the network round-trip, so the in-session UI flips regardless of
-    // the network outcome. A transient PATCH failure does not unwind
-    // the flip; the next save retries.
-    expect(sink.enabled).toBe(true);
+    expect(sink.enabled).toBe(false);
   });
 });

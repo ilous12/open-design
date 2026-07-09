@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AIR - reference components</title>
+    <meta name="description" content="Reference fixture for AIR service UI." />
+    <style>
+      :root {
+        --bg: #ffffff;
+        --surface: #ffffff;
+        --surface-warm: #eff5ff;
+        --fg: #0a0f0f;
+        --fg-2: #1e2d40;
+        --muted: #68748c;
+        --border: #dddfe6;
+        --accent: #2a60f5;
+        --accent-on: #ffffff;
+        --font-body: 'Pretend', 'Pretendard', 'Noto Sans KR', system-ui, sans-serif;
+        --tracking-display: -0.02em;
+        --radius-md: 16px;
+        --radius-lg: 24px;
+        --radius-pill: 9999px;
+        --radius-airbox: 64px;
+        --focus-ring: 0 0 0 4px rgba(42, 96, 245, 0.18);
+        --elev-airbox: -4px -4px 22px #92acdb inset, -4px -4px 22px #ffffff inset, 2px 2px 9px #ffffff inset, 42px 42px 70px rgba(204, 216, 238, 0.6);
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font-body); line-height: 1.5; letter-spacing: -0.01em; }
+      .page { min-height: 100vh; background: radial-gradient(circle at 78% 14%, rgba(225, 235, 255, 0.9), transparent 28%), #fff; }
+      .container { max-width: 1090px; margin: 0 auto; padding: 56px 32px; }
+      .nav { display: flex; justify-content: space-between; align-items: center; height: 72px; }
+      .logo { font-size: 30px; font-weight: 800; letter-spacing: -0.05em; color: var(--accent); }
+      .navlinks { display: flex; gap: 36px; color: var(--fg); font-size: 14px; font-weight: 500; }
+      .hero { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 56px; align-items: center; padding: 72px 0; }
+      .eyebrow { margin: 0 0 16px; color: var(--accent); font-weight: 700; font-size: 14px; }
+      h1 { margin: 0; max-width: 640px; font-size: 46px; line-height: 1.12; font-weight: 650; letter-spacing: var(--tracking-display); }
+      .lead { margin: 18px 0 0; max-width: 560px; color: var(--muted); font-size: 18px; }
+      .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+      .btn { min-height: 48px; padding: 0 22px; display: inline-flex; align-items: center; justify-content: center; border-radius: var(--radius-pill); border: 1px solid transparent; font-weight: 700; text-decoration: none; color: inherit; }
+      .btn:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+      .btn-primary { background: var(--accent); color: var(--accent-on); }
+      .btn-secondary { background: #fff; border-color: var(--border); color: var(--fg); }
+      .airbox { aspect-ratio: 1; border-radius: var(--radius-airbox); background: linear-gradient(180deg, rgba(214, 223, 242, 0.2), #eff5ff 92%); box-shadow: var(--elev-airbox); display: grid; place-items: center; }
+      .airbox span { color: var(--accent); font-size: 72px; font-weight: 850; letter-spacing: -0.08em; }
+      .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+      .card { padding: 24px; border: 1px solid var(--border); border-radius: var(--radius-lg); background: rgba(255,255,255,0.86); box-shadow: 0 18px 44px rgba(104, 116, 140, 0.1); }
+      .card strong { display: block; color: var(--fg); font-size: 22px; line-height: 1.25; letter-spacing: var(--tracking-display); }
+      .card p { margin: 10px 0 0; color: var(--muted); font-size: 15px; }
+      .field { display: grid; gap: 8px; margin-top: 20px; }
+      label { font-size: 14px; font-weight: 700; color: var(--fg-2); }
+      input { min-height: 48px; border: 1px solid var(--border); border-radius: 12px; padding: 0 16px; background: #f7f7f9; color: var(--fg); font: inherit; }
+      input:focus { outline: none; background: #fff; border-color: var(--accent); box-shadow: var(--focus-ring); }
+      @media (max-width: 820px) { .container { padding: 32px 20px; } .hero, .cards { grid-template-columns: 1fr; } h1 { font-size: 36px; } .navlinks { display: none; } }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <div class="container">
+        <nav class="nav" aria-label="AIR navigation">
+          <div class="logo">air</div>
+          <div class="navlinks"><span>요금제</span><span>이벤트</span><span>공지사항</span><span>고객센터</span></div>
+        </nav>
+        <section class="hero">
+          <div>
+            <p class="eyebrow">포인트로 시작하는 통신 생활</p>
+            <h1>통신을<br />생활을<br />가볍게</h1>
+            <p class="lead">복잡한 서류 없이 바로 개통하고, 사용할수록 포인트 혜택이 쌓이는 모바일 서비스 경험.</p>
+            <div class="actions"><a class="btn btn-primary" href="#">요금제 둘러보기</a><a class="btn btn-secondary" href="#">고객센터 연결</a></div>
+          </div>
+          <div class="airbox" aria-label="AIR soft capsule"><span>air</span></div>
+        </section>
+        <section class="cards">
+          <article class="card"><strong>바로 개통</strong><p>요금제 가입부터 USIM 배송까지 한 번에 해결합니다.</p></article>
+          <article class="card"><strong>포인트 혜택</strong><p>매일매일 숨 쉬듯 포인트가 쌓이고 요금 할인에 사용할 수 있습니다.</p></article>
+          <article class="card"><strong>365일 상담</strong><p>실시간 채팅 상담으로 빠르게 답변합니다.</p><div class="field"><label for="air-input">휴대폰 번호</label><input id="air-input" placeholder="010-0000-0000" /></div></article>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

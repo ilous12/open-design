@@ -28,7 +28,6 @@ import { uk } from './locales/uk';
 import { tr } from './locales/tr';
 import { th } from './locales/th';
 import { it } from './locales/it';
-import { getOpenDesignHost } from '@nn-design/host';
 import { LOCALES, type Dict, type Locale } from './types';
 
 export { LOCALES, LOCALE_LABEL } from './types';
@@ -59,11 +58,10 @@ const DICTS: Record<Locale, Dict> = {
 };
 
 const LS_KEY = 'open-design:locale';
+const DEFAULT_LOCALE: Locale = 'ko';
 // Marker that says "the value in LS_KEY came from a deliberate user
 // action through setLocale, not from some auto-detection path". Only
-// values tagged this way win over the desktop host's injected OS
-// locale, so a stale auto-detected pick can't pin the app forever once
-// the user changes their system language.
+// values tagged this way win over the Korean product default.
 const LS_SOURCE_KEY = 'open-design:locale-source';
 const MANUAL_LOCALE_SOURCE = 'manual';
 
@@ -90,29 +88,13 @@ export function resolveSystemLocale(languages: readonly string[]): Locale | null
   return null;
 }
 
-// Read the OS locale the desktop host attached to its client descriptor.
-// Packaged desktop builds need this because Chromium otherwise reports
-// en-US through navigator.language regardless of the OS setting. We go
-// through `getOpenDesignHost` rather than reading the bridge global by
-// name so the web/preload boundary stays single-source (see the
-// `host bridge boundary` guard test).
-function readDesktopHostOsLocale(): string | undefined {
-  if (typeof window === 'undefined') return undefined;
-  const host = getOpenDesignHost();
-  const value = host?.client?.osLocale;
-  return typeof value === 'string' && value.length > 0 ? value : undefined;
-}
-
-// First-run defaults to the user's OS / browser language when possible.
-// Priority: explicit user pick saved to localStorage (only when tagged
-// as manual) > OS locale that the desktop host injected (packaged
-// Electron) > navigator.languages > 'en'. The source tag matters
-// because untagged localStorage values are treated as legacy /
-// auto-detected — they don't override a fresh OS locale read.
+// First-run defaults to Korean. A manually saved locale is still honored
+// for multilingual support, but OS/browser auto-detection no longer flips
+// the product into English on Korean-first builds.
 // Exported so tests can pin the priority chain without spinning up the
 // full I18nProvider.
 export function detectInitialLocale(): Locale {
-  if (typeof window === 'undefined') return 'en';
+  if (typeof window === 'undefined') return DEFAULT_LOCALE;
   let storedLocale: string | null = null;
   let storedSource: string | null = null;
   try {
@@ -128,15 +110,7 @@ export function detectInitialLocale(): Locale {
   ) {
     return storedLocale as Locale;
   }
-  const hostOsLocale = readDesktopHostOsLocale();
-  if (hostOsLocale) {
-    const fromHost = resolveSystemLocale([hostOsLocale]);
-    if (fromHost) return fromHost;
-  }
-  const detected = resolveSystemLocale(
-    navigator.languages?.length ? navigator.languages : [navigator.language],
-  );
-  return detected ?? 'en';
+  return DEFAULT_LOCALE;
 }
 
 interface I18nContextValue {
@@ -182,8 +156,8 @@ export function I18nProvider({ initial, children }: ProviderProps) {
 
   const t = useCallback(
     (key: DictKey, vars?: Record<string, string | number>): string => {
-      const dict = DICTS[locale] ?? en;
-      const raw = dict[key] ?? en[key] ?? key;
+      const dict = DICTS[locale] ?? ko;
+      const raw = dict[key] ?? ko[key] ?? en[key] ?? key;
       if (!vars) return raw;
       return raw.replace(/\{(\w+)\}/g, (_, name: string) => {
         const v = vars[name];
@@ -204,14 +178,14 @@ export function I18nProvider({ initial, children }: ProviderProps) {
 export function useI18n(): I18nContextValue {
   const ctx = useContext(I18nContext);
   if (!ctx) {
-    // Fall back to a stand-alone English translator when no provider is
+    // Fall back to a stand-alone Korean translator when no provider is
     // mounted (e.g. an isolated test). This keeps the API safe to call
     // without requiring every callsite to wrap in a provider.
     return {
-      locale: 'en',
+      locale: DEFAULT_LOCALE,
       setLocale: () => { },
       t: (key, vars) => {
-        const raw = en[key] ?? key;
+        const raw = ko[key] ?? en[key] ?? key;
         if (!vars) return raw;
         return raw.replace(/\{(\w+)\}/g, (_, n: string) => {
           const v = vars[n];

@@ -5,9 +5,8 @@
 // `od.kind: 'scenario'` plugin under `plugins/_official/scenarios/`.
 // The daemon's bundled boot walker registers all sibling scenarios; the
 // canonical winner per taskKind is selected by `collectBundledScenarios`
-// using the `od-<taskKind>` id rule, so additional scenarios (e.g.
-// `od-media-generation`) can ride along without hijacking the
-// pipeline-fallback.
+// using the `od-<taskKind>` id rule, so additional scenarios can ride
+// along without hijacking the pipeline-fallback.
 
 import path from 'node:path';
 import url from 'node:url';
@@ -27,13 +26,10 @@ const CANONICAL = new Map<string, { taskKind: string; pipelineStages: string[] }
 
 // Non-canonical scenarios. These ride on a canonical taskKind but
 // don't win the pipeline-fallback for it. The kind → scenario map in
-// `@nn-design/contracts/scenario-defaults` is what routes UX
-// project kinds (image / video / audio) onto these plugins. Export
-// starters sit here too: they are user-facing plugins for downstream
+// Export starters sit here too: they are user-facing plugins for downstream
 // handoff, but they must not become the canonical tune-collab fallback.
 const SIBLINGS = new Map<string, { taskKind: string }>([
   ['od-default',          { taskKind: 'new-generation' }],
-  ['od-media-generation', { taskKind: 'new-generation' }],
   ['od-plugin-authoring', { taskKind: 'new-generation' }],
   ['od-share-to-community', { taskKind: 'new-generation' }],
   ['od-web-effect-extractor', { taskKind: 'new-generation' }],

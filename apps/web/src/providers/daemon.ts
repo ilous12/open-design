@@ -92,8 +92,16 @@ function buildPriorRunContextWarning(history: ChatMessage[]): string | null {
 
   for (const message of history) {
     for (const event of message.events ?? []) {
-      if (event.kind === 'usage' && typeof event.inputTokens === 'number') {
-        highestInputTokens = Math.max(highestInputTokens, event.inputTokens);
+      if (
+        event.kind === 'usage' &&
+        (
+          typeof event.inputTokens === 'number' ||
+          typeof event.outputTokens === 'number' ||
+          typeof event.totalTokens === 'number'
+        )
+      ) {
+        const tokenCount = event.inputTokens ?? event.totalTokens ?? event.outputTokens ?? 0;
+        highestInputTokens = Math.max(highestInputTokens, tokenCount);
       }
       if (event.kind === 'tool_result') {
         if (event.content.length > LARGE_TOOL_RESULT_CHARS) largeToolResults += 1;
@@ -1307,11 +1315,24 @@ function translateAgentEvent(data: DaemonAgentPayload): AgentEvent | null {
     };
   }
   if (t === 'usage') {
-    const usage = (data.usage ?? {}) as Record<string, number>;
+    const usage = (data.usage ?? {}) as Record<string, unknown>;
     return {
       kind: 'usage',
-      inputTokens: usage.input_tokens,
-      outputTokens: usage.output_tokens,
+      ...usageNumberProp('inputTokens', usage.input_tokens ?? usage.inputTokens ?? usage.prompt_tokens),
+      ...usageNumberProp('outputTokens', usage.output_tokens ?? usage.outputTokens ?? usage.completion_tokens),
+      ...usageNumberProp(
+        'thoughtTokens',
+        usage.thought_tokens ?? usage.thoughtTokens ?? usage.reasoning_output_tokens ?? usage.reasoningOutputTokens,
+      ),
+      ...usageNumberProp('totalTokens', usage.total_tokens ?? usage.totalTokens),
+      ...usageNumberProp(
+        'cachedReadTokens',
+        usage.cached_read_tokens ?? usage.cached_input_tokens ?? usage.cache_read_input_tokens,
+      ),
+      ...usageNumberProp(
+        'cachedWriteTokens',
+        usage.cached_write_tokens ?? usage.cache_creation_input_tokens ?? usage.cache_write_input_tokens,
+      ),
       costUsd: typeof data.costUsd === 'number' ? data.costUsd : undefined,
       durationMs: typeof data.durationMs === 'number' ? data.durationMs : undefined,
     };
@@ -1336,6 +1357,15 @@ function translateAgentEvent(data: DaemonAgentPayload): AgentEvent | null {
     return { kind: 'raw', line: data.line };
   }
   return null;
+}
+
+function usageNumberProp<K extends 'inputTokens' | 'outputTokens' | 'thoughtTokens' | 'totalTokens' | 'cachedReadTokens' | 'cachedWriteTokens'>(
+  key: K,
+  value: unknown,
+): Partial<Record<K, number>> {
+  return typeof value === 'number' && Number.isFinite(value)
+    ? { [key]: value } as Partial<Record<K, number>>
+    : {};
 }
 
 export async function saveArtifact(

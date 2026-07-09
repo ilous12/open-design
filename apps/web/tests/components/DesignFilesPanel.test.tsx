@@ -116,7 +116,6 @@ function renderPanel(
       onDeleteFiles={onDeleteFiles}
       onUpload={vi.fn()}
       onUploadFiles={vi.fn()}
-      onPaste={vi.fn()}
       onNewSketch={vi.fn()}
       onClearUploadError={onClearUploadError}
       {...overrides}
@@ -159,27 +158,18 @@ describe("DesignFilesPanel sections", () => {
     expect(screen.getByTestId("design-files-upload-trigger")).toBeTruthy();
   });
 
-  it("shows prioritized project starter actions in the empty state", () => {
+  it("keeps the empty state visually quiet with no starter actions", () => {
     const onNewSketch = vi.fn();
-    const onOpenBrowser = vi.fn();
-    const onPaste = vi.fn();
 
     renderPanel([], {
       onNewSketch,
-      onOpenBrowser,
-      onPaste,
     });
 
-    fireEvent.click(screen.getByTestId("design-files-empty-new-sketch"));
-    fireEvent.click(screen.getByTestId("design-files-empty-open-browser"));
-    fireEvent.click(screen.getByTestId("design-files-empty-create-document"));
-
-    expect(onNewSketch).toHaveBeenCalledTimes(1);
-    expect(onOpenBrowser).toHaveBeenCalledTimes(1);
-    expect(onPaste).toHaveBeenCalledTimes(1);
-    expect(
-      screen.getByTestId("design-files-empty-create-document").textContent,
-    ).toContain("Create document");
+    expect(screen.getByTestId("design-files-empty")).toBeTruthy();
+    expect(screen.queryByText("Creations will appear here")).toBeNull();
+    expect(screen.queryByTestId("design-files-empty-new-sketch")).toBeNull();
+    expect(screen.queryByTestId("design-files-empty-open-browser")).toBeNull();
+    expect(screen.queryByTestId("design-files-empty-create-document")).toBeNull();
     expect(
       screen.queryByRole("button", { name: "Create new design system" }),
     ).toBeNull();
@@ -222,27 +212,19 @@ describe("DesignFilesPanel sections", () => {
     expect(row.querySelector('.df-row-size')?.textContent).toBe('4.0 KB');
   });
 
-  it("shows the upload hint in the footer while idle", () => {
+  it("hides the footer hint area while idle", () => {
     renderPanel([file({ name: "page.html", kind: "html" })]);
 
-    expect(document.querySelector(".df-drop-hint")).toBeTruthy();
+    expect(document.querySelector(".df-drop-hint")).toBeNull();
     expect(document.querySelector(".df-useful-info")).toBeNull();
   });
 
-  it("types out the first useful-info tip in the footer while the agent runs", async () => {
+  it("hides useful-info tips while the agent runs", () => {
     localStorage.setItem(VISUAL_STABILITY_STORAGE_KEY, "1");
-    renderPanel([file({ name: "page.html", kind: "html" })], { running: true });
+    renderPanel([file({ name: "page.html", kind: "html" })]);
 
     expect(document.querySelector(".df-drop-hint")).toBeNull();
-    expect(document.querySelector(".df-useful-info-label")?.textContent).toBe(
-      "Useful info",
-    );
-    // The tip types in character by character, so wait for the first word.
-    await waitFor(() =>
-      expect(
-        document.querySelector(".df-useful-info-tip")?.textContent,
-      ).toContain("Double-click"),
-    );
+    expect(document.querySelector(".df-useful-info")).toBeNull();
   });
 });
 
@@ -559,7 +541,6 @@ describe("DesignFilesPanel directory navigation", () => {
           onDeleteFiles={vi.fn()}
           onUpload={vi.fn()}
           onUploadFiles={vi.fn()}
-          onPaste={vi.fn()}
           onNewSketch={vi.fn()}
         />
       );
@@ -629,7 +610,6 @@ describe("DesignFilesPanel directory navigation", () => {
           onDeleteFiles={vi.fn()}
           onUpload={vi.fn()}
           onUploadFiles={vi.fn()}
-          onPaste={vi.fn()}
           onNewSketch={vi.fn()}
         />
       );

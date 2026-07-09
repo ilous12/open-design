@@ -15,7 +15,6 @@ import {
   fidelityToTracking,
 } from '@nn-design/contracts/analytics';
 import type { AmrModelsResponse, ChatSessionMode, RunContextSelection } from '@nn-design/contracts';
-import { DEFAULT_UNSELECTED_SCENARIO_PLUGIN_ID } from '@nn-design/contracts';
 import { EntryView } from './components/EntryView';
 import type { IntegrationTab } from './components/IntegrationsView';
 import { MarketplaceView } from './components/MarketplaceView';
@@ -69,6 +68,7 @@ import { goBack, navigate, useRoute } from './router';
 import {
   fetchDaemonConfig,
   DEFAULT_PET,
+  KNOWN_PROVIDERS,
   fetchMediaProvidersFromDaemon,
   hasAnyConfiguredProvider,
   fetchComposioConfigFromDaemon,
@@ -291,27 +291,9 @@ function mergeAmrModelsIntoAgents(
 
 const CANONICAL_AGENT_ORDER = [
   'amr',
-  'claude',
   'codex',
-  'devin',
-  'gemini',
-  'opencode',
-  'hermes',
-  'trae-cli',
-  'grok-build',
-  'kimi',
-  'cursor-agent',
-  'qwen',
-  'qoder',
-  'copilot',
-  'pi',
-  'kiro',
-  'kilo',
-  'vibe',
-  'deepseek',
-  'aider',
   'antigravity',
-  'reasonix',
+  'claude',
 ] as const;
 
 const CANONICAL_AGENT_ORDER_INDEX = new Map<string, number>(
@@ -340,6 +322,50 @@ function upsertAgent(agents: AgentInfo[], agent: AgentInfo): AgentInfo[] {
   const next = agents.slice();
   next[index] = agent;
   return next;
+}
+
+function isLocalBaseUrl(baseUrl: string): boolean {
+  try {
+    const hostname = new URL(baseUrl).hostname.toLowerCase();
+    return hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '::1';
+  } catch {
+    return false;
+  }
+}
+
+function apiProviderRequiresKey(config: AppConfig): boolean {
+  const provider = KNOWN_PROVIDERS.find(
+    (item) =>
+      item.protocol === config.apiProtocol &&
+      item.baseUrl === config.baseUrl,
+  );
+  if (provider?.requiresApiKey === false) return false;
+  return !(config.apiProtocol === 'ollama' && isLocalBaseUrl(config.baseUrl));
+}
+
+function hasUsableApiRuntime(config: AppConfig): boolean {
+  const requiresApiKey = apiProviderRequiresKey(config);
+  return (
+    (!requiresApiKey || Boolean(config.apiKey.trim())) &&
+    Boolean(config.baseUrl.trim()) &&
+    Boolean(config.model.trim())
+  );
+}
+
+function hasUsableLocalRuntime(config: AppConfig, agents: AgentInfo[]): boolean {
+  if (!config.agentId) return false;
+  return agents.some(
+    (agent) =>
+      agent.id === config.agentId &&
+      agent.id !== AMR_AGENT_ID &&
+      agent.available,
+  );
+}
+
+function hasUsableRuntimeSelection(config: AppConfig, agents: AgentInfo[]): boolean {
+  if (config.mode === 'api') return hasUsableApiRuntime(config);
+  if (config.mode === 'daemon') return hasUsableLocalRuntime(config, agents);
+  return false;
 }
 
 function isAbortError(err: unknown): boolean {
@@ -998,38 +1024,29 @@ function AppInner() {
     reconcileFetchedProjects,
   ]);
 
-  // Auto-pick the first available agent once both the daemon-stored config
-  // and the agents listing have landed. Splitting this out of bootstrap
-  // avoids racing the local-config initial value against a slow agents
-  // probe — by the time this runs, daemonConfig has already overlaid the
-  // user's previous choice, so we only fill an empty slot.
-  //
-  // First-run onboarding is the one time we must NOT do this: the onboarding
-  // flow is the sole authority for the initial agent pick (AMR is the
-  // recommended default there), and AMR (vela) detection is asynchronous. If
-  // this fallback fires during onboarding while AMR is still being detected it
-  // snaps the slot to the registry-first *detected* agent (Claude) and
-  // persists it to the daemon, which then races and clobbers the user's AMR
-  // selection on the next launch. Gate on onboardingCompleted so this only
-  // backfills an empty slot for returning users.
+  // Onboarding completion alone is not enough to skip runtime setup. Imported
+  // or stale configs can say "done" while no Local Coding Agent is selected,
+  // the selected CLI is no longer available, or API mode has no usable key.
+  // In that state the runtime choice screen must own recovery instead of
+  // silently landing the user on Home.
   useEffect(() => {
     if (!daemonConfigLoaded || agentsLoading) return;
-    if (config.onboardingCompleted !== true) return;
-    if (config.agentId) return;
-    const firstAvailable = agents.find((a) => a.available);
-    if (!firstAvailable) return;
-    setConfig((prev) => {
-      if (prev.agentId) return prev;
-      const next: AppConfig = { ...prev, agentId: firstAvailable.id };
-      saveConfig(next);
-      void syncConfigToDaemon(next);
-      return next;
-    });
+    if (route.kind !== 'home' || route.view === 'onboarding') return;
+    if (config.onboardingCompleted === true && hasUsableRuntimeSelection(config, agents)) {
+      return;
+    }
+    navigate({ kind: 'home', view: 'onboarding' }, { replace: true });
   }, [
     daemonConfigLoaded,
     agentsLoading,
     agents,
+    route,
+    config.mode,
     config.agentId,
+    config.apiKey,
+    config.apiProtocol,
+    config.baseUrl,
+    config.model,
     config.onboardingCompleted,
   ]);
 
@@ -1589,15 +1606,6 @@ function AppInner() {
 
   const handleCreateProjectFromDesignSystem = useCallback(
     async (designSystemId: string, designSystemTitle: string) => {
-      // "Create with this design system" must NOT assume a prototype. Route
-      // the click through the hidden default design router (od-default) —
-      // exactly like a free-form Home prompt — so the agent first asks (via
-      // the task-type question-form) what to build with this system instead
-      // of silently binding the web-prototype scenario + high-fidelity
-      // metadata. The preset prompt seeds the conversation and is auto-sent
-      // so the router surfaces the confirmation form immediately; `kind`
-      // stays the neutral 'other' so no surface-specific default leaks back
-      // in on the daemon side.
       const presetPrompt = t('nextStep.brandCreateDesignPrompt', {
         designSystem: designSystemTitle,
       });
@@ -1605,13 +1613,24 @@ function AppInner() {
         name: t('common.untitled'),
         skillId: null,
         designSystemId,
-        pluginId: DEFAULT_UNSELECTED_SCENARIO_PLUGIN_ID,
-        pluginInputs: { prompt: presetPrompt },
+        pluginId: 'example-web-prototype',
+        pluginInputs: {
+          prompt: presetPrompt,
+          artifactKind: 'web prototype',
+          fidelity: 'high-fidelity',
+          audience: 'product evaluators',
+          designSystem: designSystemTitle,
+          template: 'the active design system and user prompt',
+        },
         pendingPrompt: presetPrompt,
         autoSendFirstMessage: true,
         conversationMode: 'design',
         metadata: {
-          kind: 'other',
+          kind: 'prototype',
+          platform: 'responsive',
+          platformTargets: ['responsive'],
+          fidelity: 'high-fidelity',
+          skipDiscoveryBrief: true,
           nameSource: 'generated',
         },
       });
@@ -2031,19 +2050,17 @@ function AppInner() {
     section: SettingsSection = 'execution',
     opts?: { highlight?: SettingsHighlight },
   ) => {
-    if (section === 'composio' || section === 'mcpClient' || section === 'integrations') {
-      setIntegrationInitialTab(
-        section === 'composio'
-          ? 'connectors'
-          : section === 'mcpClient'
-            ? 'mcp'
-            : 'use-everywhere',
-      );
-      navigate({ kind: 'home', view: 'integrations' });
-      return;
-    }
+    const hiddenSettingsSections = new Set<SettingsSection>([
+      'media',
+      'composio',
+      'mcpClient',
+      'integrations',
+      'pet',
+      'designSystems',
+      'privacy',
+    ]);
     setSettingsWelcome(false);
-    setSettingsInitialSection(section);
+    setSettingsInitialSection(hiddenSettingsSections.has(section) ? 'execution' : section);
     setSettingsHighlight(opts?.highlight ?? null);
     setSettingsOpen(true);
   }, []);
@@ -2057,13 +2074,12 @@ function AppInner() {
 
   const openPetSettings = useCallback(() => {
     setSettingsWelcome(false);
-    setSettingsInitialSection('pet');
+    setSettingsInitialSection('execution');
     setSettingsOpen(true);
   }, []);
 
   const openMcpSettings = useCallback(() => {
-    setIntegrationInitialTab('mcp');
-    navigate({ kind: 'home', view: 'integrations' });
+    openSettings('execution');
   }, []);
 
   // The composer "+" menu's "add plugin" / "add connector" rows route to the

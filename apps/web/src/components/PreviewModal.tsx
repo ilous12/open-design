@@ -223,6 +223,7 @@ interface Props {
   // Social-share target for the active preview. Callers must pass an explicit
   // recipient-openable URL before the modal exposes copy/social actions.
   shareTarget?: PreviewShareTarget;
+  hideShareAction?: boolean;
   // Optional analytics callbacks. Fires when the user clicks the
   // chrome-level affordances (fullscreen, share trigger, sidebar
   // toggle). Callers wire these to their surface's tracking helper.
@@ -257,6 +258,7 @@ export function PreviewModal({
   primaryAction,
   headerExtras,
   shareTarget,
+  hideShareAction = false,
   hideSidebarToggle = false,
   onFullscreenClick,
   onShareClick,
@@ -548,7 +550,7 @@ export function PreviewModal({
   }
 
   const showTabs = views.length > 1;
-  const showTemplateShareMenu = !isCustomView || Boolean(shareTarget?.url);
+  const showTemplateShareMenu = !hideShareAction && (!isCustomView || Boolean(shareTarget?.url));
   const canOpenTemplateShareMenu = canExportFiles || Boolean(previewShareUrl);
 
   return (

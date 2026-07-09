@@ -1118,7 +1118,7 @@ test('codex json stream emits status text and usage events', () => {
     '\n' +
     JSON.stringify({
       type: 'turn.completed',
-      usage: { input_tokens: 12, cached_input_tokens: 4, output_tokens: 3 },
+      usage: { input_tokens: 12, cached_input_tokens: 4, output_tokens: 3, reasoning_output_tokens: 2 },
     }) +
     '\n',
   );
@@ -1127,7 +1127,7 @@ test('codex json stream emits status text and usage events', () => {
     { type: 'status', label: 'initializing', sessionId: 'thr-1' },
     { type: 'status', label: 'thinking' },
     { type: 'text_delta', delta: 'hello' },
-    { type: 'usage', usage: { input_tokens: 12, output_tokens: 3, cached_read_tokens: 4 } },
+    { type: 'usage', usage: { input_tokens: 12, output_tokens: 3, thought_tokens: 2, cached_read_tokens: 4 } },
   ]);
 });
 

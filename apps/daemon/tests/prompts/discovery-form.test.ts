@@ -4,21 +4,17 @@ import { renderDiscoveryAndPhilosophy } from '../../src/prompts/discovery.js';
 
 const DISCOVERY_AND_PHILOSOPHY = renderDiscoveryAndPhilosophy('filesystem');
 
-// The default-router exception in `discovery.ts` emits a single `<question-form
-// id="task-type">` on turn 1 that combines the routing question (which Open
-// Design workflow to take) with the core discovery brief (audience / brand /
-// scale / constraints). Before this consolidation, freeform projects (no Home
-// chip pick) saw two clarification cards in a row — task-type, then "Quick
-// brief — 30 seconds" — which felt like the agent was re-asking. These tests
-// lock the single-shot shape so a future prompt edit cannot accidentally split
-// the brief into two turns again.
+// The default-router exception in `discovery.ts` keeps the legacy
+// id="task-type" marker for host compatibility, but Prototype is now the fixed
+// route. The form must not ask the user to choose between old artifact types.
+// If a brief is still needed, it asks only the remaining prototype brief fields
+// in one shot so the user does not see a second clarification card.
 
 describe('discovery.ts task-type form (single-shot brief)', () => {
-  it('emits a task-type form that asks the routing question plus the discovery brief', () => {
+  it('emits a task-type form that asks only the remaining prototype brief', () => {
     expect(DISCOVERY_AND_PHILOSOPHY).toContain('<question-form id="task-type"');
-    // Task-type radio + the four discovery brief fields must all live in this
-    // single form so the user does not see a second clarification card.
-    expect(DISCOVERY_AND_PHILOSOPHY).toContain('"id": "taskType"');
+    expect(DISCOVERY_AND_PHILOSOPHY).toContain('Prototype is already selected');
+    expect(DISCOVERY_AND_PHILOSOPHY).not.toContain('"id": "taskType"');
     expect(DISCOVERY_AND_PHILOSOPHY).toContain('"id": "audience"');
     expect(DISCOVERY_AND_PHILOSOPHY).toContain('"id": "brand"');
     expect(DISCOVERY_AND_PHILOSOPHY).toContain('"id": "scale"');
@@ -34,9 +30,8 @@ describe('discovery.ts task-type form (single-shot brief)', () => {
     expect(DISCOVERY_AND_PHILOSOPHY).toContain('"value": "reference_match"');
   });
 
-  it('keeps the eight canonical task-type options', () => {
-    const options = [
-      'Prototype',
+  it('removes the obsolete task-type options from the default-router brief', () => {
+    const removedOptions = [
       'Live artifact',
       'Slide deck',
       'Image',
@@ -45,9 +40,10 @@ describe('discovery.ts task-type form (single-shot brief)', () => {
       'Audio',
       'Other',
     ];
-    for (const option of options) {
-      expect(DISCOVERY_AND_PHILOSOPHY).toContain(`"${option}"`);
+    for (const option of removedOptions) {
+      expect(DISCOVERY_AND_PHILOSOPHY).not.toContain(`"${option}"`);
     }
+    expect(DISCOVERY_AND_PHILOSOPHY).toContain('treat the route as `Prototype`');
   });
 
   it('forbids the agent from emitting a second Quick brief form after task-type answers', () => {

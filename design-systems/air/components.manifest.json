@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "brandId": "air",
+  "source": {
+    "componentsHtml": "components.html",
+    "tokensCss": "tokens.css"
+  },
+  "fixture": {
+    "title": "AIR - reference components",
+    "description": "Reference fixture for AIR: white service canvas, AIR Blue actions, Pretend typography, and pale-blue soft capsule surfaces.",
+    "styleBlockCount": 1,
+    "selectorCount": 44,
+    "classCount": 24,
+    "elementCount": 18
+  },
+  "tokens": {
+    "declared": [
+      "--bg",
+      "--surface",
+      "--surface-warm",
+      "--fg",
+      "--fg-2",
+      "--muted",
+      "--meta",
+      "--border",
+      "--accent",
+      "--font-body",
+      "--font-display",
+      "--radius-airbox"
+    ],
+    "referenced": [
+      "--bg",
+      "--surface",
+      "--surface-warm",
+      "--fg",
+      "--muted",
+      "--border",
+      "--accent",
+      "--font-body",
+      "--radius-airbox"
+    ],
+    "unusedDeclared": [],
+    "undeclaredReferenced": []
+  }
+}

@@ -1,6 +1,6 @@
 import express from 'express';
 import type http from 'node:http';
-import { access, mkdir, mkdtemp, rm, symlink, writeFile } from 'node:fs/promises';
+import { access, mkdir, mkdtemp, readFile, rm, symlink, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { afterEach, describe, expect, it, vi } from 'vitest';
@@ -45,6 +45,126 @@ async function expectMissing(pathname: string): Promise<void> {
 }
 
 describe('plugin project duplication', () => {
+  it('copies bundled reference remix HTML into a new editable project', async () => {
+    const root = await makeTempRoot('od-reference-remix-route-');
+    const projectsRoot = path.join(root, 'projects');
+    const referenceRoot = path.join(root, 'reference-remix');
+    await mkdir(path.join(referenceRoot, 'ai-chatbot-platform'), { recursive: true });
+    await writeFile(
+      path.join(referenceRoot, 'ai-chatbot-platform', 'index.html'),
+      [
+        '<!doctype html>',
+        '<html data-reference-remix-static="true">',
+        '<head>',
+        '<link rel="icon" href="../_uupm-assets/logo.svg">',
+        '<style data-reference-remix-stylesheet="../_uupm-assets/assets/index.css">body{color:red}</style>',
+        '</head>',
+        '<body><main><h1>AI Chatbot Platform</h1></main></body>',
+        '</html>',
+      ].join(''),
+      'utf8',
+    );
+
+    const projectId = 'reference-project';
+    const project = {
+      id: projectId,
+      name: 'AI Chatbot Platform',
+      skillId: null,
+      designSystemId: null,
+      pendingPrompt: null,
+      metadata: { kind: 'prototype' },
+      createdAt: 1,
+      updatedAt: 1,
+      archivedAt: null,
+      lastOpenedAt: null,
+      order: 0,
+      conversationCount: 0,
+      hasActiveRun: false,
+    } as unknown as Project;
+    const insertedProjects: unknown[] = [];
+    const db = {
+      prepare: () => ({
+        all: () => [],
+        get: () => null,
+        run: () => undefined,
+      }),
+    };
+    const app = express();
+    app.use(express.json());
+    registerPluginRoutes(app, {
+      db,
+      paths: {
+        PROJECTS_DIR: projectsRoot,
+        PLUGIN_REGISTRY_ROOTS: [],
+        PLUGIN_LOCKFILE_PATH: path.join(root, 'plugins.lock'),
+        REFERENCE_REMIX_DIRS: [referenceRoot],
+      },
+      ids: {
+        randomId: vi.fn()
+          .mockReturnValueOnce(projectId)
+          .mockReturnValueOnce('reference-conversation'),
+      },
+      projectStore: {
+        insertProject: vi.fn((_db, row) => {
+          insertedProjects.push(row);
+          return project;
+        }),
+        getProject: vi.fn(() => project),
+        dbDeleteProject: vi.fn(),
+        removeProjectDir: async (rootDir: string, id: string) => {
+          await rm(path.join(rootDir, id), { recursive: true, force: true });
+        },
+      },
+      conversations: {
+        insertConversation: vi.fn(() => undefined),
+      },
+      plugins: {
+        getInstalledPlugin: vi.fn(() => null),
+        listInstalledPlugins: vi.fn(() => []),
+      },
+      helpers: {
+        requireLocalDaemonRequest: ((_req, _res, next) => next()) as express.RequestHandler,
+        assembleExample: (templateHtml: string) => templateHtml,
+        applyBakedPreviews: (records: unknown[]) => records,
+      },
+    } as unknown as Parameters<typeof registerPluginRoutes>[1]);
+    const server = await listen(app);
+    try {
+      const resp = await fetch(
+        `${server.url}/api/reference-remix/ai-chatbot-platform/duplicate-project`,
+        {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({
+            name: 'AI Chatbot Platform',
+            pendingPrompt: 'Remix this local AI chatbot reference into an editable project.',
+          }),
+        },
+      );
+      expect(resp.status).toBe(201);
+      const body = (await resp.json()) as { projectId?: string; relPath?: string; sourceEntry?: string };
+      expect(body).toMatchObject({
+        projectId,
+        relPath: 'index.html',
+        sourceEntry: 'reference-remix/ai-chatbot-platform/index.html',
+      });
+      const copied = await readFile(path.join(projectsRoot, projectId, 'index.html'), 'utf8');
+      expect(copied).toContain('AI Chatbot Platform');
+      expect(copied).toContain('data-reference-remix-project-copy="true"');
+      expect(copied).not.toContain('../_uupm-assets/logo.svg');
+      expect(insertedProjects[0]).toMatchObject({
+        pendingPrompt: 'Remix this local AI chatbot reference into an editable project.',
+        metadata: {
+          entryFile: 'index.html',
+          duplicatedFromReferenceRemixSlug: 'ai-chatbot-platform',
+          duplicatedFromReferenceRemixEntry: 'reference-remix/ai-chatbot-platform/index.html',
+        },
+      });
+    } finally {
+      await close(server.server);
+    }
+  });
+
   it.skipIf(process.platform === 'win32')(
     'rejects duplicates that would skip a required symlinked file',
     async () => {

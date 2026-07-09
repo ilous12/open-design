@@ -221,7 +221,7 @@
   flex-direction: column;
   gap: 6px;
   padding: 8px 10px;
-  border-radius: var(--radius-sm, 6px);
+  border-radius: var(--radius-sm, 8px);
   background: var(--bg-subtle);
   border: 1px solid var(--border);
 }
@@ -245,7 +245,7 @@
 }
 .inline-plugins-rail--strip::-webkit-scrollbar-thumb {
   background: var(--border);
-  border-radius: 3px;
+  border-radius: var(--radius);
 }
 .inline-plugins-rail--strip .inline-plugins-rail__card {
   flex: 0 0 auto;

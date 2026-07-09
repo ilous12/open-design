@@ -1,12 +1,9 @@
 // @vitest-environment jsdom
 //
-// Scenario-card rail coverage.
-//   - The default create rail renders illustrated scenario cards carrying a
-//     title AND a one-line description.
-//   - The rail leads with the slide deck ("Slides") per the curated create
-//     order.
-//   - The finer-grained scenarios (wireframe / mobile / document) exist and
-//     route to a working scenario plugin.
+// Scenario catalog coverage.
+//   - The create rail data keeps the product-approved Web/Mobile prototype
+//     choices, even though the visible start-with-template rail is hidden.
+//   - The remaining create scenarios route to working scenario plugins.
 
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
@@ -71,37 +68,26 @@ function renderHero(overrides: Partial<React.ComponentProps<typeof HomeHero>> = 
 }
 
 describe('HomeHero scenario cards', () => {
-  it('renders each create scenario card with a title and a description', () => {
-    renderHero();
-    const prototype = screen.getByTestId('home-hero-rail-prototype');
-    expect(prototype.textContent).toContain('Prototype');
-    expect(prototype.textContent).toContain('Interactive app mockups');
-
-    const deck = screen.getByTestId('home-hero-rail-deck');
-    expect(deck.textContent).toContain('Presentations & pitch decks');
+  it('keeps the create scenario catalog to one prototype template', () => {
+    const createChips = orderedCreateChips();
+    expect(createChips.map((chip) => chip.id)).toEqual(['prototype']);
+    expect(createChips[0]).toMatchObject({
+      label: 'Web Prototype',
+      description: 'Interactive web mockups',
+    });
   });
 
-  it('leads the create rail with the slide deck', () => {
-    expect(orderedCreateChips()[0]?.id).toBe('deck');
+  it('leads the create rail with the web prototype', () => {
+    expect(orderedCreateChips()[0]?.id).toBe('prototype');
   });
 
-  it('adds the finer-grained scenarios as create cards routed to a scenario plugin', () => {
-    renderHero();
-    for (const id of ['wireframe', 'mobile', 'document']) {
-      const card = screen.getByTestId(`home-hero-rail-${id}`);
-      const tabs = screen.getByTestId('home-hero-type-tabs');
-      expect(tabs.contains(card)).toBe(true);
+  it('adds the remaining scenarios as create cards routed to a scenario plugin', () => {
+    for (const id of ['prototype']) {
       expect(findChip(id)?.action.kind).toBe('apply-scenario');
     }
-    // Wireframe reuses the web-prototype seed at lo-fi fidelity.
-    expect(findChip('wireframe')?.action).toMatchObject({
+    expect(findChip('prototype')?.action).toMatchObject({
       pluginId: 'example-web-prototype',
       projectKind: 'prototype',
-      projectMetadata: { kind: 'prototype', fidelity: 'wireframe' },
-    });
-    expect(findChip('document')?.action).toMatchObject({
-      pluginId: 'od-new-generation',
-      projectKind: 'other',
     });
   });
 

@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-
 const STORAGE_KEY = 'open-design:config';
 const TOGGLE_EVENT = 'open-design:critique-theater-toggle';
 
@@ -37,35 +35,7 @@ interface ConfigShape {
  * carry a typed payload, so they still fall back to `readToggle()`.
  */
 export function useCritiqueTheaterEnabled(): boolean {
-  const [enabled, setEnabled] = useState<boolean>(() => readToggle());
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const reload = (): void => setEnabled(readToggle());
-    const onStorage = (evt: StorageEvent): void => {
-      if (evt.key !== null && evt.key !== STORAGE_KEY) return;
-      reload();
-    };
-    const onCustom = (evt: Event): void => {
-      // Prefer the event's typed payload so a same-tab toggle still
-      // reflects in the UI even when localStorage is unwritable.
-      const detail = (evt as CustomEvent<{ enabled?: unknown }>).detail;
-      if (detail && typeof detail.enabled === 'boolean') {
-        setEnabled(detail.enabled);
-        return;
-      }
-      // Malformed CustomEvent (no detail, or detail.enabled not
-      // boolean): degrade to the localStorage path.
-      reload();
-    };
-    window.addEventListener('storage', onStorage);
-    window.addEventListener(TOGGLE_EVENT, onCustom);
-    reload();
-    return () => {
-      window.removeEventListener('storage', onStorage);
-      window.removeEventListener(TOGGLE_EVENT, onCustom);
-    };
-  }, []);
-  return enabled;
+  return false;
 }
 
 /**
@@ -124,10 +94,11 @@ export interface SetCritiqueTheaterEnabledOptions {
 }
 
 export function setCritiqueTheaterEnabled(
-  next: boolean,
+  _next: boolean,
   options: SetCritiqueTheaterEnabledOptions = {},
 ): void {
   if (typeof window === 'undefined') return;
+  const next = false;
   let parsed: ConfigShape = {};
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
@@ -227,23 +198,5 @@ export function setCritiqueTheaterEnabled(
     })().catch(() => {
       /* Already surfaced inside the async block. */
     });
-  }
-}
-
-function readToggle(): boolean {
-  if (typeof window === 'undefined') return false;
-  let raw: string | null;
-  try {
-    raw = window.localStorage.getItem(STORAGE_KEY);
-  } catch {
-    return false;
-  }
-  if (!raw) return false;
-  try {
-    const parsed: unknown = JSON.parse(raw);
-    if (!parsed || typeof parsed !== 'object') return false;
-    return (parsed as ConfigShape).critiqueTheaterEnabled === true;
-  } catch {
-    return false;
   }
 }

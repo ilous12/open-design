@@ -4042,7 +4042,7 @@ function InspectPanel({
             onResetElement(target.elementId);
           }}
         >
-          Reset element
+          요소 초기화
         </Button>
         <Button
           variant="primary"
@@ -4050,7 +4050,7 @@ function InspectPanel({
           disabled={saving}
           onClick={onSaveToSource}
         >
-          {saving ? 'Saving…' : justSaved ? 'Saved ✓' : 'Save to source'}
+          {saving ? '저장 중…' : justSaved ? '저장됨 ✓' : '소스에 저장'}
         </Button>
       </footer>
       {error ? <div className="inspect-panel-error">{error}</div> : null}
@@ -5189,71 +5189,6 @@ function ReactComponentViewer({
               {t('fileViewer.source')}
             </button>
           </div>
-          {source !== null ? (
-            <>
-              <span className="viewer-divider" aria-hidden />
-              <div className="share-menu" ref={shareRef}>
-                <button
-                  type="button"
-                  className="viewer-action primary viewer-action-export od-tooltip"
-                  aria-haspopup="menu"
-                  aria-expanded={shareMenuOpen}
-                  title={t('fileViewer.shareLabel')}
-                  data-tooltip={t('fileViewer.shareLabel')}
-                  data-tooltip-placement="bottom"
-                  onClick={() => setShareMenuOpen((v) => !v)}
-                >
-                  <span className="export-action-spacer" aria-hidden />
-                  <span>{t('fileViewer.shareLabel')}</span>
-                  <RemixIcon name="arrow-down-s-line" size={14} />
-                </button>
-                {shareMenuOpen ? (
-                  <div className="share-menu-popover" role="menu">
-                    <div className="share-menu-section-label" role="presentation">
-                      {t('common.share')}
-                    </div>
-                    <button
-                      type="button"
-                      className="share-menu-item"
-                      role="menuitem"
-                      onClick={() => {
-                        setShareMenuOpen(false);
-                        exportAsJsx(source, exportTitle, sourceExtension);
-                      }}
-                    >
-                      <span className="share-menu-icon"><RemixIcon name="file-code-line" size={15} /></span>
-                      <span>{t('fileViewer.exportJsx')}</span>
-                    </button>
-                    <button
-                      type="button"
-                      className="share-menu-item"
-                      role="menuitem"
-                      onClick={() => {
-                        setShareMenuOpen(false);
-                        exportReactComponentAsHtml(source, exportTitle);
-                      }}
-                    >
-                      <span className="share-menu-icon"><RemixIcon name="file-line" size={15} /></span>
-                      <span>{t('fileViewer.exportReactHtml')}</span>
-                    </button>
-                    <div className="share-menu-divider" />
-                    <button
-                      type="button"
-                      className="share-menu-item"
-                      role="menuitem"
-                      onClick={() => {
-                        setShareMenuOpen(false);
-                        exportReactComponentAsZip(source, exportTitle, sourceExtension);
-                      }}
-                    >
-                      <span className="share-menu-icon"><RemixIcon name="file-zip-line" size={15} /></span>
-                      <span>{t('fileViewer.exportZip')}</span>
-                    </button>
-                  </div>
-                ) : null}
-              </div>
-            </>
-          ) : null}
         </div>
       </div>
       <div className="viewer-body">
@@ -5416,6 +5351,7 @@ function HtmlViewer({
 }) {
   const { locale, t } = useI18n();
   const analytics = useAnalytics();
+  const showEditorShareActions = false;
   // Latest per-slide capture progress for the programmatic exporters, read by
   // the loading-toast ticker in fireShareExport to render elapsed time + ETA.
   const exportProgressRef = useRef<{ done: number; total: number } | null>(null);
@@ -6783,6 +6719,32 @@ function HtmlViewer({
     return true;
   }, []);
 
+  const previewContentToIframe = useCallback((id: string, draft: ManualEditDraft) => {
+    const win = iframeRef.current?.contentWindow;
+    if (!win) return false;
+    win.postMessage({
+      type: 'od-edit-preview-content',
+      id,
+      fields: {
+        text: draft.text,
+        href: draft.href,
+        src: draft.src,
+        alt: draft.alt,
+        outerHtml: draft.outerHtml,
+      },
+    }, '*');
+    return true;
+  }, []);
+
+  const updateManualEditFrozenPreview = useCallback((patch: ManualEditPatch) => {
+    setManualEditFrozenSource((current) => {
+      const base = current ?? sourceRef.current;
+      if (base == null) return current;
+      const result = applyManualEditPatch(base, patch);
+      return result.ok ? result.source : current;
+    });
+  }, []);
+
   function postSelectedManualEditTargetToIframe(id: string | null, target: HTMLIFrameElement | null = iframeRef.current) {
     const win = target?.contentWindow;
     if (!win) return;
@@ -7195,15 +7157,15 @@ function HtmlViewer({
         return;
       }
       if (data.type === 'od-edit-text-commit') {
-        // Keep the apply promise reachable so any teardown (host- or
-        // iframe-initiated) can await it and honor a failed save before tearing
-        // down. It self-clears once resolved, keyed to identity so a newer
-        // commit is never clobbered.
-        const commit = applyManualEdit({
-          id: String(data.id),
-          kind: 'set-text',
-          value: String(data.value),
-        }, 'Edit text');
+        const id = String(data.id);
+        const value = String(data.value);
+        setManualEditDraft((current) => ({ ...current, text: value }));
+        setManualEditDraftDirty(true);
+        updateManualEditFrozenPreview({ id, kind: 'set-text', value });
+        setSelectedManualEditTarget((current) => current?.id === id
+          ? { ...current, text: value, fields: { ...current.fields, text: value } }
+          : current);
+        const commit = Promise.resolve(true);
         manualEditTextCommitInFlightRef.current = commit;
         void (async () => {
           try { await commit; } catch { /* failure honored by teardown / surfaced by applyManualEdit */ }
@@ -7237,7 +7199,7 @@ function HtmlViewer({
     }
     window.addEventListener('message', onMessage);
     return () => window.removeEventListener('message', onMessage);
-  }, [isOurPreviewIframeSource, manualEditMode, source]);
+  }, [isOurPreviewIframeSource, manualEditMode, source, updateManualEditFrozenPreview]);
 
   function nextManualEditPreviewVersion(): number {
     manualEditPreviewVersionRef.current += 1;
@@ -7308,6 +7270,7 @@ function HtmlViewer({
     manualEditPendingStyleRef.current = pending;
     setManualEditError(null);
     previewStyleToIframe(id, styles, version);
+    updateManualEditFrozenPreview({ id, kind: 'set-style', styles: pendingStyles });
   }
 
   async function flushManualEditStyleSave(): Promise<boolean> {
@@ -7337,6 +7300,7 @@ function HtmlViewer({
       return acc;
     }, {});
     previewStyleToIframe(pending.id, resetStyles, nextManualEditPreviewVersion());
+    setManualEditFrozenSource(base);
     if (!target || target.id === selectedManualEditTarget?.id) {
       setManualEditDraft((current) => ({
         ...current,
@@ -7535,9 +7499,8 @@ function HtmlViewer({
   }
 
   async function saveManualEditPanelDraft() {
-    const hadTextSession = Boolean(manualEditTextSessionIdRef.current || manualEditTextCommitInFlightRef.current);
     if (!(await settlePendingManualEditCommit())) return;
-    if (selectedManualEditTarget && !hadTextSession) {
+    if (selectedManualEditTarget) {
       const base = sourceRef.current ?? '';
       const contentPatch = manualEditContentPatchForDraft(selectedManualEditTarget, manualEditDraft, base);
       if (contentPatch && !(await applyManualEdit(contentPatch.patch, contentPatch.label))) return;
@@ -7559,16 +7522,10 @@ function HtmlViewer({
     const snapshot = manualEditSelectionDraftRef.current?.id === selectedManualEditTarget.id
       ? manualEditSelectionDraftRef.current.draft
       : manualEditDraftForTarget(selectedManualEditTarget, sourceRef.current ?? '');
-    const base = sourceRef.current ?? '';
-    const currentOuterHtml = readManualEditOuterHtml(base, selectedManualEditTarget.id);
-    if (snapshot.outerHtml && currentOuterHtml && snapshot.outerHtml !== currentOuterHtml) {
-      const ok = await applyManualEdit(
-        { id: selectedManualEditTarget.id, kind: 'set-outer-html', html: snapshot.outerHtml },
-        'Reset element',
-      );
-      if (!ok) return;
-    }
-    const refreshedBase = sourceRef.current ?? base;
+    const refreshedBase = sourceRef.current ?? '';
+    previewContentToIframe(selectedManualEditTarget.id, snapshot);
+    previewStyleToIframe(selectedManualEditTarget.id, snapshot.styles, nextManualEditPreviewVersion());
+    setManualEditFrozenSource(refreshedBase);
     setManualEditDraft({
       ...snapshot,
       fullSource: refreshedBase,
@@ -7582,9 +7539,16 @@ function HtmlViewer({
   async function cancelManualEditPanel() {
     if (manualEditTextSessionIdRef.current) await finishManualEditTextSession(false);
     if (selectedManualEditTarget) {
+      const snapshot = manualEditSelectionDraftRef.current?.id === selectedManualEditTarget.id
+        ? manualEditSelectionDraftRef.current.draft
+        : manualEditDraftForTarget(selectedManualEditTarget, sourceRef.current ?? '');
+      previewContentToIframe(selectedManualEditTarget.id, snapshot);
+      previewStyleToIframe(selectedManualEditTarget.id, snapshot.styles, nextManualEditPreviewVersion());
+      setManualEditFrozenSource(sourceRef.current ?? null);
       void clearManualEditTargetSelection();
     } else {
       cancelManualEditStyleDraft();
+      setManualEditFrozenSource(sourceRef.current ?? null);
       setManualEditPageStylesOpen(false);
     }
   }
@@ -7631,9 +7595,7 @@ function HtmlViewer({
       setSource(result.source);
       sourceRef.current = result.source;
       setInlinedSource(null);
-      if (patch.kind !== 'set-style') {
-        setManualEditFrozenSource(result.source);
-      }
+      setManualEditFrozenSource(result.source);
       setManualEditHistory((current) => [entry, ...current]);
       setManualEditUndone([]);
       setManualEditDraft((current) => ({ ...current, fullSource: result.source }));
@@ -7671,9 +7633,14 @@ function HtmlViewer({
         patch.kind !== 'remove-element' &&
         patch.kind !== 'set-token' &&
         patch.kind !== 'set-full-source' &&
-        selectedManualEditTargetIdRef.current === patch.id
+        selectedManualEditTargetIdRef.current === patch.id &&
+        selectedManualEditTarget
       ) {
-        setManualEditDraftDirty(true);
+        manualEditSelectionDraftRef.current = {
+          id: patch.id,
+          draft: manualEditDraftForTarget(selectedManualEditTarget, result.source),
+        };
+        setManualEditDraftDirty(false);
       }
       if (patch.kind === 'set-style') {
         reconcileManualEditStyleSave(patch.id, patch.styles, result.source);
@@ -7699,6 +7666,7 @@ function HtmlViewer({
     setManualEditHistory([]);
     setManualEditUndone([]);
     manualEditPendingStyleRef.current = null;
+    setManualEditFrozenSource(persisted);
     setManualEditDraft((current) => ({ ...current, fullSource: persisted }));
     setManualEditError(message);
     return false;
@@ -9449,6 +9417,16 @@ function HtmlViewer({
       onDraftChange={(draft) => {
         setManualEditDraft(draft);
         setManualEditDraftDirty(Boolean(selectedManualEditTarget));
+        if (selectedManualEditTarget) {
+          previewContentToIframe(selectedManualEditTarget.id, draft);
+          const contentPatch = manualEditContentPatchForDraft(
+            selectedManualEditTarget,
+            draft,
+            sourceRef.current ?? '',
+          );
+          if (contentPatch) updateManualEditFrozenPreview(contentPatch.patch);
+          else setManualEditFrozenSource(sourceRef.current ?? null);
+        }
       }}
       onStyleChange={(id, styles, label) => {
         void handleManualEditStyleChange(id, styles, label);
@@ -10160,9 +10138,9 @@ function HtmlViewer({
               ) : null}
             </div>
           ) : null}
-          {canShare || canDownload ? (
+          {(showEditorShareActions && canShare) || canDownload ? (
             <div className="chrome-file-action-menus" ref={shareRef}>
-              {canShare ? (
+              {showEditorShareActions && canShare ? (
                 <div className="share-menu chrome-share-menu">
                   <button
                     type="button"

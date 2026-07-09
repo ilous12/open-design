@@ -220,7 +220,7 @@ export function QuestionsPanel({
   const autoFiredRef = useRef(false);
 
   useEffect(() => {
-    if (!canSubmit) {
+    if (!canSkip) {
       setRemaining(SKIP_COUNTDOWN_SECONDS);
       autoFiredRef.current = false;
       return;
@@ -229,12 +229,12 @@ export function QuestionsPanel({
       setRemaining((s) => Math.max(0, s - 1));
     }, 1000);
     return () => window.clearInterval(id);
-  }, [canSubmit]);
+  }, [canSkip]);
 
   // When the countdown elapses, continue with the current selections (anything
   // untouched submits as skipped) and let generation proceed.
   useEffect(() => {
-    if (canSubmit && remaining <= 0 && !autoFiredRef.current) {
+    if (canSkip && remaining <= 0 && !autoFiredRef.current) {
       autoFiredRef.current = true;
       // Either branch reports as skip_source=countdown; answered_count tells
       // apart a countdown submit that carried picks from a pure skip.
@@ -244,7 +244,7 @@ export function QuestionsPanel({
       if (ready) formRef.current?.submit();
       else formRef.current?.skipAll();
     }
-  }, [canSubmit, ready, remaining]);
+  }, [canSkip, ready, remaining]);
 
   const countdown = `${Math.floor(remaining / 60)}:${String(remaining % 60).padStart(2, '0')}`;
 

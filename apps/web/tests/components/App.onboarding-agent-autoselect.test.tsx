@@ -6,6 +6,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { App } from '../../src/App';
 import type { AppConfig } from '../../src/types';
 import { loadConfig, mergeDaemonConfig, fetchDaemonConfig } from '../../src/state/config';
+import { navigate } from '../../src/router';
 import {
   daemonIsLive,
   fetchAgentsStream,
@@ -121,6 +122,7 @@ const mockedListProjects = vi.mocked(listProjects);
 const mockedListTemplates = vi.mocked(listTemplates);
 const mockedLoadConfig = vi.mocked(loadConfig);
 const mockedFetchDaemonConfig = vi.mocked(fetchDaemonConfig);
+const mockedNavigate = vi.mocked(navigate);
 
 function firstRunConfig(): AppConfig {
   return {
@@ -235,7 +237,9 @@ describe('App first-run agent auto-select', () => {
     expect(wroteClaude).toBe(false);
   });
 
-  it('auto-picks the first available agent once onboarding is complete', async () => {
+  it('routes completed configs with no usable runtime back to onboarding', async () => {
+    const { syncConfigToDaemon } = await import('../../src/state/config');
+    const mockedSync = vi.mocked(syncConfigToDaemon);
     mockedLoadConfig.mockReturnValue({
       ...firstRunConfig(),
       onboardingCompleted: true,
@@ -244,10 +248,37 @@ describe('App first-run agent auto-select', () => {
 
     render(<App />);
 
-    // Returning user with an empty agent slot: the fallback should still fill
-    // it with the first available agent.
     await waitFor(() => {
-      expect(screen.getByTestId('agent-id').textContent).toBe('claude');
+      expect(mockedNavigate).toHaveBeenCalledWith(
+        { kind: 'home', view: 'onboarding' },
+        { replace: true },
+      );
+    });
+    expect(screen.getByTestId('agent-id').textContent).toBe('none');
+    const wroteClaude = mockedSync.mock.calls.some(
+      ([cfg]) => (cfg as AppConfig | undefined)?.agentId === 'claude',
+    );
+    expect(wroteClaude).toBe(false);
+  });
+
+  it('routes completed configs with a missing selected local agent back to onboarding', async () => {
+    mockedLoadConfig.mockReturnValue({
+      ...firstRunConfig(),
+      onboardingCompleted: true,
+      agentId: 'codex',
+    });
+    mockedFetchDaemonConfig.mockResolvedValue({
+      onboardingCompleted: true,
+      agentId: 'codex',
+    });
+
+    render(<App />);
+
+    await waitFor(() => {
+      expect(mockedNavigate).toHaveBeenCalledWith(
+        { kind: 'home', view: 'onboarding' },
+        { replace: true },
+      );
     });
   });
 });

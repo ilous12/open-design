@@ -18,7 +18,6 @@ import {
 } from '../analytics/amr-attribution';
 import { getResolvedDeviceId } from '../analytics/client';
 import {
-  trackSettingsAppearanceClick,
   trackSettingsByokModelsFetchResult,
   trackSettingsByokTestResult,
   trackSettingsCliTestResult,
@@ -26,7 +25,6 @@ import {
   trackSettingsByokProviderOptionClick,
   trackSettingsConnectorAuthResult,
   trackSettingsDesignReviewClick,
-  trackSettingsLanguageClick,
   trackSettingsLocalCliClick,
   trackSettingsExecutionModeTabClick,
   trackSettingsMediaProvidersClick,
@@ -34,7 +32,7 @@ import {
   trackSettingsPrivacyClick,
   trackSettingsView,
 } from '../analytics/events';
-import { LOCALE_LABEL, LOCALES, useI18n } from '../i18n';
+import { useI18n } from '../i18n';
 import type { Locale } from '../i18n';
 import type { Dict } from '../i18n/types';
 import { AgentIcon } from './AgentIcon';
@@ -170,10 +168,7 @@ import {
   useCritiqueTheaterEnabled,
 } from './Theater';
 import {
-  ACCENT_SWATCHES,
-  DEFAULT_ACCENT_COLOR,
   applyAppearanceToDocument,
-  normalizeAccentColor,
   resolveAccentColor,
 } from '../state/appearance';
 import { isAutosaveDraftOnlyChange } from '../App';
@@ -185,6 +180,8 @@ import {
   requestNotificationPermission,
   showCompletionNotification,
 } from '../utils/notifications';
+
+const CRITIQUE_THEATER_FEATURE_ENABLED = false;
 
 export type SettingsSection =
   | 'execution'
@@ -211,6 +208,20 @@ export type SettingsSection =
   // navigate() call so openSettings only owns dialog-bound sections.
   | 'library'
   | 'about';
+
+function visibleSettingsSection(section: SettingsSection): SettingsSection {
+  return section === 'language'
+    || section === 'appearance'
+    || section === 'media'
+    || section === 'composio'
+    || section === 'integrations'
+    || section === 'mcpClient'
+    || section === 'pet'
+    || section === 'designSystems'
+    || section === 'privacy'
+    ? 'execution'
+    : section;
+}
 
 interface ByokProviderPreset {
   id: string;
@@ -770,23 +781,9 @@ const API_KEY_CONSOLE_LINKS: Record<ApiProtocol, { host: string; url: string }> 
 };
 
 const AGENT_SHORT_DESCRIPTIONS: Record<string, string> = {
-  claude: 'Anthropic official CLI',
-  codex: 'OpenAI official CLI',
-  'cursor-agent': 'Cursor command line',
-  opencode: 'Open-source agent CLI',
-  qwen: 'Qwen coding CLI',
-  copilot: 'GitHub coding CLI',
-  devin: 'Cognition terminal CLI',
-  kimi: 'Moonshot Kimi CLI',
-  qoder: 'Alibaba coding CLI',
-  pi: 'Inflection chat CLI',
-  kiro: 'Kiro agent CLI',
-  kilo: 'Kilo Code CLI',
-  vibe: 'Mistral open-source CLI',
-  deepseek: 'DeepSeek terminal UI',
-  hermes: 'ACP agent CLI',
-  'grok-build': 'xAI coding CLI',
-  reasonix: 'DeepSeek native coding CLI',
+  claude: 'Anthropic Claude Code CLI',
+  codex: 'OpenAI Codex CLI',
+  antigravity: 'Google Antigravity CLI',
 };
 
 function cleanAgentVersionLabel(
@@ -1342,7 +1339,7 @@ export function SettingsDialog({
   providerModelsCache: sharedProviderModelsCache,
   onProviderModelsCacheChange,
 }: Props) {
-  const { t, locale, setLocale } = useI18n();
+  const { t, locale } = useI18n();
   const analytics = useAnalytics();
   // Backfill the fixed-origin base URL on mount too, so a config persisted with
   // an empty baseUrl (e.g. selected AIHubMix before this resolution existed)
@@ -1423,7 +1420,10 @@ export function SettingsDialog({
       ? { [initial.apiProtocol ?? 'anthropic']: byokProviderKeyForConfig(initial) }
       : {},
   );
-  const [activeSection, setActiveSection] = useState<SettingsSection>(initialSection);
+  const [activeSection, setActiveSectionRaw] = useState<SettingsSection>(() => visibleSettingsSection(initialSection));
+  const setActiveSection = useCallback((section: SettingsSection) => {
+    setActiveSectionRaw(visibleSettingsSection(section));
+  }, []);
   const [settingsSidebarCollapsed, setSettingsSidebarCollapsed] = useState(false);
   const [settingsFullscreen, setSettingsFullscreen] = useState(false);
   // Scroll the right-hand content pane back to the top whenever the user
@@ -1745,7 +1745,7 @@ export function SettingsDialog({
   // routes through this when the MCP tab is active so the user can press the
   // single Save button at the bottom instead of hunting for the inner one.
   useEffect(() => {
-    setActiveSection(initialSection);
+    setActiveSection(visibleSettingsSection(initialSection));
   }, [initialSection]);
 
   // settings_view — fires whenever the active section changes (and once on
@@ -2689,172 +2689,24 @@ export function SettingsDialog({
       title: 'Anthropic',
       protocol: 'anthropic',
       baseUrl: 'https://api.anthropic.com',
-      model: 'claude-sonnet-4-5',
+      model: 'claude-sonnet-5',
     },
     {
       id: 'openai',
       title: 'OpenAI',
       protocol: 'openai',
       baseUrl: 'https://api.openai.com/v1',
-      model: 'gpt-4o',
+      model: 'gpt-5.5',
     },
     {
       id: 'google-ai-studio',
       title: 'Google Gemini',
       protocol: 'google',
       baseUrl: 'https://generativelanguage.googleapis.com',
-      model: 'gemini-3.5-flash',
-    },
-    {
-      id: 'ollama',
-      title: 'Ollama Cloud',
-      protocol: 'ollama',
-      baseUrl: 'https://ollama.com',
-      model: 'gpt-oss:120b',
-    },
-    {
-      id: 'azure',
-      title: 'Azure OpenAI',
-      protocol: 'azure',
-      baseUrl: '',
-      model: '',
-    },
-    {
-      id: 'siliconflow',
-      title: '硅基流动',
-      protocol: 'openai',
-      baseUrl: 'https://api.siliconflow.cn/v1',
-      model: 'deepseek-ai/DeepSeek-V3.1',
-    },
-    {
-      id: 'ppio',
-      title: 'PPIO',
-      protocol: 'openai',
-      baseUrl: 'https://api.ppinfra.com/v3/openai',
-      model: 'deepseek/deepseek-v3.1',
-    },
-    {
-      id: 'nvidia',
-      title: 'NVIDIA',
-      protocol: 'openai',
-      baseUrl: 'https://integrate.api.nvidia.com/v1',
-      model: 'openai/gpt-oss-120b',
-    },
-    {
-      id: 'stepfun',
-      title: 'StepFun',
-      protocol: 'openai',
-      baseUrl: 'https://api.stepfun.ai/v1',
-      model: 'step-2-mini',
-    },
-    {
-      id: 'deepseek',
-      title: 'DeepSeek',
-      protocol: 'openai',
-      baseUrl: 'https://api.deepseek.com',
-      model: 'deepseek-chat',
-    },
-    {
-      id: 'openrouter',
-      title: 'OpenRouter',
-      protocol: 'openai',
-      baseUrl: 'https://openrouter.ai/api/v1',
-      model: 'anthropic/claude-3.7-sonnet',
-    },
-    {
-      id: 'mistral',
-      title: 'Mistral AI',
-      protocol: 'openai',
-      baseUrl: 'https://api.mistral.ai/v1',
-      model: 'mistral-large-latest',
-    },
-    {
-      id: 'xai',
-      title: 'xAI',
-      protocol: 'openai',
-      baseUrl: 'https://api.x.ai/v1',
-      model: 'grok-4',
-    },
-    {
-      id: 'together',
-      title: 'Together AI',
-      protocol: 'openai',
-      baseUrl: 'https://api.together.xyz/v1',
-      model: 'meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo',
-    },
-    {
-      id: 'huggingface',
-      title: 'Hugging Face',
-      protocol: 'openai',
-      baseUrl: 'https://router.huggingface.co/v1',
-      model: 'openai/gpt-oss-120b',
-    },
-    {
-      id: 'qwen',
-      title: '千问',
-      protocol: 'openai',
-      baseUrl: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
-      model: 'qwen-plus',
-    },
-    {
-      id: 'volcengine',
-      title: '火山引擎',
-      protocol: 'openai',
-      baseUrl: 'https://ark.cn-beijing.volces.com/api/v3',
-      model: 'doubao-seed-1-6',
-    },
-    {
-      id: 'qianfan',
-      title: '百度千帆',
-      protocol: 'openai',
-      baseUrl: 'https://qianfan.baidubce.com/v2',
-      model: 'ernie-4.5-turbo-128k',
-    },
-    {
-      id: 'vllm',
-      title: 'vLLM',
-      protocol: 'openai',
-      baseUrl: 'http://127.0.0.1:8000/v1',
-      model: 'model',
-    },
-    {
-      id: 'mimo',
-      title: '小米 MiMo',
-      protocol: 'openai',
-      baseUrl: 'https://token-plan-cn.xiaomimimo.com/v1',
-      model: 'mimo-v2.5-pro',
-    },
-    {
-      id: 'minimax',
-      title: 'MiniMax',
-      protocol: 'anthropic',
-      baseUrl: 'https://api.minimaxi.com/anthropic',
-      model: 'MiniMax-M2.7-highspeed',
-    },
-    {
-      id: 'moonshot',
-      title: 'Moonshot',
-      protocol: 'openai',
-      baseUrl: 'https://api.moonshot.cn/v1',
-      model: 'kimi-k2-0711-preview',
-    },
-    {
-      id: 'zhipu',
-      title: '智谱',
-      protocol: 'openai',
-      baseUrl: 'https://open.bigmodel.cn/api/paas/v4',
-      model: 'glm-4.6',
-    },
-    {
-      id: 'custom',
-      title: t('settings.customProvider'),
-      protocol: apiProtocol,
-      baseUrl: cfg.baseUrl,
-      model: cfg.model,
-      custom: true,
+      model: 'gemini-flash-latest',
     },
   ];
-  const customByokProvider = byokProviderPresets.find((provider) => provider.custom) ?? {
+  const customByokProvider = {
     id: 'custom',
     title: t('settings.customProvider'),
     protocol: apiProtocol,
@@ -2862,25 +2714,7 @@ export function SettingsDialog({
     model: cfg.model,
     custom: true,
   };
-  const byokPresetProtocols = new Set(
-    byokProviderPresets
-      .filter((provider) => !provider.custom)
-      .map((provider) => provider.protocol),
-  );
-  const byokProviderOptions: ReadonlyArray<ByokProviderPreset> = [
-    ...byokProviderPresets.filter((provider) => !provider.custom),
-    ...API_PROTOCOL_TABS.filter((tab) => !byokPresetProtocols.has(tab.id)).map((tab) => {
-      const fallback = defaultApiProtocolConfig(tab.id);
-      return {
-        id: `protocol-${tab.id}`,
-        title: tab.title,
-        protocol: tab.id,
-        baseUrl: fallback.baseUrl || DEFAULT_BASE_URL_BY_PROTOCOL[tab.id],
-        model: fallback.model || SUGGESTED_MODELS_BY_PROTOCOL[tab.id][0] || '',
-      };
-    }),
-    customByokProvider,
-  ];
+  const byokProviderOptions: ReadonlyArray<ByokProviderPreset> = byokProviderPresets;
   const selectedByokProvider =
     cfg.apiProviderBaseUrl === null
       ? customByokProvider
@@ -2889,7 +2723,7 @@ export function SettingsDialog({
           !provider.custom &&
           provider.protocol === apiProtocol &&
           provider.baseUrl === cfg.apiProviderBaseUrl,
-      ) ?? customByokProvider;
+      ) ?? byokProviderOptions.find((provider) => provider.protocol === apiProtocol) ?? byokProviderOptions[0] ?? customByokProvider;
   const baseUrlValid = isValidApiBaseUrl(cfg.baseUrl);
   const baseUrlInvalid = Boolean(cfg.baseUrl.trim() && !baseUrlValid);
   const byokRequiredLabel = (field: ByokRequiredField): string => {
@@ -3167,8 +3001,7 @@ export function SettingsDialog({
           (p) => p.baseUrl === cfg.apiProviderBaseUrl && p.baseUrl === cfg.baseUrl,
         );
   const selectedProvider = selectedProviderIndex >= 0 ? protocolProviders[selectedProviderIndex] : undefined;
-  const showProviderPreset =
-    protocolProviders.length > 0 && !isFixedOriginGateway(apiProtocol);
+  const showProviderPreset = false;
   // Fixed-origin gateways resolve their Base URL automatically; nothing for the
   // user to edit, so hide the field entirely.
   const showBaseUrlField = !isFixedOriginGateway(apiProtocol);
@@ -3940,83 +3773,19 @@ export function SettingsDialog({
                 <small>{t('settings.memoryHint')}</small>
               </span>
             </button>
-            <button
-              type="button"
-              className={`settings-nav-item${activeSection === 'media' ? ' active' : ''}`}
-              onClick={() => setActiveSection('media')}
-            >
-              <Icon name="image" size={18} />
-              <span>
-                <strong>{t('settings.mediaProviders')}</strong>
-                <small>Image / video / audio</small>
-              </span>
-            </button>
-            <button
-              type="button"
-              className={`settings-nav-item${activeSection === 'mcpClient' ? ' active' : ''}`}
-              onClick={() => setActiveSection('mcpClient')}
-            >
-              <Icon name="sparkles" size={18} />
-              <span>
-                <strong>{t('settings.externalMcpTitle')}</strong>
-                <small>{t('settings.externalMcpHint')}</small>
-              </span>
-            </button>
-            <button
-              type="button"
-              className={`settings-nav-item${activeSection === 'composio' ? ' active' : ''}`}
-              onClick={() => setActiveSection('composio')}
-            >
-              <Icon name="sliders" size={18} />
-              <span>
-                <strong>{t('connectors.title')}</strong>
-                <small>{t('settings.connectorsNavHint')}</small>
-              </span>
-            </button>
-            <button
-              type="button"
-              className={`settings-nav-item${activeSection === 'integrations' ? ' active' : ''}`}
-              onClick={() => setActiveSection('integrations')}
-            >
-              <Icon name="link" size={18} />
-              <span>
-                <strong>{t('settings.mcpServerTitle')}</strong>
-                <small>{t('settings.mcpServerHint')}</small>
-              </span>
-            </button>
-            <button
-              type="button"
-              className={`settings-nav-item${activeSection === 'language' ? ' active' : ''}`}
-              onClick={() => setActiveSection('language')}
-            >
-              <Icon name="languages" size={18} />
-              <span>
-                <strong>{t('settings.language')}</strong>
-                <small>{t('settings.languageHint')}</small>
-              </span>
-            </button>
-            <button
-              type="button"
-              className={`settings-nav-item${activeSection === 'appearance' ? ' active' : ''}`}
-              onClick={() => setActiveSection('appearance')}
-            >
-              <Icon name="sun-moon" size={18} />
-              <span>
-                <strong>{t('settings.appearance')}</strong>
-                <small>{t('settings.appearanceHint')}</small>
-              </span>
-            </button>
-            <button
-              type="button"
-              className={`settings-nav-item${activeSection === 'critiqueTheater' ? ' active' : ''}`}
-              onClick={() => setActiveSection('critiqueTheater')}
-            >
-              <Icon name="comment" size={18} />
-              <span>
-                <strong>{t('critiqueTheater.settingsNav')}</strong>
-                <small>{t('critiqueTheater.settingsNavHint')}</small>
-              </span>
-            </button>
+            {CRITIQUE_THEATER_FEATURE_ENABLED ? (
+              <button
+                type="button"
+                className={`settings-nav-item${activeSection === 'critiqueTheater' ? ' active' : ''}`}
+                onClick={() => setActiveSection('critiqueTheater')}
+              >
+                <Icon name="comment" size={18} />
+                <span>
+                  <strong>{t('critiqueTheater.settingsNav')}</strong>
+                  <small>{t('critiqueTheater.settingsNavHint')}</small>
+                </span>
+              </button>
+            ) : null}
             <button
               type="button"
               className={`settings-nav-item${activeSection === 'notifications' ? ' active' : ''}`}
@@ -4030,28 +3799,6 @@ export function SettingsDialog({
             </button>
             <button
               type="button"
-              className={`settings-nav-item${activeSection === 'pet' ? ' active' : ''}`}
-              onClick={() => setActiveSection('pet')}
-            >
-              <Icon name="sparkles" size={18} />
-              <span>
-                <strong>{t('pet.navTitle')}</strong>
-                <small>{t('pet.navHint')}</small>
-              </span>
-            </button>
-            <button
-              type="button"
-              className={`settings-nav-item${activeSection === 'designSystems' ? ' active' : ''}`}
-              onClick={() => setActiveSection('designSystems')}
-            >
-              <Icon name="draw" size={18} />
-              <span>
-                <strong>{t('settings.designSystems')}</strong>
-                <small>{t('settings.designSystemsHint')}</small>
-              </span>
-            </button>
-            <button
-              type="button"
               className={`settings-nav-item${activeSection === 'projectLocations' ? ' active' : ''}`}
               onClick={() => setActiveSection('projectLocations')}
             >
@@ -4059,17 +3806,6 @@ export function SettingsDialog({
               <span>
                 <strong>{t('settings.projectLocations')}</strong>
                 <small>{t('settings.projectLocationsHint')}</small>
-              </span>
-            </button>
-            <button
-              type="button"
-              className={`settings-nav-item${activeSection === 'privacy' ? ' active' : ''}`}
-              onClick={() => setActiveSection('privacy')}
-            >
-              <Icon name="eye" size={18} />
-              <span>
-                <strong>{t('settings.privacy')}</strong>
-                <small>{t('settings.privacyHint')}</small>
               </span>
             </button>
             <button
@@ -4976,34 +4712,6 @@ export function SettingsDialog({
                     </span>
                   </div>
                 </div>
-                <ByokConnectionTestControl
-                  baseUrlValid={baseUrlValid}
-                  canRunConnectionTest={
-                    !byokFirstPartyBaseUrl?.hostTypo &&
-                    canRunProviderConnectionTest(cfg, {
-                      requiresApiKey: byokRequiresApiKey,
-                    })
-                  }
-                  labels={{
-                    readyToTest: t('settings.byokReadyToTest'),
-                    test: t('settings.test'),
-                    testRetry: t('settings.testRetry'),
-                    testRunning: t('settings.testRunning'),
-                    testTitle: t('settings.testTitle'),
-                  }}
-                  providerTestState={providerTestState}
-                  renderTestMessage={(result) => renderTestMessage(result, 'api')}
-                  suppressResultStatus={
-                    providerTestBaseUrlInvalid || providerTestApiKeyAuthFailed
-                  }
-                  suppressReadyState={Boolean(
-                    byokPreconditionNotice ||
-                      apiKeyFieldAuthFailed ||
-                      providerTestBaseUrlInvalid ||
-                      byokBlockingDraftIssues.length > 0,
-                  )}
-                  onTestProvider={() => handleTestProvider()}
-                />
               </div>
               {byokPreconditionNotice && !byokPreconditionNotice.field ? (
                 <p
@@ -5081,57 +4789,6 @@ export function SettingsDialog({
                 }}
                 onToggleShowApiKey={() => setShowApiKey((v) => !v)}
               />
-              {showBaseUrlField ? (
-                <ByokProviderBaseUrl
-                  apiProtocol={apiProtocol}
-                  inputRef={baseUrlInputRef}
-                  baseUrl={cfg.baseUrl}
-                  baseUrlError={baseUrlErrorMessage}
-                  baseUrlInvalid={Boolean(baseUrlErrorMessage)}
-                  baseUrlPlaceholder={baseUrlPlaceholder}
-                  baseUrlReadOnly={baseUrlReadOnly}
-                  labels={{
-                    baseUrl: t('settings.baseUrl'),
-                    required: t('settings.required'),
-                    customize: t('settings.baseUrlCustomize'),
-                    invalid: t('settings.baseUrlInvalid'),
-                    defaultHint: t('settings.baseUrlDefaultHint'),
-                    azureHint: t('settings.azureBaseUrlHint'),
-                  }}
-                  onBlur={commitProviderModelsInputs}
-                  onChange={(value) => updateApiConfig({ baseUrl: value, apiProviderBaseUrl: null })}
-                  onCustomize={() => {
-                    updateApiConfig({ apiProviderBaseUrl: null });
-                    window.setTimeout(() => baseUrlInputRef.current?.focus(), 0);
-                  }}
-                  onFocus={() => {
-                    const byokProviderId = byokProtocolToTracking(apiProtocol);
-                    if (byokProviderId) {
-                      trackSettingsByokFieldClick(analytics.track, {
-                        page_name: 'settings',
-                        area: 'configure_execution_mode_byok',
-                        element: 'base_url',
-                        provider_id: byokProviderId,
-                        has_value: Boolean(cfg.baseUrl?.trim()),
-                      });
-                    }
-                  }}
-                />
-              ) : null}
-              <label className="field">
-                <span className="field-label">{t('settings.maxTokens')}</span>
-                <input
-                  type="number"
-                  min={MIN_MAX_TOKENS}
-                  max={MAX_MAX_TOKENS}
-                  step={1}
-                  placeholder={String(modelMaxTokensDefault(cfg.model))}
-                  value={maxTokensInput}
-                  onChange={(e) => updateMaxTokensInput(e.target.value)}
-                  onBlur={() => setMaxTokensInput(cfg.maxTokens == null ? '' : String(cfg.maxTokens))}
-                />
-                <p className="hint">{t('settings.maxTokensHint')}</p>
-              </label>
               <ByokModelField
                 customActive={apiModelCustomActive}
                 customInputRef={customModelInputRef}
@@ -5141,7 +4798,7 @@ export function SettingsDialog({
                     ? t('settings.azureCustomDeploymentName')
                     : t('settings.modelCustomLabel'),
                   customModelPlaceholder: apiProtocol === 'azure'
-                    ? 'e.g. gpt-4o-production'
+                    ? 'e.g. gpt-5.5-production'
                     : t('settings.modelCustomPlaceholder'),
                   fetchModelsUnsupported: t('settings.fetchModelsUnsupported'),
                   model: apiProtocol === 'azure'
@@ -5209,133 +4866,6 @@ export function SettingsDialog({
                   updateApiConfig({ model: nextValue });
                 }}
               />
-              <details className="agent-cli-env settings-memory-advanced">
-                <summary className="agent-cli-env-summary">
-                  <span className="agent-cli-env-summary-title">
-                    {t('settings.memoryModelInlineLabel')}
-                  </span>
-                  <span className="settings-memory-summary-value">
-                    {cfg.model.trim()
-                      ? t('settings.memoryModelInlineSameAsChatWithModel', {
-                          model: cfg.model.trim(),
-                        })
-                      : t('settings.memoryModelInlineSameAsChat')}
-                  </span>
-                </summary>
-                <div className="agent-cli-env-body">
-                  <MemoryModelInline
-                    mode="api"
-                    apiProtocol={apiProtocol}
-                    chatApiKey={cfg.apiKey}
-                    chatBaseUrl={cfg.baseUrl}
-                    chatApiVersion={cfg.apiVersion ?? ''}
-                    chatModel={cfg.model}
-                    apiModelOptions={apiModelOptions}
-                  />
-                </div>
-              </details>
-              {apiProtocol === 'azure' ? (
-                <label className="field">
-                  <span className="field-label">{t('settings.apiVersion')}</span>
-                  <input
-                    type="text"
-                    value={cfg.apiVersion ?? ''}
-                    placeholder="2024-10-21"
-                    onBlur={commitProviderModelsInputs}
-                    onChange={(e) => updateApiConfig({ apiVersion: e.target.value.trim() })}
-                  />
-                </label>
-              ) : null}
-              {apiProtocol === 'senseaudio' || apiProtocol === 'aihubmix' ? (
-                <label className="field">
-                  <span className="field-label">{t('settings.byokImageModel')}</span>
-                  <SearchableModelSelect
-                    className="inline-switcher__select settings-model-select settings-model-select--byok"
-                    aria-label={t('settings.byokImageModel')}
-                    searchPlaceholder={t('designs.searchPlaceholder')}
-                    popoverClassName="settings-byok-select-popover"
-                    minSearchableOptions={Number.POSITIVE_INFINITY}
-                    // Live catalogue from the shared hook: AIHubMix's image
-                    // models for aihubmix, the static SenseAudio registry
-                    // otherwise. The default-empty option (first entry) resolves
-                    // to the registry default on the daemon side.
-                    models={[
-                      {
-                        id: '',
-                        label: byokImageModelOptions[0]?.label
-                          ? `${byokImageModelOptions[0].label} (${t('settings.byokModelDefaultOption')})`
-                          : t('settings.byokModelDefaultOption'),
-                      },
-                      ...byokImageModelOptions.map((m) => ({ id: m.id, label: m.label })),
-                    ]}
-                    value={cfg.byokImageModel ?? ''}
-                    onChange={(value) =>
-                      updateApiConfig({ byokImageModel: value })
-                    }
-                  />
-                </label>
-              ) : null}
-              {apiProtocol === 'aihubmix' ? (
-                <label className="field">
-                  <span className="field-label">{t('settings.byokVideoModel')}</span>
-                  <select
-                    value={cfg.byokVideoModel ?? ''}
-                    onChange={(e) =>
-                      updateApiConfig({ byokVideoModel: e.target.value })
-                    }
-                  >
-                    {/* Empty resolves to the default video model on the daemon
-                        side. The LLM can still override per-call via the tool's
-                        `model` arg. */}
-                    <option value="">
-                      {byokVideoModelOptions[0]?.label
-                        ? `${byokVideoModelOptions[0].label} (${t('settings.byokModelDefaultOption')})`
-                        : t('settings.byokModelDefaultOption')}
-                    </option>
-                    {byokVideoModelOptions.map((m) => (
-                      <option key={m.id} value={m.id}>
-                        {m.label}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-              ) : null}
-              {apiProtocol === 'aihubmix' ? (
-                <label className="field">
-                  <span className="field-label">{t('settings.byokSpeechModel')}</span>
-                  <select
-                    value={cfg.byokSpeechModel ?? ''}
-                    onChange={(e) => updateApiConfig({ byokSpeechModel: e.target.value })}
-                  >
-                    <option value="">
-                      {byokSpeechModelOptions[0]?.label
-                        ? `${byokSpeechModelOptions[0].label} (${t('settings.byokModelDefaultOption')})`
-                        : t('settings.byokModelDefaultOption')}
-                    </option>
-                    {byokSpeechModelOptions.map((m) => (
-                      <option key={m.id} value={m.id}>
-                        {m.label}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-              ) : null}
-              {apiProtocol === 'aihubmix' ? (
-                <label className="field">
-                  <span className="field-label">{t('settings.byokSpeechVoice')}</span>
-                  <select
-                    value={cfg.byokSpeechVoice ?? ''}
-                    onChange={(e) => updateApiConfig({ byokSpeechVoice: e.target.value })}
-                  >
-                    <option value="">alloy (default)</option>
-                    {['alloy', 'echo', 'fable', 'onyx', 'nova', 'shimmer'].map((v) => (
-                      <option key={v} value={v}>
-                        {v}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-              ) : null}
             </section>
           )}
             </>
@@ -5405,51 +4935,7 @@ export function SettingsDialog({
             />
           ) : null}
 
-          {activeSection === 'language' ? (
-          <section className="settings-section">
-            <div className="settings-language-grid" role="radiogroup" aria-label={t('settings.language')}>
-              {LOCALES.map((code) => {
-                const active = locale === code;
-                return (
-                  <button
-                    key={code}
-                    type="button"
-                    role="radio"
-                    aria-checked={active}
-                    className={`settings-language-tile${active ? ' active' : ''}`}
-                    onClick={() => {
-                      // P1 ui_click area=language — record the locale id
-                      // that was picked, regardless of whether it differs
-                      // from the current one (user clicked = signal).
-                      trackSettingsLanguageClick(analytics.track, {
-                        page_name: 'settings',
-                        area: 'language',
-                        element: code,
-                      });
-                      setLocale(code as Locale);
-                    }}
-                  >
-                    <span className="settings-language-tile-text">
-                      <span className="settings-language-tile-title">
-                        {LOCALE_LABEL[code]}
-                      </span>
-                      <span className="settings-language-tile-code">
-                        {code}
-                      </span>
-                    </span>
-                    {active ? <Icon name="check" size={16} /> : null}
-                  </button>
-                );
-              })}
-            </div>
-          </section>
-          ) : null}
-
-          {activeSection === 'appearance' ? (
-            <AppearanceSection cfg={cfg} setCfg={setCfg} />
-          ) : null}
-
-          {activeSection === 'critiqueTheater' ? (
+          {CRITIQUE_THEATER_FEATURE_ENABLED && activeSection === 'critiqueTheater' ? (
             <CritiqueTheaterSection />
           ) : null}
 
@@ -5515,68 +5001,14 @@ export function SettingsDialog({
           ) : null}
 
           {activeSection === 'about' ? (
-            <section className="settings-section">
+            <section className="settings-section settings-section-card">
+              <div className="section-head">
+                <div>
+                  <h3>AIR 서비스팀 with Open Design</h3>
+                </div>
+              </div>
               {appVersionInfo ? (
                 <dl className="settings-about-list">
-                  <div className="settings-about-version-row">
-                    <div className="settings-about-version-copy">
-                      <div className="settings-about-version-left">
-                        <dt>{t('settings.appVersion')}</dt>
-                        <span className="settings-about-version-num">{appVersionInfo.version}</span>
-                        <dd
-                          aria-live="polite"
-                          className={`settings-about-update-status settings-about-update-status--${aboutUpdateControl.statusTone}`}
-                        >
-                          {t(aboutUpdateControl.statusKey, aboutUpdateControl.statusVars)}
-                        </dd>
-                      </div>
-                    </div>
-                    <div className="settings-about-update-actions">
-                      {aboutUpdateControl.primaryLabelKey ? (
-                        <button
-                          type="button"
-                          className={`settings-about-update-button${
-                            aboutUpdateControl.primaryAction === 'download'
-                              || aboutUpdateControl.primaryAction === 'install'
-                              || aboutUpdateControl.primaryAction === 'quit'
-                              ? ' settings-about-update-button--primary'
-                              : ''
-                          }`}
-                          disabled={
-                            aboutUpdateActionBusy
-                            || aboutUpdaterModel.busy
-                            || aboutUpdateControl.primaryAction == null
-                          }
-                          onClick={handleAboutUpdateAction}
-                        >
-                          {aboutUpdateActionBusy
-                            ? t('common.loading')
-                            : t(aboutUpdateControl.primaryLabelKey)}
-                        </button>
-                      ) : null}
-                      {aboutUpdateControl.showReleaseLink ? (
-                        <button
-                          type="button"
-                          className="settings-about-release-link"
-                          onClick={handleOpenReleaseNotes}
-                        >
-                          {t('settings.updateViewReleases')}
-                        </button>
-                      ) : null}
-                    </div>
-                  </div>
-                  <div>
-                    <dt>{t('settings.appChannel')}</dt>
-                    <dd>{appVersionInfo.channel}</dd>
-                  </div>
-                  <div>
-                    <dt>{t('settings.appRuntime')}</dt>
-                    <dd>
-                      {appVersionInfo.packaged
-                        ? t('settings.runtimePackaged')
-                        : t('settings.runtimeDevelopment')}
-                    </dd>
-                  </div>
                   <div>
                     <dt>{t('settings.appPlatform')}</dt>
                     <dd>{appVersionInfo.platform}</dd>
@@ -5589,13 +5021,6 @@ export function SettingsDialog({
               ) : (
                 <div className="empty-card">{t('settings.versionUnavailable')}</div>
               )}
-              <div className="settings-about-diagnostics">
-                <div className="settings-about-diagnostics-text">
-                  <h4>{t('diagnostics.exportTitle')}</h4>
-                  <p className="hint">{t('diagnostics.exportHint')}</p>
-                </div>
-                <ExportDiagnosticsRow />
-              </div>
               <div className="settings-about-diagnostics">
                 <div className="settings-about-diagnostics-text">
                   <h4>{t('settings.resetOnboarding')}</h4>
@@ -7922,7 +7347,7 @@ function IntegrationsSection() {
               // button padding + the 8px right offset) with a few px
               // of buffer for elevated font sizes / zoom. Issue #632.
               padding: '40px 104px 12px 14px',
-              borderRadius: 8,
+              borderRadius: 'var(--radius)',
               overflowX: 'auto',
               fontFamily:
                 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace',
@@ -8004,7 +7429,7 @@ function IntegrationsSection() {
             background: 'var(--bg-subtle)',
             border: '1px solid var(--border)',
             borderLeft: '3px solid var(--border-strong)',
-            borderRadius: 6,
+            borderRadius: 'var(--radius)',
             fontSize: 13,
             lineHeight: 1.5,
           }}
@@ -8019,107 +7444,6 @@ function IntegrationsSection() {
             {t('settings.mcpRunningNote')}
           </p>
         </div>{/* end mcp-setup-card */}
-      </div>
-    </section>
-  );
-}
-
-const THEMES: Array<{ value: AppTheme; labelKey: 'settings.themeSystem' | 'settings.themeLight' | 'settings.themeDark'; icon?: 'sun' | 'moon' }> = [
-  { value: 'system', labelKey: 'settings.themeSystem' },
-  { value: 'light', labelKey: 'settings.themeLight', icon: 'sun' },
-  { value: 'dark', labelKey: 'settings.themeDark', icon: 'moon' },
-];
-
-function AppearanceSection({
-  cfg,
-  setCfg,
-}: {
-  cfg: AppConfig;
-  setCfg: Dispatch<SetStateAction<AppConfig>>;
-}) {
-  const { t } = useI18n();
-  const analytics = useAnalytics();
-  const current = cfg.theme ?? 'system';
-  const currentAccent = normalizeAccentColor(cfg.accentColor) ?? DEFAULT_ACCENT_COLOR;
-  const accentLabel = t('pet.fieldAccent');
-  const defaultAccentLabel = t('pet.fieldAccentDefault');
-  const customAccentLabel = t('pet.fieldAccentCustom');
-
-  // Apply the draft theme immediately so the user sees a live preview
-  // before hitting Save. SettingsDialog's cleanup reverts this on cancel.
-  useLayoutEffect(() => {
-    applyAppearanceToDocument({
-      theme: current,
-      accentColor: currentAccent,
-    });
-  }, [current, currentAccent]);
-
-  const setAccentColor = (color: string) => {
-    setCfg((c) => ({ ...c, accentColor: normalizeAccentColor(color) ?? c.accentColor ?? DEFAULT_ACCENT_COLOR }));
-  };
-
-  return (
-    <section className="settings-section">
-      <div className="seg-control" role="group" aria-label={t('settings.appearance')} style={{ '--seg-cols': THEMES.length } as React.CSSProperties}>
-        {THEMES.map(({ value, labelKey, icon }) => (
-          <button
-            key={value}
-            type="button"
-            className={'seg-btn' + (current === value ? ' active' : '')}
-            aria-pressed={current === value}
-            onClick={() => {
-              // P1 ui_click area=appearance — `system|light|dark` only
-              // emits from the segmented control; accent swatch picks
-              // use `accent_color` with the swatch hex below.
-              if (value === 'system' || value === 'light' || value === 'dark') {
-                trackSettingsAppearanceClick(analytics.track, {
-                  page_name: 'settings',
-                  area: 'appearance',
-                  element: value,
-                });
-              }
-              setCfg((c) => ({ ...c, theme: value }));
-            }}
-          >
-            {icon ? <Icon name={icon} size={14} aria-hidden="true" /> : null}
-            <span className="seg-title">{t(labelKey)}</span>
-          </button>
-        ))}
-      </div>
-      <div className="field">
-        <span className="field-label">{accentLabel}</span>
-        <div className="pet-swatches" role="radiogroup" aria-label={accentLabel}>
-          {ACCENT_SWATCHES.map((color) => {
-            const active = currentAccent === color;
-            return (
-              <button
-                key={color}
-                type="button"
-                className={`pet-swatch${active ? ' active' : ''}`}
-                style={{ background: color }}
-                aria-label={color === DEFAULT_ACCENT_COLOR ? defaultAccentLabel : color}
-                aria-checked={active}
-                role="radio"
-                onClick={() => {
-                  trackSettingsAppearanceClick(analytics.track, {
-                    page_name: 'settings',
-                    area: 'appearance',
-                    element: 'accent_color',
-                    color,
-                  });
-                  setAccentColor(color);
-                }}
-              />
-            );
-          })}
-          <input
-            type="color"
-            aria-label={customAccentLabel}
-            className="pet-swatch-picker"
-            value={currentAccent}
-            onChange={(e) => setAccentColor(e.target.value)}
-          />
-        </div>
       </div>
     </section>
   );
@@ -8159,38 +7483,41 @@ function CritiqueTheaterSection() {
   const route = useRoute();
   const activeProjectId = route.kind === 'project' ? route.projectId : null;
   return (
-    <section className="settings-section">
+    <section className="settings-section settings-section-card">
       <div className="section-head">
         <div>
           <h3>{t('critiqueTheater.settingsNav')}</h3>
           <p className="hint">{t('critiqueTheater.settingsNavHint')}</p>
         </div>
       </div>
-      <label className="field">
-        <span className="field-label">
-          <input
-            type="checkbox"
-            checked={enabled}
-            onChange={(e) => {
-              const next = e.target.checked;
-              trackSettingsDesignReviewClick(analytics.track, {
-                page_name: 'settings',
-                area: 'design_review',
-                element: 'enable_toggle',
-                status_before: enabled ? 'on' : 'off',
-                status_after: next ? 'on' : 'off',
-                has_active_project: activeProjectId !== null,
-              });
-              if (activeProjectId !== null) {
-                void setCritiqueTheaterEnabled(next, { projectId: activeProjectId });
-              } else {
-                void setCritiqueTheaterEnabled(next);
-              }
-            }}
-          />
-          {' '}
-          {t('critiqueTheater.settingsEnabledLabel')}
-        </span>
+      <div className="memory-field-block critique-theater-toggle-card">
+        <label className="settings-inline-toggle critique-theater-toggle">
+          <span className="critique-theater-toggle__text">
+            {t('critiqueTheater.settingsEnabledLabel')}
+          </span>
+          <span className="critique-theater-toggle__control">
+            <input
+              type="checkbox"
+              checked={enabled}
+              onChange={(e) => {
+                const next = e.target.checked;
+                trackSettingsDesignReviewClick(analytics.track, {
+                  page_name: 'settings',
+                  area: 'design_review',
+                  element: 'enable_toggle',
+                  status_before: enabled ? 'on' : 'off',
+                  status_after: next ? 'on' : 'off',
+                  has_active_project: activeProjectId !== null,
+                });
+                if (activeProjectId !== null) {
+                  void setCritiqueTheaterEnabled(next, { projectId: activeProjectId });
+                } else {
+                  void setCritiqueTheaterEnabled(next);
+                }
+              }}
+            />
+          </span>
+        </label>
         <small className="hint">
           {t('critiqueTheater.settingsEnabledDescription')}
         </small>
@@ -8203,7 +7530,7 @@ function CritiqueTheaterSection() {
             {t('critiqueTheater.settingsEnabledNoProjectHint')}
           </small>
         )}
-      </label>
+      </div>
     </section>
   );
 }

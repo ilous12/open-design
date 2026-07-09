@@ -14,53 +14,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { HomeView } from '../../src/components/HomeView';
 import { I18nProvider } from '../../src/i18n';
-
-function makeHomePlugin(
-  id: string,
-  mode: string,
-  preview?: Record<string, unknown>,
-) {
-  return {
-    id,
-    title: id,
-    version: '1.0.0',
-    trust: 'bundled' as const,
-    sourceKind: 'bundled' as const,
-    source: `/tmp/${id}`,
-    capabilitiesGranted: ['prompt:inject'],
-    fsPath: `/tmp/${id}`,
-    installedAt: 0,
-    updatedAt: 0,
-    manifest: {
-      name: id,
-      title: id,
-      version: '1.0.0',
-      description: `${id} fixture`,
-      od: {
-        kind: 'scenario',
-        taskKind: 'new-generation',
-        mode,
-        ...(preview ? { preview } : {}),
-      },
-    },
-  };
-}
-
-const PLUGINS = [
-  makeHomePlugin('example-web-prototype', 'prototype'),
-  makeHomePlugin('example-simple-deck', 'deck'),
-];
-
-const DUPLICABLE_PLUGINS = [
-  makeHomePlugin('example-html-prototype', 'prototype', {
-    type: 'html',
-    entry: './example.html',
-  }),
-];
-
-function ariaSelected(testId: string): string | null {
-  return screen.getByTestId(testId).getAttribute('aria-selected');
-}
+import { homeHeroPromptText } from '../helpers/home-hero-lexical';
 
 describe('HomeView community filter decoupling', () => {
   afterEach(() => {
@@ -68,15 +22,135 @@ describe('HomeView community filter decoupling', () => {
     cleanup();
   });
 
-  it('keeps the Community category selection independent from the hero type chips', async () => {
-    const fetchMock = vi.fn<typeof fetch>(async (url) => {
-      if (typeof url === 'string' && url === '/api/plugins') {
-        return new Response(JSON.stringify({ plugins: PLUGINS }), {
+  it('renders Home references as an unfiltered gallery without category pills', async () => {
+    render(
+      <I18nProvider initial="en">
+        <HomeView
+          projects={[]}
+          onSubmit={() => undefined}
+          onOpenProject={() => undefined}
+          onViewAllProjects={() => undefined}
+        />
+      </I18nProvider>,
+    );
+
+    // The Reference grid no longer exposes All/Prototype category pills and
+    // must remain a plain gallery.
+    await waitFor(() => {
+      expect(screen.getByTestId('plugins-home-details-uupm-ai-chatbot-platform')).toBeTruthy();
+    });
+    expect(screen.queryByTestId('plugins-home-row-category')).toBeNull();
+    expect(screen.queryByTestId('plugins-home-pill-category-all')).toBeNull();
+    expect(screen.queryByTestId('plugins-home-pill-category-prototype')).toBeNull();
+
+    const remixButton = screen.getByTestId('plugins-home-duplicate-uupm-ai-chatbot-platform');
+    const useButton = screen.getByTestId('plugins-home-use-uupm-ai-chatbot-platform');
+    expect(
+      remixButton.compareDocumentPosition(useButton) & Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+  });
+
+  it('seeds the composer from a Home reference card', async () => {
+    render(
+      <I18nProvider initial="en">
+        <HomeView
+          projects={[]}
+          onSubmit={() => undefined}
+          onOpenProject={() => undefined}
+          onViewAllProjects={() => undefined}
+        />
+      </I18nProvider>,
+    );
+
+    fireEvent.click(await screen.findByTestId('plugins-home-use-uupm-ai-chatbot-platform'));
+
+    await waitFor(() => {
+      expect(homeHeroPromptText()).toContain('AI chatbot platform landing page');
+      expect(homeHeroPromptText()).toContain(
+        'Local reference file: apps/web/public/reference-remix/ai-chatbot-platform/index.html',
+      );
+      expect(homeHeroPromptText()).not.toContain('https://ui-ux-pro-max-skill.nextlevelbuilder.io');
+    });
+  });
+
+  it('remixes a Home reference without seeding a default pending prompt', async () => {
+    const fetchMock = vi.fn(async (url: RequestInfo | URL, init?: RequestInit) => {
+      const path = String(url);
+      if (path === '/api/plugins') {
+        return new Response(JSON.stringify({ plugins: [] }), {
           status: 200,
           headers: { 'content-type': 'application/json' },
         });
       }
-      throw new Error(`unexpected fetch ${url}`);
+      if (path === '/api/reference-remix/ai-chatbot-platform/duplicate-project') {
+        return new Response(JSON.stringify({
+          ok: true,
+          projectId: 'project-reference',
+          conversationId: 'conversation-reference',
+          relPath: 'index.html',
+          project: { id: 'project-reference' },
+          sourcePluginId: 'reference-remix:ai-chatbot-platform',
+          sourceEntry: 'reference-remix/ai-chatbot-platform/index.html',
+          copiedFiles: 1,
+          skippedFiles: 0,
+          warnings: [],
+        }), {
+          status: 201,
+          headers: { 'content-type': 'application/json' },
+        });
+      }
+      throw new Error(`unexpected fetch ${path}`);
+    });
+    vi.stubGlobal('fetch', fetchMock);
+    const onOpenProject = vi.fn();
+
+    render(
+      <I18nProvider initial="en">
+        <HomeView
+          projects={[]}
+          onSubmit={() => undefined}
+          onOpenProject={onOpenProject}
+          onViewAllProjects={() => undefined}
+        />
+      </I18nProvider>,
+    );
+
+    fireEvent.click(await screen.findByTestId('plugins-home-duplicate-uupm-ai-chatbot-platform'));
+
+    await waitFor(() => {
+      expect(fetchMock).toHaveBeenCalledWith(
+        '/api/reference-remix/ai-chatbot-platform/duplicate-project',
+        expect.objectContaining({
+          method: 'POST',
+          body: JSON.stringify({ name: 'AI Chatbot Platform' }),
+        }),
+      );
+    });
+    expect(fetchMock).not.toHaveBeenCalledWith(
+      '/api/reference-remix/ai-chatbot-platform/duplicate-project',
+      expect.objectContaining({
+        body: expect.stringContaining('pendingPrompt'),
+      }),
+    );
+    expect(onOpenProject).toHaveBeenCalledWith('project-reference', 'index.html');
+  });
+
+  it('opens Home reference details against the bundled local HTML clone', async () => {
+    const fetchMock = vi.fn(async (url: RequestInfo | URL) => {
+      const path = String(url);
+      if (path === '/api/plugins') {
+        return new Response(JSON.stringify({ plugins: [] }), {
+          status: 200,
+          headers: { 'content-type': 'application/json' },
+        });
+      }
+      if (path === '/reference-remix/ai-chatbot-platform/index.html') {
+        return new Response('<!doctype html><html><head></head><body><main>AI chatbot local clone</main></body></html>', {
+          status: 200,
+          headers: { 'content-type': 'text/html' },
+        });
+      }
+      throw new Error(`unexpected fetch ${path}`);
     });
     vi.stubGlobal('fetch', fetchMock);
 
@@ -91,76 +165,19 @@ describe('HomeView community filter decoupling', () => {
       </I18nProvider>,
     );
 
-    // Home boots with a default active type chip; the Community grid must
-    // still come up unfiltered ("All"), not pre-snapped to that chip.
-    await waitFor(() => {
-      expect(screen.getByTestId('plugins-home-pill-category-deck')).toBeTruthy();
-    });
-    expect(ariaSelected('plugins-home-pill-category-all')).toBe('true');
-    expect(ariaSelected('plugins-home-pill-category-prototype')).toBe('false');
-
-    // Picking another chip drives the composer, not the gallery filter.
-    fireEvent.click(await screen.findByTestId('home-hero-rail-deck'));
-    await waitFor(() => {
-      expect(screen.getByTestId('home-hero-template-trigger').textContent).toContain('Slide deck');
-    });
-    expect(ariaSelected('plugins-home-pill-category-all')).toBe('true');
-    expect(ariaSelected('plugins-home-pill-category-deck')).toBe('false');
-
-    // And the gallery's own pills still work locally.
-    fireEvent.click(screen.getByTestId('plugins-home-pill-category-deck'));
-    expect(ariaSelected('plugins-home-pill-category-deck')).toBe('true');
-  });
-
-  it('opens duplicated gallery examples at the copied entry file', async () => {
-    const onOpenProject = vi.fn();
-    const fetchMock = vi.fn<typeof fetch>(async (url, init) => {
-      if (typeof url === 'string' && url === '/api/plugins') {
-        return new Response(JSON.stringify({ plugins: DUPLICABLE_PLUGINS }), {
-          status: 200,
-          headers: { 'content-type': 'application/json' },
-        });
-      }
-      if (
-        typeof url === 'string' &&
-        url === '/api/plugins/example-html-prototype/duplicate-project' &&
-        init?.method === 'POST'
-      ) {
-        return new Response(
-          JSON.stringify({
-            ok: true,
-            projectId: 'duplicated-project',
-            conversationId: 'duplicated-conversation',
-            relPath: 'index.html',
-            project: { id: 'duplicated-project', name: 'Duplicated' },
-            sourcePluginId: 'example-html-prototype',
-            sourceEntry: 'example.html',
-            copiedFiles: 1,
-            skippedFiles: 0,
-            warnings: [],
-          }),
-          { status: 201, headers: { 'content-type': 'application/json' } },
-        );
-      }
-      throw new Error(`unexpected fetch ${url}`);
-    });
-    vi.stubGlobal('fetch', fetchMock);
-
-    render(
-      <I18nProvider initial="en">
-        <HomeView
-          projects={[]}
-          onSubmit={() => undefined}
-          onOpenProject={onOpenProject}
-          onViewAllProjects={() => undefined}
-        />
-      </I18nProvider>,
-    );
-
-    fireEvent.click(await screen.findByTestId('plugins-home-duplicate-example-html-prototype'));
+    fireEvent.click(await screen.findByTestId('plugins-home-details-uupm-ai-chatbot-platform'));
 
     await waitFor(() => {
-      expect(onOpenProject).toHaveBeenCalledWith('duplicated-project', 'index.html');
+      expect(fetchMock).toHaveBeenCalledWith(
+        '/reference-remix/ai-chatbot-platform/index.html',
+        { cache: 'no-store' },
+      );
     });
+    expect(screen.getByRole('dialog')).toBeTruthy();
+    expect(screen.getByTestId('plugin-details-use-uupm-ai-chatbot-platform').textContent).toBe('Remix');
+    fireEvent.click(screen.getByTestId('plugin-details-use-uupm-ai-chatbot-platform-menu'));
+    expect(screen.getByTestId('plugin-details-use-option-uupm-ai-chatbot-platform').textContent).toBe('Use');
+    expect(screen.queryByText('Share')).toBeNull();
+    expect(screen.queryByText('Plugin info')).toBeNull();
   });
 });

@@ -9,6 +9,7 @@ import type {
 } from '@nn-design/contracts';
 import {
   applyPlugin,
+  duplicateReferenceRemixAsProject,
   duplicatePluginAsProject,
   listPlugins,
   renderPluginBriefTemplate,
@@ -24,6 +25,7 @@ import { authorInitials, derivePluginSourceLinks } from '../runtime/plugin-sourc
 import { useAnalytics } from '../analytics/provider';
 import { trackPluginLoopClick } from '../analytics/events';
 import { navigate } from '../router';
+import { homeReferenceSlugFromPluginId } from './home-reference-plugins';
 
 export interface PluginLoopSubmit {
   prompt: string;
@@ -150,9 +152,11 @@ export function PluginLoopHome({ onSubmit }: Props) {
   async function duplicatePlugin(record: InstalledPluginRecord) {
     setError(null);
     try {
-      const result = await duplicatePluginAsProject(record.id, {
-        name: localizePluginTitle(locale, record),
-      });
+      const name = localizePluginTitle(locale, record);
+      const referenceSlug = homeReferenceSlugFromPluginId(record.id);
+      const result = referenceSlug
+        ? await duplicateReferenceRemixAsProject(referenceSlug, { name })
+        : await duplicatePluginAsProject(record.id, { name });
       setDetailsRecord(null);
       navigate({
         kind: 'project',

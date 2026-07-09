@@ -159,8 +159,8 @@ describe('NewProjectModal layout', () => {
   });
 });
 
-describe('NewProjectModal template deletion plumbing', () => {
-  it('forwards onDeleteTemplate to the inner panel', async () => {
+describe('NewProjectModal hidden template flow', () => {
+  it('does not expose template deletion from the modal', () => {
     const templates: ProjectTemplate[] = [
       {
         id: 'tmpl-landing',
@@ -186,11 +186,9 @@ describe('NewProjectModal template deletion plumbing', () => {
       />,
     );
 
-    fireEvent.click(screen.getByRole('tab', { name: 'From template' }));
-    fireEvent.click(screen.getByLabelText(/delete template/i));
-    await screen.findByRole('alertdialog');
-    fireEvent.click(screen.getByRole('button', { name: 'Delete template' }));
-
-    expect(onDelete).toHaveBeenCalledWith('tmpl-landing');
+    expect(screen.getByRole('tab', { name: 'Prototype' })).toBeTruthy();
+    expect(screen.queryByRole('tab', { name: 'From template' })).toBeNull();
+    expect(screen.queryByLabelText(/delete template/i)).toBeNull();
+    expect(onDelete).not.toHaveBeenCalled();
   });
 });

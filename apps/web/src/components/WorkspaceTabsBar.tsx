@@ -1004,10 +1004,10 @@ export function WorkspaceTabsBar({ route, projects, onboardingCompleted = false 
           type="button"
           className="workspace-tabs-new-btn od-tooltip"
           onClick={createNewTab}
-          title="New tab"
-          data-tooltip="New tab"
+          title="새 탭"
+          data-tooltip="새 탭"
           data-tooltip-placement="bottom"
-          aria-label="New tab"
+          aria-label="새 탭"
           data-testid="workspace-tabs-new-tab"
           disabled={onboardingActive}
         >
@@ -1020,10 +1020,10 @@ export function WorkspaceTabsBar({ route, projects, onboardingCompleted = false 
           type="button"
           className={`workspace-tabs-icon-btn od-tooltip${tabsMenuOpen ? ' is-active' : ''}`}
           onClick={() => setTabsMenuOpen((open) => !open)}
-          title="Search tabs"
-          data-tooltip="Search tabs"
+          title="탭 검색"
+          data-tooltip="탭 검색"
           data-tooltip-placement="bottom"
-          aria-label="Search tabs"
+          aria-label="탭 검색"
           aria-haspopup="dialog"
           aria-expanded={tabsMenuOpen}
         >
@@ -1035,7 +1035,7 @@ export function WorkspaceTabsBar({ route, projects, onboardingCompleted = false 
               <div
                 className="workspace-tabs-popover"
                 role="dialog"
-                aria-label="Search tabs"
+                aria-label="탭 검색"
                 ref={popoverRef}
               >
                 <div className="workspace-tabs-search">
@@ -1044,15 +1044,15 @@ export function WorkspaceTabsBar({ route, projects, onboardingCompleted = false 
                     ref={searchInputRef}
                     value={query}
                     onChange={(event) => setQuery(event.target.value)}
-                    placeholder="Search tabs"
-                    aria-label="Search tabs"
+                    placeholder="탭 검색"
+                    aria-label="탭 검색"
                   />
                 </div>
                 <div className="workspace-tabs-popover__section">
-                  <span>Open tabs</span>
+                  <span>열린 탭</span>
                   <span>{state.tabs.length}</span>
                 </div>
-                <div className="workspace-tabs-list" role="listbox" aria-label="Open tabs">
+                <div className="workspace-tabs-list" role="listbox" aria-label="열린 탭">
                   {filteredTabs.length > 0 ? (
                     filteredTabs.map((display) => {
                       const active = display.id === state.activeTabId;

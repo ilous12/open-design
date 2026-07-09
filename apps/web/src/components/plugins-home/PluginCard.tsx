@@ -152,6 +152,23 @@ export function PluginCard({
             eager
           />
           <div className="plugins-home__gallery-actions">
+            {canDuplicate ? (
+              <button
+                type="button"
+                className="plugins-home__action plugins-home__action--secondary plugins-home__action--remix"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onDuplicate?.(record);
+                }}
+                disabled={duplicateDisabled}
+                aria-busy={isDuplicatePending ? 'true' : undefined}
+                aria-label={t('pluginCard.duplicateAria', { title })}
+                data-testid={`plugins-home-duplicate-${record.id}`}
+              >
+                <Icon name={isDuplicatePending ? 'spinner' : 'copy'} size={12} />
+                <span>{isDuplicatePending ? t('pluginCard.duplicating') : t('pluginCard.duplicate')}</span>
+              </button>
+            ) : null}
             <button
               type="button"
               className="plugins-home__action plugins-home__action--primary"
@@ -166,23 +183,6 @@ export function PluginCard({
               <Icon name={isPending ? 'spinner' : 'play'} size={12} />
               <span>{isPending ? t('pluginCard.applying') : t('pluginCard.use')}</span>
             </button>
-            {canDuplicate ? (
-              <button
-                type="button"
-                className="plugins-home__action plugins-home__action--secondary"
-                onClick={(event) => {
-                  event.stopPropagation();
-                  onDuplicate?.(record);
-                }}
-                disabled={duplicateDisabled}
-                aria-busy={isDuplicatePending ? 'true' : undefined}
-                aria-label={t('pluginCard.duplicateAria', { title })}
-                data-testid={`plugins-home-duplicate-${record.id}`}
-              >
-                <Icon name={isDuplicatePending ? 'spinner' : 'copy'} size={12} />
-                <span>{isDuplicatePending ? t('pluginCard.duplicating') : t('pluginCard.duplicate')}</span>
-              </button>
-            ) : null}
           </div>
         </div>
       </article>
@@ -316,7 +316,7 @@ export function PluginCard({
             {canDuplicate ? (
               <button
                 type="button"
-                className="plugins-home__action plugins-home__action--secondary"
+                className="plugins-home__action plugins-home__action--secondary plugins-home__action--remix"
                 onClick={() => onDuplicate?.(record)}
                 disabled={duplicateDisabled}
                 aria-busy={isDuplicatePending ? 'true' : undefined}
@@ -348,22 +348,6 @@ export function PluginCard({
                   size={12}
                 />
                 <span>{sharePendingAction === 'publish-github' ? t('pluginCard.starting') : t('pluginCard.publish')}</span>
-              </button>
-              <button
-                type="button"
-                className="plugins-home__action plugins-home__action--secondary plugins-home__action--compact"
-                onClick={() => onShareAction(record, 'contribute-open-design')}
-                disabled={pendingAny || shareBusy}
-                aria-busy={sharePendingAction === 'contribute-open-design' ? 'true' : undefined}
-                aria-label={t('pluginCard.contributeAria', { title })}
-                title={t('pluginCard.contributeTitle')}
-                data-testid={`plugins-home-contribute-open-design-${record.id}`}
-              >
-                <Icon
-                  name={sharePendingAction === 'contribute-open-design' ? 'spinner' : 'share'}
-                  size={12}
-                />
-                <span>{sharePendingAction === 'contribute-open-design' ? t('pluginCard.starting') : t('pluginCard.contribute')}</span>
               </button>
             </div>
           ) : null}

@@ -80,6 +80,7 @@ export type ProjectPluginFolderInstallRequest = z.infer<typeof ProjectPluginFold
 
 export interface PluginDuplicateProjectRequest {
   name?: string;
+  pendingPrompt?: string;
 }
 
 export interface PluginDuplicateProjectResponse {

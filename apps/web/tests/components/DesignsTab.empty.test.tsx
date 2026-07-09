@@ -17,7 +17,7 @@ vi.mock('../../src/providers/registry', () => ({
 
 describe('DesignsTab empty state', () => {
   beforeAll(() => {
-    if (window.localStorage) return;
+    if (typeof window.localStorage?.clear === 'function') return;
     const store = new Map<string, string>();
     Object.defineProperty(window, 'localStorage', {
       configurable: true,

@@ -2,11 +2,9 @@
 
 // Plugins home section — UI contract.
 //
-// The section renders artifact-kind filters for the starter grid:
-// Prototype / Live Artifact / Slides / Image / Video / HyperFrames / Audio.
-// Prototype, Slides, Image, and Video expose a second row of scene buckets;
-// the smaller Live Artifact, HyperFrames, and Audio slices stay flat. Saved is an
-// orthogonal user collection override, and sparse buckets should fall
+// The section renders prototype filters for the starter grid:
+// Web Prototype and Mobile Prototype. Saved is an orthogonal user collection
+// override, and sparse buckets should fall
 // back to the normal empty-filter state rather than rendering synthetic
 // cards.
 
@@ -137,6 +135,18 @@ const sample: InstalledPluginRecord[] = [
   makePlugin({ id: 'hyperframes-composition', mode: 'video', tags: ['hyperframes'] }),
   makePlugin({ id: 'audio-voice', mode: 'audio' }),
   makePlugin({ id: 'hidden-atom', mode: 'prototype', tags: ['dashboard'], kind: 'atom' }),
+  makePlugin({ id: 'design-system-air', mode: 'design-system', tags: ['design-system'] }),
+  makePlugin({ id: 'od-code-migration', mode: 'prototype' }),
+  makePlugin({ id: 'od-design-refine', mode: 'prototype' }),
+  makePlugin({ id: 'od-figma-migration', mode: 'prototype' }),
+  makePlugin({ id: 'od-new-generation', mode: 'prototype' }),
+  makePlugin({ id: 'od-nextjs-export', mode: 'prototype' }),
+  makePlugin({ id: 'od-plugin-authoring', mode: 'prototype' }),
+  makePlugin({ id: 'od-react-export', mode: 'prototype' }),
+  makePlugin({ id: 'od-share-to-community', mode: 'prototype' }),
+  makePlugin({ id: 'od-tune-collab', mode: 'prototype' }),
+  makePlugin({ id: 'od-vue-export', mode: 'prototype' }),
+  makePlugin({ id: 'od-web-effect-extractor', mode: 'prototype' }),
 ];
 
 describe('PluginsHomeSection (community gallery)', () => {
@@ -182,6 +192,9 @@ describe('PluginsHomeSection (community gallery)', () => {
 
     expect(screen.queryByTestId('plugins-home-use-menu-prototype-dashboard')).toBeNull();
     expect(screen.queryByTestId('plugins-home-use-with-query-prototype-dashboard')).toBeNull();
+    expect(screen.queryByTestId('plugins-home-row-category')).toBeNull();
+    expect(screen.queryByTestId('plugins-home-pill-category-all')).toBeNull();
+    expect(screen.queryByTestId('plugins-home-pill-category-prototype')).toBeNull();
   });
 
   it('keeps the inline Use menu on the rich management layout (PluginsView)', () => {
@@ -192,74 +205,35 @@ describe('PluginsHomeSection (community gallery)', () => {
 });
 
 describe('PluginsHomeSection (category bar)', () => {
-  it('frames the home shelf as community and can jump to registry', () => {
+  it('frames the home shelf as reference without registry or search controls', () => {
     const onBrowseRegistry = vi.fn();
     renderSection(sample, { onBrowseRegistry });
 
-    expect(screen.getByText('Community')).toBeTruthy();
-    fireEvent.click(screen.getByTestId('plugins-home-browse-registry'));
-    expect(onBrowseRegistry).toHaveBeenCalledTimes(1);
+    expect(screen.getByText('Reference')).toBeTruthy();
+    expect(screen.queryByTestId('plugins-home-browse-registry')).toBeNull();
+    expect(screen.queryByTestId('plugins-home-search')).toBeNull();
+    expect(onBrowseRegistry).not.toHaveBeenCalled();
   });
 
-  it('renders the artifact category row and the default Prototype scene row', () => {
+  it('renders the trimmed prototype category row and the default web/mobile row', () => {
     renderSection();
 
     expect(screen.getByTestId('plugins-home-row-category')).toBeTruthy();
     expect(screen.getByTestId('plugins-home-chip-saved').textContent).toContain('Saved');
     expect(screen.getByTestId('plugins-home-pill-category-all')).toBeTruthy();
     expect(screen.getByTestId('plugins-home-pill-category-prototype')).toBeTruthy();
-    expect(screen.getByTestId('plugins-home-pill-category-live-artifact')).toBeTruthy();
-    expect(screen.getByTestId('plugins-home-pill-category-deck')).toBeTruthy();
-    expect(screen.getByTestId('plugins-home-pill-category-image')).toBeTruthy();
-    expect(screen.getByTestId('plugins-home-pill-category-video')).toBeTruthy();
-    expect(screen.getByTestId('plugins-home-pill-category-hyperframes')).toBeTruthy();
-    expect(screen.getByTestId('plugins-home-pill-category-audio')).toBeTruthy();
+    for (const slug of ['live-artifact', 'deck', 'image', 'video', 'hyperframes', 'audio']) {
+      expect(screen.queryByTestId(`plugins-home-pill-category-${slug}`)).toBeNull();
+    }
     expect(screen.queryByTestId('plugins-home-pill-category-import')).toBeNull();
     expect(screen.queryByTestId('plugins-home-pill-category-create')).toBeNull();
     expect(screen.queryByTestId('plugins-home-pill-category-export')).toBeNull();
 
     expect(screen.getByTestId('plugins-home-row-subcategory-prototype')).toBeTruthy();
-    expect(screen.getByTestId('plugins-home-pill-subcategory-prototype-business-dashboards')).toBeTruthy();
+    expect(screen.getByTestId('plugins-home-pill-subcategory-prototype-landing-marketing')).toBeTruthy();
     expect(screen.getByTestId('plugins-home-pill-subcategory-prototype-app-prototypes')).toBeTruthy();
-    expect(screen.getByTestId('plugins-home-pill-subcategory-prototype-developer-tools')).toBeTruthy();
-  });
-
-  it('filters Video separately from HyperFrames', () => {
-    renderSection();
-
-    fireEvent.click(screen.getByTestId('plugins-home-pill-category-video'));
-    expect(pluginIds().sort()).toEqual(['video-cinematic', 'video-short']);
-    expect(screen.getByTestId('plugins-home-row-subcategory-video')).toBeTruthy();
-
-    fireEvent.click(screen.getByTestId('plugins-home-pill-category-hyperframes'));
-    expect(pluginIds()).toEqual(['hyperframes-composition']);
-    expect(screen.queryByTestId('plugins-home-row-subcategory-hyperframes')).toBeNull();
-  });
-
-  it('groups Live Artifact as its own flat Community category', () => {
-    renderSection();
-
-    fireEvent.click(screen.getByTestId('plugins-home-pill-category-live-artifact'));
-
-    expect(pluginIds()).toEqual([
-      'example-live-dashboard',
-      'image-template-notion-team-dashboard-live-artifact',
-      'example-social-media-matrix-tracker-template',
-      'example-trading-analysis-dashboard-template',
-      'example-live-artifact',
-    ]);
-    expect(screen.queryByTestId('plugins-home-row-subcategory-live-artifact')).toBeNull();
-  });
-
-  it('keeps sparse subcategories as real filters without adding contribution cards', () => {
-    renderSection();
-
-    fireEvent.click(screen.getByTestId('plugins-home-pill-category-video'));
-    fireEvent.click(screen.getByTestId('plugins-home-pill-subcategory-video-social-short-form'));
-
-    expect(pluginIds()).toEqual(['video-short']);
-    expect(screen.queryByTestId('plugins-home-contribution-card')).toBeNull();
-    expect(screen.queryByText(/Contribute a/i)).toBeNull();
+    expect(screen.queryByTestId('plugins-home-pill-subcategory-prototype-business-dashboards')).toBeNull();
+    expect(screen.queryByTestId('plugins-home-pill-subcategory-prototype-developer-tools')).toBeNull();
   });
 
   it('saves a plugin, updates the Saved chip, and shows a toast', () => {
@@ -275,52 +249,24 @@ describe('PluginsHomeSection (category bar)', () => {
     expect(pluginIds()).toEqual(['prototype-dashboard']);
   });
 
-  it('localizes plugin card titles, descriptions, search, and save toast', () => {
+  it('localizes plugin card titles, descriptions, and save toast', () => {
     renderSectionInChinese([
       makePlugin({
-        id: 'localized-deck',
-        title: 'Swiss International Deck',
-        titleI18n: { en: 'Swiss International Deck', 'zh-CN': '瑞士国际主义 Deck' },
+        id: 'localized-prototype',
+        title: 'Swiss International Prototype',
+        titleI18n: { en: 'Swiss International Prototype', 'zh-CN': '瑞士国际主义 Prototype' },
         description: '16-column grid.',
         descriptionI18n: { en: '16-column grid.', 'zh-CN': '16 列网格。' },
-        mode: 'deck',
+        mode: 'prototype',
         tags: ['grid'],
       }),
     ], { preferDefaultFacet: false });
 
-    expect(screen.getAllByText('瑞士国际主义 Deck').length).toBeGreaterThan(0);
-    expect(screen.queryByText('Swiss International Deck')).toBeNull();
+    expect(screen.getAllByText('瑞士国际主义 Prototype').length).toBeGreaterThan(0);
+    expect(screen.queryByText('Swiss International Prototype')).toBeNull();
 
-    fireEvent.change(screen.getByPlaceholderText('搜索插件…'), {
-      target: { value: '瑞士' },
-    });
-    expect(pluginIds()).toEqual(['localized-deck']);
-
-    fireEvent.click(screen.getByTestId('plugins-home-save-localized-deck'));
-    expect(screen.getByRole('status').textContent).toContain('Saved 瑞士国际主义 Deck.');
-  });
-
-  it('shows the normal empty-filter state for planned empty buckets', () => {
-    renderSection();
-
-    fireEvent.click(screen.getByTestId('plugins-home-pill-category-video'));
-    fireEvent.click(screen.getByTestId('plugins-home-pill-subcategory-video-data-explainers'));
-
-    expect(screen.queryByRole('list')).toBeNull();
-    expect(screen.getByText(/No plugins match the current filters/i)).toBeTruthy();
-    expect(screen.queryByTestId('plugins-home-contribution-card')).toBeNull();
-  });
-
-  it('keeps HyperFrames and Audio flat', () => {
-    renderSection();
-
-    fireEvent.click(screen.getByTestId('plugins-home-pill-category-hyperframes'));
-    expect(pluginIds()).toEqual(['hyperframes-composition']);
-    expect(screen.queryByTestId('plugins-home-row-subcategory-hyperframes')).toBeNull();
-
-    fireEvent.click(screen.getByTestId('plugins-home-pill-category-audio'));
-    expect(pluginIds()).toEqual(['audio-voice']);
-    expect(screen.queryByTestId('plugins-home-row-subcategory-audio')).toBeNull();
+    fireEvent.click(screen.getByTestId('plugins-home-save-localized-prototype'));
+    expect(screen.getByRole('status').textContent).toContain('Saved 瑞士国际主义 Prototype.');
   });
 
   it('All pill clears the category filter and only shows user-facing plugins', () => {
@@ -344,11 +290,38 @@ describe('PluginsHomeSection (category bar)', () => {
     ]);
   });
 
+  it('omits design-system entries from the reference list', () => {
+    renderSection(sample, { preferDefaultFacet: false });
+
+    expect(pluginIds()).not.toContain('design-system-air');
+    expect(screen.queryByTestId('plugins-home-details-design-system-air')).toBeNull();
+  });
+
+  it('omits internal workflow scenarios from the reference list', () => {
+    renderSection(sample, { preferDefaultFacet: false });
+
+    expect(pluginIds()).not.toEqual(
+      expect.arrayContaining([
+        'od-code-migration',
+        'od-design-refine',
+        'od-figma-migration',
+        'od-new-generation',
+        'od-nextjs-export',
+        'od-plugin-authoring',
+        'od-react-export',
+        'od-share-to-community',
+        'od-tune-collab',
+        'od-vue-export',
+        'od-web-effect-extractor',
+      ]),
+    );
+  });
+
   it('Saved chip overrides the category selection and shows only saved plugins', () => {
     renderSection();
 
     fireEvent.click(screen.getByTestId('plugins-home-save-prototype-dashboard'));
-    fireEvent.click(screen.getByTestId('plugins-home-pill-category-video'));
+    fireEvent.click(screen.getByTestId('plugins-home-pill-category-prototype'));
     fireEvent.click(screen.getByTestId('plugins-home-chip-saved'));
 
     expect(pluginIds()).toEqual(['prototype-dashboard']);

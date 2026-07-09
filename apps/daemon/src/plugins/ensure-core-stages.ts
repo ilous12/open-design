@@ -5,17 +5,16 @@
 // — so they can ship a locked reference seed without re-running
 // discovery. But `resolveAppliedPipeline` returns that declaration
 // verbatim (`source: 'declared'`), so it REPLACES the core scenario
-// pipeline. The `plan` (TodoWrite) and `critique` (5-dimension quality /
-// anti-slop) stages then never run: the agent generates with no
-// harness-driven critique loop and, at best, narrates a self-evaluation
-// inline — unverifiable theater. Observed symptom: "using a plugin
-// skipped the five-stage main flow — no todolist, no real anti-slop".
+// pipeline. The `plan` (TodoWrite) stage then never runs: the agent
+// generates with no explicit worklist and, at best, narrates a
+// self-evaluation inline. Observed symptom: "using a plugin skipped the
+// five-stage main flow — no todolist".
 //
 // This floor guarantees that any pipeline producing a code/document
 // design artifact (a `generate` stage whose atoms include `file-write`
-// or `live-artifact`) carries a `plan` and a `critique` stage, whether
-// the artifact came from a free-form prompt (od-default / od-new-generation,
-// which already declare both — a no-op here) or a template/plugin.
+// or `live-artifact`) carries a `plan` stage, whether the artifact came
+// from a free-form prompt (od-default / od-new-generation, which already
+// declare it — a no-op here) or a template/plugin.
 //
 // Deliberately OUT OF SCOPE:
 //   - Pure media generation (image/video/audio) stays generate-only; a
@@ -51,18 +50,10 @@ const DESIGN_ARTIFACT_ATOMS = new Set(['file-write', 'live-artifact']);
 // `example.html`, so the atom shape alone is not decisive).
 const MEDIA_MODES = new Set(['image', 'video', 'audio']);
 
-// Mirrors the `plan` / `critique` stages declared by the bundled
-// od-new-generation scenario, minus `direction-picker` (see header).
+// Mirrors the `plan` stage declared by the bundled od-new-generation
+// scenario, minus `direction-picker` (see header).
 function buildPlanStage(): PipelineStage {
   return { id: 'plan', atoms: ['todo-write'] };
-}
-function buildCritiqueStage(): PipelineStage {
-  return {
-    id:     'critique',
-    atoms:  ['critique-theater'],
-    repeat: true,
-    until:  'critique.score>=4 || iterations>=3',
-  };
 }
 
 export interface EnsureCoreStagesInput {
@@ -81,7 +72,11 @@ export interface EnsureCoreStagesInput {
   source?: 'declared' | 'scenario' | 'none' | undefined;
 }
 
-// Returns the pipeline with `plan` + `critique` guaranteed when the
+function isCritiqueStage(stage: PipelineStage): boolean {
+  return stage.id === 'critique' || (stage.atoms ?? []).includes('critique-theater');
+}
+
+// Returns the pipeline with `plan` guaranteed when the
 // pipeline produces a design artifact; otherwise returns it unchanged
 // (same reference when nothing is injected).
 export function ensureCoreQualityStages(input: EnsureCoreStagesInput): PluginPipeline | undefined {
@@ -107,7 +102,7 @@ export function ensureCoreQualityStages(input: EnsureCoreStagesInput): PluginPip
     return pipeline;
   }
 
-  const stages = pipeline.stages;
+  const stages = pipeline.stages.filter((stage) => !isCritiqueStage(stage));
   const generateIdx = stages.findIndex(
     (s) => s.id === 'generate' && (s.atoms ?? []).some((a) => DESIGN_ARTIFACT_ATOMS.has(a)),
   );
@@ -116,21 +111,17 @@ export function ensureCoreQualityStages(input: EnsureCoreStagesInput): PluginPip
 
   const hasStage = (id: string): boolean => stages.some((s) => s.id === id);
   const needPlan = !hasStage('plan');
-  const needCritique = !hasStage('critique');
-  if (!needPlan && !needCritique) return pipeline;
+  const removedCritique = stages.length !== pipeline.stages.length;
+  if (!needPlan && !removedCritique) return pipeline;
 
-  // Insert plan immediately BEFORE and critique immediately AFTER the
-  // matched generate stage so the restored loop is exactly
-  // plan -> generate -> critique. The runner executes stages strictly in
-  // declaration order, so a pipeline with post-generate work (e.g.
-  // generate -> handoff) must keep critique between generate and handoff —
-  // appending critique to the very end would let downstream stages consume
-  // or publish output before the quality loop runs.
+  // Insert plan immediately BEFORE the matched generate stage so the
+  // restored loop is exactly plan -> generate. The runner executes stages
+  // strictly in declaration order, so a pipeline with post-generate work
+  // (e.g. generate -> handoff) must keep that downstream order intact.
   const next: PipelineStage[] = [];
   for (const [i, stage] of stages.entries()) {
     if (i === generateIdx && needPlan) next.push(buildPlanStage());
     next.push(stage);
-    if (i === generateIdx && needCritique) next.push(buildCritiqueStage());
   }
 
   return { ...pipeline, stages: next };

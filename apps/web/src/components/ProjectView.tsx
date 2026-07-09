@@ -24,6 +24,7 @@ import {
 } from '../artifacts/question-form';
 import { parseSubmittedAnswers } from './QuestionForm';
 import { useI18n } from '../i18n';
+import { buildLocaleHiddenPrompt, mergeHiddenPrompts } from '../i18n/promptLanguage';
 import { streamMessage } from '../providers/anthropic';
 import {
   fetchChatRunStatus,
@@ -148,6 +149,7 @@ import {
 import {
   createConversation,
   deleteConversation as deleteConversationApi,
+  duplicateReferenceRemixAsProject,
   duplicatePluginAsProject,
   fetchAppliedPluginSnapshot,
   getTemplate,
@@ -165,6 +167,7 @@ import {
   type SaveMessageOptions,
   waitGeneratedPluginShareTask,
 } from '../state/projects';
+import { homeReferenceSlugFromPluginId } from './home-reference-plugins';
 import type {
   AppliedPluginSnapshot,
   BrandStatus,
@@ -208,8 +211,6 @@ import {
 } from '../comments';
 import { filterImplicitProducedFiles } from '../produced-files';
 import { AvatarMenu } from './AvatarMenu';
-import { EntrySettingsMenu } from './EntrySettingsMenu';
-import { HandoffButton } from './HandoffButton';
 import { Icon } from './Icon';
 import { localizePluginTitle } from './plugins-home/localization';
 import { DesignSystemPicker } from './DesignSystemPicker';
@@ -282,6 +283,22 @@ type ProjectChatSendMeta = ChatSendMeta & {
    *  success (tracking spec C14/C15). Daemon mode only. */
   dsEnrichment?: boolean;
 };
+
+function composeHiddenPromptExecutionContent(
+  visiblePrompt: string,
+  hiddenPrompt: string | null | undefined,
+): string {
+  const hidden = hiddenPrompt?.trim();
+  if (!hidden) return visiblePrompt;
+  const visible = visiblePrompt.trim();
+  if (!visible) return hidden;
+  return [
+    hidden,
+    '',
+    '사용자 입력:',
+    visible,
+  ].join('\n');
+}
 
 export function mergeSavedPreviewComment(current: PreviewComment[], saved: PreviewComment): PreviewComment[] {
   const existingIndex = current.findIndex((comment) => comment.id === saved.id);
@@ -1187,7 +1204,6 @@ export function ProjectView({
   onAgentModelChange,
   onApiModelChange,
   onRefreshAgents,
-  onThemeChange,
   onOpenSettings,
   onOpenAmrSettings,
   onOpenMcpSettings,
@@ -1211,7 +1227,6 @@ export function ProjectView({
   const { locale, t } = useI18n();
   const analytics = useAnalytics();
   const iframeKeepAlivePool = useIframeKeepAlivePool();
-  const handleThemeChange = onThemeChange ?? (() => {});
   const projectDetail = useProjectDetail(project.id);
   const detailedProject = projectDetail.project?.id === project.id ? projectDetail.project : null;
   const currentProject =
@@ -4419,6 +4434,20 @@ export function ProjectView({
       const nextHistory = retryTarget
         ? [...retryTarget.priorMessages, userMsg]
         : [...historyBase, userMsg];
+      const effectiveHiddenPrompt = mergeHiddenPrompts(
+        buildLocaleHiddenPrompt(locale),
+        meta?.hiddenPrompt,
+      );
+      const executionUserMsg =
+        effectiveHiddenPrompt
+          ? {
+              ...userMsg,
+              content: composeHiddenPromptExecutionContent(prompt, effectiveHiddenPrompt),
+            }
+          : userMsg;
+      const nextExecutionHistory = retryTarget
+        ? [...retryTarget.priorMessages, executionUserMsg]
+        : [...historyBase, executionUserMsg];
       const nextVisibleMessages = retryTarget
         ? [...nextHistory, ...retryTarget.preservedAttempts, assistantMsg]
         : [...nextHistory, assistantMsg];
@@ -4986,7 +5015,7 @@ export function ProjectView({
         };
         void streamViaDaemon({
           agentId: config.agentId,
-          history: nextHistory,
+          history: nextExecutionHistory,
           signal: controller.signal,
           cancelSignal: cancelController.signal,
           handlers,
@@ -5105,7 +5134,7 @@ export function ProjectView({
         const systemPrompt = await composedSystemPrompt(runSessionMode);
         const apiHistory = await historyWithApiAttachmentContext(
           historyWithCommentAttachmentContext(
-            historyWithWorkspaceContext(nextHistory, userMsg.id, runContext),
+            historyWithWorkspaceContext(nextExecutionHistory, userMsg.id, runContext),
             userMsg.id,
           ),
           userMsg.id,
@@ -7329,9 +7358,11 @@ export function ProjectView({
   }, []);
   const handleDuplicateContextPlugin = useCallback(async (record: InstalledPluginRecord) => {
     try {
-      const result = await duplicatePluginAsProject(record.id, {
-        name: localizePluginTitle(locale, record),
-      });
+      const name = localizePluginTitle(locale, record);
+      const referenceSlug = homeReferenceSlugFromPluginId(record.id);
+      const result = referenceSlug
+        ? await duplicateReferenceRemixAsProject(referenceSlug, { name })
+        : await duplicatePluginAsProject(record.id, { name });
       setContextPluginDetails(null);
       navigate({
         kind: 'project',
@@ -7607,6 +7638,7 @@ export function ProjectView({
               forkingMessageId={forkingMessageId}
               onNewConversation={handleNewConversation}
               newConversationDisabled={newConversationDisabled}
+              hideNewConversationAction
               conversations={conversations}
               activeConversationId={activeConversationId}
               messagesConversationId={messagesConversationId}
@@ -7833,35 +7865,29 @@ export function ProjectView({
           onLaunchTerminalAuth={handleLaunchAntigravityOauth}
           conversationId={activeConversationId}
           headerActions={(
-            <>
-              <HandoffButton
-                projectId={project.id}
-                projectName={project.name}
-                projectDir={projectDetail.resolvedDir}
-                agents={agents}
-                artifactId={headerArtifact.artifact_id}
-                artifactKind={headerArtifact.artifact_kind}
-                metricsConsent={config.telemetry?.metrics === true}
-                installationId={config.installationId}
-              />
-              <EntrySettingsMenu
-                config={config}
-                onThemeChange={handleThemeChange}
-                onOpenSettings={onOpenSettings}
-                trackingPageName="artifact"
-                onTrackTriggerClick={() => {
-                  // Spec row 52: the settings gear in the artifact header.
-                  // Carry the active artifact so settings slices line up with
-                  // the rest of the artifact_header funnel.
-                  trackArtifactHeaderClick(analytics.track, {
-                    page_name: 'artifact',
-                    area: 'artifact_header',
-                    element: 'settings',
-                    ...headerArtifact,
-                  });
-                }}
-              />
-            </>
+            <button
+              type="button"
+              className="entry-settings-menu__trigger od-tooltip"
+              aria-label={t('entry.openSettingsAria')}
+              title={t('entry.openSettingsTitle')}
+              data-tooltip={t('entry.openSettingsTitle')}
+              data-tooltip-placement="bottom"
+              data-testid="artifact-settings-open-execution"
+              onClick={() => {
+                // Spec row 52: the settings gear in the artifact header.
+                // Carry the active artifact so settings slices line up with
+                // the rest of the artifact_header funnel.
+                trackArtifactHeaderClick(analytics.track, {
+                  page_name: 'artifact',
+                  area: 'artifact_header',
+                  element: 'settings',
+                  ...headerArtifact,
+                });
+                onOpenSettings('execution');
+              }}
+            >
+              <Icon name="settings" size={17} />
+            </button>
           )}
           questionForm={displayedQuestionForm}
           questionFormPreview={displayedQuestionFormPreview}

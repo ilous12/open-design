@@ -191,7 +191,7 @@ export function PluginDetailView(props: Props) {
               width: '100%',
               minHeight: 360,
               border: '1px solid var(--od-border, #ddd)',
-              borderRadius: 6,
+              borderRadius: 'var(--radius)',
               background: '#fff',
             }}
           />

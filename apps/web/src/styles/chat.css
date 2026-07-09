@@ -354,6 +354,8 @@
 
 /* -------- Messages -------------------------------------------------- */
 .msg {
+  --chat-body-font-size: 14.5px;
+  --chat-body-line-height: 1.6;
   padding: 0;
   background: transparent;
   border: none;
@@ -402,8 +404,8 @@
   border: none;
   border-radius: var(--radius-lg);
   padding: 8px 12px;
-  line-height: 1.5;
-  font-size: 14.5px;
+  line-height: var(--chat-body-line-height);
+  font-size: var(--chat-body-font-size);
   box-shadow: none;
 }
 .msg-run-context-row {
@@ -495,7 +497,7 @@
   flex: 0 0 auto;
 }
 .msg-plugin-chip--design-system .msg-plugin-chip__dot {
-  background: #d76445;
+  background: var(--accent);
 }
 .msg-plugin-chip__icon {
   display: inline-flex;
@@ -504,7 +506,7 @@
   width: 11px;
   height: 11px;
   flex: 0 0 11px;
-  border-radius: 3px;
+  border-radius: var(--radius);
   background: color-mix(in srgb, var(--text-muted) 10%, var(--bg-subtle));
   color: var(--text-muted);
 }
@@ -658,7 +660,7 @@
   gap: 10px;
   max-width: min(320px, 100%);
   padding: 9px 11px;
-  border-radius: 14px 14px 4px 14px;
+  border-radius: var(--radius);
   background: var(--bg-fill-tertiary);
   border: none;
   box-shadow: none;
@@ -1231,12 +1233,14 @@
 }
 .composer-input-editor [contenteditable='true'],
 .composer-input-editor .composer-editable {
+  --chat-body-font-size: 14.5px;
+  --chat-body-line-height: 1.6;
   outline: none;
   min-height: 72px;
   padding: 8px 9px;
   font: inherit;
-  font-size: 13.5px;
-  line-height: 1.6;
+  font-size: var(--chat-body-font-size);
+  line-height: var(--chat-body-line-height);
   color: var(--text);
   white-space: pre-wrap;
   overflow-wrap: anywhere;
@@ -1251,20 +1255,24 @@
 /* Lexical placeholder — absolutely positioned over the empty editor. The
    editor adds/removes its sibling automatically; we style by class. */
 .composer-input-placeholder {
+  --chat-body-font-size: 14.5px;
+  --chat-body-line-height: 1.6;
   position: absolute;
   top: 8px;
   left: 9px;
   pointer-events: none;
   user-select: none;
   color: var(--text-faint);
-  font-size: 13.5px;
-  line-height: 1.6;
+  font-size: var(--chat-body-font-size);
+  line-height: var(--chat-body-line-height);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: calc(100% - 8px);
 }
 .composer-input-wrap .home-hero__carousel {
+  --chat-body-font-size: 14.5px;
+  --chat-body-line-height: 1.6;
   position: absolute;
   left: 9px;
   right: 9px;
@@ -1274,8 +1282,8 @@
   align-items: center;
   gap: 1px;
   color: var(--text-faint);
-  font-size: 13.5px;
-  line-height: 1.6;
+  font-size: var(--chat-body-font-size);
+  line-height: var(--chat-body-line-height);
   pointer-events: none;
   user-select: none;
   white-space: nowrap;
@@ -1662,7 +1670,7 @@
 }
 .session-mode-cost__bar {
   width: 3px;
-  border-radius: 1px;
+  border-radius: var(--radius);
   background: var(--cost-color);
   opacity: 0.24;
 }
@@ -2310,7 +2318,7 @@
   display: block;
   width: 12px;
   height: 12px;
-  border-radius: 3px;
+  border-radius: var(--radius);
   object-fit: cover;
 }
 .staged-preview-trigger {
@@ -2334,7 +2342,7 @@
   flex: 0 0 12px;
   width: 12px;
   height: 12px;
-  border-radius: 3px;
+  border-radius: var(--radius);
 }
 .staged-preview-trigger .staged-name {
   min-width: 0;
@@ -2433,7 +2441,7 @@
   width: 12px;
   height: 12px;
   flex: 0 0 12px;
-  border-radius: 3px;
+  border-radius: var(--radius);
   background: var(--bg-subtle);
   color: var(--text-muted);
   display: inline-flex;
@@ -2467,7 +2475,7 @@
   color: var(--text-faint);
   cursor: pointer;
   line-height: 1;
-  border-radius: 3px;
+  border-radius: var(--radius);
 }
 .staged-remove svg {
   display: block;
@@ -2532,7 +2540,7 @@
   width: 12px;
   height: 12px;
   object-fit: cover;
-  border-radius: 3px;
+  border-radius: var(--radius);
   display: block;
 }
 .user-attachment > svg {

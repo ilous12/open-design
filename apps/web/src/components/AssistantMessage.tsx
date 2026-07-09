@@ -28,6 +28,7 @@ import {
   type TrackingProjectKind,
 } from "@nn-design/contracts/analytics";
 import {
+  findFirstQuestionForm,
   splitOnQuestionForms,
   stripTrailingOpenQuestionForm,
   type QuestionForm,
@@ -53,7 +54,7 @@ import { Icon } from "./Icon";
 import { NextStepActions, type NextStepActionsVariant } from "./NextStepActions";
 import type { DesignToolboxActionId } from "../runtime/design-toolbox";
 import { copyToClipboard } from "../lib/copy-to-clipboard";
-import { useT } from "../i18n";
+import { useI18n, useT } from "../i18n";
 import { deriveFileOps, type FileOpEntry } from "../runtime/file-ops";
 import { dedupeToolUsesById } from "../runtime/tool-events";
 import {
@@ -171,93 +172,17 @@ type SkillPluginCandidateBlock = Extract<Block, { kind: "plugin-candidate" }>;
 
 function SkillPluginCandidateCard({
   block,
-  projectId,
-  onRequestOpenFile,
 }: {
   block: SkillPluginCandidateBlock;
   projectId?: string | null;
   onRequestOpenFile?: (name: string) => void;
 }) {
   const t = useT();
-  const [busy, setBusy] = useState<null | "draft" | "contribute">(null);
-  const [notice, setNotice] = useState<ActionNotice | null>(null);
-  const disabled = !projectId || busy !== null;
   const description =
     block.description === "Reusable skill material detected from a repository link." ||
     block.description === "This repo looks like it could work as a plugin."
       ? t("skillPluginCandidate.repoDescription")
       : block.description || t("skillPluginCandidate.repoDescription");
-
-  async function post(path: string, body: Record<string, unknown> = {}) {
-    const resp = await fetch(path, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
-    const data = await resp.json().catch(() => null);
-    if (!resp.ok) {
-      const message =
-        data?.message ??
-        (typeof data?.error === "string" ? data.error : data?.error?.message) ??
-        resp.statusText;
-      throw new Error(message || "Plugin candidate action failed.");
-    }
-    return data;
-  }
-
-  async function createDraft() {
-    if (!projectId) return;
-    setBusy("draft");
-    setNotice(null);
-    try {
-      const data = await post(
-        `/api/projects/${encodeURIComponent(projectId)}/plugin-candidates/${encodeURIComponent(block.candidateId)}/draft`,
-      );
-      const draftPath = String(data?.draftPath ?? "");
-      if (data?.validation?.ok === false) {
-        setNotice({ message: "Draft created with validation issues." });
-      } else if (draftPath) {
-        const install = await post(
-          `/api/projects/${encodeURIComponent(projectId)}/plugins/install-folder`,
-          { path: draftPath },
-        );
-        if (install?.ok === false) {
-          setNotice({ message: install?.message ?? "Plugin draft created, but install failed." });
-        } else {
-          if (typeof window !== "undefined") {
-            window.dispatchEvent(new CustomEvent("open-design:plugins-changed"));
-          }
-          setNotice({ message: install?.message ?? "Plugin draft created and added to My plugins." });
-        }
-      } else {
-        setNotice({ message: "Plugin draft created." });
-      }
-      if (draftPath && onRequestOpenFile) onRequestOpenFile(`${draftPath}/open-design.json`);
-    } catch (err) {
-      setNotice({ message: err instanceof Error ? err.message : String(err) });
-    } finally {
-      setBusy(null);
-    }
-  }
-
-  async function share(action: "contribute-open-design") {
-    if (!projectId) return;
-    setBusy("contribute");
-    setNotice(null);
-    try {
-      const data = await post(
-        `/api/projects/${encodeURIComponent(projectId)}/plugin-candidates/${encodeURIComponent(block.candidateId)}/share-tasks`,
-        { action },
-      );
-      setNotice({
-        message: `Design For AIR contribution task started for ${data?.path ?? "the draft"}.`,
-      });
-    } catch (err) {
-      setNotice({ message: err instanceof Error ? err.message : String(err) });
-    } finally {
-      setBusy(null);
-    }
-  }
 
   return (
     <div className="plugin-action-panel" data-testid={`skill-plugin-candidate-${block.candidateId}`}>
@@ -270,31 +195,6 @@ function SkillPluginCandidateCard({
           <p className="plugin-action-card__description">
             {description}
           </p>
-          <div className="plugin-action-card__actions">
-            <button
-              type="button"
-              className="plugin-action-button plugin-action-button--primary"
-              disabled={disabled}
-              onClick={() => void share("contribute-open-design")}
-            >
-              <Icon name={busy === "contribute" ? "spinner" : "share"} size={13} />
-              <span>{busy === "contribute" ? "Starting..." : t("skillPluginCandidate.contributeToMain")}</span>
-            </button>
-            <button
-              type="button"
-              className="plugin-action-button"
-              disabled={disabled}
-              onClick={() => void createDraft()}
-            >
-              <Icon name={busy === "draft" ? "spinner" : "plus"} size={13} />
-              <span>{busy === "draft" ? "Creating..." : t("skillPluginCandidate.createForMe")}</span>
-            </button>
-          </div>
-          {notice ? (
-            <div className="plugin-action-card__notice" role="status">
-              <ActionNoticeView notice={notice} />
-            </div>
-          ) : null}
         </div>
       </div>
     </div>
@@ -369,7 +269,7 @@ interface Props {
   onToolboxAction?: (id: DesignToolboxActionId) => void;
   onNextStepPromptAction?: (
     prompt: string,
-    options?: { sessionMode?: ChatSessionMode },
+    options?: { sessionMode?: ChatSessionMode; hiddenPrompt?: string },
   ) => void;
   onNextStepAiOptimize?: () => void;
   nextStepAiOptimizeBusy?: boolean;
@@ -656,9 +556,7 @@ function AssistantMessageImpl({
     },
     [pluginBusyKey, onRequestPluginFolderAgentAction],
   );
-  const usage = events.find((e) => e.kind === "usage") as
-    | Extract<AgentEvent, { kind: "usage" }>
-    | undefined;
+  const usage = latestUsageEvent(events);
   const roleName = assistantRoleName(message, t);
   const roleIconId = agentIconId(message.agentId, message.agentName);
   const hasEmptyResponse = events.some(
@@ -722,6 +620,15 @@ function AssistantMessageImpl({
   const canShowOpenDesignSubmission = !!onShareToOpenDesign && showFeedback && runSucceeded;
   const showOpenDesignSubmission =
     canShowOpenDesignSubmission && (!!isLast || shareToOpenDesignBusy);
+  const inlineQuestionForm = useMemo(
+    () => findFirstQuestionForm(message.content ?? '')?.form ?? null,
+    [message.content],
+  );
+  const inlineQuestionFormAnswered = useMemo(
+    () => (inlineQuestionForm ? Boolean(parseSubmittedAnswers(inlineQuestionForm, nextUserContent ?? '')) : false),
+    [inlineQuestionForm, nextUserContent],
+  );
+  const hideNextStepForQuestionForm = Boolean(inlineQuestionForm) && !inlineQuestionFormAnswered;
   const effectiveNextStepVariant: NextStepActionsVariant =
     nextStepVariant === 'brand-extraction' && (!runSucceeded || !nextStepArtifactName)
       ? 'brand-programmatic-incomplete'
@@ -754,6 +661,7 @@ function AssistantMessageImpl({
   // prompts or toolbox actions.
   const showNextStepActions =
     !streaming &&
+    !hideNextStepForQuestionForm &&
     runTerminal &&
     ((!!isLast && hasNextStepPrimary) || showOpenDesignSubmission);
   // Pre-output vs working: before any real content (text / thinking / tools /
@@ -1408,6 +1316,47 @@ interface AssistantFooterProps {
   isLast?: boolean;
 }
 
+function latestUsageEvent(
+  events: AgentEvent[],
+): Extract<AgentEvent, { kind: "usage" }> | undefined {
+  for (let i = events.length - 1; i >= 0; i -= 1) {
+    const event = events[i];
+    if (event?.kind === "usage") return event;
+  }
+  return undefined;
+}
+
+function formatTokenCount(value: number, locale: string): string {
+  if (!Number.isFinite(value)) return "";
+  const absolute = Math.abs(value);
+  if (absolute < 10_000) {
+    return Math.round(value).toLocaleString(locale);
+  }
+  return new Intl.NumberFormat(locale, {
+    notation: "compact",
+    maximumFractionDigits: absolute >= 1_000_000 ? 2 : 1,
+  }).format(value);
+}
+
+function formatUsageStats(
+  usage: Extract<AgentEvent, { kind: "usage" }> | undefined,
+  t: ReturnType<typeof useI18n>["t"],
+  locale: string,
+): string {
+  if (!usage) return "";
+  const input = typeof usage.inputTokens === "number" ? usage.inputTokens : undefined;
+  const output = typeof usage.outputTokens === "number" ? usage.outputTokens : undefined;
+  const thought = typeof usage.thoughtTokens === "number" ? usage.thoughtTokens : undefined;
+  const explicitTotal = typeof usage.totalTokens === "number" ? usage.totalTokens : undefined;
+  const total =
+    typeof explicitTotal === "number"
+      ? explicitTotal
+      : typeof input === "number" || typeof output === "number" || typeof thought === "number"
+      ? (input ?? 0) + (output ?? 0) + (thought ?? 0)
+      : undefined;
+  return typeof total === "number" ? t("assistant.usageTotal", { count: formatTokenCount(total, locale) }) : "";
+}
+
 function AssistantFooter({
   streaming,
   startedAt,
@@ -1424,8 +1373,9 @@ function AssistantFooter({
   forceVisible = false,
   isLast = false,
 }: AssistantFooterProps) {
-  const t = useT();
+  const { t, locale } = useI18n();
   const elapsed = useLiveElapsed(streaming, startedAt, endedAt, usage?.durationMs);
+  const tokenStats = formatUsageStats(usage, t, locale);
   const formattedCost =
     typeof usage?.costUsd === "number" &&
     Number.isFinite(usage.costUsd) &&
@@ -1450,6 +1400,7 @@ function AssistantFooter({
       data-unfinished={hasUnfinishedTodos ? "true" : "false"}
       data-streaming={streaming ? "true" : "false"}
       data-last={isLast ? "true" : "false"}
+      data-has-usage={usage ? "true" : "false"}
     >
       <span className="dot" data-active={streaming ? "true" : "false"} />
       <span className={`assistant-label${streaming && preparing ? " shimmer-text shimmer-prepare" : ""}`}>
@@ -1467,9 +1418,7 @@ function AssistantFooter({
       </span>
       <span className="assistant-stats">
         {elapsed}
-        {usage?.outputTokens != null
-          ? ` · ${t("assistant.outTokens", { n: usage.outputTokens })}`
-          : ""}
+        {tokenStats ? `${elapsed ? " · " : ""}${tokenStats}` : ""}
         {costLabel}
       </span>
       {copyMarkdown || onFork || feedbackControls ? (

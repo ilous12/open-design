@@ -11,6 +11,12 @@
 .entry-shell--no-header {
   grid-template-rows: 1fr;
   --entry-rail-width: 56px;
+  position: relative;
+  overflow: hidden;
+  background: #ffffff;
+  font-family: var(--sans);
+  font-size: 15px;
+  letter-spacing: -0.01em;
 }
 
 .entry-shell--onboarding {
@@ -20,7 +26,7 @@
   justify-content: stretch;
   min-height: 100vh;
   padding: 0;
-  background: var(--bg);
+  background: #ffffff;
 }
 
 .entry-onboarding-modal {
@@ -28,8 +34,171 @@
   height: 100vh;
   overflow: auto;
   border-radius: 0;
-  background: var(--bg);
+  background: #ffffff;
   box-shadow: none;
+}
+
+.entry-ambient {
+  position: absolute;
+  inset: -16vh -12vw;
+  z-index: 0;
+  display: none;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.entry-shell[data-entry-view='home'] .entry-ambient {
+  display: block;
+}
+
+.entry-ambient__wash {
+  position: absolute;
+  width: var(--wash-w);
+  height: var(--wash-h);
+  left: var(--wash-x);
+  top: var(--wash-y);
+  border-radius: var(--wash-shape, 48% 52% 58% 42% / 45% 54% 46% 55%);
+  background: var(--wash-color);
+  filter: blur(var(--wash-blur, 64px));
+  opacity: var(--wash-opacity, 0.2);
+  mix-blend-mode: multiply;
+  transform: translate3d(0, 0, 0) rotate(var(--wash-rotate, 0deg));
+  animation: entry-ambient-drift var(--wash-duration, 28s) var(--ease-out) infinite alternate;
+  will-change: transform;
+}
+
+.entry-ambient__wash--1 {
+  --wash-w: 34vw;
+  --wash-h: 24vh;
+  --wash-x: 4vw;
+  --wash-y: 8vh;
+  --wash-color: rgba(206, 221, 255, 0.58);
+  --wash-duration: 31s;
+}
+.entry-ambient__wash--2 {
+  --wash-w: 28vw;
+  --wash-h: 28vh;
+  --wash-x: 58vw;
+  --wash-y: 5vh;
+  --wash-color: rgba(167, 191, 239, 0.34);
+  --wash-duration: 36s;
+  animation-name: entry-ambient-drift-alt;
+}
+.entry-ambient__wash--3 {
+  --wash-w: 30vw;
+  --wash-h: 22vh;
+  --wash-x: 18vw;
+  --wash-y: 44vh;
+  --wash-color: rgba(119, 189, 220, 0.26);
+  --wash-duration: 29s;
+  animation-delay: -9s;
+}
+.entry-ambient__wash--4 {
+  --wash-w: 24vw;
+  --wash-h: 24vh;
+  --wash-x: 73vw;
+  --wash-y: 46vh;
+  --wash-color: rgba(239, 245, 255, 0.72);
+  --wash-duration: 33s;
+  animation-delay: -14s;
+  animation-name: entry-ambient-drift-alt;
+}
+.entry-ambient__wash--5 {
+  --wash-w: 32vw;
+  --wash-h: 18vh;
+  --wash-x: 34vw;
+  --wash-y: 76vh;
+  --wash-color: rgba(225, 235, 255, 0.52);
+  --wash-duration: 38s;
+  animation-delay: -21s;
+}
+.entry-ambient__wash--6 {
+  --wash-w: 19vw;
+  --wash-h: 26vh;
+  --wash-x: -2vw;
+  --wash-y: 68vh;
+  --wash-color: rgba(85, 148, 211, 0.18);
+  --wash-duration: 34s;
+  animation-delay: -16s;
+  animation-name: entry-ambient-float;
+}
+.entry-ambient__wash--7 {
+  --wash-w: 22vw;
+  --wash-h: 20vh;
+  --wash-x: 48vw;
+  --wash-y: 30vh;
+  --wash-color: rgba(167, 191, 239, 0.22);
+  --wash-duration: 27s;
+  animation-delay: -5s;
+  animation-name: entry-ambient-float;
+}
+.entry-ambient__wash--8 {
+  --wash-w: 26vw;
+  --wash-h: 20vh;
+  --wash-x: 82vw;
+  --wash-y: 20vh;
+  --wash-color: rgba(206, 221, 255, 0.34);
+  --wash-duration: 42s;
+  animation-delay: -24s;
+}
+.entry-ambient__wash--9 {
+  --wash-w: 23vw;
+  --wash-h: 25vh;
+  --wash-x: 6vw;
+  --wash-y: 28vh;
+  --wash-color: rgba(119, 189, 220, 0.2);
+  --wash-duration: 39s;
+  animation-delay: -19s;
+  animation-name: entry-ambient-drift-alt;
+}
+.entry-ambient__wash--10 {
+  --wash-w: 20vw;
+  --wash-h: 18vh;
+  --wash-x: 65vw;
+  --wash-y: 82vh;
+  --wash-color: rgba(225, 235, 255, 0.42);
+  --wash-duration: 35s;
+  animation-delay: -11s;
+  animation-name: entry-ambient-float;
+}
+
+@keyframes entry-ambient-drift {
+  0% {
+    transform: translate3d(-2vw, -1vh, 0) rotate(-4deg) scale(1);
+  }
+  50% {
+    transform: translate3d(3vw, 4vh, 0) rotate(6deg) scale(1.08);
+  }
+  100% {
+    transform: translate3d(8vw, -2vh, 0) rotate(-2deg) scale(0.96);
+  }
+}
+
+@keyframes entry-ambient-drift-alt {
+  0% {
+    transform: translate3d(3vw, 2vh, 0) rotate(5deg) scale(0.98);
+  }
+  50% {
+    transform: translate3d(-4vw, 5vh, 0) rotate(-7deg) scale(1.06);
+  }
+  100% {
+    transform: translate3d(-8vw, -2vh, 0) rotate(3deg) scale(1.01);
+  }
+}
+
+@keyframes entry-ambient-float {
+  0% {
+    transform: translate3d(0, 3vh, 0) rotate(-3deg) scale(1);
+  }
+  100% {
+    transform: translate3d(5vw, -5vh, 0) rotate(8deg) scale(1.1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .entry-ambient__wash {
+    animation: none;
+  }
 }
 
 /* Entry view collapses the rail by default (Manus-style): the grid's first
@@ -37,6 +206,8 @@
    entry for new users; expanded = the rail docks and pushes the main content
    to the right (it stays docked until the user collapses it again). */
 .entry-shell--no-header .entry {
+  position: relative;
+  z-index: 1;
   grid-template-columns: 0 minmax(0, 1fr);
   transition: grid-template-columns 200ms cubic-bezier(0.23, 1, 0.32, 1);
 }
@@ -55,7 +226,8 @@
   width: 100%;
   min-width: 0;
   border-right: 0;
-  background: var(--bg-panel);
+  background: color-mix(in srgb, #ffffff 90%, var(--accent-tint));
+  backdrop-filter: blur(18px);
   padding: 8px 0 10px;
   display: flex;
   flex-direction: column;
@@ -104,8 +276,8 @@
   align-items: center;
   justify-content: center;
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--bg-panel);
+  border-radius: var(--radius-md);
+  background: linear-gradient(180deg, #ffffff, color-mix(in srgb, var(--accent-tint) 58%, #ffffff));
   color: var(--text);
   cursor: pointer;
   opacity: 0;
@@ -157,8 +329,8 @@
   height: 30px;
   margin-right: auto;
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--bg-panel);
+  border-radius: var(--radius-md);
+  background: linear-gradient(180deg, #ffffff, color-mix(in srgb, var(--accent-tint) 58%, #ffffff));
   color: var(--text);
   cursor: pointer;
   transition:
@@ -173,8 +345,9 @@
   flex-shrink: 0;
 }
 .entry-rail-toggle:hover {
-  background: var(--bg-hover, rgba(0, 0, 0, 0.05));
-  color: var(--text-strong, #111);
+  border-color: color-mix(in srgb, var(--accent) 36%, var(--border));
+  background: var(--accent-tint);
+  color: var(--accent);
 }
 .entry-rail-toggle:focus-visible {
   outline: 2px solid var(--accent);
@@ -211,6 +384,10 @@
   gap: 5px;
   width: 100%;
   padding-bottom: 4px;
+}
+.entry-nav-rail__settings {
+  position: relative;
+  display: inline-flex;
 }
 .entry-nav-rail__divider {
   display: none;
@@ -297,13 +474,18 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  width: 100%;
   padding: 8px 10px;
   font-size: 12.5px;
   color: var(--text);
+  background: transparent;
+  border: 0;
   text-decoration: none;
+  text-align: left;
   border-radius: var(--radius-sm);
   cursor: pointer;
   transition: background-color 120ms var(--ease-out), color 120ms var(--ease-out);
+  appearance: none;
 }
 .entry-help-popover__item:hover {
   background: var(--bg-subtle);
@@ -365,7 +547,7 @@
   position: absolute;
   inset: 4px;
   z-index: -1;
-  border-radius: calc(var(--radius) - 1px);
+  border-radius: var(--radius);
   background:
     radial-gradient(
       circle at 50% 24%,
@@ -714,12 +896,15 @@
   min-width: 0;
   min-height: 0;
   overflow-y: auto;
-  background: var(--bg);
+  background: #ffffff;
   padding: 0;
   /* Used by descendants (e.g. the plugins-home Scenario row) to
      pin themselves directly below the sticky topbar. Mirrors the
      topbar's vertical footprint (12px top + 32px chip). */
   --entry-topbar-h: 44px;
+}
+.entry-shell[data-entry-view='home'] .entry-main--scroll {
+  background: transparent;
 }
 .entry-main__inner {
   width: 100%;
@@ -757,7 +942,8 @@
   align-items: center;
   gap: 8px;
   padding: 12px 16px 0;
-  background: var(--bg);
+  background: color-mix(in srgb, #ffffff 78%, transparent);
+  backdrop-filter: blur(18px);
   isolation: isolate;
 }
 .entry-main__topbar:has(.entry-settings-menu__popover) {
@@ -769,91 +955,8 @@
   inset: -1px 0;
   z-index: -1;
   pointer-events: none;
-  background: var(--bg);
+  background: color-mix(in srgb, #ffffff 78%, transparent);
 }
-/* Chip group — the GitHub star, inline model switcher, and Use
-   everywhere chip live inside this wrapper so the responsive
-   media query can flip the whole row's visibility in one place. */
-.entry-main__topbar-chips {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* ============================================================
-   Icon-only topbar chips
-   Collapse the Star / Discord / model-switcher / Use-everywhere
-   chips to square icon buttons; the full label surfaces as a
-   downward hover tooltip. Keeps the entry topbar quiet and tidy.
-   ============================================================ */
-.entry-main__topbar-chips--icon-only .entry-discord-badge,
-.entry-main__topbar-chips--icon-only .use-everywhere-chip,
-.entry-main__topbar-chips--icon-only .inline-switcher__chip {
-  width: 32px;
-  height: 32px;
-  min-width: 0;
-  padding: 0;
-  gap: 0;
-  justify-content: center;
-  border-radius: var(--radius);
-  position: relative;
-  /* The model-switcher chip clips overflow to truncate long model names;
-     collapsed there's no text, so let the downward tooltip escape. */
-  overflow: visible;
-}
-/* Hide every text fragment; keep only the leading icon glyph. The Discord
-   badge also carries a "· {n} online" suffix; collapsed it must hide too,
-   otherwise the separator + count leak out of the 32px square and render as
-   clipped text (e.g. "212 在s"). The full label lives in the hover tooltip. */
-.entry-main__topbar-chips--icon-only .entry-discord-badge__label,
-.entry-main__topbar-chips--icon-only .entry-discord-badge__sep,
-.entry-main__topbar-chips--icon-only .entry-discord-badge__online,
-.entry-main__topbar-chips--icon-only .use-everywhere-chip__label,
-.entry-main__topbar-chips--icon-only .inline-switcher__chip-text,
-.entry-main__topbar-chips--icon-only .inline-switcher__chip-chevron {
-  display: none;
-}
-
-/* Center the surviving icon wrappers inside the square. */
-.entry-main__topbar-chips--icon-only .use-everywhere-chip__icon,
-.entry-main__topbar-chips--icon-only .inline-switcher__chip-icon {
-  margin: 0;
-}
-
-/* Downward hover tooltip for the collapsed chips. */
-.entry-main__topbar-chips--icon-only [data-tooltip]:not(.od-tooltip) {
-  position: relative;
-}
-.entry-main__topbar-chips--icon-only [data-tooltip]:not(.od-tooltip)::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%) translateY(-4px);
-  padding: 5px 9px;
-  font-size: 12px;
-  line-height: 1;
-  white-space: nowrap;
-  color: var(--bg-panel);
-  background: var(--text-strong, #111);
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-sm, 0 4px 12px rgba(0, 0, 0, 0.12));
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 120ms var(--ease-out), transform 120ms var(--ease-out);
-  z-index: 60;
-}
-.entry-main__topbar-chips--icon-only [data-tooltip]:not(.od-tooltip):hover::after,
-.entry-main__topbar-chips--icon-only [data-tooltip]:not(.od-tooltip):focus-visible::after {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-/* While the model-switcher popover is open, suppress its tooltip so the
-   bubble doesn't collide with the menu. */
-.entry-main__topbar-chips--icon-only [data-tooltip]:not(.od-tooltip)[aria-expanded='true']::after {
-  display: none;
-}
-
 .entry-settings-menu {
   position: relative;
   display: inline-flex;
@@ -912,7 +1015,7 @@
   gap: 8px;
   padding: 0 10px;
   border: 1px solid var(--border-soft);
-  border-radius: 9px;
+  border-radius: var(--radius);
   background: var(--bg-subtle);
   color: var(--text);
   font-size: 12.5px;
@@ -972,7 +1075,7 @@
   background: transparent;
   color: var(--text);
   min-height: 30px;
-  border-radius: 7px;
+  border-radius: var(--radius);
   display: flex;
   align-items: center;
   gap: 6px;
@@ -1973,83 +2076,58 @@
   line-height: 1.6;
 }
 
-.onboarding-cloud__primary {
-  display: inline-flex;
+.onboarding-cloud__choices {
+  display: grid;
+  width: 100%;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.onboarding-cloud__choice {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 10px;
+  justify-content: flex-start;
+  gap: 12px;
   width: 100%;
   min-height: 52px;
-  margin-top: 32px;
-  padding: 0 20px;
-  border: 0;
-  border-radius: 14px;
-  background: var(--text-strong);
-  color: var(--bg);
+  padding: 0 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-panel);
+  color: var(--text-strong);
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
+  text-align: left;
   transition:
-    opacity 160ms cubic-bezier(0.23, 1, 0.32, 1),
+    background 160ms cubic-bezier(0.23, 1, 0.32, 1),
+    border-color 160ms cubic-bezier(0.23, 1, 0.32, 1),
     transform 140ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.onboarding-cloud__primary:hover:not(:disabled) {
-  /* Keep the dark fill on hover — the global `button:hover` rule in
-     primitives.css would otherwise repaint the background to --bg-subtle and
-     wash the white label away. Opacity alone carries the hover feedback. */
-  background: var(--text-strong);
-  border-color: transparent;
-  opacity: 0.88;
+.onboarding-cloud__choice:hover:not(:disabled) {
+  background: var(--bg-subtle);
+  border-color: var(--text-muted);
 }
 
-.onboarding-cloud__primary:active:not(:disabled) {
+.onboarding-cloud__choice:active:not(:disabled) {
   transform: translateY(1px);
 }
 
-.onboarding-cloud__primary:disabled {
-  opacity: 0.55;
-  cursor: default;
-}
-
-.onboarding-cloud__primary:focus-visible {
+.onboarding-cloud__choice:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
-.onboarding-cloud__secondary,
-.onboarding-cloud__cancel {
-  margin-top: 22px;
-  border: 0;
-  background: transparent;
-  color: var(--text-muted);
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: color 160ms cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.onboarding-cloud__secondary:hover,
-.onboarding-cloud__cancel:hover {
-  color: var(--text-strong);
-}
-
-/* Two secondary links ("local CLI" or "your own key") on one row. */
-.onboarding-cloud__alts {
-  display: flex;
-  align-items: center;
+.onboarding-cloud__choice-emoji {
+  display: inline-flex;
+  width: 26px;
+  min-width: 26px;
+  height: 26px;
   justify-content: center;
-  gap: 10px;
-  margin-top: 22px;
-}
-
-.onboarding-cloud__alts .onboarding-cloud__secondary {
-  margin-top: 0;
-}
-
-.onboarding-cloud__alts-or {
-  color: var(--text-muted);
-  font-size: 14px;
+  align-items: center;
+  font-size: 19px;
+  line-height: 1;
 }
 
 .onboarding-cloud__error {
@@ -2099,7 +2177,7 @@
   width: 56px;
   height: 56px;
   margin-bottom: 4px;
-  border-radius: 16px;
+  border-radius: var(--radius);
   background: var(--bg-panel);
   border: 1px solid var(--border);
   box-shadow: var(--shadow-xs);
@@ -3399,7 +3477,7 @@
   margin-top: 18px;
   padding: 14px 16px;
   border: 1px solid color-mix(in oklab, var(--accent) 22%, var(--border));
-  border-radius: 14px;
+  border-radius: var(--radius);
   background: color-mix(in oklab, var(--accent) 6%, var(--bg-panel));
 }
 .onboarding-view__memory-callout-icon {
@@ -3408,7 +3486,7 @@
   justify-content: center;
   width: 32px;
   height: 32px;
-  border-radius: 10px;
+  border-radius: var(--radius);
   background: color-mix(in oklab, var(--accent) 14%, var(--bg-panel));
   color: var(--accent);
   box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--accent) 22%, transparent);
@@ -3890,7 +3968,7 @@
 
 .onboarding-view__build-preview-swatches i {
   height: 44px;
-  border-radius: 10px;
+  border-radius: var(--radius);
   background: var(--accent);
 }
 
@@ -4053,122 +4131,11 @@
   opacity: 0.55;
 }
 
-.entry-discord-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  height: 32px;
-  padding: 0 12px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-pill);
-  background: var(--bg-panel);
-  color: var(--text);
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 1;
-  text-decoration: none;
-  cursor: pointer;
-  box-shadow: var(--shadow-xs);
-  transition: background-color 120ms var(--ease-out), border-color 120ms var(--ease-out),
-    color 120ms var(--ease-out), transform 120ms var(--ease-out);
-  white-space: nowrap;
-}
-.entry-discord-badge:hover {
-  background: var(--bg-subtle);
-  border-color: var(--border-strong);
-  color: var(--text-strong);
-}
-.entry-discord-badge:active {
-  transform: scale(0.98);
-}
-.entry-discord-badge:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 1px;
-}
-.entry-discord-badge__icon {
-  color: #5865f2;
-  flex: 0 0 auto;
-}
-.entry-discord-badge:hover .entry-discord-badge__icon {
-  color: #5865f2;
-}
-.entry-discord-badge__label {
-  white-space: nowrap;
-}
-.entry-discord-badge__sep {
-  color: var(--text-faint);
-}
-.entry-discord-badge__online {
-  color: var(--text-muted);
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-}
-
-/* Workspace / team-edition entry. Neutral white-panel chip matching the
-   GitHub-star / Discord pills next to it; keeps its label visible (unlike the
-   icon-only discord/use-everywhere chips) because guiding the click is the
-   whole point. Tokens resolve in both light and dark themes. */
-.entry-workspace-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  height: 32px;
-  padding: 0 12px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-pill);
-  background: var(--bg-panel);
-  color: var(--text);
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 1;
-  text-decoration: none;
-  cursor: pointer;
-  box-shadow: var(--shadow-xs);
-  transition: background-color 120ms var(--ease-out), border-color 120ms var(--ease-out),
-    color 120ms var(--ease-out), transform 120ms var(--ease-out);
-  white-space: nowrap;
-}
-.entry-workspace-chip:hover {
-  background: var(--bg-subtle);
-  border-color: var(--border-strong);
-  color: var(--text-strong);
-}
-.entry-workspace-chip:active {
-  transform: scale(0.98);
-}
-.entry-workspace-chip:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 1px;
-}
-.entry-workspace-chip__icon {
-  color: var(--text-strong);
-  flex: 0 0 auto;
-}
-.entry-workspace-chip__label {
-  color: var(--text-strong);
-  white-space: nowrap;
-}
-
 @media (max-width: 700px) {
-  .entry-workspace-chip__label {
-    display: none;
-  }
-  .entry-workspace-chip {
-    padding: 0 9px;
-  }
   .entry-star-badge__label {
     display: none;
   }
   .entry-star-badge__sep {
-    display: none;
-  }
-  .entry-discord-badge {
-    padding: 0 9px;
-  }
-  .entry-discord-badge__label {
-    display: none;
-  }
-  .entry-discord-badge__sep {
     display: none;
   }
 }
@@ -4182,13 +4149,6 @@
   }
   .entry-main__inner--wide {
     max-width: 100%;
-  }
-  /* Collapse the three topbar chips into the settings dropdown.
-     The chips' container disappears and the matching menu rows
-     inside `.avatar-popover` are unhidden so every action stays
-     one click away from the lone settings cog. */
-  .entry-main__topbar-chips {
-    display: none;
   }
   .avatar-item--compact-only {
     display: flex;
@@ -4253,7 +4213,7 @@
   .onboarding-view__steps li {
     padding: 8px 10px;
     border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
-    border-radius: 8px;
+    border-radius: var(--radius);
     background: color-mix(in srgb, var(--bg-panel) 92%, transparent);
   }
 
@@ -4318,7 +4278,7 @@
   .onboarding-view__steps li {
     padding: 8px 10px;
     border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
-    border-radius: 8px;
+    border-radius: var(--radius);
     background: color-mix(in srgb, var(--bg-panel) 92%, transparent);
   }
 

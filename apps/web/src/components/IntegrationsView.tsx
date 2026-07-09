@@ -12,10 +12,9 @@ import { ConnectorSection } from './SettingsDialog';
 import { Icon } from './Icon';
 import { McpClientSection } from './McpClientSection';
 import { SkillsSection } from './SkillsSection';
-import { UseEverywhereGuidePanel } from './UseEverywhereModal';
 import { useT } from '../i18n';
 
-export type IntegrationTab = 'mcp' | 'connectors' | 'skills' | 'use-everywhere';
+export type IntegrationTab = 'mcp' | 'connectors' | 'skills';
 
 interface Props {
   config: AppConfig;
@@ -33,13 +32,11 @@ const INTEGRATION_TABS: ReadonlyArray<{
   { id: 'mcp' },
   { id: 'connectors' },
   { id: 'skills' },
-  { id: 'use-everywhere' },
 ];
 
 function integrationTabToTrackingElement(
   id: IntegrationTab,
-): 'mcp' | 'connectors' | 'skills' | 'use_everywhere' {
-  if (id === 'use-everywhere') return 'use_everywhere';
+): 'mcp' | 'connectors' | 'skills' {
   return id;
 }
 
@@ -86,9 +83,6 @@ export function IntegrationsView({
     },
     [onConfigPersist],
   );
-
-  const liveDaemonUrl =
-    typeof window !== 'undefined' ? window.location.origin : undefined;
 
   return (
     <section className="integrations-view" aria-labelledby="integrations-title">
@@ -177,14 +171,6 @@ export function IntegrationsView({
           />
         ) : null}
 
-        {activeTab === 'use-everywhere' ? (
-          <div className="integrations-view__use-everywhere">
-            <UseEverywhereGuidePanel
-              onOpenSettings={() => setActiveTab('mcp')}
-              {...(liveDaemonUrl ? { daemonUrl: liveDaemonUrl } : {})}
-            />
-          </div>
-        ) : null}
       </div>
     </section>
   );
@@ -195,7 +181,6 @@ function integrationTabLabel(id: IntegrationTab, t: ReturnType<typeof useT>): st
     case 'mcp': return t('integrations.tabLabel.mcp');
     case 'connectors': return t('entry.tabConnectors');
     case 'skills': return t('integrations.tabLabel.skills');
-    case 'use-everywhere': return t('entry.useEverywhereTitle');
   }
 }
 
@@ -204,6 +189,5 @@ function integrationTabHint(id: IntegrationTab, t: ReturnType<typeof useT>): str
     case 'mcp': return t('integrations.tabHint.mcp');
     case 'connectors': return t('integrations.tabHint.connectors');
     case 'skills': return t('settings.skillsHint');
-    case 'use-everywhere': return t('integrations.tabHint.useEverywhere');
   }
 }

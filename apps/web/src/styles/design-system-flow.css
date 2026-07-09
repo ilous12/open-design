@@ -1,7 +1,7 @@
 .ds-editor-error {
   padding: 10px 12px;
   border: 1px solid rgba(192, 57, 43, 0.32);
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: rgba(192, 57, 43, 0.08);
   color: var(--danger, #c0392b);
   font-size: 12px;
@@ -54,7 +54,7 @@
 .ds-github-access-actions button {
   min-height: 36px;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius);
   padding: 0 12px;
   background: var(--bg-panel);
   color: var(--text);
@@ -196,7 +196,7 @@
   min-height: 112px;
   resize: vertical;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius);
   padding: 12px 13px;
   color: var(--text-strong);
   background: var(--bg-panel);
@@ -240,7 +240,7 @@
 .ds-resource-card {
   margin-top: 12px;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius);
   background: color-mix(in srgb, var(--bg-panel) 98%, var(--bg-subtle) 2%);
   box-shadow: 0 14px 36px color-mix(in srgb, var(--shadow-color, #000) 5%, transparent), var(--shadow-xs);
   overflow: hidden;
@@ -298,7 +298,7 @@
   min-width: 0;
   min-height: 38px;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius);
   padding: 0 12px;
   color: var(--text-strong);
   background: var(--bg-panel);
@@ -320,7 +320,7 @@
   min-height: 86px;
   resize: vertical;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius);
   padding: 10px 12px;
   color: var(--text-strong);
   background: var(--bg-panel);
@@ -370,7 +370,7 @@
   gap: 8px;
   padding: 8px 10px;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: var(--bg-subtle);
 }
 .ds-design-md-reference-picker > span:first-child {
@@ -381,7 +381,7 @@
 .ds-design-md-reference-picker .project-ds-picker-trigger {
   min-height: 28px;
   max-width: 260px;
-  border-radius: 8px;
+  border-radius: var(--radius);
   font-size: 12px;
 }
 .ds-design-md-reference-status {
@@ -398,14 +398,14 @@
   gap: 2px;
   padding: 2px;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: var(--bg-subtle);
 }
 .ds-design-md-actions button {
   min-height: 26px;
   padding: 0 10px;
   border: 0;
-  border-radius: 6px;
+  border-radius: var(--radius);
   background: transparent;
   color: var(--text-muted);
   font: inherit;
@@ -426,7 +426,7 @@
   min-height: 150px;
   resize: vertical;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius);
   padding: 10px 12px;
   color: var(--text-strong);
   background: var(--bg-panel);
@@ -439,7 +439,7 @@
   gap: 10px;
   padding: 12px;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: var(--bg-subtle);
 }
 .ds-design-md-preview-head,
@@ -468,7 +468,7 @@
 .ds-design-md-kit {
   overflow: hidden;
   border: 1px solid var(--ds-md-border);
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: var(--ds-md-bg);
   color: var(--ds-md-foreground);
   font-family: var(--ds-md-body-font);
@@ -483,7 +483,7 @@
   min-height: 28px;
   padding: 0 12px;
   border: 1px solid transparent;
-  border-radius: 6px;
+  border-radius: var(--radius);
   background: transparent;
   color: var(--ds-md-muted);
   font: inherit;
@@ -511,7 +511,7 @@
   min-height: 22px;
   align-items: center;
   padding: 2px 8px;
-  border-radius: 6px;
+  border-radius: var(--radius);
   background: var(--ds-md-primary-bg);
   color: var(--ds-md-primary-active);
   font-size: 11px;
@@ -633,7 +633,7 @@
   gap: 9px;
   padding: 6px 9px 6px 7px;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: var(--bg-panel);
   color: var(--text);
 }
@@ -641,7 +641,7 @@
   flex: 0 0 auto;
   width: 24px;
   height: 24px;
-  border-radius: 5px;
+  border-radius: var(--radius);
   border: 1px solid color-mix(in srgb, var(--border) 45%, transparent);
   font-style: normal;
 }
@@ -763,7 +763,7 @@ a.ds-source-link-open:focus-visible {
   flex: 0 0 auto;
   width: 16px;
   height: 16px;
-  border-radius: 4px;
+  border-radius: var(--radius);
   object-fit: contain;
 }
 .ds-source-link-favicon--glyph {
@@ -943,7 +943,7 @@ a.ds-source-link-open:focus-visible {
   align-items: center;
   justify-content: center;
   border: 1px dashed color-mix(in srgb, var(--border-strong) 76%, var(--accent) 24%);
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: color-mix(in srgb, var(--bg-subtle) 84%, var(--bg-panel) 16%);
   color: var(--text-muted);
   cursor: pointer;
@@ -978,7 +978,7 @@ a.ds-source-link-open:focus-visible {
   min-height: 42px;
   padding: 0 16px;
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--radius);
   background: var(--bg-panel);
   color: var(--text);
   font-size: 13px;
@@ -995,7 +995,7 @@ a.ds-source-link-open:focus-visible {
   gap: 12px;
   padding: 12px 14px;
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--radius);
   background: var(--bg-panel);
   color: var(--text);
 }
@@ -1204,7 +1204,7 @@ a.ds-source-link-open:focus-visible {
 .ds-source-context-card,
 .ds-chat-composer {
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--radius);
   background: var(--bg-elevated);
   padding: 14px;
   display: grid;
@@ -1332,7 +1332,7 @@ a.ds-source-link-open:focus-visible {
 .segmented {
   display: inline-flex;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius);
   background: var(--bg-subtle);
   overflow: hidden;
 }
@@ -1368,7 +1368,7 @@ a.ds-source-link-open:focus-visible {
 .ds-review-section,
 .ds-body-editor {
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--radius);
   background: var(--bg-panel);
   box-shadow: var(--shadow-xs);
 }
@@ -1458,7 +1458,7 @@ a.ds-source-link-open:focus-visible {
   min-height: 24px;
   padding: 5px 8px;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: var(--bg-panel);
   color: var(--text-muted);
   font-size: 12px;
@@ -1494,7 +1494,7 @@ a.ds-source-link-open:focus-visible {
   overflow: hidden;
   padding: 4px 7px;
   border: 1px solid var(--border);
-  border-radius: 7px;
+  border-radius: var(--radius);
   background: var(--bg-panel);
   color: var(--text-muted);
   font: 11px/1.35 var(--font-mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace);
@@ -1591,7 +1591,7 @@ a.ds-source-link-open:focus-visible {
   gap: 12px;
   padding: 12px;
   border: 1px solid color-mix(in srgb, var(--accent) 26%, var(--border));
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: color-mix(in srgb, var(--accent) 6%, var(--bg-subtle));
 }
 .ds-token-contract-row > span {
@@ -1636,7 +1636,7 @@ a.ds-source-link-open:focus-visible {
   min-width: 0;
   padding: 12px;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: var(--bg-subtle);
 }
 .ds-package-card h2 {
@@ -1658,7 +1658,7 @@ a.ds-source-link-open:focus-visible {
   overflow: hidden;
   padding: 4px 7px;
   border: 1px solid var(--border);
-  border-radius: 7px;
+  border-radius: var(--radius);
   background: var(--bg-panel);
   color: var(--text);
   font: 11px/1.35 var(--font-mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace);
@@ -1702,7 +1702,7 @@ a.ds-source-link-open:focus-visible {
   margin: 0;
   padding: 12px;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: var(--bg-subtle);
   color: var(--text-muted);
   white-space: pre-wrap;
@@ -1760,7 +1760,7 @@ a.ds-source-link-open:focus-visible {
   margin: 0;
   padding: 12px;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: var(--bg-panel);
   color: var(--text);
   white-space: pre-wrap;
@@ -1946,14 +1946,14 @@ a.ds-source-link-open:focus-visible {
   overflow: auto;
   padding: 18px;
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--radius);
   background: var(--bg-panel);
 }
 .ds-file-preview-frame {
   width: 100%;
   min-height: 68vh;
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--radius);
   background: #fff;
 }
 .ds-file-preview-frame--asset {
@@ -2013,7 +2013,7 @@ a.ds-source-link-open:focus-visible {
 .ds-settings-card {
   background: var(--bg-panel);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--radius);
   box-shadow: var(--shadow-xs);
   overflow: hidden;
 }
@@ -2108,7 +2108,7 @@ a.ds-source-link-open:focus-visible {
   flex: 0 0 auto;
   padding: 6px 14px;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: var(--bg-elevated);
   color: var(--text);
   font-size: 13px;
@@ -2496,7 +2496,7 @@ a.ds-source-link-open:focus-visible {
   position: absolute;
   inset: 9px;
   border: 1px solid color-mix(in srgb, var(--accent) 24%, var(--border));
-  border-radius: 8px;
+  border-radius: var(--radius);
   opacity: 0.68;
   transform: rotate(45deg);
 }
@@ -2520,7 +2520,7 @@ a.ds-source-link-open:focus-visible {
   display: grid;
   place-items: center;
   border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--border));
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: color-mix(in srgb, var(--bg-panel) 86%, transparent);
   box-shadow:
     0 16px 46px color-mix(in srgb, var(--accent) 16%, transparent),
@@ -2530,7 +2530,7 @@ a.ds-source-link-open:focus-visible {
   content: "";
   position: absolute;
   inset: 7px;
-  border-radius: 6px;
+  border-radius: var(--radius);
   border: 1px solid color-mix(in srgb, var(--blue, #3b82f6) 18%, transparent);
   opacity: 0.7;
 }
@@ -2610,7 +2610,7 @@ a.ds-source-link-open:focus-visible {
 .ds-project-loading-skeleton span {
   height: 26px;
   border: 1px solid color-mix(in srgb, var(--accent) 14%, var(--border));
-  border-radius: 8px;
+  border-radius: var(--radius);
   background:
     linear-gradient(
       100deg,
@@ -2781,7 +2781,7 @@ a.ds-source-link-open:focus-visible {
   gap: 8px;
   min-height: 28px;
   padding: 4px 6px;
-  border-radius: 6px;
+  border-radius: var(--radius);
   color: var(--text-muted);
   font-size: 12px;
   line-height: 1.25;
@@ -3293,7 +3293,7 @@ a.ds-source-link-open:focus-visible {
   gap: 6px;
   padding: 6px 10px;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: var(--bg-panel);
   color: var(--text);
   font-size: 12px;
@@ -3560,7 +3560,7 @@ a.ds-source-link-open:focus-visible {
   margin: 0 0 30px;
   padding: 0;
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: var(--radius);
   box-shadow: var(--shadow-sm);
 }
 .ds-project-publish-card--review > p {
@@ -3591,7 +3591,7 @@ a.ds-source-link-open:focus-visible {
 .ds-project-review-item {
   overflow: hidden;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: var(--bg-panel);
   box-shadow: var(--shadow-sm);
 }
@@ -3676,7 +3676,7 @@ a.ds-source-link-open:focus-visible {
   place-items: center;
   min-height: 240px;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: var(--bg-panel);
   color: var(--text-muted);
   text-align: center;

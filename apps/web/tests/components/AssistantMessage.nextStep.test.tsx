@@ -11,10 +11,7 @@ import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
 
 import { AssistantMessage } from '../../src/components/AssistantMessage';
-import {
-  PROJECT_GENERATE_ARTIFACT_PROMPT,
-} from '../../src/components/NextStepActions';
-import { en } from '../../src/i18n/locales/en';
+import { ko } from '../../src/i18n/locales/ko';
 import type { ChatMessage, ProjectFile } from '../../src/types';
 
 beforeAll(() => {
@@ -66,10 +63,10 @@ const handlers = () => ({
   onNextStepPromptAction: vi.fn(),
 });
 
-const AUTO_MATCH_TITLE = en['chat.designToolbox.action.auto-match.title'];
+const AUTO_MATCH_TITLE = ko['chat.designToolbox.action.auto-match.title'];
 
 describe('AssistantMessage next-step affordance', () => {
-  it('routes Share through the More → Share cascade with the file name', () => {
+  it('does not expose the removed More share cascade', () => {
     const h = handlers();
     render(
       <AssistantMessage
@@ -81,10 +78,10 @@ describe('AssistantMessage next-step affordance', () => {
       />,
     );
     expect(screen.getByTestId('next-step-actions')).toBeTruthy();
-    fireEvent.mouseEnter(screen.getByTestId('next-step-toolbox-more'));
-    fireEvent.mouseEnter(screen.getByTestId('next-step-more-share'));
-    fireEvent.click(screen.getByTestId('next-step-share-share'));
-    expect(h.onArtifactShare).toHaveBeenCalledWith('landing.html');
+    expect(screen.queryByTestId('next-step-toolbox-more')).toBeNull();
+    expect(screen.queryByTestId('next-step-more-share')).toBeNull();
+    expect(screen.queryByTestId('next-step-share-share')).toBeNull();
+    expect(h.onArtifactShare).not.toHaveBeenCalled();
   });
 
   it('does not render when the message is not the last assistant message', () => {
@@ -100,7 +97,7 @@ describe('AssistantMessage next-step affordance', () => {
     expect(screen.queryByTestId('next-step-actions')).toBeNull();
   });
 
-  it('reaches Contribute (share to Design For AIR) through the More → Share cascade', () => {
+  it('does not expose Contribute through the removed More cascade', () => {
     const onShareToOpenDesign = vi.fn();
     render(
       <AssistantMessage
@@ -113,10 +110,10 @@ describe('AssistantMessage next-step affordance', () => {
         {...handlers()}
       />,
     );
-    fireEvent.mouseEnter(screen.getByTestId('next-step-toolbox-more'));
-    fireEvent.mouseEnter(screen.getByTestId('next-step-more-share'));
-    fireEvent.click(screen.getByTestId('next-step-share-contribute'));
-    expect(onShareToOpenDesign).toHaveBeenCalledTimes(1);
+    expect(screen.queryByTestId('next-step-toolbox-more')).toBeNull();
+    expect(screen.queryByTestId('next-step-more-share')).toBeNull();
+    expect(screen.queryByTestId('next-step-share-contribute')).toBeNull();
+    expect(onShareToOpenDesign).not.toHaveBeenCalled();
   });
 
   it('renders the card after a simple answer with no previewable artifact', () => {
@@ -130,7 +127,8 @@ describe('AssistantMessage next-step affordance', () => {
       />,
     );
     expect(screen.getByTestId('next-step-actions')).toBeTruthy();
-    expect(screen.getByText(en['nextStep.projectGenerateArtifactTitle'])).toBeTruthy();
+    expect(screen.getByText(ko['nextStep.projectContinueTitle'])).toBeTruthy();
+    expect(screen.queryByText(ko['nextStep.projectGenerateArtifactTitle'])).toBeNull();
   });
 
   it('renders the card for a simple answer even without a project id', () => {
@@ -159,9 +157,13 @@ describe('AssistantMessage next-step affordance', () => {
     expect(screen.getByTestId('file-ops-summary')).toBeTruthy();
     expect(screen.getByTestId('file-ops-row-notes.md')).toBeTruthy();
     expect(screen.getByTestId('next-step-actions')).toBeTruthy();
-    expect(screen.getByText(en['nextStep.projectGenerateArtifactTitle'])).toBeTruthy();
-    fireEvent.click(screen.getByTestId('next-step-project-action-project-generate-artifact'));
-    expect(h.onNextStepPromptAction).toHaveBeenCalledWith(PROJECT_GENERATE_ARTIFACT_PROMPT);
+    expect(screen.getByText(ko['nextStep.projectContinueTitle'])).toBeTruthy();
+    expect(screen.queryByText(ko['nextStep.projectGenerateArtifactTitle'])).toBeNull();
+    fireEvent.click(screen.getByTestId('next-step-project-action-project-continue'));
+    expect(h.onNextStepPromptAction).toHaveBeenCalledWith(expect.stringContaining('숨김 지시'));
+    expect(h.onNextStepPromptAction).toHaveBeenCalledWith(
+      expect.stringContaining('중단되었거나 완료되지 않은 작업을 이어서 진행하세요'),
+    );
   });
 
   it('renders once the project has a previewable HTML artifact from an earlier turn', () => {
@@ -201,8 +203,8 @@ describe('AssistantMessage next-step affordance', () => {
     );
 
     expect(screen.getByTestId('next-step-actions')).toBeTruthy();
-    expect(screen.getByText(en['nextStep.brandContinueExtractionTitle'])).toBeTruthy();
-    expect(screen.getByText(en['nextStep.brandContinueAiExtractionTitle'])).toBeTruthy();
+    expect(screen.getByText(ko['nextStep.brandContinueExtractionTitle'])).toBeTruthy();
+    expect(screen.getByText(ko['nextStep.brandContinueAiExtractionTitle'])).toBeTruthy();
     fireEvent.click(screen.getByTestId('next-step-brand-action-brand-continue-extraction'));
     expect(onContinueExtraction).toHaveBeenCalledTimes(1);
     fireEvent.click(screen.getByTestId('next-step-brand-action-brand-continue-ai-extraction'));

@@ -1,0 +1,81 @@
+{
+  "$schema": "https://open-design.ai/schemas/plugin.v1.json",
+  "specVersion": "1.0.0",
+  "name": "design-system-air",
+  "title": "AIR",
+  "title_i18n": {
+    "en": "AIR",
+    "ko": "AIR"
+  },
+  "version": "0.1.0",
+  "description": "SKT AIR-inspired design system with Pretend typography, AIR Blue actions, white service surfaces, and pale-blue soft capsule components.",
+  "description_i18n": {
+    "en": "SKT AIR-inspired design system with Pretend typography, AIR Blue actions, white service surfaces, and pale-blue soft capsule components.",
+    "ko": "Pretend 타이포그래피, AIR Blue 액션, 흰 서비스 표면, 페일 블루 소프트 캡슐 컴포넌트를 갖춘 SKT AIR 기반 디자인 시스템입니다."
+  },
+  "license": "MIT",
+  "tags": [
+    "design-system",
+    "first-party",
+    "design",
+    "telecom",
+    "air"
+  ],
+  "od": {
+    "kind": "scenario",
+    "taskKind": "new-generation",
+    "mode": "design-system",
+    "scenario": "design",
+    "surface": "web",
+    "useCase": {
+      "query": {
+        "en": "Generate a {{artifactKind}} using the AIR design system. Keep Pretend typography, AIR Blue actions, white/pale-blue surfaces, readable Korean-first hierarchy, and the soft capsule surface language documented in DESIGN.md.",
+        "ko": "AIR 디자인 시스템으로 {{artifactKind}}를 생성하세요. Pretend 타이포그래피, AIR Blue 액션, 흰색/페일 블루 표면, 읽기 쉬운 한국어 우선 계층, DESIGN.md의 소프트 캡슐 표면 언어를 유지하세요."
+      }
+    },
+    "inputs": [
+      {
+        "name": "artifactKind",
+        "label": "Artifact kind",
+        "type": "select",
+        "options": [
+          "landing page",
+          "dashboard",
+          "marketing site",
+          "app screen"
+        ],
+        "default": "app screen"
+      },
+      {
+        "name": "brief",
+        "label": "Brief",
+        "type": "text",
+        "placeholder": "What AIR service experience should this communicate?"
+      }
+    ],
+    "context": {
+      "designSystem": {
+        "ref": "air",
+        "primary": true
+      },
+      "assets": [
+        "./DESIGN.md"
+      ]
+    },
+    "pipeline": {
+      "stages": [
+        {
+          "id": "generate",
+          "atoms": [
+            "file-write",
+            "live-artifact"
+          ]
+        }
+      ]
+    },
+    "capabilities": [
+      "prompt:inject",
+      "fs:write"
+    ]
+  }
+}

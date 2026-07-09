@@ -72,7 +72,7 @@ function list() {
 }
 
 function openOfficialPresets() {
-  fireEvent.click(screen.getByRole('tab', { name: 'Official presets' }));
+  fireEvent.click(screen.getByRole('tab', { name: '공식 프리셋' }));
 }
 
 describe('DesignSystemsTab', () => {
@@ -91,7 +91,7 @@ describe('DesignSystemsTab', () => {
     expect(screen.getByTestId('design-systems-sidebar-skeleton')).toBeTruthy();
     expect(screen.getByTestId('design-systems-preview-skeleton')).toBeTruthy();
     expect(screen.getByTestId('design-systems-loading-row-0')).toBeTruthy();
-    expect(screen.getByText('Loading design systems…')).toBeTruthy();
+    expect(screen.getByText('디자인 시스템을 불러오는 중…')).toBeTruthy();
     expect(container.querySelector('.loading-spinner')).toBeNull();
   });
 
@@ -137,11 +137,12 @@ describe('DesignSystemsTab', () => {
       />,
     );
 
-    expect(screen.queryByRole('tab', { name: 'Design system' })).toBeNull();
+    expect(screen.queryByRole('tab', { name: '디자인 시스템' })).toBeNull();
     expect(screen.queryByRole('tab', { name: 'Template' })).toBeNull();
-    expect(screen.getByRole('tab', { name: 'Your systems' }).textContent).toContain('1');
-    expect(screen.getByRole('tab', { name: 'Official presets' }).textContent).toContain('1');
-    expect(screen.getByRole('tab', { name: 'Enterprise' }).textContent).toContain('Coming soon');
+    expect(screen.getByRole('tab', { name: '내 시스템' }).textContent).toContain('1');
+    expect(screen.getByRole('tab', { name: '공식 프리셋' }).textContent).toContain('1');
+    expect(screen.queryByRole('tab', { name: 'Enterprise' })).toBeNull();
+    expect(screen.queryByRole('tab', { name: '엔터프라이즈' })).toBeNull();
   });
 
   it('separates user-created design systems from the official preset library', () => {
@@ -156,7 +157,7 @@ describe('DesignSystemsTab', () => {
     );
 
     // "Your systems" is the default scope: Acme shows, Linear (a preset) does not.
-    expect(screen.getByTestId('design-systems-create').textContent).toContain('Create');
+    expect(screen.getByTestId('design-systems-create').textContent).toContain('만들기');
     expect(screen.getByTestId('design-system-card-user:acme')).toBeTruthy();
     expect(screen.queryByTestId('design-system-card-linear')).toBeNull();
 
@@ -180,7 +181,7 @@ describe('DesignSystemsTab', () => {
     // repeated "Design system" placeholder it used to show.
     const row = within(screen.getByTestId('design-system-card-user:acme'));
     expect(row.getByText('Internal product system.')).toBeTruthy();
-    expect(row.queryByText('Design system')).toBeNull();
+    expect(row.queryByText('디자인 시스템')).toBeNull();
   });
 
   it('routes create and edit actions to the dedicated design-system flow', async () => {
@@ -201,7 +202,7 @@ describe('DesignSystemsTab', () => {
 
     // Acme is the only user system, so it auto-selects into the detail pane,
     // exposing the agent edit action that routes back into the authoring flow.
-    fireEvent.click(await screen.findByRole('button', { name: /Edit with agent/i }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Agent로 편집' }));
     expect(onOpenSystem).toHaveBeenCalledWith('user:acme');
   });
 
@@ -222,7 +223,7 @@ describe('DesignSystemsTab', () => {
     await screen.findByTestId('design-kit-view-linear');
     // A built-in preset is browse-only: no agent edit affordance, and the
     // redundant top showcase cover (with its preview button) has been removed.
-    expect(screen.queryByRole('button', { name: /Edit with agent/i })).toBeNull();
+    expect(screen.queryByRole('button', { name: 'Agent로 편집' })).toBeNull();
     expect(screen.queryByTestId('design-kit-cover-preview')).toBeNull();
     expect(onOpenSystem).not.toHaveBeenCalled();
   });
@@ -242,7 +243,7 @@ describe('DesignSystemsTab', () => {
     openOfficialPresets();
     // "Make default" now lives in the detail's ⋯ overflow menu.
     fireEvent.click(await screen.findByTestId('design-kit-more-actions'));
-    fireEvent.click(screen.getByRole('menuitem', { name: 'Default for new chats' }));
+    fireEvent.click(screen.getByRole('menuitem', { name: '기본값으로 설정' }));
     expect(onSelect).toHaveBeenCalledWith('linear');
   });
 
@@ -263,11 +264,11 @@ describe('DesignSystemsTab', () => {
       />,
     );
 
-    const toggle = await screen.findByRole('button', { name: 'Draft' });
+    const toggle = await screen.findByRole('button', { name: '초안' });
     fireEvent.click(toggle);
 
     expect(toggle.getAttribute('aria-busy')).toBe('true');
-    expect(screen.getByText('Loading…')).toBeTruthy();
+    expect(screen.getByText('불러오는 중…')).toBeTruthy();
 
     resolveUpdate({
       id: 'user:acme',
@@ -278,7 +279,7 @@ describe('DesignSystemsTab', () => {
       body: '# Acme',
     });
 
-    await waitFor(() => expect(screen.getByText('Done')).toBeTruthy());
+    await waitFor(() => expect(screen.getByText('완료')).toBeTruthy());
   });
 
   it('shows loading and result feedback for detail overflow downloads', async () => {
@@ -299,12 +300,12 @@ describe('DesignSystemsTab', () => {
     );
 
     fireEvent.click(await screen.findByTestId('design-kit-more-actions'));
-    fireEvent.click(screen.getByRole('menuitem', { name: 'Download design system (.zip + SKILLS.md)' }));
+    fireEvent.click(screen.getByRole('menuitem', { name: '디자인 시스템 다운로드(.zip + SKILLS.md)' }));
 
-    expect(screen.getByText('Download design system (.zip + SKILLS.md)')).toBeTruthy();
+    expect(screen.getByText('디자인 시스템 다운로드(.zip + SKILLS.md)')).toBeTruthy();
     resolveDownload(true);
 
-    await waitFor(() => expect(screen.getByText('Done')).toBeTruthy());
+    await waitFor(() => expect(screen.getByText('완료')).toBeTruthy());
   });
 });
 
@@ -371,15 +372,15 @@ describe('DesignSystemsTab surface filtering', () => {
     renderTab();
     openOfficialPresets();
 
-    expect(surfacePillCount('All')).toBe('5');
-    expect(surfacePillCount('Web')).toBe('3');
-    expect(surfacePillCount('Image')).toBe('2');
+    expect(surfacePillCount('전체')).toBe('5');
+    expect(surfacePillCount('웹')).toBe('3');
+    expect(surfacePillCount('이미지')).toBe('2');
 
     selectCategory('Retro');
 
-    expect(surfacePillCount('All')).toBe('3');
-    expect(surfacePillCount('Web')).toBe('2');
-    expect(surfacePillCount('Image')).toBe('1');
+    expect(surfacePillCount('전체')).toBe('3');
+    expect(surfacePillCount('웹')).toBe('2');
+    expect(surfacePillCount('이미지')).toBe('1');
   });
 
   it('keeps the style category when a surface chip refines within it', () => {
@@ -391,7 +392,7 @@ describe('DesignSystemsTab surface filtering', () => {
     openOfficialPresets();
     selectCategory('Retro');
 
-    fireEvent.click(screen.getByRole('tab', { name: /^Web/ }));
+    fireEvent.click(screen.getByRole('tab', { name: /^웹/ }));
 
     expect(
       (screen.getByTestId('design-systems-category-select') as HTMLSelectElement).value,
@@ -413,13 +414,13 @@ describe('DesignSystemsTab surface filtering', () => {
     ];
     renderTab(webOnlyCategory);
     openOfficialPresets();
-    expect(screen.queryByRole('tab', { name: /^Image/ })).not.toBeNull();
+    expect(screen.queryByRole('tab', { name: /^이미지/ })).not.toBeNull();
 
     selectCategory('Tools');
 
     // Tools has only web systems, so the Image chip no longer applies.
-    expect(screen.queryByRole('tab', { name: /^Image/ })).toBeNull();
-    expect(surfacePillCount('Web')).toBe('1');
+    expect(screen.queryByRole('tab', { name: /^이미지/ })).toBeNull();
+    expect(surfacePillCount('웹')).toBe('1');
   });
 
   it('keeps the active surface chip visible when a search filters out all of its results', () => {
@@ -429,16 +430,16 @@ describe('DesignSystemsTab surface filtering', () => {
     // so the active filter is visible instead of an empty list with no chip.
     renderTab();
     openOfficialPresets();
-    fireEvent.click(screen.getByRole('tab', { name: /^Image/ }));
+    fireEvent.click(screen.getByRole('tab', { name: /^이미지/ }));
 
     fireEvent.change(screen.getByTestId('design-systems-search'), {
       target: { value: 'Web' },
     });
 
-    const imageTab = screen.queryByRole('tab', { name: /^Image/ });
+    const imageTab = screen.queryByRole('tab', { name: /^이미지/ });
     expect(imageTab).not.toBeNull();
     expect(imageTab?.getAttribute('aria-selected')).toBe('true');
     // ...and it honestly reports zero matches for the current search.
-    expect(surfacePillCount('Image')).toBe('0');
+    expect(surfacePillCount('이미지')).toBe('0');
   });
 });

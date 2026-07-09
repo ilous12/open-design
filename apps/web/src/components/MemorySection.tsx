@@ -1883,7 +1883,7 @@ export function MemorySection({
                 padding: 14,
                 background: 'var(--surface-subtle, rgba(0,0,0,0.02))',
                 border: '1px solid var(--border-subtle, rgba(0,0,0,0.08))',
-                borderRadius: 10,
+                borderRadius: 'var(--radius)',
               }}
             >
               {!editing.id ? (

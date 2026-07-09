@@ -396,7 +396,7 @@
   gap: 2px;
   background: var(--bg-panel);
   border: 1px solid var(--border);
-  border-radius: var(--radius-md, 10px);
+  border-radius: var(--radius-md, 8px);
   box-shadow: var(--shadow-md, 0 8px 24px rgba(0, 0, 0, 0.12));
 }
 .artifact-tool-menu-item {
@@ -1261,7 +1261,7 @@
   max-height: none;
   flex: 0 0 auto;
   border: 1px solid var(--border-strong);
-  border-radius: 18px;
+  border-radius: var(--radius);
   overflow: hidden;
   box-shadow: 0 24px 80px rgba(0, 0, 0, 0.22);
   background: var(--bg-panel);
@@ -1284,7 +1284,7 @@
 .preview-viewport-mobile .preview-frame-clip,
 .preview-viewport-mobile:not(.comment-preview-layer-with-side-dock) .comment-preview-canvas,
 .preview-viewport-mobile.manual-edit-workspace .manual-edit-canvas {
-  border-radius: 28px;
+  border-radius: var(--radius);
 }
 .preview-frame-clip,
 .comment-frame-clip {
@@ -1370,8 +1370,8 @@
   height: 42px;
   padding: 0;
   border: 3px solid #fff;
-  border-radius: 50% 50% 50% 10px;
-  background: #d96a46;
+  border-radius: 50% 50% 50% var(--radius);
+  background: var(--accent);
   color: white;
   font-size: 18px;
   font-weight: 800;
@@ -1383,7 +1383,7 @@
 }
 .comment-saved-pin:hover,
 .comment-active-pin:hover {
-  background: #c95e3e;
+  background: var(--accent-hover);
   transform: translate(-50%, calc(-50% - 1px));
 }
 .comment-active-pin {
@@ -2085,7 +2085,7 @@
   min-height: 48px;
   padding: 0 12px 0 16px;
   border: 1px solid rgba(87, 149, 206, 0.5);
-  border-radius: 16px;
+  border-radius: var(--radius);
   background: #0d3858;
   color: #fff;
   box-shadow: 0 12px 32px rgba(6, 22, 36, 0.28);
@@ -2206,7 +2206,7 @@
 }
 .inspect-ancestor-notice-text code {
   padding: 1px 3px;
-  border-radius: 3px;
+  border-radius: var(--radius);
   background: color-mix(in srgb, var(--text) 8%, transparent);
   font-family: var(--font-mono);
   font-size: 10px;
@@ -2319,7 +2319,7 @@ button.ghost.mcp-copy-btn:hover:not(:disabled) {
 
 .inspect-empty-hint code {
   padding: 1px 5px;
-  border-radius: 3px;
+  border-radius: var(--radius);
   background: var(--bg);
   font-size: 11px;
 }
@@ -2462,7 +2462,7 @@ button.ghost.mcp-copy-btn:hover:not(:disabled) {
   grid-template-columns: 300px minmax(0, 1fr);
   overflow: hidden;
   border: 1px solid var(--border);
-  border-radius: 18px;
+  border-radius: var(--radius);
   background: var(--bg-panel);
   color: var(--text);
   box-shadow: 0 28px 90px rgba(0, 0, 0, 0.28);
@@ -2582,7 +2582,7 @@ button.ghost.mcp-copy-btn:hover:not(:disabled) {
   gap: 10px;
   padding: 14px 13px;
   border: 1px solid var(--border);
-  border-radius: 11px;
+  border-radius: var(--radius);
   background: var(--bg-panel);
 }
 .file-version-skeleton-row {
@@ -2592,7 +2592,7 @@ button.ghost.mcp-copy-btn:hover:not(:disabled) {
 }
 .file-version-skeleton-line {
   height: 11px;
-  border-radius: 6px;
+  border-radius: var(--radius);
   background:
     linear-gradient(110deg, transparent 30%, color-mix(in srgb, var(--text) 10%, transparent) 50%, transparent 70%) 0 0 / 200% 100%,
     color-mix(in srgb, var(--text) 7%, transparent);
@@ -2631,7 +2631,7 @@ button.ghost.mcp-copy-btn:hover:not(:disabled) {
   gap: 8px;
   padding: 12px 13px;
   border: 1px solid var(--border);
-  border-radius: 11px;
+  border-radius: var(--radius);
   background: var(--bg-panel);
   color: var(--text);
   text-align: left;
@@ -2669,7 +2669,7 @@ button.ghost.mcp-copy-btn:hover:not(:disabled) {
   bottom: 13px;
   left: 0;
   width: 3px;
-  border-radius: 0 3px 3px 0;
+  border-radius: 0 var(--radius) var(--radius) 0;
   background: var(--accent);
 }
 .file-version-item-top {
@@ -2688,7 +2688,7 @@ button.ghost.mcp-copy-btn:hover:not(:disabled) {
   align-items: center;
   height: 20px;
   padding: 0 8px;
-  border-radius: 6px;
+  border-radius: var(--radius);
   background: var(--text);
   color: var(--bg-panel);
   font-size: 10.5px;
@@ -2703,7 +2703,7 @@ button.ghost.mcp-copy-btn:hover:not(:disabled) {
   height: 20px;
   max-width: 148px;
   padding: 0 8px;
-  border-radius: 6px;
+  border-radius: var(--radius);
   border: 1px solid var(--border);
   background: var(--bg-subtle);
   color: var(--text-muted);
@@ -2811,7 +2811,7 @@ button.ghost.mcp-copy-btn:hover:not(:disabled) {
   min-height: 30px;
   padding: 0 10px;
   border: 1px solid transparent;
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: transparent;
   color: var(--text-muted);
   font-size: 13px;
@@ -2855,7 +2855,7 @@ button.ghost.mcp-copy-btn:hover:not(:disabled) {
   width: min(520px, calc(100vw - 72px));
   padding: 16px;
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: var(--radius);
   background: var(--bg-panel);
   color: var(--text);
   box-shadow: var(--shadow-md), 0 18px 48px rgba(15, 23, 42, 0.16);
@@ -2910,7 +2910,7 @@ button.ghost.mcp-copy-btn:hover:not(:disabled) {
   width: min(300px, calc(100vw - 72px));
   padding: 16px;
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: var(--radius);
   background: var(--bg-panel);
   color: var(--text);
   box-shadow: var(--shadow-md), 0 18px 48px rgba(15, 23, 42, 0.16);
@@ -2941,7 +2941,7 @@ button.ghost.mcp-copy-btn:hover:not(:disabled) {
   height: 32px;
   padding: 2px;
   border: 1px solid var(--border);
-  border-radius: 9px;
+  border-radius: var(--radius);
   background: var(--bg-subtle);
 }
 .file-version-viewport-button {
@@ -2951,7 +2951,7 @@ button.ghost.mcp-copy-btn:hover:not(:disabled) {
   width: 30px;
   height: 26px;
   border: 0;
-  border-radius: 6px;
+  border-radius: var(--radius);
   background: transparent;
   color: var(--text-muted);
   cursor: pointer;
@@ -3068,7 +3068,7 @@ button.ghost.mcp-copy-btn:hover:not(:disabled) {
   max-height: 100%;
   aspect-ratio: 16 / 9;
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: var(--radius);
   box-shadow: 0 18px 50px rgba(15, 23, 42, 0.18);
 }
 .file-version-preview .preview-frame-clip > div,

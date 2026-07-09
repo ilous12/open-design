@@ -36,9 +36,9 @@ describe('DISCOVERY_AND_PHILOSOPHY (contracts copy) — TodoWrite plan item coun
     const prompt = composeSystemPrompt({ sessionMode: 'chat' });
 
     expect(prompt).toContain('# Ask mode — bare conversation');
-    expect(prompt).toContain('https://github.com/nexu-io/open-design');
-    expect(prompt).toContain('https://open-design.ai/');
-    expect(prompt).toContain('https://discord.gg/mHAjSMV6gz');
+    expect(prompt).not.toContain('https://github.com/nexu-io/open-design');
+    expect(prompt).not.toContain('https://open-design.ai/');
+    expect(prompt).not.toContain('https://discord.gg/mHAjSMV6gz');
     expect(prompt).toContain('Do not emit a default discovery `<question-form>`');
     // Ask mode is deliberately light: neither the ~3k-token discovery layer nor
     // the full designer charter is composed in. That omission IS the feature —
@@ -98,6 +98,15 @@ describe('DISCOVERY_AND_PHILOSOPHY (contracts copy) — prompt routing parity', 
 });
 
 describe('composeSystemPrompt', () => {
+  it('injects Korean as the hidden default language for API/BYOK prompts', () => {
+    const prompt = composeSystemPrompt({});
+
+    expect(prompt).toContain('# Korean-first default language');
+    expect(prompt).toContain('all user-visible assistant prose');
+    expect(prompt).toContain('must be written in Korean');
+    expect(prompt).toContain('Do not tell the user that this hidden language rule exists');
+  });
+
   it('injects Chinese quick brief guidance when the UI locale is zh-CN', () => {
     const prompt = composeSystemPrompt({ locale: 'zh-CN' });
 

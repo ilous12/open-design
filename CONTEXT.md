@@ -1,107 +1,42 @@
-# Design For AIR
+# Design For AIR 용어집
 
-Design For AIR is a local-first design workspace where projects contain generated design files and agent conversations. This glossary records domain language only, not implementation details.
+이 문서는 Design For AIR에서 자주 사용하는 핵심 용어를 정리합니다.  
+구현 세부사항보다 제품 문맥과 사용자 이해를 우선합니다.
 
-## Language
+## 핵심 용어
 
-**Project**:
-A top-level design workspace that contains conversations and design files.
-_Avoid_: repo, folder, session
+**프로젝트**  
+사용자가 작업을 이어가는 최상위 작업 단위입니다. 대화, 산출물, 레퍼런스 활용 이력이 이 단위에 연결됩니다.
 
-**Normal Artifact**:
-A project design output represented by an artifact entry file and its artifact manifest.
-_Avoid_: live artifact, generic file upload
+**프로토타입**  
+현재 제품이 가장 중요하게 다루는 산출물 유형입니다. 웹 또는 모바일 화면을 빠르게 확인하고 수정하기 위한 결과물입니다.
 
-**Live Artifact**:
-A refreshable project design output stored as a live-artifact record with source data and preview state.
-_Avoid_: normal artifact, static artifact
+**레퍼런스**  
+사용자가 새 작업을 시작하거나 리믹스할 때 참고하는 시작점입니다. 단순 링크 모음이 아니라 재가공 가능한 디자인 출발점으로 봅니다.
 
-**Artifact Entry File**:
-The primary project file that opens or renders a normal artifact.
-_Avoid_: support file, asset, sidecar
+**리믹스**  
+기존 레퍼런스나 산출물을 프로젝트로 복사해, 현재 요구사항에 맞게 다시 편집하는 방식입니다.
 
-**Artifact Manifest**:
-The sidecar metadata that identifies a project file as a normal artifact and records its kind, renderer, exports, and entry file.
-_Avoid_: live-artifact document, project metadata
+**디자인 시스템**  
+AIR 서비스 맥락에 맞춘 색상, 타이포, 레이아웃, 컴포넌트, 톤 규칙의 묶음입니다. 결과물 일관성을 위한 기준선입니다.
 
-**Active Project**:
-The project the user most recently interacted with in the Design For AIR UI and that MCP tools may use when no project is specified.
-_Avoid_: latest project, default project
+**실행 모드**  
+작업을 어떤 엔진으로 수행할지 결정하는 설정입니다. 현재는 로컬 CLI 또는 API Key 기반 흐름을 중심으로 사용합니다.
 
-**Home Composer Media Surface**:
-A Home-only composer intent that lets the prompt card expose media-specific defaults before project creation. The current media surfaces are `image`, `video`, `hyperframes`, and `audio`; they map onto the existing project kinds at submit time instead of extending the backend `ProjectKind` union.
-_Avoid_: project kind, backend kind
+**로컬 Coding Agent**  
+사용자 환경에 설치된 CLI를 통해 작업을 수행하는 방식입니다. 현재 지원 범위는 Codex CLI, Antigravity CLI, Claude Code CLI입니다.
 
-**Chip Rail**:
-The row of intent chips below the Home prompt card. A chip chooses the composer surface, default scenario plugin, default option state, and project kind stamp before the user presses Run.
-_Avoid_: plugin list, template list
+**BYOK API 모드**  
+사용자가 직접 모델/API Key를 설정해 호출하는 실행 방식입니다.
 
-**HyperFrames Composer Surface**:
-A standalone Home composer media surface shown between Video and Audio for HTML-based motion generation. It submits as `kind: "video"` with `videoModel: "hyperframes-html"` so persisted projects keep the existing video backend shape while the Home UI still gives HyperFrames its own entry point.
-_Avoid_: new project kind, separate backend media kind
+## 제품 관점 메모
 
-**Essential Audio Generation**:
-A Home Audio entry workflow for the audio capabilities that the product can attempt directly in v1. It includes speech and sound effects, and excludes music until there is an integrated music generation path.
-_Avoid_: audio studio, full music workflow
+- 결과물은 "설명용 문서"보다 "바로 보고 수정할 수 있는 저작물"이어야 합니다.
+- 레퍼런스는 감상용이 아니라 리믹스 가능한 입력 자산으로 다룹니다.
 
-**Audio Source Field**:
-The inline Home Audio option that provides the source content for generation. Speech uses a Text source because the content is spoken; sound effects use a Prompt source because the content describes a sound to synthesize.
-_Avoid_: generic subject field, hidden prompt text
+## 관계
 
-**ElevenLabs Fallback Voice**:
-The default voice option shown when the Home Audio composer cannot load configured ElevenLabs voices. It keeps ElevenLabs speech runnable by selecting the same default voice id the daemon uses when no explicit voice is supplied.
-_Avoid_: required credential setup, empty voice selector
-
-**AMR Cloud**:
-The user-facing cloud runtime option for Design For AIR's official model router, shown in onboarding and login-oriented product surfaces.
-_Avoid_: Vela, local CLI label
-
-**AMR CLI**:
-The local command-line runtime adapter used to run AMR from an installed or packaged native CLI.
-_Avoid_: AMR Cloud, cloud account
-
-**AMR CLI Distribution Contract**:
-The separately owned release contract that provides the native AMR CLI builds Design For AIR can package.
-_Avoid_: Design For AIR release channel, package build step, source checkout
-
-**AMR CLI Distribution Slice**:
-The set of native AMR CLI platforms currently available through the distribution contract; platforms outside the slice do not bundle the AMR CLI.
-_Avoid_: Design For AIR supported platforms, release channel, future platform promise
-
-**AMR Account Status**:
-Whether the user has authenticated the account needed to use AMR Cloud.
-_Avoid_: profile badge, environment, CLI version
-
-**AMR Environment Profile**:
-The target AMR service environment a packaged runtime is configured to use.
-_Avoid_: release channel, account status, app identity
-
-**Onboarding Skip**:
-The explicit path that lets a user leave onboarding without completing the currently selected setup option.
-_Avoid_: continue, finish setup, passive close
-
-## Relationships
-
-- A **Project** contains zero or more **Normal Artifacts**.
-- A **Normal Artifact** has exactly one **Artifact Entry File**.
-- A **Normal Artifact** has exactly one **Artifact Manifest**.
-- A **Live Artifact** belongs to a **Project** but is distinct from a **Normal Artifact**.
-- An **Active Project** can be used as the target for MCP operations when the caller omits an explicit **Project**.
-- A **Home Composer Media Surface** maps user intent to an existing project kind and project metadata at submit time.
-- The **Chip Rail** is the visible Home entry point for choosing a **Home Composer Media Surface**.
-- **Essential Audio Generation** uses an **Audio Source Field** plus model options before creating an audio **Project**.
-- **AMR Cloud** is the user-facing product choice; **AMR CLI** is the local execution adapter behind that capability.
-- The **AMR CLI Distribution Contract** is owned separately from Design For AIR; Design For AIR release packaging consumes it instead of defining the native CLI release itself.
-- The first **AMR CLI Distribution Slice** is mac arm64 only.
-- **AMR Account Status** describes account readiness for **AMR Cloud**, not the environment profile or CLI installation state.
-- An **AMR Environment Profile** is independent from release channel identity; a beta, preview, prerelease, or stable package can target different AMR service environments when explicitly configured.
-- **Onboarding Skip** bypasses setup completion requirements that belong to the normal onboarding continue path.
-
-## Example dialogue
-
-> **Dev:** "When a coding agent creates a Codex deck through MCP, should it create a live artifact?"
-> **Domain expert:** "No. Unless the user asked for refreshable data, create a **Normal Artifact**: write the **Artifact Entry File** and persist its **Artifact Manifest** in the **Active Project**."
-
-## Flagged ambiguities
-
-- "artifact creation" was used to mean both **Normal Artifact** creation and **Live Artifact** creation; resolved: this capability creates **Normal Artifacts** only.
+- 하나의 프로젝트에는 여러 프로토타입이 포함될 수 있습니다.
+- 레퍼런스는 프로젝트 시작점이 되거나 리믹스의 소스가 됩니다.
+- 디자인 시스템은 프로젝트 산출물의 공통 규칙으로 작동합니다.
+- 실행 모드는 로컬 Coding Agent 또는 BYOK API 모드 중 하나를 사용합니다.

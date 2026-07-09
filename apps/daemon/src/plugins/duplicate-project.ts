@@ -60,6 +60,14 @@ export interface DuplicatePluginExampleResult {
   warnings: string[];
 }
 
+export interface DuplicateReferenceRemixInput {
+  referenceRoots: string[];
+  slug: string;
+  projectsRoot: string;
+  projectId: string;
+  metadata: ProjectMetadata;
+}
+
 export class PluginDuplicateProjectError extends Error {
   readonly status: number;
   readonly code: string;
@@ -115,6 +123,76 @@ export async function duplicatePluginExampleIntoProject(
     skippedFiles: state.skippedFiles,
     warnings: state.warnings,
   };
+}
+
+export async function duplicateReferenceRemixIntoProject(
+  input: DuplicateReferenceRemixInput,
+): Promise<DuplicatePluginExampleResult> {
+  const slug = normalizeReferenceRemixSlug(input.slug);
+  if (!slug) {
+    throw new PluginDuplicateProjectError(
+      400,
+      'INVALID_REFERENCE_REMIX',
+      'Reference remix id is invalid.',
+    );
+  }
+
+  const entry = await resolveReferenceRemixEntry(input.referenceRoots, slug);
+  if (!entry) {
+    throw new PluginDuplicateProjectError(
+      404,
+      'REFERENCE_REMIX_NOT_FOUND',
+      'Reference remix HTML was not found.',
+    );
+  }
+
+  const projectRoot = await ensureProject(input.projectsRoot, input.projectId, input.metadata);
+  const html = prepareReferenceRemixHtmlForProject(entry.html, slug);
+  await writeFile(path.join(projectRoot, 'index.html'), html, 'utf8');
+
+  return {
+    relPath: 'index.html',
+    sourceEntry: `reference-remix/${slug}/index.html`,
+    copiedFiles: 1,
+    skippedFiles: 0,
+    warnings: [],
+  };
+}
+
+function normalizeReferenceRemixSlug(value: string): string | null {
+  const slug = value.trim();
+  return /^[a-z0-9][a-z0-9-]{0,120}$/u.test(slug) ? slug : null;
+}
+
+async function resolveReferenceRemixEntry(
+  referenceRoots: string[],
+  slug: string,
+): Promise<{ html: string } | null> {
+  for (const root of referenceRoots) {
+    const resolvedRoot = path.resolve(root);
+    const full = path.resolve(resolvedRoot, slug, 'index.html');
+    if (!isInsidePath(resolvedRoot, full)) continue;
+    try {
+      const info = await stat(full);
+      if (!info.isFile() || info.size > MAX_ENTRY_BYTES) continue;
+      return { html: await readFile(full, 'utf8') };
+    } catch {
+      // Try the next dev/packaged resource candidate.
+    }
+  }
+  return null;
+}
+
+function prepareReferenceRemixHtmlForProject(html: string, slug: string): string {
+  const $ = load(html);
+  $('link[href^="../_uupm-assets/"]').remove();
+  const root = $('html').first();
+  root.attr('data-reference-remix-project-copy', 'true');
+  root.attr('data-reference-remix-slug', slug);
+  $('head').append(
+    `<meta name="nn-design-reference-remix-project-copy" content="Editable project copy for ${slug}.">`,
+  );
+  return `<!DOCTYPE html>\n${$.html()}\n`;
 }
 
 async function resolveDuplicateEntry(

@@ -78,18 +78,58 @@ function file(name: string, kind: ProjectFile['kind'], mtime: number): ProjectFi
 }
 
 describe('ChatPane starter prompts', () => {
-  it('shows four default starter prompts and fills the composer from a card', () => {
+  it('shows the empty chat title without starter prompt suggestions', () => {
     renderPane({});
 
-    const starterCards = screen.getAllByRole('listitem');
-    expect(starterCards).toHaveLength(4);
+    expect(screen.getByText('chat.startTitle')).toBeTruthy();
+    expect(screen.queryByText('chat.example1Title')).toBeNull();
+    expect(screen.queryByText('chat.example2Title')).toBeNull();
+    expect(screen.queryByText('chat.example3Title')).toBeNull();
+    expect(screen.queryByText('chat.example4Title')).toBeNull();
+    expect(composerMocks.setDraft).not.toHaveBeenCalled();
+  });
+
+  it('shows starter prompt suggestions when a remix prompt is prefilled', () => {
+    renderPane({ initialDraft: 'Remix this reference into an editable project.' });
+
+    expect(screen.getByText('chat.startTitle')).toBeTruthy();
     expect(screen.getByText('chat.example1Title')).toBeTruthy();
     expect(screen.getByText('chat.example2Title')).toBeTruthy();
     expect(screen.getByText('chat.example3Title')).toBeTruthy();
     expect(screen.getByText('chat.example4Title')).toBeTruthy();
 
-    fireEvent.click(screen.getByText('chat.example4Title').closest('button')!);
-    expect(composerMocks.setDraft).toHaveBeenCalledWith('chat.example4Prompt');
+    fireEvent.click(screen.getByText('chat.example1Title'));
+
+    expect(composerMocks.setDraft).toHaveBeenCalledWith('chat.example1Prompt');
+  });
+
+  it('shows starter prompt suggestions for a reference remix project without a prefilled prompt', () => {
+    renderPane({
+      projectMetadata: {
+        kind: 'prototype',
+        templateId: 'reference-remix:ai-chatbot-platform',
+        duplicatedFromReferenceRemixSlug: 'ai-chatbot-platform',
+        duplicatedFromReferenceRemixEntry: 'reference-remix/ai-chatbot-platform/index.html',
+      },
+    });
+
+    expect(screen.getByText('chat.startTitle')).toBeTruthy();
+    expect(screen.getByText('chat.example1Title')).toBeTruthy();
+    expect(screen.getByText('chat.example2Title')).toBeTruthy();
+    expect(screen.getByText('chat.example3Title')).toBeTruthy();
+    expect(screen.getByText('chat.example4Title')).toBeTruthy();
+  });
+
+  it('hides the new conversation action when requested', () => {
+    renderPane({
+      onNewConversation: vi.fn(),
+      hideNewConversationAction: true,
+    });
+
+    fireEvent.click(screen.getByLabelText('chat.conversationsAria'));
+
+    expect(screen.getByTestId('conversation-history-menu')).toBeTruthy();
+    expect(screen.queryByTestId('conversation-history-new')).toBeNull();
   });
 });
 

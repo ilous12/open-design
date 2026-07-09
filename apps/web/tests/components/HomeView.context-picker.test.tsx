@@ -169,7 +169,7 @@ describe('HomeView context picker', () => {
 
     expect(onSubmit).toHaveBeenCalledWith(expect.objectContaining({
       prompt: '',
-      pluginId: DEFAULT_UNSELECTED_SCENARIO_PLUGIN_ID,
+      pluginId: 'example-web-prototype',
       attachments: [file],
     }));
   });
@@ -241,7 +241,7 @@ describe('HomeView context picker', () => {
 
     expect(onSubmit).toHaveBeenCalledWith(expect.objectContaining({
       prompt: 'Build @Chart Plugin @Deck Plugin',
-      pluginId: DEFAULT_UNSELECTED_SCENARIO_PLUGIN_ID,
+      pluginId: 'example-web-prototype',
       contextPlugins: [
         expect.objectContaining({ id: 'chart-plugin', title: 'Chart Plugin' }),
         expect.objectContaining({ id: 'deck-plugin', title: 'Deck Plugin' }),
@@ -484,7 +484,7 @@ describe('HomeView context picker', () => {
 
     expect(onSubmit).toHaveBeenCalledWith(expect.objectContaining({
       prompt: '@Linear @Slack',
-      pluginId: DEFAULT_UNSELECTED_SCENARIO_PLUGIN_ID,
+      pluginId: 'example-web-prototype',
       contextMcpServers: [
         expect.objectContaining({ id: 'linear', label: 'Linear', transport: 'stdio' }),
       ],
@@ -731,7 +731,7 @@ describe('HomeView context picker', () => {
 
     expect(onSubmit).toHaveBeenCalledWith(expect.objectContaining({
       prompt: 'Summarize @Slack, then draft follow-ups',
-      pluginId: DEFAULT_UNSELECTED_SCENARIO_PLUGIN_ID,
+      pluginId: 'example-web-prototype',
       contextConnectors: [
         expect.objectContaining({ id: 'slack', name: 'Slack' }),
       ],

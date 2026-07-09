@@ -8,7 +8,6 @@ import {
   trackDesignSystemApplyResult,
   trackNewProjectModalElementClick,
   trackNewProjectModalSurfaceView,
-  trackNewProjectModalTabClick,
 } from '../analytics/events';
 import type { ConnectorDetail } from '@nn-design/contracts';
 import type {
@@ -295,13 +294,17 @@ export function NewProjectPanel({
   const [workingDirError, setWorkingDirError] = useState<
     { message: string; details?: string } | null
   >(null);
-  const [tab, setTab] = useState<CreateTab>(initialTab);
+  const [tab, setTab] = useState<CreateTab>(() => (initialTab === 'prototype' ? initialTab : 'prototype'));
   // P0 analytics — fire surface_view once per (panel mount, tab) pair so the
   // funnel sees both initial open and tab switches without double-counting on
   // unrelated re-renders. Ref keys on a tab string because the panel is a
   // long-lived component the modal mounts/unmounts as the user opens/closes it.
   const newProjectViewedTabRef = useRef<string | null>(null);
   useEffect(() => {
+    if (tab !== 'prototype') {
+      setTab('prototype');
+      return;
+    }
     if (newProjectViewedTabRef.current === tab) return;
     newProjectViewedTabRef.current = tab;
     trackNewProjectModalSurfaceView(analytics.track, {
@@ -315,8 +318,6 @@ export function NewProjectPanel({
   // back to the existing image/video/audio ProjectKind branches so the
   // backend contract is unchanged.
   const [mediaSurface, setMediaSurface] = useState<MediaSurface>('image');
-  const tabsRef = useRef<HTMLDivElement | null>(null);
-  const [tabScroll, setTabScroll] = useState({ left: false, right: false });
   const [name, setName] = useState('');
   // Design-system selection is now an *array* internally so the same
   // component can drive both single-select and multi-select modes without
@@ -337,12 +338,7 @@ export function NewProjectPanel({
 
   // Per-tab metadata. Tracked independently so switching tabs preserves
   // each tab's pick rather than resetting to defaults.
-  const [fidelity, setFidelity] = useState<'wireframe' | 'high-fidelity'>(
-    'high-fidelity',
-  );
-  const [platformTargets, setPlatformTargets] = useState<NewProjectPlatform[]>(['responsive']);
   const [includeLandingPage, setIncludeLandingPage] = useState(false);
-  const [includeOsWidgets, setIncludeOsWidgets] = useState(false);
   const [speakerNotes, setSpeakerNotes] = useState(false);
   const [animations, setAnimations] = useState(false);
   const [templateId, setTemplateId] = useState<string | null>(null);
@@ -573,25 +569,6 @@ export function NewProjectPanel({
   const canCreate =
     !loading && (tab !== 'template' || templateId != null);
 
-  function updateTabScrollState() {
-    const el = tabsRef.current;
-    if (!el) return;
-    const maxLeft = el.scrollWidth - el.clientWidth;
-    setTabScroll({
-      left: el.scrollLeft > 2,
-      right: el.scrollLeft < maxLeft - 2,
-    });
-  }
-
-  function scrollTabs(direction: -1 | 1) {
-    const el = tabsRef.current;
-    if (!el) return;
-    el.scrollBy({
-      left: direction * Math.max(120, el.clientWidth * 0.65),
-      behavior: 'smooth',
-    });
-  }
-
   function handleDesignSystemChange(ids: string[]) {
     setDsSelectionTouched(true);
     setSelectedDsIds(ids);
@@ -642,27 +619,6 @@ export function NewProjectPanel({
     });
   }
 
-  useEffect(() => {
-    const el = tabsRef.current;
-    if (!el) return;
-    updateTabScrollState();
-    const onScroll = () => updateTabScrollState();
-    el.addEventListener('scroll', onScroll, { passive: true });
-    const ro = new ResizeObserver(updateTabScrollState);
-    ro.observe(el);
-    return () => {
-      el.removeEventListener('scroll', onScroll);
-      ro.disconnect();
-    };
-  }, []);
-
-  useEffect(() => {
-    const el = tabsRef.current;
-    const active = el?.querySelector<HTMLButtonElement>('.newproj-tab.active');
-    active?.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
-    window.setTimeout(updateTabScrollState, 180);
-  }, [tab]);
-
   function handleCreate() {
     if (!canCreate) return;
     // Media surfaces don't carry a design system pick. Force the primary
@@ -681,12 +637,11 @@ export function NewProjectPanel({
         : null;
     const trimmedName = name.trim();
     const metadata = buildMetadata({
-      tab,
+      tab: 'prototype',
       mediaSurface,
-      fidelity,
-      platformTargets,
+      fidelity: 'high-fidelity',
+      platformTargets: ['responsive'],
       includeLandingPage,
-      includeOsWidgets,
       speakerNotes,
       animations,
       templateId,
@@ -716,12 +671,12 @@ export function NewProjectPanel({
         page_name: 'home',
         area: 'new_project_modal',
         element: 'create',
-        tab_name: createTabToTracking(tab),
+        tab_name: createTabToTracking('prototype'),
       },
       { requestId },
     );
     onCreate({
-      name: trimmedName || autoName(tab, mediaSurface, t),
+      name: trimmedName || autoName('prototype', mediaSurface, t),
       skillId: skillIdForTab,
       designSystemId: primaryDs,
       metadata: {
@@ -800,49 +755,18 @@ export function NewProjectPanel({
 
   return (
     <div className="newproj" data-testid="new-project-panel">
-      <div className={`newproj-tabs-shell${tabScroll.left ? ' can-left' : ''}${tabScroll.right ? ' can-right' : ''}`}>
-        <button
-          type="button"
-          className={`newproj-tabs-arrow left${tabScroll.left ? '' : ' hidden'}`}
-          onClick={() => scrollTabs(-1)}
-          aria-label="Scroll project types left"
-          tabIndex={tabScroll.left ? 0 : -1}
-        >
-          <Icon name="chevron-left" size={16} strokeWidth={2} />
-        </button>
-        <div className="newproj-tabs" role="tablist" ref={tabsRef}>
-          {(Object.keys(TAB_LABEL_KEYS) as CreateTab[]).map((entry) => (
-            <button
-              key={entry}
-              role="tab"
-              data-testid={`new-project-tab-${entry}`}
-              aria-selected={tab === entry}
-              className={`newproj-tab ${tab === entry ? 'active' : ''}`}
-              onClick={() => {
-                if (entry !== tab) {
-                  trackNewProjectModalTabClick(analytics.track, {
-                    page_name: 'home',
-                    area: 'new_project_modal',
-                    element: 'tab',
-                    tab_name: createTabToTracking(entry),
-                  });
-                }
-                setTab(entry);
-              }}
-            >
-              {t(TAB_LABEL_KEYS[entry])}
-            </button>
-          ))}
+      <div className="newproj-tabs-shell">
+        <div className="newproj-tabs" role="tablist">
+          <button
+            role="tab"
+            data-testid="new-project-tab-prototype"
+            aria-selected
+            className="newproj-tab active"
+            type="button"
+          >
+            {t(TAB_LABEL_KEYS.prototype)}
+          </button>
         </div>
-        <button
-          type="button"
-          className={`newproj-tabs-arrow right${tabScroll.right ? '' : ' hidden'}`}
-          onClick={() => scrollTabs(1)}
-          aria-label="Scroll project types right"
-          tabIndex={tabScroll.right ? 0 : -1}
-        >
-          <Icon name="chevron-right" size={16} strokeWidth={2} />
-        </button>
       </div>
       <div className="newproj-body">
         <h3 className="newproj-title">
@@ -951,22 +875,10 @@ export function NewProjectPanel({
         ) : null}
 
         {tab === 'prototype' || tab === 'live-artifact' || tab === 'template' || tab === 'other' ? (
-          <PlatformPicker value={platformTargets} onChange={setPlatformTargets} />
-        ) : null}
-
-        {tab === 'prototype' || tab === 'live-artifact' || tab === 'template' || tab === 'other' ? (
           <SurfaceOptions
             includeLandingPage={includeLandingPage}
-            includeOsWidgets={includeOsWidgets}
             onIncludeLandingPage={setIncludeLandingPage}
-            onIncludeOsWidgets={setIncludeOsWidgets}
           />
-        ) : null}
-
-        {/* Live artifact always renders at high fidelity — its whole point
-            is data-bound polished UI, so the wireframe option is hidden. */}
-        {tab === 'prototype' ? (
-          <FidelityPicker value={fidelity} onChange={setFidelity} />
         ) : null}
 
         {tab === 'live-artifact' ? (
@@ -1257,14 +1169,10 @@ function PlatformPicker({
 
 function SurfaceOptions({
   includeLandingPage,
-  includeOsWidgets,
   onIncludeLandingPage,
-  onIncludeOsWidgets,
 }: {
   includeLandingPage: boolean;
-  includeOsWidgets: boolean;
   onIncludeLandingPage: (v: boolean) => void;
-  onIncludeOsWidgets: (v: boolean) => void;
 }) {
   const t = useT();
   return (
@@ -1276,12 +1184,6 @@ function SurfaceOptions({
           hint={t('newproj.includeLandingPageHint')}
           checked={includeLandingPage}
           onChange={onIncludeLandingPage}
-        />
-        <CompactToggle
-          label={t('newproj.includeOsWidgets')}
-          hint={t('newproj.includeOsWidgetsHint')}
-          checked={includeOsWidgets}
-          onChange={onIncludeOsWidgets}
         />
       </div>
     </div>
@@ -1498,12 +1400,12 @@ function HighFidelityArt() {
       <rect x="6" y="8" width="34" height="6" rx="2" fill="#1a1916" />
       <rect x="6" y="20" width="46" height="4" rx="2" fill="#74716b" />
       <rect x="6" y="28" width="42" height="4" rx="2" fill="#b3b0a8" />
-      <rect x="6" y="40" width="22" height="9" rx="2" fill="#c96442" />
-      <rect x="64" y="8" width="50" height="54" rx="4" fill="#fbeee5" />
-      <rect x="70" y="14" width="38" height="4" rx="2" fill="#c96442" />
+      <rect x="6" y="40" width="22" height="9" rx="2" fill="#2a60f5" />
+      <rect x="64" y="8" width="50" height="54" rx="4" fill="#eff5ff" />
+      <rect x="70" y="14" width="38" height="4" rx="2" fill="#2a60f5" />
       <rect x="70" y="22" width="32" height="3" rx="1.5" fill="#74716b" />
       <rect x="70" y="29" width="36" height="3" rx="1.5" fill="#b3b0a8" />
-      <rect x="70" y="36" width="20" height="6" rx="2" fill="#c96442" />
+      <rect x="70" y="36" width="20" height="6" rx="2" fill="#2a60f5" />
     </svg>
   );
 }
@@ -2845,7 +2747,6 @@ function buildMetadata(input: {
   fidelity: 'wireframe' | 'high-fidelity';
   platformTargets: NewProjectPlatform[];
   includeLandingPage: boolean;
-  includeOsWidgets: boolean;
   speakerNotes: boolean;
   animations: boolean;
   templateId: string | null;
@@ -2870,10 +2771,8 @@ function buildMetadata(input: {
         : input.tab;
   const selectedPlatforms = normalizeSelectedPlatforms(input.platformTargets);
   const concreteTargets = platformTargetsFor(selectedPlatforms);
-  const canIncludeOsWidgets = platformTargetsSupportOsWidgets(concreteTargets);
   const surfaceOptions = {
     ...(input.includeLandingPage ? { includeLandingPage: true } : {}),
-    ...(input.includeOsWidgets && canIncludeOsWidgets ? { includeOsWidgets: true } : {}),
   };
   const base = {
     platform: selectedPlatforms[0],
@@ -2887,9 +2786,7 @@ function buildMetadata(input: {
     return {
       kind,
       ...base,
-      // Live artifact is locked to high fidelity (the picker is hidden in
-      // the panel) — wireframe live artifacts don't make sense.
-      fidelity: input.tab === 'live-artifact' ? 'high-fidelity' : input.fidelity,
+      fidelity: 'high-fidelity',
       ...(input.tab === 'live-artifact' ? { intent: 'live-artifact' as const } : {}),
       ...inspirations,
     };

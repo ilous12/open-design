@@ -85,34 +85,6 @@ const SOURCE_FILTERS: Array<{ value: string; label: string }> = [
   { value: 'generated', label: 'Generated' },
 ];
 
-/** Local `YYYY-MM-DD` for a Date — matches the daemon's `archivedDate` bucket. */
-function ymdLocal(date: Date): string {
-  const y = date.getFullYear();
-  const m = String(date.getMonth() + 1).padStart(2, '0');
-  const d = String(date.getDate()).padStart(2, '0');
-  return `${y}-${m}-${d}`;
-}
-
-/** The day bucket an asset belongs to (prefers the daemon's archive date). */
-function dayKeyOf(asset: LibraryAsset): string {
-  return asset.archivedDate || ymdLocal(new Date(asset.capturedAt));
-}
-
-/** Human heading for a `YYYY-MM-DD` day bucket — Today / Yesterday / a date. */
-function dayHeading(key: string): string {
-  const today = ymdLocal(new Date());
-  const yesterday = ymdLocal(new Date(Date.now() - 86_400_000));
-  if (key === today) return 'Today';
-  if (key === yesterday) return 'Yesterday';
-  const [y, m, d] = key.split('-').map(Number);
-  if (!y || !m || !d) return key;
-  return new Date(y, m - 1, d).toLocaleDateString(undefined, {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-  });
-}
-
 // Image / video / html / design-system thumbnail with a shimmer-until-loaded
 // skeleton, mirroring the clipper's "Select images to save" picker
 // (clipper/content.js → `.thumb.shim`). The skeleton fills the 4:3 box and
@@ -509,7 +481,6 @@ export function LibrarySection({ active, onOpenProject }: Props) {
   const confirmDeleteTitleId = useId();
   // Asset currently being turned into an editable OD page (spinner gate).
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [viewMode, setViewMode] = useState<'grid' | 'timeline'>('grid');
   // "Use in design system" menu state (multi-select → design system).
   const [dsMenuOpen, setDsMenuOpen] = useState(false);
   const [dsList, setDsList] = useState<DesignSystemSummary[]>([]);
@@ -1057,22 +1028,6 @@ export function LibrarySection({ active, onOpenProject }: Props) {
   const previewAsset = previewIndex >= 0 ? assets[previewIndex] : null;
   const selectedCount = selectedIds.size;
 
-  // Day-bucketed groups for the timeline view (newest day first). Items keep
-  // their flat index in `assets` so range/box selection stays consistent across
-  // both views. Grouping by a Map collapses non-contiguous same-day assets.
-  const timelineGroups = useMemo(() => {
-    const map = new Map<string, Array<{ asset: LibraryAsset; index: number }>>();
-    assets.forEach((asset, index) => {
-      const key = dayKeyOf(asset);
-      const bucket = map.get(key);
-      if (bucket) bucket.push({ asset, index });
-      else map.set(key, [{ asset, index }]);
-    });
-    return [...map.entries()]
-      .sort((a, b) => (a[0] < b[0] ? 1 : a[0] > b[0] ? -1 : 0))
-      .map(([key, items]) => ({ key, items }));
-  }, [assets]);
-
   // Render one memoized card. The wrapper just wires this render's per-card
   // props; `LibraryCard` itself is what skips re-rendering when only another
   // card's selection changed.
@@ -1145,30 +1100,6 @@ export function LibrarySection({ active, onOpenProject }: Props) {
             </option>
           ))}
         </select>
-        <div className={styles.viewToggle} role="group" aria-label="View mode">
-          <button
-            type="button"
-            className={`${styles.viewToggleBtn} od-tooltip`}
-            data-active={viewMode === 'grid' ? 'true' : 'false'}
-            aria-pressed={viewMode === 'grid'}
-            onClick={() => setViewMode('grid')}
-            data-tooltip="Show assets as a grid"
-            data-tooltip-placement="bottom"
-          >
-            Grid
-          </button>
-          <button
-            type="button"
-            className={`${styles.viewToggleBtn} od-tooltip`}
-            data-active={viewMode === 'timeline' ? 'true' : 'false'}
-            aria-pressed={viewMode === 'timeline'}
-            onClick={() => setViewMode('timeline')}
-            data-tooltip="Group assets by day, newest first"
-            data-tooltip-placement="bottom"
-          >
-            Timeline
-          </button>
-        </div>
         <Button
           variant="ghost"
           className={`${styles.refreshBtn} od-tooltip`}
@@ -1289,26 +1220,6 @@ export function LibrarySection({ active, onOpenProject }: Props) {
             <code>od library import &lt;file&gt;</code>, or upload inside a project — everything
             lands here.
           </p>
-        </div>
-      ) : viewMode === 'timeline' ? (
-        <div
-          className={styles.timeline}
-          ref={gridRef}
-          onMouseDown={onGridMouseDown}
-          data-selecting={selectedCount > 0 ? 'true' : 'false'}
-        >
-          {timelineGroups.map((group) => (
-            <section key={group.key} className={styles.timelineDay}>
-              <div className={styles.timelineHead}>
-                <span className={styles.timelineDot} aria-hidden />
-                <h2 className={styles.timelineDate}>{dayHeading(group.key)}</h2>
-                <span className={styles.timelineCount}>{group.items.length}</span>
-              </div>
-              <div className={styles.timelineGrid}>
-                {group.items.map(({ asset, index }) => renderCard(asset, index))}
-              </div>
-            </section>
-          ))}
         </div>
       ) : (
         <div

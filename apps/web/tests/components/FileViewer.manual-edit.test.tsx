@@ -301,13 +301,13 @@ describe('FileViewer manual edit regressions', () => {
     const baseSizeInput = await findStyleInput('Size');
 
     fireEvent.change(baseSizeInput, { target: { value: '18' } });
-    fireEvent.click(screen.getByText('Save'));
+    fireEvent.click(screen.getByRole('button', { name: '저장' }));
     await waitFor(() => {
       expect(screen.getByText(/Could not save the edited file/)).toBeTruthy();
     });
 
     fireEvent.change(baseSizeInput, { target: { value: '19' } });
-    fireEvent.click(screen.getByText('Save'));
+    fireEvent.click(screen.getByRole('button', { name: '저장' }));
     await waitFor(() => {
       expect(screen.queryByText(/Could not save the edited file/)).toBeNull();
     });
@@ -331,7 +331,7 @@ describe('FileViewer manual edit regressions', () => {
     const baseSizeInput = await findStyleInput('Size');
 
     fireEvent.change(baseSizeInput, { target: { value: '18' } });
-    fireEvent.click(screen.getByText('Cancel'));
+    fireEvent.click(screen.getByRole('button', { name: '취소' }));
 
     await waitFor(() => {
       expect(document.querySelector('.manual-edit-right')).toBeNull();
@@ -368,7 +368,7 @@ describe('FileViewer manual edit regressions', () => {
     const baseSizeInput = await findStyleInput('Size');
 
     fireEvent.change(baseSizeInput, { target: { value: '18' } });
-    fireEvent.click(screen.getByText('Save'));
+    fireEvent.click(screen.getByRole('button', { name: '저장' }));
 
     await waitFor(() => {
       expect(fetchMock).toHaveBeenCalledWith(
@@ -378,6 +378,111 @@ describe('FileViewer manual edit regressions', () => {
       expect(document.querySelector('.manual-edit-right')).toBeNull();
     });
     expect(document.querySelector('.manual-edit-workspace')).not.toBeNull();
+  });
+
+  it('previews content edits immediately but only persists them on Save', async () => {
+    const source = '<!doctype html><html><body><main data-od-id="hero">Hero</main></body></html>';
+    const fetchMock = vi.fn(async (input: string | URL | Request, init?: RequestInit) => {
+      const url = typeof input === 'string' ? input : input instanceof Request ? input.url : String(input);
+      if (url.includes('/api/projects/project-1/files') && init?.method === 'POST') {
+        return new Response(JSON.stringify({ file: htmlPreviewFile() }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        });
+      }
+      return new Response(source, { status: 200, headers: { 'Content-Type': 'text/html' } });
+    });
+    vi.stubGlobal('fetch', fetchMock);
+
+    render(
+      <FileViewer projectId="project-1" projectKind="prototype" file={htmlPreviewFile()}
+        liveHtml={source}
+      />,
+    );
+
+    clickManualTool('manual-edit-mode-toggle');
+    await selectManualEditTarget();
+    const frame = await previewFrame();
+    const postMessageSpy = vi.spyOn(frame.contentWindow!, 'postMessage');
+    const textArea = await waitFor(() => {
+      const input = document.querySelector('.manual-edit-content-inspector textarea') as HTMLTextAreaElement | null;
+      if (!input) throw new Error('Text input not found');
+      return input;
+    });
+
+    fireEvent.change(textArea, { target: { value: 'Edited hero' } });
+
+    expect(postMessageSpy).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: 'od-edit-preview-content',
+        id: 'hero',
+        fields: expect.objectContaining({ text: 'Edited hero' }),
+      }),
+      '*',
+    );
+    expect(fetchMock).not.toHaveBeenCalledWith(
+      '/api/projects/project-1/files',
+      expect.objectContaining({ method: 'POST' }),
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: '저장' }));
+
+    await waitFor(() => {
+      expect(fetchMock).toHaveBeenCalledWith(
+        '/api/projects/project-1/files',
+        expect.objectContaining({
+          method: 'POST',
+          body: expect.stringContaining('Edited hero'),
+        }),
+      );
+    });
+  });
+
+  it('reverts the preview and skips saving when a content draft is cancelled', async () => {
+    const source = '<!doctype html><html><body><main data-od-id="hero">Hero</main></body></html>';
+    const fetchMock = vi.fn(async (input: string | URL | Request, init?: RequestInit) => {
+      const url = typeof input === 'string' ? input : input instanceof Request ? input.url : String(input);
+      if (url.includes('/api/projects/project-1/files') && init?.method === 'POST') {
+        return new Response(JSON.stringify({ file: htmlPreviewFile() }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        });
+      }
+      return new Response(source, { status: 200, headers: { 'Content-Type': 'text/html' } });
+    });
+    vi.stubGlobal('fetch', fetchMock);
+
+    render(
+      <FileViewer projectId="project-1" projectKind="prototype" file={htmlPreviewFile()}
+        liveHtml={source}
+      />,
+    );
+
+    clickManualTool('manual-edit-mode-toggle');
+    await selectManualEditTarget();
+    const frame = await previewFrame();
+    const postMessageSpy = vi.spyOn(frame.contentWindow!, 'postMessage');
+    const textArea = await waitFor(() => {
+      const input = document.querySelector('.manual-edit-content-inspector textarea') as HTMLTextAreaElement | null;
+      if (!input) throw new Error('Text input not found');
+      return input;
+    });
+
+    fireEvent.change(textArea, { target: { value: 'Edited hero' } });
+    fireEvent.click(screen.getByRole('button', { name: '취소' }));
+
+    expect(postMessageSpy).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: 'od-edit-preview-content',
+        id: 'hero',
+        fields: expect.objectContaining({ text: 'Hero' }),
+      }),
+      '*',
+    );
+    expect(fetchMock).not.toHaveBeenCalledWith(
+      '/api/projects/project-1/files',
+      expect.objectContaining({ method: 'POST' }),
+    );
   });
 
   it('keeps the preview mounted and does not save when deleting the only rendered root', async () => {
@@ -409,7 +514,7 @@ describe('FileViewer manual edit regressions', () => {
       outerHtml: '<main data-od-id="app-root">App</main>',
     });
 
-    fireEvent.click(screen.getByLabelText('Delete element'));
+    fireEvent.click(screen.getByLabelText('요소 삭제'));
 
     await waitFor(() => {
       expect(screen.getByText('Cannot remove the last rendered element in the document.')).toBeTruthy();

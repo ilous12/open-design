@@ -280,12 +280,10 @@ describe('referenceIconUrl', () => {
     );
   });
 
-  it('returns a resolvable icon for every catalogued reference site', () => {
+  it('uses the fallback icon for bundled local reference clones', () => {
     for (const group of REFERENCE_GROUPS) {
       for (const site of group.sites) {
-        expect(referenceIconUrl(site.url)).toMatch(
-          /^https:\/\/www\.google\.com\/s2\/favicons\?sz=64&domain=/,
-        );
+        expect(referenceIconUrl(site.url)).toBeUndefined();
       }
     }
   });
@@ -439,23 +437,29 @@ describe('loadHistory / saveHistory round-trip', () => {
 });
 
 describe('REFERENCE_GROUPS catalogue', () => {
-  it('exposes every documented designer reference category', () => {
+  it('exposes every UI UX Pro Max website demo category', () => {
     const ids = REFERENCE_GROUPS.map((group) => group.id);
     expect(ids).toEqual([
-      'inspiration',
-      'interfaces',
-      'motion',
-      'color',
-      'type',
-      'icons',
-      'illustration',
-      'photography',
-      '3d',
-      'mockups',
-      'systems',
-      'components',
-      'guidelines',
-      'tools',
+      'saas',
+      'education',
+      'pet-services',
+      'ai-chatbot',
+      'e-commerce',
+      'fintech-crypto',
+      'healthcare',
+      'creative',
+      'real-estate',
+      'gaming',
+      'food-restaurant',
+      'fitness',
+      'travel',
+      'nft-web3',
+      'beauty-spa',
+      'developer-tools',
+      'entertainment',
+      'legal',
+      'events',
+      'other',
     ]);
   });
 
@@ -466,7 +470,7 @@ describe('REFERENCE_GROUPS catalogue', () => {
       for (const site of group.sites) {
         expect(site.label.length).toBeGreaterThan(0);
         expect(site.detail.length).toBeGreaterThan(0);
-        expect(site.url).toMatch(/^https?:\/\//);
+        expect(site.url).toMatch(/^\/reference-remix\/[a-z0-9-]+\/index\.html$/);
       }
     }
   });
@@ -481,36 +485,19 @@ describe('REFERENCE_GROUPS catalogue', () => {
   it('keeps REFERENCE_TOTAL in sync with the catalogue', () => {
     const counted = REFERENCE_GROUPS.reduce((sum, group) => sum + group.sites.length, 0);
     expect(REFERENCE_TOTAL).toBe(counted);
+    expect(REFERENCE_TOTAL).toBe(39);
   });
 
-  it('includes the handoff and component-library reference URLs', () => {
+  it('includes the local website reference clones selected for remix', () => {
     const urls = new Set(REFERENCE_GROUPS.flatMap((group) => group.sites.map((site) => site.url)));
     expect(Array.from(urls)).toEqual(expect.arrayContaining([
-      'https://thesvg.org/',
-      'https://unsplash.com/',
-      'https://motionsites.ai/',
-      'https://motion.page/showcase/',
-      'https://styles.refero.design/',
-      'https://brandfetch.com/',
-      'https://gsap.com/',
-      'https://transitions.dev/',
-      'https://fonts.google.com/',
-      'https://animography.net/',
-      'https://reactbits.dev/text-animations/shiny-text',
-      'https://toolfolio.io/',
-      'https://www.whirrls.com/',
-      'https://startups.gallery/',
-      'https://www.worldindots.com/',
-      'https://getdesign.md/',
-      'https://github.com/superset-sh/superset',
-      'https://svglogos.dev/',
-      'https://icons.lobehub.com/',
-      'https://animations.dev/',
-      'https://impeccable.style/',
-      'https://www.tasteskill.dev/',
-      'https://base-ui.com/',
-      'https://ui.shadcn.com/',
-      'https://www.heroui.com/',
+      '/reference-remix/saas-analytics-dashboard/index.html',
+      '/reference-remix/ai-chatbot-platform/index.html',
+      '/reference-remix/luxury-ecommerce/index.html',
+      '/reference-remix/fintech-crypto/index.html',
+      '/reference-remix/pet-grooming/index.html',
+      '/reference-remix/cex-trading/index.html',
+      '/reference-remix/ai-writing-assistant/index.html',
     ]));
   });
 });
@@ -523,35 +510,35 @@ describe('filterReferenceGroups', () => {
   });
 
   it('narrows to a single group when a category id is active', () => {
-    const result = filterReferenceGroups(REFERENCE_GROUPS, 'motion', '');
+    const result = filterReferenceGroups(REFERENCE_GROUPS, 'fintech-crypto', '');
     expect(result).toHaveLength(1);
-    expect(result[0]?.id).toBe('motion');
+    expect(result[0]?.id).toBe('fintech-crypto');
     expect(result[0]?.sites.length).toBeGreaterThan(0);
   });
 
-  it('matches sites by label, hostname, or detail across all categories', () => {
-    const byLabel = filterReferenceGroups(REFERENCE_GROUPS, 'all', 'dribbble');
-    expect(byLabel.flatMap((group) => group.sites.map((site) => site.label))).toContain('Dribbble');
+  it('matches sites by label, local clone path, or detail across all categories', () => {
+    const byLabel = filterReferenceGroups(REFERENCE_GROUPS, 'all', 'AI Writing');
+    expect(byLabel.flatMap((group) => group.sites.map((site) => site.label))).toContain('AI Writing Assistant');
 
-    const byHostname = filterReferenceGroups(REFERENCE_GROUPS, 'all', 'unsplash.com');
-    expect(byHostname.flatMap((group) => group.sites.map((site) => site.label))).toContain('Unsplash');
+    const byClonePath = filterReferenceGroups(REFERENCE_GROUPS, 'all', 'saas-analytics-dashboard');
+    expect(byClonePath.flatMap((group) => group.sites.map((site) => site.label))).toContain('SaaS Analytics Dashboard');
 
-    const byDetail = filterReferenceGroups(REFERENCE_GROUPS, 'all', 'contrast');
-    expect(byDetail.flatMap((group) => group.sites.map((site) => site.label))).toContain('WebAIM Contrast');
+    const byDetail = filterReferenceGroups(REFERENCE_GROUPS, 'all', 'Glassmorphism');
+    expect(byDetail.flatMap((group) => group.sites.map((site) => site.label))).toContain('Luxury E-commerce');
   });
 
   it('keeps an entire group when the query matches its title', () => {
-    const color = REFERENCE_GROUPS.find((group) => group.id === 'color');
-    const result = filterReferenceGroups(REFERENCE_GROUPS, 'all', 'color');
-    const matchedColor = result.find((group) => group.id === 'color');
-    expect(matchedColor?.sites).toEqual(color?.sites);
+    const healthcare = REFERENCE_GROUPS.find((group) => group.id === 'healthcare');
+    const result = filterReferenceGroups(REFERENCE_GROUPS, 'all', 'healthcare');
+    const matchedHealthcare = result.find((group) => group.id === 'healthcare');
+    expect(matchedHealthcare?.sites).toEqual(healthcare?.sites);
   });
 
   it('drops groups with no surviving sites and is case-insensitive', () => {
-    const result = filterReferenceGroups(REFERENCE_GROUPS, 'all', 'COOLORS');
+    const result = filterReferenceGroups(REFERENCE_GROUPS, 'all', 'CEX TRADING');
     expect(result).toHaveLength(1);
-    expect(result[0]?.id).toBe('color');
-    expect(result[0]?.sites.map((site) => site.label)).toEqual(['Coolors']);
+    expect(result[0]?.id).toBe('fintech-crypto');
+    expect(result[0]?.sites.map((site) => site.label)).toEqual(['CEX Trading Platform']);
   });
 
   it('returns an empty array when nothing matches', () => {

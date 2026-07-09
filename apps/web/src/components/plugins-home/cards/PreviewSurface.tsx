@@ -66,6 +66,9 @@ export function PreviewSurface({ pluginId, pluginTitle, preview, eager = false }
     },
     [nearRef, mediaRef, keepRef, visibleRef],
   );
+  const liveReady = eager || inView;
+  const mediaMountReady = eager || mediaReady;
+  const keepMountReady = eager || keep;
 
   return (
     <div
@@ -77,7 +80,7 @@ export function PreviewSurface({ pluginId, pluginTitle, preview, eager = false }
         <MediaSurface
           preview={preview}
           pluginTitle={pluginTitle}
-          inView={usesBakedClipKeepalive ? keep : mediaReady}
+          inView={usesBakedClipKeepalive ? keepMountReady : mediaMountReady}
           visible={visible}
         />
       ) : preview.kind === 'html' ? (
@@ -85,11 +88,11 @@ export function PreviewSurface({ pluginId, pluginTitle, preview, eager = false }
           preview={preview}
           pluginId={pluginId}
           pluginTitle={pluginTitle}
-          inView={inView}
+          inView={liveReady}
           eager={eager}
         />
       ) : preview.kind === 'design' ? (
-        <DesignSystemSurface preview={preview} inView={inView} />
+        <DesignSystemSurface preview={preview} inView={liveReady} />
       ) : (
         <TextSurface pluginTitle={pluginTitle} />
       )}

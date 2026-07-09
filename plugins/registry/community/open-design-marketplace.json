@@ -2,66 +2,102 @@
   "$schema": "https://open-design.ai/schemas/marketplace.v1.json",
   "specVersion": "1.0.0",
   "name": "open-design-community",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "owner": {
     "name": "Design For AIR Community",
-    "url": "https://open-design.ai/marketplace/community"
+    "url": "https://github.com/ilous12/nn.design/tree/main/plugins/community"
   },
   "metadata": {
     "description": "Default community plugin registry seed. Entries here are discoverable by default but remain restricted until the user installs and trusts them.",
-    "version": "0.2.0"
+    "version": "0.2.1",
+    "pluginCount": 7
   },
   "plugins": [
     {
-      "name": "community/registry-starter",
-      "title": "Community Registry Starter",
+      "name": "community/agent-skill-principal-ui-ux-architect-motion-choreographer-awwwards-tier-mqu4mbbj",
+      "title": "Agent Skill: Principal UI/UX Architect & Motion Choreographer (Awwwards-Tier)",
       "version": "0.1.0",
-      "source": "github:nexu-io/open-design@main/plugins/community/registry-starter",
+      "source": "github:ilous12/nn.design@main/plugins/community/agent-skill-principal-ui-ux-architect-motion-choreographer-awwwards-tier-mqu4mbbj",
       "publisher": {
         "id": "open-design-community",
-        "github": "nexu-io",
-        "url": "https://github.com/nexu-io/open-design"
+        "github": "ilous12",
+        "url": "https://github.com/ilous12/nn.design"
       },
-      "homepage": "https://github.com/nexu-io/open-design/tree/main/plugins/community/registry-starter",
+      "homepage": "https://github.com/ilous12/nn.design/tree/main/plugins/community/agent-skill-principal-ui-ux-architect-motion-choreographer-awwwards-tier-mqu4mbbj",
       "license": "MIT",
       "capabilitiesSummary": [
         "prompt:inject"
       ],
       "tags": [
-        "community",
-        "registry",
-        "starter"
+        "community"
       ],
-      "description": "A minimal community plugin that exercises the default registry source and install provenance path."
+      "description": "--- name: high-end-visual-design description: Teaches the AI to design like a high-end agency. Defines the exact fonts, spacing, shadows, card structures, and animations that make a website feel expensive. Blocks all the"
     },
     {
-      "name": "community/import-smoke-test",
-      "title": "Community Import Smoke Test",
+      "name": "community/deep-think-maximum-cognitive-effort-protocol-mq8kvw92",
+      "title": "/deep-think — Maximum Cognitive Effort Protocol",
       "version": "0.1.0",
-      "source": "github:nexu-io/open-design@main/plugins/community/import-smoke-test",
+      "source": "github:ilous12/nn.design@main/plugins/community/deep-think-maximum-cognitive-effort-protocol-mq8kvw92",
       "publisher": {
         "id": "open-design-community",
-        "github": "nexu-io",
-        "url": "https://github.com/nexu-io/open-design"
+        "github": "ilous12",
+        "url": "https://github.com/ilous12/nn.design"
       },
-      "homepage": "https://github.com/nexu-io/open-design/tree/main/plugins/community/import-smoke-test",
+      "homepage": "https://github.com/ilous12/nn.design/tree/main/plugins/community/deep-think-maximum-cognitive-effort-protocol-mq8kvw92",
       "license": "MIT",
       "capabilitiesSummary": [
         "prompt:inject"
       ],
       "tags": [
-        "community",
-        "import",
-        "smoke-test",
-        "marketplace"
+        "community"
       ],
-      "description": "A portable community plugin used to verify folder, zip, GitHub subpath, and marketplace import flows."
+      "description": "Comprehensive deep-thinking process. Activates maximum reasoning, skill retrieval, verification, and step-by-step execution."
+    },
+    {
+      "name": "community/design-system-source-context-mr0bb87z",
+      "title": "Design System Source Context",
+      "version": "0.1.0",
+      "source": "github:ilous12/nn.design@main/plugins/community/design-system-source-context-mr0bb87z",
+      "publisher": {
+        "id": "open-design-community",
+        "github": "ilous12",
+        "url": "https://github.com/ilous12/nn.design"
+      },
+      "homepage": "https://github.com/ilous12/nn.design/tree/main/plugins/community/design-system-source-context-mr0bb87z",
+      "license": "MIT",
+      "capabilitiesSummary": [
+        "prompt:inject"
+      ],
+      "tags": [
+        "community"
+      ],
+      "description": "This file is generated during setup and should be treated as source evidence for the design-system project. Use it before writing or revising DESIGN.md, previews, tokens, UI kit examples, or assets."
+    },
+    {
+      "name": "community/g2-design-system-ui-kit-mqgbmh2w",
+      "title": "G2 Design System UI Kit",
+      "version": "0.1.0",
+      "source": "github:ilous12/nn.design@main/plugins/community/g2-design-system-ui-kit-mqgbmh2w",
+      "publisher": {
+        "id": "open-design-community",
+        "github": "ilous12",
+        "url": "https://github.com/ilous12/nn.design"
+      },
+      "homepage": "https://github.com/ilous12/nn.design/tree/main/plugins/community/g2-design-system-ui-kit-mqgbmh2w",
+      "license": "MIT",
+      "capabilitiesSummary": [
+        "prompt:inject"
+      ],
+      "tags": [
+        "community"
+      ],
+      "description": "A packaged Design For AIR UI kit for HiCatcat G2 AR glasses HUD prototypes. Includes index.html, local token CSS, and modular React components for regular 640 and compact 320 display modes."
     },
     {
       "name": "community/hallmark",
       "title": "Hallmark",
       "version": "1.0.0",
-      "source": "github:nexu-io/open-design@main/plugins/community/hallmark",
+      "source": "github:ilous12/nn.design@main/plugins/community/hallmark",
       "publisher": {
         "id": "nutlope",
         "github": "Nutlope",
@@ -81,6 +117,51 @@
         "anti-ai-slop"
       ],
       "description": "Anti-AI-slop design skill for greenfield pages, audits, redesigns, and design extraction from URLs or screenshots."
+    },
+    {
+      "name": "community/import-smoke-test",
+      "title": "Community Import Smoke Test",
+      "version": "0.1.0",
+      "source": "github:ilous12/nn.design@main/plugins/community/import-smoke-test",
+      "publisher": {
+        "id": "open-design-community",
+        "github": "ilous12",
+        "url": "https://github.com/ilous12/nn.design"
+      },
+      "homepage": "https://github.com/ilous12/nn.design/tree/main/plugins/community/import-smoke-test",
+      "license": "MIT",
+      "capabilitiesSummary": [
+        "prompt:inject"
+      ],
+      "tags": [
+        "community",
+        "import",
+        "smoke-test",
+        "marketplace"
+      ],
+      "description": "A portable community plugin used to verify folder, zip, GitHub subpath, and marketplace import flows."
+    },
+    {
+      "name": "community/registry-starter",
+      "title": "Community Registry Starter",
+      "version": "0.1.0",
+      "source": "github:ilous12/nn.design@main/plugins/community/registry-starter",
+      "publisher": {
+        "id": "open-design-community",
+        "github": "ilous12",
+        "url": "https://github.com/ilous12/nn.design"
+      },
+      "homepage": "https://github.com/ilous12/nn.design/tree/main/plugins/community/registry-starter",
+      "license": "MIT",
+      "capabilitiesSummary": [
+        "prompt:inject"
+      ],
+      "tags": [
+        "community",
+        "registry",
+        "starter"
+      ],
+      "description": "A minimal community plugin that exercises the default registry source and install provenance path."
     }
   ]
 }

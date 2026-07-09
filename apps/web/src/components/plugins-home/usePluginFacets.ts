@@ -1,9 +1,7 @@
 // Faceted categorisation hook for the Plugins home section.
 //
-// Two-level starter model: the top row is the artifact kind
-// (Prototype / Slides / Image / Video / HyperFrames / Audio). Prototype,
-// Slides, Image, and Video expose scene buckets from the prompt-taxonomy
-// analysis; HyperFrames and Audio stay flat.
+// Two-level starter model: the top row is Prototype, and the second row
+// narrows references to web or mobile prototype examples.
 //
 // A small "Saved" toggle sits orthogonally to the category row —
 // when active it overrides the category selection and just shows
@@ -54,6 +52,34 @@ const EMPTY_SELECTION: FacetSelection = {
   subcategory: null,
 };
 
+const REFERENCE_HIDDEN_PLUGIN_IDS = new Set([
+  'od-code-migration',
+  'od-design-refine',
+  'od-figma-migration',
+  'od-new-generation',
+  'od-nextjs-export',
+  'od-plugin-authoring',
+  'od-react-export',
+  'od-share-to-community',
+  'od-tune-collab',
+  'od-vue-export',
+  'od-web-effect-extractor',
+  'example-wireframe-sketch',
+]);
+
+function isDesignSystemPlugin(plugin: InstalledPluginRecord): boolean {
+  const od = plugin.manifest?.od as { mode?: unknown } | undefined;
+  const mode = typeof od?.mode === 'string' ? od.mode.toLowerCase() : '';
+  if (mode === 'design-system') return true;
+  return (plugin.manifest?.tags ?? []).some(
+    (tag) => String(tag).toLowerCase() === 'design-system',
+  );
+}
+
+function isHiddenFromReference(plugin: InstalledPluginRecord): boolean {
+  return REFERENCE_HIDDEN_PLUGIN_IDS.has(plugin.id);
+}
+
 export function usePluginFacets({
   plugins,
   savedPluginIds,
@@ -73,13 +99,18 @@ export function usePluginFacets({
   // are not user-facing on the home grid; the original section already
   // filtered them out and we preserve that contract. We immediately
   // sort by visual-appeal score so the first viewport leads with the
-  // cinematic decks / image / video templates rather than alphabetical
-  // bundled noise. Featured plugins get a +1000 score boost inside the
+  // curated web/mobile prototype examples rather than alphabetical bundled
+  // noise. Featured plugins get a +1000 score boost inside the
   // sort so curator picks stay anchored to the front of every category view.
   const visiblePlugins = useMemo(
     () =>
       sortByVisualAppeal(
-        plugins.filter((p) => p.manifest?.od?.kind !== 'atom'),
+        plugins.filter(
+          (p) =>
+            p.manifest?.od?.kind !== 'atom' &&
+            !isDesignSystemPlugin(p) &&
+            !isHiddenFromReference(p),
+        ),
       ),
     [plugins],
   );

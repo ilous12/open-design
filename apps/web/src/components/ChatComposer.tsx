@@ -36,7 +36,7 @@ import type {
 import { deriveUploadCohort } from '../analytics/upload-tracking';
 import { projectRawUrl, uploadProjectFiles, openFolderDialog, fetchRecentLinkedDirs, pushRecentLinkedDir, dirExists, applyLibraryAsset, fetchLibraryAssetElementHtml } from "../providers/registry";
 import { WorkingDirPicker } from './WorkingDirPicker';
-import { duplicatePluginAsProject, patchProject } from "../state/projects";
+import { duplicatePluginAsProject, duplicateReferenceRemixAsProject, patchProject } from "../state/projects";
 import { navigate } from '../router';
 import { fetchMcpServers } from "../state/mcp";
 import type { McpServerConfig, McpTemplate } from "../state/mcp";
@@ -84,6 +84,7 @@ import { computeToolboxDetailPosition } from './composer-detail-position';
 import { PluginDetailsModal } from "./PluginDetailsModal";
 import { SkillDetailsModal } from './SkillDetailsModal';
 import { PluginsSection, type PluginsSectionHandle } from "./PluginsSection";
+import { homeReferenceSlugFromPluginId } from './home-reference-plugins';
 import { BUILT_IN_PETS, CUSTOM_PET_ID } from "./pet/pets";
 import {
   inlineMentionToken,
@@ -103,7 +104,6 @@ import { listenForConnectorsChanged } from './connectors-events';
 import { fetchConnectorCatalogSnapshot } from './connectors-state';
 import { PlaceholderCarousel } from './home-hero/PlaceholderCarousel';
 import type { PlaceholderScenario } from './home-hero/placeholderScenarios';
-
 type TranslateFn = (key: keyof Dict, vars?: Record<string, string | number>) => string;
 
 interface TrackedWorkspaceLinkedDir {
@@ -315,6 +315,7 @@ interface Props {
 export interface ChatComposerDraftOptions {
   entryFrom?: ChatAnalyticsEntryFrom;
   sessionMode?: ChatSessionMode;
+  hiddenPrompt?: string;
 }
 
 export interface ChatComposerHandle {
@@ -371,6 +372,11 @@ export interface ChatSendMeta {
   entryFrom?: ChatAnalyticsEntryFrom;
   /** One-shot run mode override for seeded follow-ups before parent state catches up. */
   sessionMode?: ChatSessionMode;
+  /**
+   * Prompt context that should be sent to the agent but not displayed in the
+   * composer or persisted as the user's visible message.
+   */
+  hiddenPrompt?: string;
 }
 
 /**
@@ -543,9 +549,11 @@ export const ChatComposer = forwardRef<ChatComposerHandle, Props>(
     const inlineBackedPluginRef = useRef<{ id: string; label: string } | null>(null);
     async function duplicateDetailsPlugin(record: InstalledPluginRecord) {
       try {
-        const result = await duplicatePluginAsProject(record.id, {
-          name: localizePluginTitle(locale, record),
-        });
+        const name = localizePluginTitle(locale, record);
+        const referenceSlug = homeReferenceSlugFromPluginId(record.id);
+        const result = referenceSlug
+          ? await duplicateReferenceRemixAsProject(referenceSlug, { name })
+          : await duplicatePluginAsProject(record.id, { name });
         setDetailsRecord(null);
         navigate({
           kind: 'project',
@@ -586,6 +594,7 @@ export const ChatComposer = forwardRef<ChatComposerHandle, Props>(
     // next `sendComposedTurn` (then cleared). An explicit meta.entryFrom always
     // wins over this pending value.
     const pendingEntryFromRef = useRef<ChatAnalyticsEntryFrom | null>(null);
+    const pendingHiddenPromptRef = useRef<string | null>(null);
     const petEnabled = Boolean(onAdoptPet && onTogglePet);
     const [recentDirs, setRecentDirs] = useState<string[]>([]);
     useEffect(() => {
@@ -1015,12 +1024,14 @@ export const ChatComposer = forwardRef<ChatComposerHandle, Props>(
         setDraft: (text: string, options?: ChatComposerDraftOptions) => {
           pendingEntryFromRef.current = options?.entryFrom ?? null;
           pendingSessionModeRef.current = options?.sessionMode ?? null;
+          pendingHiddenPromptRef.current = options?.hiddenPrompt?.trim() || null;
           setDraft(text);
           editorRef.current?.setText(text);
           editorRef.current?.focus();
           seededRef.current = true;
         },
         restoreDraft: ({ text, attachments = [], commentAttachments = [], meta }) => {
+          pendingHiddenPromptRef.current = meta?.hiddenPrompt?.trim() || null;
           setDraft(text);
           const orderedAttachments = normalizeChatAttachmentOrders(attachments);
           setStaged(orderedAttachments);
@@ -1093,6 +1104,7 @@ export const ChatComposer = forwardRef<ChatComposerHandle, Props>(
     function reset() {
       pendingEntryFromRef.current = null;
       pendingSessionModeRef.current = null;
+      pendingHiddenPromptRef.current = null;
       const linkedWorkspaceContexts = stagedWorkspaceContexts.filter((item) => (
         Boolean(item.absolutePath?.trim()) && Boolean(workspaceLinkedDirAdds[item.id])
       ));
@@ -1191,12 +1203,15 @@ export const ChatComposer = forwardRef<ChatComposerHandle, Props>(
       // fields, then clear it so it only colors the immediate next send.
       const pendingEntryFrom = pendingEntryFromRef.current;
       const pendingSessionMode = pendingSessionModeRef.current;
+      const pendingHiddenPrompt = pendingHiddenPromptRef.current?.trim();
       pendingEntryFromRef.current = null;
       pendingSessionModeRef.current = null;
+      pendingHiddenPromptRef.current = null;
       const effectiveMetaShape: ChatSendMeta = {
         ...(meta ?? {}),
         ...(pendingEntryFrom && !meta?.entryFrom ? { entryFrom: pendingEntryFrom } : {}),
         ...(pendingSessionMode && !meta?.sessionMode ? { sessionMode: pendingSessionMode } : {}),
+        ...(pendingHiddenPrompt && !meta?.hiddenPrompt ? { hiddenPrompt: pendingHiddenPrompt } : {}),
       };
       const effectiveMeta =
         Object.keys(effectiveMetaShape).length > 0 ? effectiveMetaShape : undefined;
@@ -1434,11 +1449,13 @@ export const ChatComposer = forwardRef<ChatComposerHandle, Props>(
     function applyDesignToolboxPrompt(
       prompt: string,
       skill: SkillSummary | null,
+      options?: { hiddenPrompt?: string },
     ) {
       const nextPrompt = skill
         ? `${inlineMentionToken(skill.name)}\n${prompt}`
         : prompt;
       if (skill) stageSkillForCurrentTurn(skill);
+      pendingHiddenPromptRef.current = options?.hiddenPrompt?.trim() || null;
       applyDesignToolboxDraft(nextPrompt);
     }
 
@@ -1486,16 +1503,18 @@ export const ChatComposer = forwardRef<ChatComposerHandle, Props>(
 
     function applyDesignToolboxAction(action: DesignToolboxAction) {
       const skill = findDesignToolboxSkill(action, skills);
-      applyDesignToolboxPrompt(
-        designToolboxActionPrompt({
-          action,
-          skill,
-          workspaceItem: visibleWorkspaceContext,
-          activeDraft: draft,
-          resourceIndex: designToolboxResourceIndex,
-          t,
-        }),
+      const hiddenPrompt = designToolboxActionPrompt({
+        action,
         skill,
+        workspaceItem: visibleWorkspaceContext,
+        activeDraft: draft,
+        resourceIndex: designToolboxResourceIndex,
+        t,
+      });
+      applyDesignToolboxPrompt(
+        designToolboxActionVisiblePrompt(action, t),
+        skill,
+        { hiddenPrompt },
       );
     }
     // Recreated each render, so this captures the latest draft/context closure
@@ -4885,6 +4904,23 @@ function designToolboxActionPrompt({
     ...base,
     t('chat.designToolbox.prompt.autoMatchIntro'),
   ].join('\n');
+}
+
+function designToolboxActionVisiblePrompt(
+  action: DesignToolboxAction,
+  t: TranslateFn,
+): string {
+  switch (action.id) {
+    case 'auto-match':
+      return [
+        designToolboxActionTitle(action, t),
+        '이 리소스를 선택한 이유와 다음에 무엇을 확인해야 하는지 설명하세요.',
+      ].join('\n');
+    case 'visual-polish':
+      return designToolboxActionTitle(action, t);
+    default:
+      return designToolboxActionDescription(action, t);
+  }
 }
 
 function designToolboxSkillPrompt({

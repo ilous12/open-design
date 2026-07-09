@@ -4,6 +4,7 @@ import {
   contributeGeneratedPluginToOpenDesign,
   createProject,
   createPluginShareProject,
+  duplicateReferenceRemixAsProject,
   importClaudeDesignZip,
   importFolderProject,
   installGeneratedPluginFolder,
@@ -108,6 +109,48 @@ describe('createProject', () => {
       expect.objectContaining({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+      }),
+    );
+  });
+});
+
+describe('duplicateReferenceRemixAsProject', () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it('posts the reference slug to the reference remix duplicate endpoint', async () => {
+    const fetchMock = vi.fn<typeof fetch>(async () => new Response(
+      JSON.stringify({
+        ok: true,
+        projectId: 'project-reference',
+        conversationId: 'conversation-reference',
+        relPath: 'index.html',
+        project: { id: 'project-reference' },
+        sourcePluginId: 'reference-remix:ai-chatbot-platform',
+        sourceEntry: 'reference-remix/ai-chatbot-platform/index.html',
+        copiedFiles: 1,
+        skippedFiles: 0,
+        warnings: [],
+      }),
+      { status: 201, headers: { 'content-type': 'application/json' } },
+    ));
+    vi.stubGlobal('fetch', fetchMock);
+
+    await expect(duplicateReferenceRemixAsProject('ai-chatbot-platform', {
+      name: 'AI Chatbot Platform',
+    })).resolves.toMatchObject({
+      projectId: 'project-reference',
+      conversationId: 'conversation-reference',
+      relPath: 'index.html',
+    });
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      '/api/reference-remix/ai-chatbot-platform/duplicate-project',
+      expect.objectContaining({
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: 'AI Chatbot Platform' }),
       }),
     );
   });

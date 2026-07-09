@@ -8,6 +8,7 @@ import type {
 } from '@nn-design/contracts';
 import {
   duplicatePluginExampleIntoProject,
+  duplicateReferenceRemixIntoProject,
   PluginDuplicateProjectError,
 } from '../../plugins/duplicate-project.js';
 import type { PluginShareAction } from '../../services/plugin-share-tasks.js';
@@ -65,6 +66,15 @@ interface PluginShareTaskLike {
   waiters: Set<() => void>;
 }
 
+const DUPLICATE_PENDING_PROMPT_MAX_LENGTH = 12_000;
+
+function normalizeDuplicatePendingPrompt(value: unknown): string | null {
+  if (typeof value !== 'string') return null;
+  const trimmed = value.trim();
+  if (!trimmed) return null;
+  return trimmed.slice(0, DUPLICATE_PENDING_PROMPT_MAX_LENGTH);
+}
+
 interface PluginRouteHelpers {
   PLUGIN_PREVIEWS_DIR: string;
   pluginUpload: {
@@ -105,7 +115,12 @@ interface PluginRouteHelpers {
 
 export interface RegisterPluginRoutesDeps {
   db: SqliteDbLike;
-  paths: { PROJECTS_DIR: string; PLUGIN_REGISTRY_ROOTS: string[]; PLUGIN_LOCKFILE_PATH: string };
+  paths: {
+    PROJECTS_DIR: string;
+    PLUGIN_REGISTRY_ROOTS: string[];
+    PLUGIN_LOCKFILE_PATH: string;
+    REFERENCE_REMIX_DIRS?: string[];
+  };
   ids: { randomId(): string };
   projectStore: {
     insertProject(db: SqliteDbLike, project: unknown): Project | null;
@@ -194,6 +209,7 @@ export function registerPluginRoutes(app: Express, deps: RegisterPluginRoutesDep
       const projectName = typeof body.name === 'string' && body.name.trim().length > 0
         ? body.name.trim().slice(0, 120)
         : `${plugin.title || plugin.id}`;
+      const pendingPrompt = normalizeDuplicatePendingPrompt(body.pendingPrompt);
       const now = Date.now();
       const projectId = ids.randomId();
       const conversationId = ids.randomId();
@@ -219,7 +235,7 @@ export function registerPluginRoutes(app: Express, deps: RegisterPluginRoutesDep
         name: projectName,
         skillId: null,
         designSystemId: null,
-        pendingPrompt: null,
+        pendingPrompt,
         metadata,
         createdAt: now,
         updatedAt: now,
@@ -262,6 +278,88 @@ export function registerPluginRoutes(app: Express, deps: RegisterPluginRoutesDep
         return res.status(err.status).json({ error: { code: err.code, message: err.message } });
       }
       res.status(500).json({ error: { code: 'plugin-duplicate-failed', message: err instanceof Error ? err.message : String(err) } });
+    }
+  });
+  app.post('/api/reference-remix/:slug/duplicate-project', helpers.requireLocalDaemonRequest, async (req, res) => {
+    let cleanupProjectId: string | null = null;
+    let insertedProject = false;
+    try {
+      const slug = Array.isArray(req.params.slug) ? req.params.slug[0] ?? '' : req.params.slug ?? '';
+      const body = req.body && typeof req.body === 'object'
+        ? req.body as PluginDuplicateProjectRequest
+        : {};
+      const projectName = typeof body.name === 'string' && body.name.trim().length > 0
+        ? body.name.trim().slice(0, 120)
+        : slug;
+      const pendingPrompt = normalizeDuplicatePendingPrompt(body.pendingPrompt);
+      const now = Date.now();
+      const projectId = ids.randomId();
+      const conversationId = ids.randomId();
+      cleanupProjectId = projectId;
+      const metadata: ProjectMetadata = {
+        kind: 'prototype',
+        templateId: `reference-remix:${slug}`,
+        templateLabel: projectName,
+        duplicatedFromReferenceRemixSlug: slug,
+        skipDiscoveryBrief: true,
+      };
+      const duplicate = await duplicateReferenceRemixIntoProject({
+        referenceRoots: paths.REFERENCE_REMIX_DIRS ?? [],
+        slug,
+        projectsRoot: paths.PROJECTS_DIR,
+        projectId,
+        metadata,
+      });
+      metadata.duplicatedFromReferenceRemixEntry = duplicate.sourceEntry;
+      metadata.entryFile = duplicate.relPath;
+      const project = projectStore.insertProject(db, {
+        id: projectId,
+        name: projectName,
+        skillId: null,
+        designSystemId: null,
+        pendingPrompt,
+        metadata,
+        createdAt: now,
+        updatedAt: now,
+      });
+      insertedProject = true;
+      conversations.insertConversation(db, {
+        id: conversationId,
+        projectId,
+        title: null,
+        createdAt: now,
+        updatedAt: now,
+      });
+      const loadedProject = projectStore.getProject(db, projectId) ?? project;
+      if (!loadedProject) {
+        throw new PluginDuplicateProjectError(
+          500,
+          'project-load-failed',
+          'created project could not be loaded',
+        );
+      }
+      const response: PluginDuplicateProjectResponse = {
+        ok: true,
+        projectId,
+        conversationId,
+        relPath: duplicate.relPath,
+        project: loadedProject,
+        sourcePluginId: `reference-remix:${slug}`,
+        sourceEntry: duplicate.sourceEntry,
+        copiedFiles: duplicate.copiedFiles,
+        skippedFiles: duplicate.skippedFiles,
+        warnings: duplicate.warnings,
+      };
+      res.status(201).json(response);
+    } catch (err: unknown) {
+      if (cleanupProjectId) {
+        if (insertedProject) projectStore.dbDeleteProject(db, cleanupProjectId);
+        await projectStore.removeProjectDir(paths.PROJECTS_DIR, cleanupProjectId).catch(() => {});
+      }
+      if (err instanceof PluginDuplicateProjectError) {
+        return res.status(err.status).json({ error: { code: err.code, message: err.message } });
+      }
+      res.status(500).json({ error: { code: 'reference-remix-duplicate-failed', message: err instanceof Error ? err.message : String(err) } });
     }
   });
   app.post('/api/plugins/:id/share-project', async (req, res) => helpers.handleShareProject(req, res));

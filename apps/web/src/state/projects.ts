@@ -795,7 +795,7 @@ export function isVisiblePlugin(plugin: InstalledPluginRecord): boolean {
 
 export async function duplicatePluginAsProject(
   pluginId: string,
-  input: { name?: string } = {},
+  input: { name?: string; pendingPrompt?: string } = {},
 ): Promise<PluginDuplicateProjectResponse> {
   const resp = await fetch(
     `/api/plugins/${encodeURIComponent(pluginId)}/duplicate-project`,
@@ -811,6 +811,28 @@ export async function duplicatePluginAsProject(
   const json = (await resp.json()) as PluginDuplicateProjectResponse;
   if (!json?.ok || !json.projectId) {
     throw new Error('Could not duplicate this template.');
+  }
+  return json;
+}
+
+export async function duplicateReferenceRemixAsProject(
+  slug: string,
+  input: { name?: string; pendingPrompt?: string } = {},
+): Promise<PluginDuplicateProjectResponse> {
+  const resp = await fetch(
+    `/api/reference-remix/${encodeURIComponent(slug)}/duplicate-project`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(input),
+    },
+  );
+  if (!resp.ok) {
+    throw new Error(await readErrorMessage(resp));
+  }
+  const json = (await resp.json()) as PluginDuplicateProjectResponse;
+  if (!json?.ok || !json.projectId) {
+    throw new Error('Could not remix this reference.');
   }
   return json;
 }

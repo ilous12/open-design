@@ -587,7 +587,7 @@ describe('App project creation routing', () => {
     expect(window.location.pathname).toBe('/projects/project-new');
   });
 
-  it('routes "create with this design system" through the default design router, not a prototype', async () => {
+  it('routes "create with this design system" directly through the prototype workflow', async () => {
     mockedListProjects.mockResolvedValue([existingProject]);
 
     render(<App />);
@@ -602,28 +602,31 @@ describe('App project creation routing', () => {
           name: 'Untitled',
           skillId: null,
           designSystemId: 'slack',
-          // No prototype assumption: the click binds the hidden default
-          // router so the agent asks (via the task-type question-form) what
-          // to build, then auto-sends a preset prompt that names the system.
-          pluginId: 'od-default',
+          pluginId: 'example-web-prototype',
           conversationMode: 'design',
           pendingPrompt: expect.stringContaining('Slack'),
           pluginInputs: expect.objectContaining({
             prompt: expect.stringContaining('Slack'),
+            artifactKind: 'web prototype',
+            fidelity: 'high-fidelity',
+            designSystem: 'Slack',
           }),
           metadata: expect.objectContaining({
-            kind: 'other',
+            kind: 'prototype',
+            platform: 'responsive',
+            platformTargets: ['responsive'],
+            fidelity: 'high-fidelity',
+            skipDiscoveryBrief: true,
           }),
         }),
       );
     });
 
-    // The web-prototype scenario and prototype kind must NOT leak in.
     const call = mockedCreateProject.mock.calls.at(-1)?.[0] as
       | { pluginId?: string; metadata?: { kind?: string } }
       | undefined;
-    expect(call?.pluginId).not.toBe('example-web-prototype');
-    expect(call?.metadata?.kind).not.toBe('prototype');
+    expect(call?.pluginId).toBe('example-web-prototype');
+    expect(call?.metadata?.kind).toBe('prototype');
   });
 
   it('keeps a newly created project open when a post-create refresh resolves stale', async () => {

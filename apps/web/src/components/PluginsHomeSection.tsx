@@ -1,10 +1,8 @@
 // Plugins discovery section on Home.
 //
-// Renders an artifact-kind bar over the plugin catalog: Prototype ·
-// Slides · Image · Video · HyperFrames · Audio. Prototype, Slides,
-// Image, and Video can reveal scene buckets from the user-prompt
-// taxonomy; HyperFrames and Audio stay flat. A small Saved chip
-// sits orthogonal to the rows for quick access to user-saved picks.
+// Renders the plugin catalog with a compact artifact-kind bar aligned to the
+// active bundled template catalogue. A small Saved chip sits orthogonal to the
+// rows for quick access to user-saved picks.
 //
 // The category list is curated — finer metadata (surface, role tags,
 // scenario domains) lives on each plugin card and detail surface.
@@ -14,7 +12,6 @@
 // override live in `./plugins-home/usePluginFacets.ts`. This file
 // owns layout only.
 
-import { Button, Input } from '@nn-design/components';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { InstalledPluginRecord } from '@nn-design/contracts';
 import { useI18n, useT } from '../i18n';
@@ -68,7 +65,6 @@ export function PluginsHomeSection({
   onDuplicate,
   onOpenDetails,
   onPluginShareAction,
-  onBrowseRegistry,
   preferDefaultFacet = true,
   title,
   subtitle,
@@ -91,8 +87,6 @@ export function PluginsHomeSection({
     clearFacets,
     mode,
     setMode,
-    query,
-    setQuery,
     totalVisible,
   } = usePluginFacets({
     plugins,
@@ -105,6 +99,7 @@ export function PluginsHomeSection({
     [filtered, renderLimit],
   );
   const hasMorePlugins = renderLimit < filtered.length;
+  const showFacetControls = cardLayout !== 'gallery';
 
   useEffect(() => {
     setRenderLimit(INITIAL_PLUGIN_RENDER_LIMIT);
@@ -152,18 +147,7 @@ export function PluginsHomeSection({
             <p className="plugins-home__subtitle">{subtitle}</p>
           ) : null}
         </div>
-        <div className="plugins-home__head-tools">
-          {onBrowseRegistry ? (
-            <button
-              type="button"
-              className="plugins-home__linkbtn"
-              onClick={onBrowseRegistry}
-              data-testid="plugins-home-browse-registry"
-            >
-              {t('pluginsHome.browseRegistry')}
-            </button>
-          ) : null}
-        </div>
+        <div className="plugins-home__head-tools" />
       </header>
 
       {loading ? (
@@ -174,37 +158,34 @@ export function PluginsHomeSection({
         </div>
       ) : (
         <>
-          <div
-            className="plugins-home__facets"
-            role="group"
-            aria-label="Plugin filters"
-          >
-            <CategoryRow
-              options={catalog.category}
-              selectedSlug={selection.category}
-              totalVisible={totalVisible}
-              onPick={pickCategory}
-              // The Saved collection lives on the rich management surface
-              // (PluginsView). The minimal Community gallery has no per-card
-              // save affordance, so the orthogonal Saved chip is hidden there.
-              showSaved={cardLayout === 'rich'}
-              savedCount={savedList.length}
-              savedActive={mode === 'saved'}
-              onToggleSaved={() =>
-                setMode(mode === 'saved' ? 'all' : 'saved')
-              }
-              query={query}
-              onQueryChange={setQuery}
-            />
-            {selection.category ? (
-              <SubcategoryRow
-                parent={catalog.category.find((opt) => opt.slug === selection.category)}
-                options={catalog.subcategory[selection.category] ?? []}
-                selectedSlug={selection.subcategory}
-                onPick={pickSubcategory}
+          {showFacetControls ? (
+            <div
+              className="plugins-home__facets"
+              role="group"
+              aria-label="Plugin filters"
+            >
+              <CategoryRow
+                options={catalog.category}
+                selectedSlug={selection.category}
+                totalVisible={totalVisible}
+                onPick={pickCategory}
+                showSaved
+                savedCount={savedList.length}
+                savedActive={mode === 'saved'}
+                onToggleSaved={() =>
+                  setMode(mode === 'saved' ? 'all' : 'saved')
+                }
               />
-            ) : null}
-          </div>
+              {selection.category ? (
+                <SubcategoryRow
+                  parent={catalog.category.find((opt) => opt.slug === selection.category)}
+                  options={catalog.subcategory[selection.category] ?? []}
+                  selectedSlug={selection.subcategory}
+                  onPick={pickSubcategory}
+                />
+              ) : null}
+            </div>
+          ) : null}
 
           {filtered.length === 0 ? (
             <div className="plugins-home__empty plugins-home__empty--filtered">
@@ -277,14 +258,12 @@ interface CategoryRowProps {
   savedCount: number;
   savedActive: boolean;
   onToggleSaved: () => void;
-  query: string;
-  onQueryChange: (next: string) => void;
 }
 
 // Single combined filter bar: an optional Saved override chip + category
-// pills on the left, search field on the right. The "All" pill doubles as a
-// clear-filters affordance, so a separate `X / Y` counter and `Clear` link
-// would just repeat what the pill strip already shows.
+// pills. The "All" pill doubles as a clear-filters affordance, so a separate
+// `X / Y` counter and `Clear` link would just repeat what the pill strip
+// already shows.
 function CategoryRow({
   options,
   selectedSlug,
@@ -294,8 +273,6 @@ function CategoryRow({
   savedCount,
   savedActive,
   onToggleSaved,
-  query,
-  onQueryChange,
 }: CategoryRowProps) {
   const t = useT();
   if (options.length === 0) return null;
@@ -346,9 +323,6 @@ function CategoryRow({
             onPick={onPick}
           />
         ))}
-      </div>
-      <div className="plugins-home__facet-tools">
-        <SearchInput value={query} onChange={onQueryChange} />
       </div>
     </div>
   );
@@ -471,46 +445,4 @@ function pluginFacetLabel(slug: string, fallback: string, t: ReturnType<typeof u
     // top-level slugs fall through to the subfacet table before giving up.
     default: return pluginSubfacetLabel(slug, fallback, t);
   }
-}
-
-interface SearchInputProps {
-  value: string;
-  onChange: (next: string) => void;
-}
-
-// Compact search field that lives in the section head. Search composes
-// with the category selection via AND inside the hook, so a query
-// narrows whatever category the user has already picked rather than
-// discarding the category context. We keep the UI a single text input
-// with an optional clear button so it sits inside the existing head
-// row without a heavyweight toolbar.
-function SearchInput({ value, onChange }: SearchInputProps) {
-  const t = useT();
-  return (
-    <div className="plugins-home__search">
-      <Icon name="search" size={12} className="plugins-home__search-icon" />
-      <Input
-        type="search"
-        className="plugins-home__search-input"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        placeholder={t('pluginsHome.searchPlaceholder')}
-        aria-label={t('pluginsHome.searchAria')}
-        data-testid="plugins-home-search"
-        spellCheck={false}
-        autoComplete="off"
-      />
-      {value ? (
-        <Button
-          variant="subtle"
-          className="plugins-home__search-clear"
-          onClick={() => onChange('')}
-          aria-label={t('pluginsHome.clearSearch')}
-          data-testid="plugins-home-search-clear"
-        >
-          <Icon name="close" size={12} />
-        </Button>
-      ) : null}
-    </div>
-  );
 }

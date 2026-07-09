@@ -1,4 +1,5 @@
 import type { InstalledPluginRecord } from '@nn-design/contracts';
+import { isHomeReferencePlugin } from '../home-reference-plugins';
 
 interface PreviewLike {
   entry?: unknown;
@@ -13,6 +14,7 @@ interface ExampleOutputLike {
 }
 
 export function canDuplicatePluginPreview(record: InstalledPluginRecord): boolean {
+  if (isHomeReferencePlugin(record)) return true;
   const od = record.manifest?.od as
     | {
         preview?: PreviewLike;

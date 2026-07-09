@@ -41,11 +41,12 @@ interface Props {
 // Curated palette so the customize swatch row stays compact and on-brand
 // without forcing a full color picker. The first entry mirrors --accent.
 const ACCENT_SWATCHES = [
-  '#c96442',
-  '#2348b8',
+  '#2a60f5',
+  '#5594d3',
+  '#77bddc',
   '#1f7a3a',
   '#6c3aa6',
-  '#d97a26',
+  '#d97706',
   '#9c2a25',
   '#74716b',
   '#0d0c0a',

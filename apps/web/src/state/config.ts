@@ -21,7 +21,8 @@ import {
 import { randomUUID } from '../utils/uuid';
 
 const STORAGE_KEY = 'open-design:config';
-const CONFIG_MIGRATION_VERSION = 1;
+const CONFIG_MIGRATION_VERSION = 2;
+const LEGACY_DEFAULT_ACCENT_COLOR = '#c96442';
 
 // Hatched out of the box, but tucked away — the user has to go through
 // either the entry-view "adopt a pet" callout or Settings → Pets to
@@ -43,7 +44,7 @@ export const DEFAULT_PET: PetConfig = {
   custom: {
     name: 'Buddy',
     glyph: '🦄',
-    accent: '#c96442',
+    accent: DEFAULT_ACCENT_COLOR,
     greeting: 'Hi! I am here whenever you need me.',
   },
 };
@@ -62,7 +63,7 @@ export const DEFAULT_CONFIG: AppConfig = {
   mode: 'daemon',
   apiKey: '',
   baseUrl: 'https://api.anthropic.com',
-  model: 'claude-sonnet-4-5',
+  model: 'claude-sonnet-5',
   // New configs should be explicit. loadConfig() still detects parsed legacy
   // saved configs that did not have this field and migrates those from their
   // saved baseUrl/model before applying the current migration version.
@@ -127,8 +128,14 @@ export const KNOWN_PROVIDERS: KnownProvider[] = [
     label: 'Anthropic (Claude)',
     protocol: 'anthropic',
     baseUrl: 'https://api.anthropic.com',
-    model: 'claude-sonnet-4-5',
-    models: ['claude-sonnet-4-5', 'claude-opus-4-5', 'claude-haiku-4-5'],
+    model: 'claude-sonnet-5',
+    models: [
+      'claude-fable-5',
+      'claude-opus-4-8',
+      'claude-sonnet-5',
+      'claude-haiku-4-5-20251001',
+      'claude-haiku-4-5',
+    ],
   },
   {
     label: 'DeepSeek — Anthropic',
@@ -161,8 +168,16 @@ export const KNOWN_PROVIDERS: KnownProvider[] = [
     label: 'OpenAI',
     protocol: 'openai',
     baseUrl: 'https://api.openai.com/v1',
-    model: 'gpt-4o',
-    models: ['gpt-4o', 'gpt-4o-mini', 'o3', 'o4-mini'],
+    model: 'gpt-5.5',
+    models: [
+      'gpt-5.5',
+      'gpt-5.5-pro',
+      'gpt-5.4',
+      'gpt-5.4-pro',
+      'gpt-5.4-mini',
+      'gpt-5.4-nano',
+      'gpt-5.3-codex',
+    ],
   },
   {
     label: 'OpenRouter',
@@ -191,12 +206,11 @@ export const KNOWN_PROVIDERS: KnownProvider[] = [
     label: 'Google Gemini',
     protocol: 'google',
     baseUrl: 'https://generativelanguage.googleapis.com',
-    model: 'gemini-3.5-flash',
+    model: 'gemini-flash-latest',
     models: [
+      'gemini-flash-latest',
+      'gemini-pro-latest',
       'gemini-3.5-flash',
-      'gemini-3.1-pro-preview',
-      'gemini-3-flash-preview',
-      'gemini-3.1-flash-lite',
       'gemini-2.5-pro',
       'gemini-2.5-flash',
       'gemini-2.5-flash-lite',
@@ -440,12 +454,12 @@ export const KNOWN_PROVIDERS: KnownProvider[] = [
     model: 'gpt-5.5',
     models: [
       'gpt-5.5',
-      'gpt-4o',
-      'gpt-4o-mini',
+      'gpt-5.4',
+      'gpt-5.3-codex',
       'claude-opus-4-8',
-      'claude-sonnet-4-5',
+      'claude-sonnet-5',
       'claude-haiku-4-5',
-      'gemini-2.0-flash',
+      'gemini-flash-latest',
       'deepseek-chat',
       'deepseek-reasoner',
     ],
@@ -561,6 +575,7 @@ export function loadConfig(): AppConfig {
       parsed,
       'apiProtocol',
     );
+    const normalizedAccentColor = normalizeAccentColor(parsed.accentColor) ?? DEFAULT_CONFIG.accentColor;
     const merged: AppConfig = {
       ...DEFAULT_CONFIG,
       ...parsed,
@@ -570,7 +585,11 @@ export function loadConfig(): AppConfig {
       agentModels: { ...(parsed.agentModels ?? {}) },
       agentCliEnv: { ...(parsed.agentCliEnv ?? {}) },
       agentCliEnvIntent: { ...(parsed.agentCliEnvIntent ?? {}) },
-      accentColor: normalizeAccentColor(parsed.accentColor) ?? DEFAULT_CONFIG.accentColor,
+      accentColor:
+        parsed.configMigrationVersion !== CONFIG_MIGRATION_VERSION
+          && normalizedAccentColor === LEGACY_DEFAULT_ACCENT_COLOR
+          ? DEFAULT_CONFIG.accentColor
+          : normalizedAccentColor,
       pet: normalizePet(parsed.pet),
       notifications: normalizeNotifications(parsed.notifications),
       orbit: normalizeOrbit(parsed.orbit),
@@ -599,6 +618,12 @@ export function loadConfig(): AppConfig {
           (p) => p.baseUrl === merged.baseUrl,
         );
         merged.apiProviderBaseUrl = knownProvider?.baseUrl ?? null;
+      }
+      // Migration v2: Design For AIR moved the built-in appearance accent from
+      // the legacy warm orange to AIR Blue. Preserve custom colors but upgrade
+      // the old default so existing installs match the refreshed brand.
+      if (normalizedAccentColor === LEGACY_DEFAULT_ACCENT_COLOR) {
+        merged.accentColor = DEFAULT_CONFIG.accentColor;
       }
       merged.configMigrationVersion = CONFIG_MIGRATION_VERSION;
     }

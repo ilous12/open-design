@@ -7,7 +7,7 @@
   margin: 4px auto 0;
   padding: 16px 18px;
   border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
-  border-radius: var(--radius-lg, 14px);
+  border-radius: var(--radius-lg, 8px);
   background: color-mix(in srgb, var(--accent) 6%, var(--bg-panel));
   box-shadow: var(--shadow-xs);
   animation: bebIn 200ms var(--ease-out, cubic-bezier(0.23, 1, 0.32, 1));

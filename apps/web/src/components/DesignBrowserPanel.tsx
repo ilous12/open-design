@@ -289,14 +289,20 @@ function localizedReferenceGroupTitle(
   group: ReferenceGroup,
   t?: (key: keyof Dict) => string,
 ): string {
-  return t ? t(referenceGroupTitleKey(group)) : group.title;
+  if (!t) return group.title;
+  const key = referenceGroupTitleKey(group);
+  const translated = t(key);
+  return translated === key ? group.title : translated;
 }
 
 function localizedReferenceSiteDetail(
   site: ReferenceSite,
   t?: (key: keyof Dict) => string,
 ): string {
-  return t ? t(referenceSiteDetailKey(site)) : site.detail;
+  if (!t) return site.detail;
+  const key = referenceSiteDetailKey(site);
+  const translated = t(key);
+  return translated === key ? site.detail : translated;
 }
 
 function browserViewportLabel(
@@ -343,174 +349,171 @@ function initialBrowserState(initialUrl?: string, initialTitle?: string): {
   };
 }
 
-// The Reference Board catalogue. Order is intentional: the categories a working
-// designer reaches for most often (inspiration, real product UI) lead, followed
-// by motion/color/type/asset references, then systems/guidelines/tooling.
+// The Reference Board catalogue is sourced from UI UX Pro Max's 39 Website
+// Demos Gallery, then served from bundled local HTML clones so remix flows do
+// not depend on a live external URL. These are better remix seeds than generic
+// design-resource links because each clone opens a complete demo with an
+// attached style, mode, palette, and source prompt.
 // Adding a group here automatically adds its filter chip and address-bar
 // suggestions — `id` is the stable filter key, `title` is the display label.
 export const REFERENCE_GROUPS: ReferenceGroup[] = [
   {
-    id: 'inspiration',
-    title: 'Inspiration',
+    id: 'saas',
+    title: 'SaaS',
     sites: [
-      { label: 'Dribbble', url: 'https://dribbble.com/', detail: 'Design shots and UI inspiration.' },
-      { label: 'Behance', url: 'https://www.behance.net/', detail: 'Creative portfolios and case studies.' },
-      { label: 'Awwwards', url: 'https://www.awwwards.com/', detail: 'Award-winning website design.' },
-      { label: 'Godly', url: 'https://godly.website/', detail: 'Curated modern web design.' },
-      { label: 'Land-book', url: 'https://land-book.com/', detail: 'Landing page gallery and patterns.' },
+      { label: 'SaaS Analytics Dashboard', url: '/reference-remix/saas-analytics-dashboard/index.html', detail: 'Glassmorphism + Flat Design · Light mode · Primary #0080FF, Secondary #8B00FF, CTA #22C55E. Remix prompt: Create a modern SaaS analytics dashboard landing page with glassmorphism cards, hero section showcasing real-time data visualization, feature highlights with icons, pricing table, and trust badges. Focus on clarity and professional feel.' },
+      { label: 'Sales CRM Platform', url: '/reference-remix/sales-crm-platform/index.html', detail: 'Feature-Rich Showcase + Trust & Authority · Light mode · Primary #0080FF, Secondary #8B00FF, CTA #22C55E. Remix prompt: Design a professional sales CRM landing page with feature-rich showcase, pipeline visualization preview, integration logos, customer success stories, and free trial CTA. Use trust colors.' },
+      { label: 'Customer Support CRM', url: '/reference-remix/customer-support-crm/index.html', detail: 'Soft UI Evolution + Feature-Rich Showcase · Light mode · Primary #0080FF, Secondary #8B00FF, CTA #22C55E. Remix prompt: Build a friendly customer support CRM landing page with soft UI, ticket management preview, omnichannel features, AI chatbot integration, and pricing comparison. Use approachable colors.' },
     ],
   },
   {
-    id: 'interfaces',
-    title: 'Real Interfaces',
+    id: 'education',
+    title: 'Education',
     sites: [
-      { label: 'Mobbin', url: 'https://mobbin.com/', detail: 'Real app screens and UI patterns.' },
-      { label: 'Screenlane', url: 'https://screenlane.com/', detail: 'Latest UI design patterns from apps.' },
-      { label: 'Page Flows', url: 'https://pageflows.com/', detail: 'Real product user flows and onboarding.' },
-      { label: 'UI Sources', url: 'https://www.uisources.com/', detail: 'Interaction patterns from top apps.' },
-      { label: 'Collect UI', url: 'https://collectui.com/', detail: 'Daily UI collection by category.' },
+      { label: 'Educational Platform', url: '/reference-remix/educational-platform/index.html', detail: 'Claymorphism + Vibrant & Block-based · Light mode · Primary #FDBCB4, Secondary #ADD8E6, CTA #22C55E. Remix prompt: Create a playful educational platform landing page with claymorphism cards, course catalog preview, progress tracking demo, student testimonials, and enrollment CTA. Use vibrant, engaging colors.' },
     ],
   },
   {
-    id: 'motion',
-    title: 'Motion',
+    id: 'pet-services',
+    title: 'Pet Services',
     sites: [
-      { label: 'GSAP', url: 'https://gsap.com/', detail: 'Production animation engine and examples.' },
-      { label: 'Animations.dev', url: 'https://animations.dev/', detail: 'Animation patterns and interaction examples.' },
-      { label: 'Transitions', url: 'https://transitions.dev/', detail: 'Transition patterns for modern interfaces.' },
-      { label: 'Motion Sites', url: 'https://motionsites.ai/', detail: 'High-end motion and interaction references.' },
-      { label: 'Motion.page Showcase', url: 'https://motion.page/showcase/', detail: 'Scroll and timeline animation inspiration.' },
-      { label: 'Animography', url: 'https://animography.net/', detail: 'Animated type and kinetic lettering.' },
-      { label: 'React Bits Shiny Text', url: 'https://reactbits.dev/text-animations/shiny-text', detail: 'React text animation reference for shiny kinetic type.' },
+      { label: 'Pet Grooming & Spa', url: '/reference-remix/pet-grooming/index.html', detail: 'Claymorphism + Vibrant & Block-based · Light mode · Primary #FF9F43, Secondary #87CEEB, CTA #FF9F43. Remix prompt: Create a friendly pet grooming service landing page with claymorphism cards, service packages, pet gallery, booking system, and testimonials from pet owners. Use playful warm colors.' },
+      { label: 'Pet Adoption Platform', url: '/reference-remix/pet-adoption/index.html', detail: 'Motion-Driven + Claymorphism · Light mode · Primary #FF9F43, Secondary #87CEEB, CTA #FF9F43. Remix prompt: Build a heartwarming pet adoption platform landing page with motion-driven pet cards, search filters preview, success stories, shelter partnerships, and adoption CTA. Use warm inviting colors.' },
     ],
   },
   {
-    id: 'color',
-    title: 'Color',
+    id: 'ai-chatbot',
+    title: 'AI/Chatbot',
     sites: [
-      { label: 'Coolors', url: 'https://coolors.co/', detail: 'Fast color palette generator.' },
-      { label: 'Color Hunt', url: 'https://colorhunt.co/', detail: 'Curated color palettes.' },
-      { label: 'Realtime Colors', url: 'https://www.realtimecolors.com/', detail: 'Preview palettes on a real UI.' },
-      { label: 'Adobe Color', url: 'https://color.adobe.com/', detail: 'Color wheel and harmony rules.' },
-      { label: 'Happy Hues', url: 'https://www.happyhues.co/', detail: 'Palettes shown in real context.' },
+      { label: 'AI Chatbot Platform', url: '/reference-remix/ai-chatbot-platform/index.html', detail: "AI-Native UI + Minimalism · Light mode · Primary #6366F1, Secondary #10B981, CTA #6366F1. Remix prompt: Design a minimal AI chatbot platform landing page with conversational UI preview, streaming text animation demo, feature cards with AI capabilities, integration logos, and a prominent 'Try Now' CTA. Use neutral tones with AI purple accent." },
+      { label: 'Sustainability Platform', url: '/reference-remix/sustainability-platform/index.html', detail: 'Organic Biophilic + Minimalism · Light mode · Primary #6366F1, Secondary #10B981, CTA #6366F1. Remix prompt: Design an eco-friendly sustainability platform landing page with organic biophilic elements, carbon footprint calculator preview, impact metrics, and certification badges. Use earth tones and greens.' },
+      { label: 'Generative Art Platform', url: '/reference-remix/generative-art-platform/index.html', detail: 'Minimalism + Gen Z Chaos · Dark mode · Primary #0080FF, Secondary #8B00FF, CTA #22C55E. Remix prompt: Create a generative art platform landing page with dark mode, AI art generation preview, style gallery, creator tools showcase, and minting flow. Use canvas-neutral with vibrant accents.' },
+      { label: 'AI Writing Assistant', url: '/reference-remix/ai-writing-assistant/index.html', detail: 'AI-Native UI + Minimalism · Light mode · Primary #6366F1, Secondary #10B981, CTA #6366F1. Remix prompt: Create an AI writing assistant landing page with minimal chrome, live writing demo, use case showcases, integration options, and subscription tiers. Use neutral with AI purple accent.' },
     ],
   },
   {
-    id: 'type',
-    title: 'Typography',
+    id: 'e-commerce',
+    title: 'E-commerce',
     sites: [
-      { label: 'Google Fonts', url: 'https://fonts.google.com/', detail: 'Open-source font library.' },
-      { label: 'Fontshare', url: 'https://www.fontshare.com/', detail: 'Quality fonts free for commercial use.' },
-      { label: 'Typewolf', url: 'https://www.typewolf.com/', detail: 'Fonts in use and pairing guidance.' },
-      { label: 'Fontpair', url: 'https://www.fontpair.co/', detail: 'Font pairing suggestions.' },
-      { label: 'Fonts In Use', url: 'https://fontsinuse.com/', detail: 'Typography in real-world design.' },
+      { label: 'Luxury E-commerce', url: '/reference-remix/luxury-ecommerce/index.html', detail: 'Liquid Glass + Glassmorphism · Light mode · Primary #000000, Secondary #FFD700, CTA #FFD700. Remix prompt: Build an elegant luxury e-commerce landing page with liquid glass effects, high-end product showcase, storytelling sections, premium brand values, and exclusive membership CTA. Emphasize sophistication and exclusivity.' },
     ],
   },
   {
-    id: 'icons',
-    title: 'Icons',
+    id: 'fintech-crypto',
+    title: 'Fintech/Crypto',
     sites: [
-      { label: 'The SVG', url: 'https://thesvg.org/', detail: 'SVG assets and vector references.' },
-      { label: 'SVG Logos', url: 'https://svglogos.dev/', detail: 'Clean SVG logos for product and brand mocks.' },
-      { label: 'Lobe Icons', url: 'https://icons.lobehub.com/', detail: 'Product and AI-brand icons for interfaces.' },
-      { label: 'Iconify', url: 'https://icon-sets.iconify.design/', detail: '200k+ open-source icons in one place.' },
-      { label: 'Lucide', url: 'https://lucide.dev/', detail: 'Clean, consistent open icon set.' },
-      { label: 'Heroicons', url: 'https://heroicons.com/', detail: 'Tailwind-made SVG icons.' },
-      { label: 'SVG Repo', url: 'https://www.svgrepo.com/', detail: 'Free SVG vectors and icons.' },
+      { label: 'Fintech Crypto Dashboard', url: '/reference-remix/fintech-crypto/index.html', detail: 'Glassmorphism + Dark Mode (OLED) · Dark mode · Primary #0080FF, Secondary #39FF14, CTA #39FF14. Remix prompt: Create a dark mode fintech/crypto landing page with glassmorphism cards, real-time price charts preview, security features highlight, wallet integration showcase, and trust indicators. Focus on security and modern tech feel.' },
+      { label: 'Investment Platform', url: '/reference-remix/investment-platform/index.html', detail: 'Dark Mode (OLED) + Data-Dense Dashboard · Dark mode · Primary #0080FF, Secondary #39FF14, CTA #39FF14. Remix prompt: Design a professional investment platform landing page with dark mode, portfolio analytics preview, market data widgets, educational resources, and account signup. Focus on trust and data.' },
+      { label: 'Payment Gateway', url: '/reference-remix/payment-gateway/index.html', detail: 'Minimalism + Trust & Authority · Light mode · Primary #0080FF, Secondary #8B00FF, CTA #22C55E. Remix prompt: Build a conversion-focused payment gateway landing page with minimal design, integration code preview, pricing tiers, security certifications, and developer documentation link. Use professional colors.' },
+      { label: 'Crypto Wallet', url: '/reference-remix/crypto-wallet/index.html', detail: 'Glassmorphism + Dark Mode (OLED) · Dark mode · Primary #0080FF, Secondary #39FF14, CTA #39FF14. Remix prompt: Create a secure crypto wallet landing page with dark glassmorphism, multi-chain support showcase, security features, transaction preview, and download CTAs. Use crypto-native dark theme.' },
+      { label: 'DeFi Yield Platform', url: '/reference-remix/defi-yield/index.html', detail: 'Cyberpunk UI + Glassmorphism · Dark mode · Primary #0080FF, Secondary #39FF14, CTA #39FF14. Remix prompt: Design a DeFi yield farming platform landing page with cyberpunk aesthetics, APY calculators, liquidity pools preview, tokenomics section, and wallet connect. Use neon on dark.' },
+      { label: 'CEX Trading Platform', url: '/reference-remix/cex-trading/index.html', detail: 'Dark Mode (OLED) + Data-Dense Dashboard · Dark mode · Primary #0080FF, Secondary #39FF14, CTA #39FF14. Remix prompt: Build a professional centralized exchange landing page with dark mode, trading interface preview, market pairs, security features, and registration flow. Focus on trust and performance.' },
+      { label: 'DEX Swap Interface', url: '/reference-remix/dex-swap/index.html', detail: 'Glassmorphism + Cyberpunk UI · Dark mode · Primary #0080FF, Secondary #39FF14, CTA #39FF14. Remix prompt: Create a decentralized exchange landing page with glassmorphism swap interface preview, supported tokens, liquidity provider benefits, governance features, and wallet integration. Use Web3 aesthetics.' },
     ],
   },
   {
-    id: 'illustration',
-    title: 'Illustration',
+    id: 'healthcare',
+    title: 'Healthcare',
     sites: [
-      { label: 'Storyset', url: 'https://storyset.com/', detail: 'Customizable vector illustrations.' },
-      { label: 'unDraw', url: 'https://undraw.co/', detail: 'Open-source MIT illustrations.' },
-      { label: 'Blush', url: 'https://blush.design/', detail: 'Mix-and-match illustrations.' },
-      { label: 'Lummi', url: 'https://www.lummi.ai/', detail: 'Free AI-generated visuals.' },
-      { label: 'Whirrls', url: 'https://www.whirrls.com/', detail: 'Hand-drawn image references.' },
-      { label: 'World in Dots', url: 'https://www.worldindots.com/', detail: 'Dot-map and data-viz references.' },
+      { label: 'Health & Wellness App', url: '/reference-remix/health-wellness/index.html', detail: 'Neumorphism + Soft UI Evolution · Light mode · Primary #87CEEB, Secondary #90EE90, CTA #22C55E. Remix prompt: Design a calming health and wellness app landing page with soft UI elements, neumorphic cards, feature showcase for meditation/fitness tracking, testimonials, and app download CTAs. Use calm, soothing colors.' },
+      { label: 'Telemedicine Platform', url: '/reference-remix/telemedicine/index.html', detail: 'Soft UI Evolution + AI-Native UI · Light mode · Primary #87CEEB, Secondary #90EE90, CTA #22C55E. Remix prompt: Design a modern telemedicine platform landing page with soft UI, video consultation preview, specialist directory, health tracking features, and app download CTAs. Use calming healthcare colors.' },
+      { label: 'Mental Health App', url: '/reference-remix/mental-health/index.html', detail: 'Neumorphism + Accessible & Ethical · Light mode · Primary #87CEEB, Secondary #90EE90, CTA #22C55E. Remix prompt: Build a calming mental health app landing page with neumorphic elements, mood tracking preview, therapy session booking, resource library, and crisis support section. Use soothing pastels.' },
     ],
   },
   {
-    id: 'photography',
-    title: 'Photography',
+    id: 'creative',
+    title: 'Creative',
     sites: [
-      { label: 'Unsplash', url: 'https://unsplash.com/', detail: 'Free high-resolution photos.' },
-      { label: 'Pexels', url: 'https://www.pexels.com/', detail: 'Free stock photos and video.' },
-      { label: 'Pixabay', url: 'https://pixabay.com/', detail: 'Royalty-free images and media.' },
-      { label: 'Cosmos', url: 'https://www.cosmos.so/', detail: 'Visual discovery and mood boards.' },
+      { label: 'Creative Agency Portfolio', url: '/reference-remix/creative-agency/index.html', detail: 'Brutalism + Motion-Driven · Light mode · Primary #FF0000, Secondary #0000FF, CTA #FFFF00. Remix prompt: Build a bold creative agency portfolio landing page with brutalist elements, motion-driven animations, case study previews, team showcase, and contact form. Emphasize creativity and uniqueness.' },
     ],
   },
   {
-    id: '3d',
-    title: '3D & Graphics',
+    id: 'real-estate',
+    title: 'Real Estate',
     sites: [
-      { label: 'Spline', url: 'https://spline.design/', detail: 'Browser-based 3D design.' },
-      { label: 'Three.js Examples', url: 'https://threejs.org/examples/', detail: 'WebGL 3D references and demos.' },
-      { label: 'Womp', url: 'https://womp.com/', detail: 'Easy in-browser 3D creation.' },
-      { label: 'Pixcap', url: 'https://pixcap.com/', detail: '3D icons, mockups, and scenes.' },
+      { label: 'Real Estate Luxury', url: '/reference-remix/real-estate/index.html', detail: 'Glassmorphism + Minimalism · Light mode · Primary #0077B6, Secondary #FFD700, CTA #0077B6. Remix prompt: Design an elegant real estate landing page with glassmorphism property cards, virtual tour preview, featured listings, agent profiles, and contact form. Focus on trust and premium feel.' },
     ],
   },
   {
-    id: 'mockups',
-    title: 'Mockups',
+    id: 'gaming',
+    title: 'Gaming',
     sites: [
-      { label: 'Shots', url: 'https://shots.so/', detail: 'Device and browser mockups.' },
-      { label: 'Mockuuups Studio', url: 'https://mockuuups.studio/', detail: 'Drag-and-drop device mockups.' },
-      { label: 'Angle', url: 'https://angle.sh/', detail: '3D device mockup library.' },
-      { label: 'Rotato', url: 'https://rotato.app/', detail: 'Animated 3D product mockups.' },
+      { label: 'Gaming Platform', url: '/reference-remix/gaming-platform/index.html', detail: '3D & Hyperrealism + Retro-Futurism · Dark mode · Primary #FF006E, Secondary #00FFFF, CTA #39FF14. Remix prompt: Build an immersive gaming platform landing page with 3D elements, retro-futuristic style, game showcase carousel, community features, and download CTA. Use vibrant neon colors on dark background.' },
     ],
   },
   {
-    id: 'systems',
-    title: 'Design Systems',
+    id: 'food-restaurant',
+    title: 'Food & Restaurant',
     sites: [
-      { label: 'Impeccable Style', url: 'https://impeccable.style/', detail: 'High-quality style and interface references.' },
-      { label: 'Styles Refero', url: 'https://styles.refero.design/', detail: 'Design style references and visual systems.' },
-      { label: 'Brandfetch', url: 'https://brandfetch.com/', detail: 'Brand assets, logos, and identity.' },
-      { label: 'Design Systems Repo', url: 'https://designsystemsrepo.com/', detail: 'Gallery of public design systems.' },
-      { label: 'Startups Gallery', url: 'https://startups.gallery/', detail: 'Top startup product and brand references.' },
+      { label: 'Restaurant & Food', url: '/reference-remix/restaurant-food/index.html', detail: 'Vibrant & Block-based + Motion-Driven · Light mode · Primary #FF6B35, Secondary #8B4513, CTA #FF6B35. Remix prompt: Create a warm restaurant landing page with vibrant food photography, menu preview, reservation system, chef story section, and location map. Use appetizing warm colors.' },
     ],
   },
   {
-    id: 'components',
-    title: 'Components',
+    id: 'fitness',
+    title: 'Fitness',
     sites: [
-      { label: 'Base UI', url: 'https://base-ui.com/', detail: 'Unstyled accessible primitives for custom systems.' },
-      { label: 'shadcn/ui', url: 'https://ui.shadcn.com/', detail: 'Composable React components built on Radix and Tailwind.' },
-      { label: 'HeroUI', url: 'https://www.heroui.com/', detail: 'Modern React component library and design system.' },
-      { label: 'Radix UI', url: 'https://www.radix-ui.com/', detail: 'Accessible low-level UI primitives.' },
-      { label: 'React Aria', url: 'https://react-spectrum.adobe.com/react-aria/', detail: 'Accessible behavior primitives from Adobe.' },
-      { label: 'Headless UI', url: 'https://headlessui.com/', detail: 'Unstyled accessible components for Tailwind projects.' },
-      { label: 'MUI', url: 'https://mui.com/', detail: 'Material-based React component ecosystem.' },
-      { label: 'Mantine', url: 'https://mantine.dev/', detail: 'Full-featured React components and hooks.' },
-      { label: 'Chakra UI', url: 'https://chakra-ui.com/', detail: 'Accessible React components with theme tokens.' },
-      { label: 'Ant Design', url: 'https://ant.design/', detail: 'Enterprise component system and patterns.' },
-      { label: 'Ark UI', url: 'https://ark-ui.com/', detail: 'Headless components across modern frameworks.' },
-      { label: 'daisyUI', url: 'https://daisyui.com/', detail: 'Tailwind CSS component classes and themes.' },
+      { label: 'Fitness & Gym App', url: '/reference-remix/fitness-gym/index.html', detail: 'Vibrant & Block-based + Dark Mode (OLED) · Dark mode · Primary #FF6B35, Secondary #0080FF, CTA #FF6B35. Remix prompt: Design an energetic fitness app landing page with dark mode, workout preview cards, progress tracking demo, trainer profiles, and subscription CTAs. Use bold, motivating colors.' },
     ],
   },
   {
-    id: 'guidelines',
-    title: 'Guidelines & A11y',
+    id: 'travel',
+    title: 'Travel',
     sites: [
-      { label: 'Apple HIG', url: 'https://developer.apple.com/design/human-interface-guidelines', detail: 'Apple platform design guidelines.' },
-      { label: 'Material Design', url: 'https://m3.material.io/', detail: "Google's Material Design 3." },
-      { label: 'Laws of UX', url: 'https://lawsofux.com/', detail: 'UX principles and heuristics.' },
-      { label: 'WebAIM Contrast', url: 'https://webaim.org/resources/contrastchecker/', detail: 'Color contrast checker.' },
-      { label: 'The A11y Project', url: 'https://www.a11yproject.com/', detail: 'Accessibility checklist and patterns.' },
+      { label: 'Travel & Tourism', url: '/reference-remix/travel-tourism/index.html', detail: 'Aurora UI + Motion-Driven · Light mode · Primary #0080FF, Secondary #FF7F00, CTA #FF7F00. Remix prompt: Build an inspiring travel agency landing page with aurora UI gradients, destination showcase, booking preview, traveler testimonials, and trip planner CTA. Use vibrant destination colors.' },
     ],
   },
   {
-    id: 'tools',
-    title: 'Tools & Resources',
+    id: 'nft-web3',
+    title: 'NFT/Web3',
     sites: [
-      { label: 'Toolfolio', url: 'https://toolfolio.io/', detail: 'Design tools, resources, and collections.' },
-      { label: 'GetDesign', url: 'https://getdesign.md/', detail: 'Curated design resources.' },
-      { label: 'Taste Skill', url: 'https://www.tasteskill.dev/', detail: 'Design taste training and critique references.' },
-      { label: 'UI Goodies', url: 'https://www.uigoodies.com/', detail: 'Hand-picked design resources.' },
-      { label: 'Sidebar', url: 'https://sidebar.io/', detail: 'Five design links, every day.' },
-      { label: 'Superset', url: 'https://github.com/superset-sh/superset', detail: 'Reference implementation for embedded browser workflows.' },
+      { label: 'NFT & Web3 Platform', url: '/reference-remix/nft-web3/index.html', detail: 'Cyberpunk UI + Glassmorphism · Dark mode · Primary #FF00FF, Secondary #00FFFF, CTA #FFD700. Remix prompt: Create a cyberpunk-style NFT platform landing page with glassmorphism cards, featured NFT gallery, wallet connection demo, creator spotlight, and marketplace preview. Use neon colors on dark background.' },
+      { label: 'NFT Marketplace', url: '/reference-remix/nft-marketplace/index.html', detail: 'Bento Box Grid + Motion-Driven · Dark mode · Primary #FF00FF, Secondary #00FFFF, CTA #FFD700. Remix prompt: Design an NFT marketplace landing page with bento grid layout, featured collections, creator spotlights, auction previews, and wallet connection. Use vibrant art-focused colors on dark.' },
+      { label: 'NFT Art Gallery', url: '/reference-remix/nft-art-gallery/index.html', detail: 'Minimalism + Motion-Driven · Light mode · Primary #0080FF, Secondary #8B00FF, CTA #22C55E. Remix prompt: Build an elegant NFT art gallery landing page with minimal design, curated collections, artist profiles, exhibition previews, and minting interface. Focus on art presentation.' },
+    ],
+  },
+  {
+    id: 'beauty-spa',
+    title: 'Beauty/Spa',
+    sites: [
+      { label: 'Beauty & Spa Service', url: '/reference-remix/beauty-spa/index.html', detail: 'Soft UI Evolution + Neumorphism · Light mode · Primary #FFB6C1, Secondary #90EE90, CTA #FFD700. Remix prompt: Design a serene beauty spa landing page with soft UI elements, service menu, before/after gallery, booking system preview, and testimonials. Use soft pastels and calming aesthetics.' },
+      { label: 'Coworking Space', url: '/reference-remix/coworking-space/index.html', detail: 'Vibrant & Block-based + Glassmorphism · Light mode · Primary #FFB6C1, Secondary #90EE90, CTA #FFD700. Remix prompt: Create a vibrant coworking space landing page with glassmorphism cards, space tour preview, membership plans, amenities showcase, and booking CTA. Use energetic modern colors.' },
+    ],
+  },
+  {
+    id: 'developer-tools',
+    title: 'Developer Tools',
+    sites: [
+      { label: 'Developer Tools', url: '/reference-remix/developer-tools/index.html', detail: 'Dark Mode (OLED) + Minimalism · Dark mode · Primary #39FF14, Secondary #0080FF, CTA #39FF14. Remix prompt: Build a minimal developer tools landing page with dark mode, code snippet previews, feature comparison table, integration logos, and documentation link. Use syntax highlighting colors.' },
+    ],
+  },
+  {
+    id: 'entertainment',
+    title: 'Entertainment',
+    sites: [
+      { label: 'Music Streaming', url: '/reference-remix/music-streaming/index.html', detail: 'Dark Mode (OLED) + Vibrant & Block-based · Dark mode · Primary #1DB954, Secondary #FF1493, CTA #1DB954. Remix prompt: Create a dark mode music streaming landing page with vibrant accents, playlist showcase, audio player preview, artist spotlight, and premium subscription CTA. Use album art-inspired colors.' },
+    ],
+  },
+  {
+    id: 'legal',
+    title: 'Legal',
+    sites: [
+      { label: 'Legal Services', url: '/reference-remix/legal-services/index.html', detail: 'Trust & Authority + Minimalism · Light mode · Primary #1E3A5F, Secondary #FFD700, CTA #1E3A5F. Remix prompt: Design a trustworthy legal services landing page with minimal design, practice areas showcase, attorney profiles, case results, and consultation booking. Use professional navy and gold.' },
+    ],
+  },
+  {
+    id: 'events',
+    title: 'Events',
+    sites: [
+      { label: 'Wedding & Events', url: '/reference-remix/wedding-events/index.html', detail: 'Soft UI Evolution + Aurora UI · Light mode · Primary #FFD6E0, Secondary #FFD700, CTA #FFD700. Remix prompt: Build a romantic wedding planning landing page with soft UI, portfolio gallery, vendor directory preview, planning tools showcase, and contact form. Use soft pink and gold accents.' },
+    ],
+  },
+  {
+    id: 'other',
+    title: 'Other',
+    sites: [
+      { label: 'Veterinary Clinic', url: '/reference-remix/veterinary-clinic/index.html', detail: 'Soft UI Evolution + Accessible & Ethical · Light mode · Primary #0080FF, Secondary #8B00FF, CTA #22C55E. Remix prompt: Design a caring veterinary clinic landing page with soft UI elements, services overview, vet team profiles, emergency contact section, and appointment booking. Use calming pet-friendly colors.' },
+      { label: 'Medical Clinic Portal', url: '/reference-remix/medical-clinic/index.html', detail: 'Accessible & Ethical + Minimalism · Light mode · Primary #0080FF, Secondary #8B00FF, CTA #22C55E. Remix prompt: Create a trustworthy medical clinic landing page with accessible design, services directory, doctor profiles, patient portal preview, and appointment booking. Focus on trust and accessibility.' },
+      { label: 'Digital Banking App', url: '/reference-remix/digital-banking/index.html', detail: 'Glassmorphism + Trust & Authority · Light mode · Primary #0080FF, Secondary #8B00FF, CTA #22C55E. Remix prompt: Create a sleek digital banking landing page with glassmorphism cards, account overview preview, transaction features, security highlights, and mobile app download. Use trust-building colors.' },
     ],
   },
 ];

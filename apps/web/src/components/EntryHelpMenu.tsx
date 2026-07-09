@@ -2,9 +2,8 @@
 //
 // Mirrors the Lovart-style "?" affordance shown in the bottom-left
 // corner of the workspace: a single round button that opens a small
-// popover with the four external help links we want every user to be
-// one click away from — GitHub issues for help, GitHub PRs for feature
-// requests, releases for the changelog, and the desktop download.
+// popover with the support links we want every user to be one click away
+// from: AIR service team help and feature requests.
 //
 // The links open in a new tab (with safe `noopener` rel) and are
 // labeled via the i18n dictionary so locale switching keeps the menu
@@ -19,24 +18,77 @@ import {
   trackHelpPopoverSurfaceView,
   trackHomeNavClick,
 } from '../analytics/events';
+import { openExternalUrl } from '../providers/registry';
 import { Icon } from './Icon';
 import { useT } from '../i18n';
 
-const REPO = 'https://github.com/nexu-io/open-design';
-const ISSUES_URL = `${REPO}/issues/new`;
-const PRS_URL = `${REPO}/pulls`;
-const RELEASES_URL = `${REPO}/releases`;
-const LATEST_RELEASE_URL = `${REPO}/releases/latest`;
-const X_URL = 'https://x.com/OpenDesignHQ';
-const DISCORD_URL = 'https://discord.gg/mHAjSMV6gz';
+const HELP_EMAIL = 'gwanghee.lee@sk.com';
 
-const ext = { target: '_blank', rel: 'noreferrer noopener' } as const;
+function buildMailtoUrl(subject: string, body: string): string {
+  const params = new URLSearchParams({
+    subject,
+    body,
+  });
+  return `mailto:${HELP_EMAIL}?${params.toString()}`;
+}
+
+const HELP_MAILTO = buildMailtoUrl(
+  '[Design For AIR] AIR 서비스팀 도움 요청',
+  [
+    '안녕하세요. Design For AIR 사용 중 도움이 필요합니다.',
+    '',
+    '문의 유형:',
+    '계정/로그인',
+    '실행 오류',
+    '리믹스/프로젝트 문제',
+    '기타',
+    '',
+    '발생 화면 또는 기능:',
+    '예: 홈, 레퍼런스, 리믹스, 편집화면',
+    '',
+    '문의 내용:',
+    '',
+    '재현 방법:',
+    '1.',
+    '2.',
+    '3.',
+    '',
+    '기대한 동작:',
+    '',
+    '실제 동작 또는 오류 메시지:',
+  ].join('\n'),
+);
+
+const FEATURE_MAILTO = buildMailtoUrl(
+  '[Design For AIR] 기능 제안',
+  [
+    '안녕하세요. Design For AIR 기능 제안을 전달드립니다.',
+    '',
+    '제안 제목:',
+    '',
+    '제안 배경:',
+    '어떤 업무/상황에서 필요한지 작성해주세요.',
+    '',
+    '원하는 기능:',
+    '',
+    '기대 효과:',
+    '시간 절감, 품질 향상, 협업 개선 등',
+    '',
+    '참고 예시:',
+    '유사 서비스, 화면, 링크 등이 있다면 작성해주세요.',
+  ].join('\n'),
+);
 
 export function EntryHelpMenu() {
   const t = useT();
   const analytics = useAnalytics();
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement | null>(null);
+
+  async function openHelpMail(url: string) {
+    await openExternalUrl(url);
+    setOpen(false);
+  }
 
   useEffect(() => {
     if (!open) return;
@@ -97,123 +149,55 @@ export function EntryHelpMenu() {
       </button>
       <AnimatePresence>
         {open ? (
-        <motion.div
-          className="entry-help-popover"
-          role="menu"
-          aria-label={t('entry.helpMenuAria')}
-          variants={popoverIn}
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-        >
-          <a
-            className="entry-help-popover__item"
-            href={ISSUES_URL}
-            {...ext}
-            role="menuitem"
-            onClick={() => {
-              trackHelpPopoverClick(analytics.track, {
-                page_name: 'home',
-                area: 'help_resources_popover',
-                element: 'get_help_on_github',
-                surface: 'popover',
-              });
-              setOpen(false);
-            }}
+          <motion.div
+            className="entry-help-popover"
+            role="menu"
+            aria-label={t('entry.helpMenuAria')}
+            variants={popoverIn}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
           >
-            <span className="entry-help-popover__icon" aria-hidden>
-              <Icon name="comment" size={14} />
-            </span>
-            <span>{t('entry.helpGetHelp')}</span>
-          </a>
-          <a
-            className="entry-help-popover__item"
-            href={PRS_URL}
-            {...ext}
-            role="menuitem"
-            onClick={() => {
-              trackHelpPopoverClick(analytics.track, {
-                page_name: 'home',
-                area: 'help_resources_popover',
-                element: 'submit_a_feature_request',
-                surface: 'popover',
-              });
-              setOpen(false);
-            }}
-          >
-            <span className="entry-help-popover__icon" aria-hidden>
-              <Icon name="sparkles" size={14} />
-            </span>
-            <span>{t('entry.helpSubmitFeature')}</span>
-          </a>
-          <a
-            className="entry-help-popover__item"
-            href={LATEST_RELEASE_URL}
-            {...ext}
-            role="menuitem"
-            onClick={() => {
-              trackHelpPopoverClick(analytics.track, {
-                page_name: 'home',
-                area: 'help_resources_popover',
-                element: 'whats_new',
-                surface: 'popover',
-              });
-              setOpen(false);
-            }}
-          >
-            <span className="entry-help-popover__icon" aria-hidden>
-              <Icon name="bell" size={14} />
-            </span>
-            <span>{t('entry.helpWhatsNew')}</span>
-          </a>
-          <div className="entry-help-popover__divider" aria-hidden />
-          <a
-            className="entry-help-popover__item"
-            href={RELEASES_URL}
-            {...ext}
-            role="menuitem"
-            onClick={() => {
-              trackHelpPopoverClick(analytics.track, {
-                page_name: 'home',
-                area: 'help_resources_popover',
-                element: 'download_desktop_app',
-                surface: 'popover',
-              });
-              setOpen(false);
-            }}
-          >
-            <span className="entry-help-popover__icon" aria-hidden>
-              <Icon name="download" size={14} />
-            </span>
-            <span>{t('entry.helpDownloadDesktop')}</span>
-          </a>
-          <div className="entry-help-popover__divider" aria-hidden />
-          <a
-            className="entry-help-popover__item"
-            href={X_URL}
-            {...ext}
-            role="menuitem"
-            onClick={() => setOpen(false)}
-          >
-            <span className="entry-help-popover__icon" aria-hidden>
-              <Icon name="external-link" size={14} />
-            </span>
-            <span>{t('entry.followXLabel')}</span>
-          </a>
-          <a
-            className="entry-help-popover__item"
-            href={DISCORD_URL}
-            {...ext}
-            role="menuitem"
-            onClick={() => setOpen(false)}
-          >
-            <span className="entry-help-popover__icon" aria-hidden>
-              <Icon name="discord" size={14} />
-            </span>
-            <span>{t('entry.discordLabel')}</span>
-          </a>
-        </motion.div>
-      ) : null}
+            <button
+              type="button"
+              className="entry-help-popover__item"
+              role="menuitem"
+              onClick={() => {
+                trackHelpPopoverClick(analytics.track, {
+                  page_name: 'home',
+                  area: 'help_resources_popover',
+                  element: 'get_help_on_github',
+                  surface: 'popover',
+                });
+                void openHelpMail(HELP_MAILTO);
+              }}
+            >
+              <span className="entry-help-popover__icon" aria-hidden>
+                <Icon name="comment" size={14} />
+              </span>
+              <span>{t('entry.helpGetHelp')}</span>
+            </button>
+            <button
+              type="button"
+              className="entry-help-popover__item"
+              role="menuitem"
+              onClick={() => {
+                trackHelpPopoverClick(analytics.track, {
+                  page_name: 'home',
+                  area: 'help_resources_popover',
+                  element: 'submit_a_feature_request',
+                  surface: 'popover',
+                });
+                void openHelpMail(FEATURE_MAILTO);
+              }}
+            >
+              <span className="entry-help-popover__icon" aria-hidden>
+                <Icon name="sparkles" size={14} />
+              </span>
+              <span>{t('entry.helpSubmitFeature')}</span>
+            </button>
+          </motion.div>
+        ) : null}
       </AnimatePresence>
     </div>
   );

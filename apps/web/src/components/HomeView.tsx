@@ -39,6 +39,7 @@ import {
   applyPlugin,
   createProject,
   duplicatePluginAsProject,
+  duplicateReferenceRemixAsProject,
   listPlugins,
   patchProject,
   renderPluginBriefTemplate,
@@ -101,6 +102,12 @@ import { PluginDetailsModal } from './PluginDetailsModal';
 import { SkillDetailsModal } from './SkillDetailsModal';
 import { HomeTemplatesReveal } from './HomeTemplatesReveal';
 import { PluginsHomeSection } from './PluginsHomeSection';
+import {
+  HOME_REFERENCE_PLUGINS,
+  homeReferenceSlugFromPluginId,
+  homeReferencePrompt,
+  isHomeReferencePlugin,
+} from './home-reference-plugins';
 import type { PluginLoopSubmit } from './PluginLoopHome';
 import { localizePluginTitle } from './plugins-home/localization';
 import type { PluginUseAction } from './plugins-home/useActions';
@@ -108,6 +115,7 @@ import { examplePresetSeedPrompt } from './plugins-home/presetSeedPrompt';
 import { localizePluginDescription } from './plugins-home/localization';
 import { RecentProjectsStrip } from './RecentProjectsStrip';
 import { AnimatePresence } from 'motion/react';
+const DEFAULT_HOME_PROTOTYPE_PLUGIN_ID = 'example-web-prototype';
 
 export interface ActivePlugin {
   record: InstalledPluginRecord;
@@ -1015,11 +1023,42 @@ export function HomeView({
   //     with that combined prompt as the explicit seed.
   //   - plain `use` leaves the current draft untouched (suppressPromptUpdate)
   //     while still routing the plugin as the active driver.
+  function useHomeReference(record: InstalledPluginRecord, action: PluginUseAction) {
+    const seed = homeReferencePrompt(record);
+    if (!seed) return;
+    trackCommunityGalleryClick(analytics.track, {
+      page_name: 'home',
+      area: 'community_gallery',
+      element: 'use_plugin',
+      plugin_id: record.sourceMarketplaceEntryName ?? record.id,
+      plugin_type: record.marketplaceTrust ?? 'official',
+      action: action === 'use-with-query' ? 'use_with_query' : 'use',
+    });
+    activePluginApplyRequestRef.current += 1;
+    setActive(null);
+    setActiveSkill(null);
+    setPendingApplyId(null);
+    setPendingChipId(null);
+    setDetailsRecord(null);
+    setError(null);
+    const currentDraft = prompt.trim();
+    const nextPrompt = currentDraft ? `${prompt.trimEnd()}\n\n${seed}` : seed;
+    setPrompt(nextPrompt);
+    setPromptEditedByUser(false);
+    scrollHomeToTop();
+    focusPromptAtEnd();
+    inputRef.current?.pulseSend();
+  }
+
   async function routePluginUse(
     record: InstalledPluginRecord,
     action: PluginUseAction = 'use',
     inputs?: Record<string, unknown>,
   ) {
+    if (isHomeReferencePlugin(record)) {
+      useHomeReference(record, action);
+      return;
+    }
     trackCommunityGalleryClick(analytics.track, {
       page_name: 'home',
       area: 'community_gallery',
@@ -1189,9 +1228,11 @@ export function HomeView({
     setError(null);
     setPendingDuplicatePluginId(record.id);
     try {
-      const result = await duplicatePluginAsProject(record.id, {
-        name: localizePluginTitle(locale, record),
-      });
+      const name = localizePluginTitle(locale, record);
+      const referenceSlug = homeReferenceSlugFromPluginId(record.id);
+      const result = referenceSlug
+        ? await duplicateReferenceRemixAsProject(referenceSlug, { name })
+        : await duplicatePluginAsProject(record.id, { name });
       onOpenProject(result.projectId, result.relPath);
     } catch {
       setError(t('pluginCard.duplicateFailed'));
@@ -1785,11 +1826,11 @@ export function HomeView({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pendingCarouselSubmit, prompt, active, sending]);
 
-  async function submit() {
+  async function submit(options?: { confirmedPrompt?: string }) {
     // The send button disables itself while sending, but the Enter-to-send
     // path lands here directly — swallow re-entry during the in-flight window.
     if (sending) return;
-    const trimmed = prompt.trim();
+    const trimmed = (options?.confirmedPrompt ?? prompt).trim();
     if (!trimmed && stagedFiles.length === 0) return;
     // P0 ui_click area=chat_composer element=send_button. Fires before the
     // async plugin-apply roundtrip so the click count reflects user intent
@@ -1819,7 +1860,14 @@ export function HomeView({
     // a second click could otherwise re-enter.
     setSending(true);
     try {
-      const defaultInputs = { prompt: trimmed };
+      const defaultInputs = {
+        prompt: trimmed,
+        artifactKind: 'web prototype',
+        fidelity: 'high-fidelity',
+        audience: 'product evaluators',
+        designSystem: selectedDesignSystemTitle,
+        template: 'the reference site and prompt already provided by the user',
+      };
       // The persistent picker is the single source of truth for the new project's
       // design system, so every product kind (not just prototype/deck) carries
       // the user's selection — the plugin's `designSystem` input is only the
@@ -1907,7 +1955,7 @@ export function HomeView({
       }
       const contextLinkedDirs = contextLinkedDirCandidates;
       const submittedProjectKind =
-        submittedActive?.projectKind ?? fallbackProjectKind ?? projectKindForSkill(activeSkill) ?? 'other';
+        submittedActive?.projectKind ?? fallbackProjectKind ?? projectKindForSkill(activeSkill) ?? 'prototype';
       const submittedProjectMetadata = submittedActive?.mediaSurface
         ? metadataForHomeMediaComposer(submittedActive.mediaSurface, submittedActive.inputs, promptTemplates)
         : homeCreateProjectMetadata(
@@ -1922,7 +1970,7 @@ export function HomeView({
       const resolvedSkillId = submittedActive ? null : activeSkill?.id ?? null;
       const routedPluginId =
         sessionMode === 'design'
-          ? submittedActive?.record.id ?? DEFAULT_UNSELECTED_SCENARIO_PLUGIN_ID
+          ? submittedActive?.record.id ?? (resolvedSkillId ? DEFAULT_UNSELECTED_SCENARIO_PLUGIN_ID : DEFAULT_HOME_PROTOTYPE_PLUGIN_ID)
           : submittedActive?.record.id ?? null;
       // The example-prompt override is a one-shot marker. Decide whether to
       // send it now, but defer spending the marker until the create is
@@ -2121,8 +2169,8 @@ export function HomeView({
         enabled={!projectsLoading && projects.length === 0}
       >
         <PluginsHomeSection
-          plugins={plugins}
-          loading={pluginsLoading}
+          plugins={HOME_REFERENCE_PLUGINS}
+          loading={false}
           activePluginId={active?.record.id ?? null}
           pendingApplyId={pendingApplyId}
           pendingDuplicateId={pendingDuplicatePluginId}
@@ -2134,6 +2182,10 @@ export function HomeView({
           cardLayout="gallery"
         />
       </HomeTemplatesReveal>
+
+      <footer className="home-view__copyright">
+        Copyright © 2026 SKT. All rights reserved.
+      </footer>
 
       <AnimatePresence>
         {detailsRecord ? (
@@ -2407,14 +2459,19 @@ function homeCreateProjectMetadata(
   const kind = projectKind ?? existing?.kind ?? null;
   if (!kind) return existing;
 
-  // Artifact-specific settings (fidelity, speaker notes, slide count, …) are no
-  // longer collected in the home composer; the agent asks for them via
-  // question-form, so we only seed `kind` here and let those fields stay
-  // unset (the system prompt then marks them "unknown — ask").
   const next: ProjectMetadata = {
     ...(existing ?? {}),
     kind,
   };
+  if (kind === 'prototype') {
+    next.platform = next.platform ?? 'responsive';
+    next.platformTargets =
+      Array.isArray(next.platformTargets) && next.platformTargets.length > 0
+        ? next.platformTargets
+        : ['responsive'];
+    next.fidelity = next.fidelity ?? 'high-fidelity';
+    next.skipDiscoveryBrief = true;
+  }
   return next;
 }
 

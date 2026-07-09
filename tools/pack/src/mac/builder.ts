@@ -115,6 +115,7 @@ export async function runElectronBuilder(
     },
     extraResources: [
       { from: paths.resourceRoot, to: "nn.design" },
+      { from: macResources.iconPng, to: "nn.design/assets/app-icon.png" },
       { from: paths.packagedConfigPath, to: "nn.design-config.json" },
       // Vendored dom-to-pptx browser bundle for editable PPTX export. The desktop
       // main reads it from process.resourcesPath at runtime.

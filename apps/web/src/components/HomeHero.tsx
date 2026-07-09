@@ -85,7 +85,6 @@ import { ComposerPlusMenu, PLUS_SUBMENU_RESOURCE_KIND } from './ComposerPlusMenu
 import { ContextChipHoverCard } from './ContextChipHoverCard';
 import { workspaceContextDetailLine, workspaceContextKindLabel } from './workspace-context';
 import { FigmaHelpModal } from './FigmaHelpModal';
-import { TemplatePicker } from './home-hero/TemplatePicker';
 import { LibraryPicker } from './LibraryPicker';
 import { SessionModeToggle } from './SessionModeToggle';
 import { assetTitle } from './LibraryAssetMeta';
@@ -112,6 +111,9 @@ import {
 export interface HomeHeroSubmitHandler {
   (): void;
 }
+
+const HOME_TEMPLATE_START_VISIBLE = false;
+const HOME_EXAMPLE_PROMPTS_VISIBLE = false;
 
 // The homepage prompt input now shares the project composer's Lexical
 // editor, so the forwarded handle is a small focus surface rather than a
@@ -378,7 +380,7 @@ export const HomeHero = forwardRef<HomeHeroHandle, Props>(function HomeHero(
   // chip is pulsing, and whether the first example-prompt card is pulsing.
   const [guidePulseChipId, setGuidePulseChipId] = useState<string | null>(null);
   const [guidePulseFirstPreset, setGuidePulseFirstPreset] = useState(false);
-  // Selected second-level sub-category slug (Prototype / Slide deck rail).
+  // Selected second-level sub-category slug (web/mobile prototype rail).
   // Local-only: it filters the example-prompt cards below the rail. It never
   // binds a plugin or stamps an active badge.
   const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null);
@@ -651,19 +653,10 @@ export const HomeHero = forwardRef<HomeHeroHandle, Props>(function HomeHero(
       : null,
     [activeChipId],
   );
-  // Footer Template picker options: the ordered create-scenario chips (pure
-  // project-type templates — Slides / Prototype / Wireframe / Document / …).
-  // Excludes action chips (Brand Kit / Figma) that navigate away instead of
-  // seeding a template, so the dropdown matches the rail's template set.
-  const templateChips = useMemo(
-    () => orderedCreateChips().filter((chip) => chip.action.kind === 'apply-scenario'),
-    [],
-  );
   const activeExamplePlugins = useMemo(
-    () =>
-      activeChipId
-        ? homeHeroExamplePluginsForChip(activeChipId, pluginOptions, locale)
-        : [],
+    () => HOME_EXAMPLE_PROMPTS_VISIBLE && activeChipId
+      ? homeHeroExamplePluginsForChip(activeChipId, pluginOptions, locale)
+      : [],
     [activeChipId, locale, pluginOptions],
   );
   // Derive sub-category pills from the FULL install set so the rail mirrors the
@@ -672,19 +665,21 @@ export const HomeHero = forwardRef<HomeHeroHandle, Props>(function HomeHero(
   // that left the rail showing fewer types than Community; the empty case is
   // now handled by the full-catalog fallback in `filteredExamplePlugins`.)
   const activeSubChips = useMemo(
-    () => subChipsForChip(activeChipId, pluginOptions),
+    () => HOME_EXAMPLE_PROMPTS_VISIBLE
+      ? subChipsForChip(activeChipId, pluginOptions)
+      : [],
     [activeChipId, pluginOptions],
   );
   // When a sub-category pill is active, show the SAME set the Community section
   // shows for that sub-category — every matching plugin from the full install
   // set, in the same visual-appeal order — rather than the small curated
   // example showcase. This keeps the example-prompt count consistent with the
-  // Community count badge (e.g. Brand / design shows all 16, not just 1).
+  // Reference count badge.
   // Atoms are excluded to match Community's `visiblePlugins` derivation, and
   // `applyFacetSelection` is the exact filter Community uses — it requires the
-  // plugin's primary category to be this chip AND match the sub-category, so a
-  // deck/image plugin that merely carries a "brand" tag is not pulled in.
+  // plugin's primary category to be this chip AND match the sub-category.
   const filteredExamplePlugins = useMemo(() => {
+    if (!HOME_EXAMPLE_PROMPTS_VISIBLE) return [];
     if (!selectedSubcategory || !isSubChipParent(activeChipId)) return activeExamplePlugins;
     const pool = pluginOptions.filter((plugin) => plugin.manifest?.od?.kind !== 'atom');
     return sortByVisualAppeal(
@@ -715,7 +710,7 @@ export const HomeHero = forwardRef<HomeHeroHandle, Props>(function HomeHero(
   }, [firstRunGuide]);
 
   const activePromptExamples = useMemo(
-    () => activeChipId && activeExamplePlugins.length === 0
+    () => HOME_EXAMPLE_PROMPTS_VISIBLE && activeChipId && activeExamplePlugins.length === 0
       ? homeHeroChipPromptExamples(activeChipId, locale)
       : [],
     [activeChipId, activeExamplePlugins.length, locale],
@@ -1151,8 +1146,8 @@ export const HomeHero = forwardRef<HomeHeroHandle, Props>(function HomeHero(
     onPickExamplePlugin(record, chipId, promptText);
   }
 
-  // The task-type rail (原型 / 幻灯片 / HyperFrames / 视频 / …). Records which
-  // task type the user picked before delegating to the host's chip handler.
+  // The task-type rail records which web/mobile prototype path the user picked
+  // before delegating to the host's chip handler.
   function handlePickTaskChip(chip: HomeHeroChip) {
     trackHomeChatComposerClick(analytics.track, {
       page_name: 'home',
@@ -1163,7 +1158,7 @@ export const HomeHero = forwardRef<HomeHeroHandle, Props>(function HomeHero(
     // First chip pick completes the guide's first beat; the preset-card
     // pulse arms once the example cards for this chip render.
     if (readHomeGuideStage() === 'chip') {
-      writeHomeGuideStage('card');
+      writeHomeGuideStage(HOME_EXAMPLE_PROMPTS_VISIBLE ? 'card' : 'done');
       setGuidePulseChipId(null);
     }
     onPickChip(chip);
@@ -1209,9 +1204,11 @@ export const HomeHero = forwardRef<HomeHeroHandle, Props>(function HomeHero(
         <span className="home-hero__brand-name">Design For AIR</span>
       </div>
       <h1 className="home-hero__title">{t('homeHero.title')}</h1>
-      <p className="home-hero__subtitle">
-        {t('homeHero.subtitlePrefix')}
-      </p>
+      {t('homeHero.subtitlePrefix') ? (
+        <p className="home-hero__subtitle">
+          {t('homeHero.subtitlePrefix')}
+        </p>
+      ) : null}
 
       <div
         className={`home-hero__input-card${
@@ -1895,23 +1892,6 @@ export const HomeHero = forwardRef<HomeHeroHandle, Props>(function HomeHero(
             {figmaHelpOpen ? (
               <FigmaHelpModal onClose={() => setFigmaHelpOpen(false)} />
             ) : null}
-            <TemplatePicker
-              templates={templateChips}
-              activeChipId={activeChipId}
-              previewChipId={previewTemplateId}
-              disabled={pluginsLoading}
-              pickDisabled={pluginsLoading || pendingChipId !== null || pendingPluginId !== null}
-              labelFor={(id) => homeHeroChipLabel(id, t)}
-              descriptionFor={(id) => homeHeroChipDescription(id, t)}
-              onPick={handlePickTaskChip}
-              onClear={() => {
-                // Drop any lingering hover-preview too: when the rail card was
-                // hovered but the active chip is still null, clearing the chip
-                // alone is a no-op and the pill would stay on the preview.
-                setPreviewTemplateId(null);
-                onClearActiveChip();
-              }}
-            />
             {footerInputFields.length > 0 ? (
               <div className="home-hero__footer-options" data-testid="home-hero-footer-options">
                 {footerInputFields.map((field) => (
@@ -2009,7 +1989,7 @@ export const HomeHero = forwardRef<HomeHeroHandle, Props>(function HomeHero(
         </div>
       ) : null}
 
-      {activeCreateChip ? null : (
+      {HOME_TEMPLATE_START_VISIBLE && !activeCreateChip ? (
         <div className="home-hero__template-section" data-testid="home-hero-template-section">
           <div className="home-hero__template-heading">
             {t('homeHero.startWithTemplate')}
@@ -2051,7 +2031,7 @@ export const HomeHero = forwardRef<HomeHeroHandle, Props>(function HomeHero(
             </button>
           ) : null}
         </div>
-      )}
+      ) : null}
 
       {activeSubChips.length > 0 && isSubChipParent(activeChipId) ? (
         <SubTypeRow
@@ -3160,9 +3140,8 @@ function RailGroup({
   children,
 }: RailGroupProps) {
   const t = useT();
-  // The inline create rail leads with the slide deck and runs through the core
-  // build scenarios in a fixed order (see `orderedCreateChips`); every other
-  // group renders in catalog order.
+  // The inline create rail leads with web/mobile prototype paths in a fixed
+  // order (see `orderedCreateChips`); every other group renders in catalog order.
   const chips = useMemo(
     () => (group === 'create' ? orderedCreateChips() : chipsForGroup(group)),
     [group],
@@ -3542,11 +3521,7 @@ export function homeHeroExamplePluginsForChip(
   plugins: InstalledPluginRecord[],
   locale: Locale,
 ): InstalledPluginRecord[] {
-  // The top-level rail is a curated showcase capped at 18 for most chips. The
-  // deck chip is the exception: surface the FULL slide-template library so every
-  // bundled deck is reachable as an example prompt straight from "All" (without
-  // first picking a sub-category), keeping the rail in parity with the Community
-  // section's "Slides" count.
+  // The top-level rail is a curated showcase capped at 18 for most chips.
   const showcaseLimit = chipId === 'deck' ? Number.POSITIVE_INFINITY : 18;
   const presets = plugins
     .filter((plugin) => !EXAMPLE_PRESET_HIDDEN_PLUGIN_IDS.has(plugin.id))
@@ -3654,9 +3629,8 @@ export function pluginMatchesExampleChip(record: InstalledPluginRecord, chipId: 
     case 'video':
       return (has('video') || hasPart('video-template')) && !hasPart('hyperframes', 'audio');
     case 'audio':
-      // Exclude video / HyperFrames templates that merely carry an
-      // `audio-reactive` tag (substring-matched by hasPart('audio')): their
-      // home is the Video / HyperFrames chips, not the audio gallery.
+      // Exclude templates that merely carry an `audio-reactive` tag
+      // (substring-matched by hasPart('audio')).
       return (has('audio') || hasPart('audio')) && !hasPart('video', 'hyperframes');
     default:
       return false;
@@ -3841,32 +3815,32 @@ function pluginPresetArtifactLabel(chipId: string, kind: PromptLocaleKind): stri
   if (kind === 'zh') {
     switch (chipId) {
       case 'prototype': return '一个交互原型';
-      case 'deck': return '一套 PPT slide';
-      case 'image': return '一张图片';
-      case 'video': return '一段视频';
-      case 'hyperframes': return '一段 HyperFrames 动效视频';
-      case 'audio': return '一段音频';
+      case 'deck':
+      case 'image':
+      case 'hyperframes': return '一个网页原型';
+      case 'video':
+      case 'audio': return '一个移动端原型';
       default: return '一个设计产物';
     }
   }
   if (kind === 'ja') {
     switch (chipId) {
       case 'prototype': return 'インタラクティブなプロトタイプ';
-      case 'deck': return 'PPT スライド';
-      case 'image': return '画像';
-      case 'video': return '動画';
-      case 'hyperframes': return 'HyperFrames のモーション動画';
-      case 'audio': return 'オーディオ';
+      case 'deck':
+      case 'image':
+      case 'hyperframes': return 'Web プロトタイプ';
+      case 'video':
+      case 'audio': return 'モバイルプロトタイプ';
       default: return 'デザイン成果物';
     }
   }
   switch (chipId) {
     case 'prototype': return 'interactive prototype';
-    case 'deck': return 'PPT slide deck';
-    case 'image': return 'image';
-    case 'video': return 'video';
-    case 'hyperframes': return 'HyperFrames motion video';
-    case 'audio': return 'audio clip';
+    case 'deck':
+    case 'image':
+    case 'hyperframes': return 'web prototype';
+    case 'video':
+    case 'audio': return 'mobile prototype';
     default: return 'design artifact';
   }
 }
@@ -3897,15 +3871,15 @@ const HOME_PROMPT_EXAMPLES: Record<Locale, Record<string, string[]>> = {
   "en": {
     prototype: [
       "Design a high-converting website for an AI CRM with a clear hero, feature story, proof points, and trial CTA",
-      "Create a desktop dashboard for a team knowledge base with search, recent updates, permissions, and collaboration entry points",
+      "Create a responsive web prototype for a team knowledge base with search, recent updates, permissions, and collaboration entry points",
       "Redesign onboarding for a financial SaaS product so new users can connect data, finish setup, and see first value fast",
       "Prototype a mobile fitness coaching app covering goal setup, weekly plans, workout check-ins, and progress review",
     ],
     wireframe: [
-      "Wireframe a SaaS dashboard with navigation, key metrics, a data table, and an empty state",
-      "Sketch the lo-fi flow for a checkout: cart, shipping, payment, and confirmation screens",
-      "Lay out a content management screen with list, detail, and edit states in greybox fidelity",
-      "Wireframe an onboarding wizard covering account, workspace, invite, and first-run steps",
+      "Draft a low-fidelity web prototype for a SaaS product with navigation, key metrics, a data table, and an empty state",
+      "Sketch a web checkout prototype: cart, shipping, payment, and confirmation screens",
+      "Lay out a mobile content management prototype with list, detail, and edit states",
+      "Draft a web onboarding prototype covering account, workspace, invite, and first-run steps",
     ],
     mobile: [
       "Design a mobile banking app with home balance, transactions, transfer, and card management screens",
@@ -3920,34 +3894,34 @@ const HOME_PROMPT_EXAMPLES: Record<Locale, Record<string, string[]>> = {
       "Generate a tidy meeting brief with agenda, decisions, owners, and next steps",
     ],
     deck: [
-      "Research the market opportunity for a product launch, including competitors, target users, pricing hypotheses, and launch narrative",
-      "Generate a weekly team status report with progress, risks, metric changes, and next-week priorities",
-      "Design an investor pitch with market sizing, growth model, product advantage, and three-year forecast data",
-      "Create a strategic business review deck covering quarterly performance, root causes, opportunities, and next actions",
+      "Turn a product launch narrative into a responsive web prototype for executive review",
+      "Create a web prototype that summarizes team progress, risks, metric changes, and next-week priorities",
+      "Design an investor-facing mobile prototype that explains market sizing, growth model, and product advantage",
+      "Create a strategic review web prototype covering performance, root causes, opportunities, and next actions",
     ],
     image: [
-      "Generate a glassmorphism AI workspace poster with multi-screen collaboration, soft lighting, and a premium launch mood",
-      "Create an ecommerce hero image for new wireless headphones that highlights material detail, lifestyle context, and core benefits",
-      "Design a minimalist tech launch key visual with a clean composition, strong product focus, and restrained launch copy",
-      "Make a social teaser set for a product drop, including countdown, close-up detail, benefit reveal, and launch-day visual",
+      "Create a web prototype hero for an AI workspace with multi-screen collaboration, soft lighting, and a premium launch mood",
+      "Create an ecommerce web prototype for new wireless headphones that highlights material detail, lifestyle context, and core benefits",
+      "Design a minimalist product launch web prototype with clean composition, strong product focus, and restrained copy",
+      "Make a mobile prototype for a product drop with countdown, detail reveal, benefits, and launch-day CTA",
     ],
     video: [
-      "Make an 8-second product reveal film that moves from silhouette to close-up detail and ends on the brand mark",
-      "Generate an app feature demo video that follows the user journey, key states, and final outcome",
-      "Create a vertical brand opener with rhythmic typography, product close-ups, and a clean logo ending for short-form video",
-      "Turn a website into a 15-second social ad by extracting the hero claim, interaction highlights, and a clear CTA",
+      "Make a mobile prototype for a product reveal flow from teaser to detail page and final CTA",
+      "Generate a mobile app feature prototype that follows the user journey, key states, and final outcome",
+      "Create a mobile prototype opener with typography, product details, and a clear brand ending",
+      "Turn a website into a web and mobile prototype by extracting the hero claim, interaction highlights, and a clear CTA",
     ],
     hyperframes: [
-      "Build a captioned product launch short with title cards, feature shots, rhythmic transitions, and an ending CTA",
-      "Generate an audio-reactive data visualization where bars, particles, and titles respond to narration beats",
-      "Create a 3-second logo outro using line convergence, subtle elasticity, and the brand color system",
-      "Make an animated flight-route map showing city nodes, route growth, mileage data, and a final summary frame",
+      "Build a web prototype for a product launch with title section, feature highlights, transitions, and ending CTA",
+      "Generate a mobile prototype for a data insight flow with metric states, interaction feedback, and summary",
+      "Create a web prototype intro using line convergence, subtle elasticity, and the brand color system",
+      "Make a web prototype for a route map flow showing city nodes, route growth, mileage data, and a final summary screen",
     ],
     audio: [
-      "Generate a product startup sound that feels light, trustworthy, slightly futuristic, and suitable for a desktop app launch",
-      "Create a 20-second podcast intro bed with a warm opening, clear pulse, and a clean handoff into voiceover",
-      "Make a seamless ambient loop for a meditation app using soft nature textures, low-frequency warmth, and calm pacing",
-      "Generate a branded notification sound set for success, reminder, and error states while keeping one sonic identity",
+      "Create a mobile prototype for first-run launch states that feels light, trustworthy, and slightly futuristic",
+      "Create a mobile prototype for an onboarding flow with warm opening, clear progress, and a clean handoff to the main screen",
+      "Make a mobile prototype for a meditation app using calm pacing, session setup, and completion states",
+      "Generate a mobile prototype notification flow for success, reminder, and error states while keeping one product identity",
     ],
   },
   "id": {
@@ -3991,7 +3965,7 @@ const HOME_PROMPT_EXAMPLES: Record<Locale, Record<string, string[]>> = {
   "de": {
     prototype: [
       "Entwirf eine konversionsstarke Website für ein AI CRM mit klarer Hero-Sektion, Feature-Story, Belegen und Trial-CTA",
-      "Erstelle ein Desktop-Dashboard für eine Team-Wissensdatenbank mit Suche, aktuellen Updates, Berechtigungen und Einstiegspunkten für die Zusammenarbeit",
+      "Erstelle einen responsiven Web-Prototyp für eine Team-Wissensdatenbank mit Suche, aktuellen Updates, Berechtigungen und Einstiegspunkten für die Zusammenarbeit",
       "Gestalte das Onboarding für ein Finanz-SaaS-Produkt neu, damit neue Nutzer Daten verbinden, die Einrichtung abschließen und schnell den ersten Mehrwert erleben",
       "Prototype eine mobile Fitness-Coaching-App mit Zielsetzung, Wochenplänen, Workout-Check-ins und Fortschrittsübersicht",
     ],
@@ -4333,39 +4307,39 @@ const HOME_PROMPT_EXAMPLES: Record<Locale, Record<string, string[]>> = {
   "ko": {
     prototype: [
       "명확한 히어로, 기능 스토리, 신뢰 지표, 체험판 CTA를 갖춘 AI CRM용 고전환 website를 디자인해 줘",
-      "검색, 최근 업데이트, 권한 관리, 협업 진입점을 담은 팀 지식 베이스용 데스크톱 대시보드를 만들어 줘",
+      "검색, 최근 업데이트, 권한 관리, 협업 진입점을 담은 팀 지식 베이스용 반응형 웹 프로토타입을 만들어 줘",
       "신규 사용자가 데이터를 연결하고 설정을 마쳐 첫 가치를 빠르게 체감하도록 금융 SaaS 제품의 온보딩을 새로 디자인해 줘",
       "목표 설정, 주간 플랜, 운동 체크인, 진행 상황 리뷰를 아우르는 모바일 피트니스 코칭 app을 프로토타입으로 만들어 줘",
     ],
     deck: [
-      "경쟁사, 타깃 사용자, 가격 가설, 출시 내러티브를 포함해 제품 출시의 시장 기회를 리서치해 줘",
-      "진행 상황, 리스크, 지표 변화, 다음 주 우선순위를 담은 주간 팀 현황 보고서를 만들어 줘",
-      "시장 규모, 성장 모델, 제품 경쟁력, 3년 전망 데이터를 담은 투자자 피치를 디자인해 줘",
-      "분기 실적, 근본 원인, 기회 요소, 다음 액션을 다루는 전략 비즈니스 리뷰 deck을 만들어 줘",
+      "경쟁사, 타깃 사용자, 가격 가설, 출시 내러티브를 포함한 제품 출시 웹 프로토타입을 만들어 줘",
+      "진행 상황, 리스크, 지표 변화, 다음 주 우선순위를 보여주는 웹 프로토타입을 만들어 줘",
+      "시장 규모, 성장 모델, 제품 경쟁력을 설명하는 투자자용 모바일 프로토타입을 디자인해 줘",
+      "분기 실적, 근본 원인, 기회 요소, 다음 액션을 다루는 전략 리뷰 웹 프로토타입을 만들어 줘",
     ],
     image: [
-      "멀티 스크린 협업, 부드러운 조명, 프리미엄한 출시 무드를 담은 글래스모피즘 AI 워크스페이스 포스터를 생성해 줘",
-      "소재 디테일, 라이프스타일 맥락, 핵심 혜택을 강조하는 신규 무선 헤드폰 이커머스 히어로 이미지를 만들어 줘",
-      "깔끔한 구성, 강한 제품 집중도, 절제된 카피를 살린 미니멀 테크 출시 키 비주얼을 디자인해 줘",
-      "카운트다운, 클로즈업 디테일, 혜택 공개, 출시 당일 비주얼을 담은 제품 출시 소셜 티저 세트를 만들어 줘",
+      "멀티 스크린 협업, 부드러운 조명, 프리미엄한 출시 무드를 담은 AI 워크스페이스 웹 프로토타입을 만들어 줘",
+      "소재 디테일, 라이프스타일 맥락, 핵심 혜택을 강조하는 신규 무선 헤드폰 이커머스 웹 프로토타입을 만들어 줘",
+      "깔끔한 구성, 강한 제품 집중도, 절제된 카피를 살린 미니멀 테크 출시 웹 프로토타입을 디자인해 줘",
+      "카운트다운, 디테일 공개, 혜택, 출시 CTA를 담은 제품 출시 모바일 프로토타입을 만들어 줘",
     ],
     video: [
-      "실루엣에서 클로즈업 디테일로 이어지다 브랜드 마크로 마무리되는 8초 제품 공개 영상을 만들어 줘",
-      "사용자 여정, 핵심 상태, 최종 결과를 따라가는 app 기능 데모 영상을 생성해 줘",
-      "리듬감 있는 타이포그래피, 제품 클로즈업, 깔끔한 logo 엔딩을 담은 숏폼용 세로형 브랜드 오프너를 만들어 줘",
-      "히어로 메시지, 인터랙션 하이라이트, 명확한 CTA를 뽑아 website를 15초 소셜 광고로 만들어 줘",
+      "티저에서 상세 화면과 CTA로 이어지는 제품 공개 모바일 프로토타입을 만들어 줘",
+      "사용자 여정, 핵심 상태, 최종 결과를 따라가는 app 기능 모바일 프로토타입을 생성해 줘",
+      "리듬감 있는 타이포그래피, 제품 상세, 깔끔한 브랜드 마무리를 담은 모바일 프로토타입을 만들어 줘",
+      "히어로 메시지, 인터랙션 하이라이트, 명확한 CTA를 뽑아 website를 웹과 모바일 프로토타입으로 만들어 줘",
     ],
     hyperframes: [
-      "타이틀 카드, 기능 컷, 리듬감 있는 트랜지션, 엔딩 CTA를 담은 자막형 제품 출시 숏폼을 만들어 줘",
-      "막대, 파티클, 타이틀이 내레이션 비트에 반응하는 오디오 반응형 데이터 시각화를 생성해 줘",
-      "라인 수렴, 은은한 탄성, 브랜드 컬러 시스템을 활용한 3초 logo 아웃트로를 만들어 줘",
-      "도시 노드, 노선 성장, 마일리지 데이터, 최종 요약 프레임을 보여주는 비행 경로 애니메이션 지도를 만들어 줘",
+      "타이틀 영역, 기능 하이라이트, 전환, 엔딩 CTA를 담은 제품 출시 웹 프로토타입을 만들어 줘",
+      "핵심 지표, 상태 변화, 요약 화면을 포함한 데이터 인사이트 모바일 프로토타입을 만들어 줘",
+      "라인 수렴, 은은한 탄성, 브랜드 컬러 시스템을 활용한 웹 프로토타입 인트로를 만들어 줘",
+      "도시 노드, 노선 성장, 마일리지 데이터, 최종 요약 화면을 보여주는 경로 맵 웹 프로토타입을 만들어 줘",
     ],
     audio: [
-      "가볍고 신뢰감 있으며 살짝 미래적인, 데스크톱 app 출시에 어울리는 제품 시작음을 생성해 줘",
-      "따뜻한 도입부, 또렷한 펄스, 보이스오버로 매끄럽게 이어지는 20초 팟캐스트 인트로 베드를 만들어 줘",
-      "부드러운 자연음 텍스처, 저주파의 따스함, 차분한 페이싱을 활용한 명상 app용 끊김 없는 앰비언트 루프를 만들어 줘",
-      "하나의 사운드 아이덴티티를 유지하면서 성공, 알림, 오류 상태를 위한 브랜드 알림음 세트를 생성해 줘",
+      "가볍고 신뢰감 있으며 살짝 미래적인 첫 실행 상태를 담은 모바일 프로토타입을 만들어 줘",
+      "따뜻한 시작, 명확한 진행 상태, 메인 화면 진입을 담은 모바일 온보딩 프로토타입을 만들어 줘",
+      "차분한 페이싱, 세션 설정, 완료 상태를 포함한 명상 app 모바일 프로토타입을 만들어 줘",
+      "성공, 알림, 오류 상태를 하나의 제품 경험으로 묶은 모바일 프로토타입 플로우를 만들어 줘",
     ],
   },
   "pl": {
@@ -4638,11 +4612,7 @@ const HOME_PROMPT_EXAMPLES: Record<Locale, Record<string, string[]>> = {
 
 export const HOME_PROMPT_EXAMPLE_CHIP_IDS = [
   'prototype',
-  'deck',
-  'image',
-  'video',
-  'hyperframes',
-  'audio',
+  'mobile',
 ] as const;
 
 // Every supported locale must resolve its own localized example prompts; a
@@ -4662,21 +4632,17 @@ function briefForChipId(chipId: string): Record<string, string> {
     case 'prototype':
       return { artifact_type: 'web prototype', audience: 'product evaluators', fidelity: 'high-fidelity' };
     case 'wireframe':
-      return { artifact_type: 'lo-fi wireframe', audience: 'product team', fidelity: 'wireframe' };
+      return { artifact_type: 'web prototype', audience: 'product team', fidelity: 'low-fidelity' };
     case 'mobile':
       return { artifact_type: 'mobile app prototype', audience: 'product evaluators', platform: 'iOS & Android' };
     case 'document':
-      return { artifact_type: 'document (resume / report / PDF)', audience: 'readers' };
     case 'deck':
-      return { artifact_type: 'pitch deck / presentation', audience: 'decision makers', slide_count: '10-15 pages' };
     case 'image':
-      return { artifact_type: 'image', style: 'cinematic, high-quality, on-brand' };
-    case 'video':
-      return { artifact_type: 'video', style: 'cinematic, high-quality, on-brand' };
     case 'hyperframes':
-      return { artifact_type: 'motion graphic / animated sequence', style: 'cinematic, polished transitions' };
+      return { artifact_type: 'web prototype', audience: 'product evaluators', fidelity: 'high-fidelity' };
+    case 'video':
     case 'audio':
-      return { artifact_type: 'audio', style: 'professional, polished, brand-appropriate' };
+      return { artifact_type: 'mobile prototype', audience: 'product evaluators', platform: 'iOS & Android' };
     default:
       return { artifact_type: chipId };
   }

@@ -598,7 +598,7 @@ function renderInline(text: string, options?: RenderMarkdownOptions): ReactNode 
             alt={alt}
             loading="lazy"
             referrerPolicy="no-referrer"
-            style={{ maxWidth: '100%', height: 'auto', borderRadius: 6 }}
+            style={{ maxWidth: '100%', height: 'auto', borderRadius: 'var(--radius)' }}
           />,
         );
       } else {

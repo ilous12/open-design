@@ -1,0 +1,11 @@
+@theme {
+  --color-air-black: #0a0f0f;
+  --color-air-blue: #2a60f5;
+  --color-air-pale-100: #eff5ff;
+  --color-air-pale-200: #e1ebff;
+  --color-air-pale-300: #ceddff;
+  --color-air-gray-700: #68748c;
+  --font-sans: 'Pretend', 'Pretendard', 'Pretendard Variable', 'Noto Sans KR', system-ui, sans-serif;
+  --radius-air-box: 64px;
+  --shadow-air-box: -4px -4px 22px #92acdb inset, -4px -4px 22px #ffffff inset, 2px 2px 9px #ffffff inset, 42px 42px 70px rgba(204, 216, 238, 0.6);
+}

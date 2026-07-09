@@ -149,7 +149,7 @@
 .settings-skills .skills-row > .skills-draft {
   border: none;
   border-top: 1px dashed var(--border);
-  border-radius: 0 0 10px 10px;
+  border-radius: 0 0 var(--radius) var(--radius);
   margin: 0;
   background: transparent;
 }
@@ -191,7 +191,7 @@
   padding: 10px 12px;
 
   border: none;
-  border-radius: calc(var(--radius) - 2px);
+  border-radius: var(--radius);
 
   background: transparent;
   font-size: 12px;
@@ -258,7 +258,7 @@
 	padding: 14px;
 
 	border: 1px solid var(--border);
-	border-radius: calc(var(--radius) - 4px);
+	border-radius: var(--radius);
 
 	background:
 		linear-gradient(

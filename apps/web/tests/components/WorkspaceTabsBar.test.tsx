@@ -130,9 +130,9 @@ describe('WorkspaceTabsBar navigation semantics', () => {
 
     expect(screen.getAllByRole('tab')).toHaveLength(1);
 
-    // Clicking 'New tab' when a Home tab already exists should activate the existing Home tab
-    fireEvent.click(screen.getByRole('button', { name: 'New tab' }));
-    fireEvent.click(screen.getByRole('button', { name: 'New tab' }));
+    // Clicking '새 탭' when a Home tab already exists should activate the existing Home tab
+    fireEvent.click(screen.getByRole('button', { name: '새 탭' }));
+    fireEvent.click(screen.getByRole('button', { name: '새 탭' }));
 
     await waitFor(() => {
       const labels = screen.getAllByRole('tab').map((tab) => tab.textContent ?? '');
@@ -237,15 +237,15 @@ describe('WorkspaceTabsBar navigation semantics', () => {
     });
   });
 
-  it('closes the Search tabs popover when the route flips to onboarding', async () => {
+  it('closes the tab search popover when the route flips to onboarding', async () => {
     const { rerender } = render(
       <WorkspaceTabsBar route={{ kind: 'home', view: 'home' }} projects={[project]} />,
     );
 
     // Open the Search-tabs popover from the (non-onboarding) home view.
-    fireEvent.click(screen.getByRole('button', { name: 'Search tabs' }));
+    fireEvent.click(screen.getByRole('button', { name: '탭 검색' }));
     await waitFor(() => {
-      expect(screen.getByRole('dialog', { name: 'Search tabs' })).toBeTruthy();
+      expect(screen.getByRole('dialog', { name: '탭 검색' })).toBeTruthy();
     });
 
     // Onboarding hides the trigger button; the already-open popover must not
@@ -257,9 +257,9 @@ describe('WorkspaceTabsBar navigation semantics', () => {
     );
 
     await waitFor(() => {
-      expect(screen.queryByRole('dialog', { name: 'Search tabs' })).toBeNull();
+      expect(screen.queryByRole('dialog', { name: '탭 검색' })).toBeNull();
     });
-    expect(screen.queryByRole('button', { name: 'Search tabs' })).toBeNull();
+    expect(screen.queryByRole('button', { name: '탭 검색' })).toBeNull();
   });
 
   it('collapses every entry section into the single leftmost tab (no new tab per section)', async () => {
@@ -639,16 +639,16 @@ describe('WorkspaceTabsBar navigation semantics', () => {
 
     render(<WorkspaceTabsBar route={{ kind: 'home', view: 'home' }} projects={[project]} />);
 
-    fireEvent.click(screen.getByRole('button', { name: 'Search tabs' }));
+    fireEvent.click(screen.getByRole('button', { name: '탭 검색' }));
 
     await waitFor(() => {
-      expect(screen.getByRole('dialog', { name: 'Search tabs' })).toBeTruthy();
+      expect(screen.getByRole('dialog', { name: '탭 검색' })).toBeTruthy();
     });
 
     fireEvent.mouseDown(outsideArea);
 
     await waitFor(() => {
-      expect(screen.queryByRole('dialog', { name: 'Search tabs' })).toBeNull();
+      expect(screen.queryByRole('dialog', { name: '탭 검색' })).toBeNull();
     });
   });
 

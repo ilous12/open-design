@@ -117,7 +117,7 @@ describe('AssistantMessage feedback gate', () => {
     expect(onForkFromMessage).toHaveBeenCalledTimes(1);
   });
 
-  it('reaches Contribute (share to Design For AIR) through the More -> Share cascade', () => {
+  it('does not expose Contribute through the More -> Share cascade', () => {
     const onShare = vi.fn();
 
     render(
@@ -131,14 +131,17 @@ describe('AssistantMessage feedback gate', () => {
       />,
     );
 
-    // Contribute lives behind the next-step card's More -> Share flyout; the busy
-    // guard in NextStepActions (and the menu closing on click) prevent a second
-    // submit, replacing the old always-visible disabled button.
-    fireEvent.mouseEnter(screen.getByTestId('next-step-toolbox-more'));
-    fireEvent.mouseEnter(screen.getByTestId('next-step-more-share'));
-    fireEvent.click(screen.getByTestId('next-step-share-contribute'));
+    const more = screen.queryByTestId('next-step-toolbox-more');
+    if (more) {
+      fireEvent.mouseEnter(more);
+    }
+    const shareEntry = screen.queryByTestId('next-step-more-share');
+    if (shareEntry) {
+      fireEvent.mouseEnter(shareEntry);
+    }
 
-    expect(onShare).toHaveBeenCalledTimes(1);
+    expect(screen.queryByTestId('next-step-share-contribute')).toBeNull();
+    expect(onShare).not.toHaveBeenCalled();
   });
 
   it('does not show the fork action while the assistant is streaming', () => {

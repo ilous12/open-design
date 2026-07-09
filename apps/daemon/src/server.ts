@@ -296,12 +296,8 @@ import { createRunRegistry } from './critique/run-registry.js';
 import { handleCritiqueInterrupt } from './critique/interrupt-handler.js';
 import { handleCritiqueArtifact } from './critique/artifact-handler.js';
 import {
-  isCritiqueEnabled,
-  parseEnvEnabled,
-  parseRolloutPhase,
   type SkillCritiquePolicy,
 } from './critique/rollout.js';
-import { narrowProjectCritiqueOverride } from './critique/spawn-inputs.js';
 import { createCopilotStreamHandler } from './copilot-stream.js';
 import { createJsonEventStreamHandler } from './runtimes/json-event-stream.js';
 import {
@@ -654,6 +650,21 @@ const DAEMON_RESOURCE_ROOT = resolveDaemonResourceRoot({
 // when this project shipped with Vite; the daemon serves whatever the
 // frontend toolchain emits, no further config needed.
 const STATIC_DIR = path.join(PROJECT_ROOT, 'apps', 'web', 'out');
+const REFERENCE_REMIX_DIRS = Array.from(new Set([
+  path.join(PROJECT_ROOT, 'apps', 'web', 'public', 'reference-remix'),
+  path.join(STATIC_DIR, 'reference-remix'),
+  resolveDaemonResourceDir(
+    DAEMON_RESOURCE_ROOT,
+    path.join('apps', 'web', 'public', 'reference-remix'),
+    path.join(PROJECT_ROOT, 'apps', 'web', 'public', 'reference-remix'),
+  ),
+])).filter((dir) => {
+  try {
+    return fs.existsSync(dir);
+  } catch {
+    return false;
+  }
+});
 // Baked plugin preview clips (scripts/bake-plugin-previews.mjs). Served at
 // PLUGIN_PREVIEWS_ROUTE; their manifest rewrites html plugins' previews to a
 // cheap poster + hover-play video in the home gallery.
@@ -2082,8 +2093,30 @@ export function daemonAgentPayloadToPersistedAgentEvent(data) {
     const usage = data.usage && typeof data.usage === 'object' ? data.usage : {};
     return {
       kind: 'usage',
-      inputTokens: usage.input_tokens,
-      outputTokens: usage.output_tokens,
+      ...(finiteUsageNumber(usage.input_tokens ?? usage.inputTokens ?? usage.prompt_tokens)
+        !== undefined
+        ? { inputTokens: finiteUsageNumber(usage.input_tokens ?? usage.inputTokens ?? usage.prompt_tokens) }
+        : {}),
+      ...(finiteUsageNumber(usage.output_tokens ?? usage.outputTokens ?? usage.completion_tokens)
+        !== undefined
+        ? { outputTokens: finiteUsageNumber(usage.output_tokens ?? usage.outputTokens ?? usage.completion_tokens) }
+        : {}),
+      ...(finiteUsageNumber(usage.thought_tokens ?? usage.thoughtTokens ?? usage.reasoning_output_tokens ?? usage.reasoningOutputTokens)
+        !== undefined
+        ? { thoughtTokens: finiteUsageNumber(usage.thought_tokens ?? usage.thoughtTokens ?? usage.reasoning_output_tokens ?? usage.reasoningOutputTokens) }
+        : {}),
+      ...(finiteUsageNumber(usage.total_tokens ?? usage.totalTokens)
+        !== undefined
+        ? { totalTokens: finiteUsageNumber(usage.total_tokens ?? usage.totalTokens) }
+        : {}),
+      ...(finiteUsageNumber(usage.cached_read_tokens ?? usage.cached_input_tokens ?? usage.cache_read_input_tokens)
+        !== undefined
+        ? { cachedReadTokens: finiteUsageNumber(usage.cached_read_tokens ?? usage.cached_input_tokens ?? usage.cache_read_input_tokens) }
+        : {}),
+      ...(finiteUsageNumber(usage.cached_write_tokens ?? usage.cache_creation_input_tokens ?? usage.cache_write_input_tokens)
+        !== undefined
+        ? { cachedWriteTokens: finiteUsageNumber(usage.cached_write_tokens ?? usage.cache_creation_input_tokens ?? usage.cache_write_input_tokens) }
+        : {}),
       ...(typeof data.costUsd === 'number' ? { costUsd: data.costUsd } : {}),
       ...(typeof data.durationMs === 'number' ? { durationMs: data.durationMs } : {}),
     };
@@ -2131,6 +2164,10 @@ export function daemonAgentPayloadToPersistedAgentEvent(data) {
   }
   if (type === 'raw' && typeof data.line === 'string') return { kind: 'raw', line: data.line };
   return null;
+}
+
+function finiteUsageNumber(value) {
+  return typeof value === 'number' && Number.isFinite(value) ? value : undefined;
 }
 
 function normalizePersistedToolInput(input) {
@@ -4653,7 +4690,7 @@ export async function startServer({
 
   registerPluginRoutes(app, {
     db,
-    paths: { PROJECTS_DIR, PLUGIN_REGISTRY_ROOTS, PLUGIN_LOCKFILE_PATH },
+    paths: { PROJECTS_DIR, PLUGIN_REGISTRY_ROOTS, PLUGIN_LOCKFILE_PATH, REFERENCE_REMIX_DIRS },
     ids: idDeps,
     projectStore: projectStoreDeps,
     conversations: conversationDeps,
@@ -5113,19 +5150,10 @@ export async function startServer({
     // Both inputs collapse to `null` when the skill / project has
     // not expressed an opinion, which is the resolver's "fall through
     // to env / phase default" signal.
-    // Per-project override: the M1 Settings toggle writes
-    // `critiqueTheaterEnabled` onto the project's metadata blob via
-    // the existing settings round-trip. A boolean wins outright; any
-    // other type (missing key, malformed value) collapses to `null`
-    // so the resolver falls through to the env / phase tiers exactly
-    // the way it did when the toggle had never been touched.
-    const projectCritiqueOverride = narrowProjectCritiqueOverride(metadata);
-    const critiqueEnabledForRun = isCritiqueEnabled({
-      phase: parseRolloutPhase(process.env.OD_CRITIQUE_ROLLOUT_PHASE),
-      skillPolicy: skillCritiquePolicy,
-      projectOverride: projectCritiqueOverride,
-      envOverride: parseEnvEnabled(process.env.OD_CRITIQUE_ENABLED),
-    });
+    // Design jury is product-disabled for Design For AIR. Keep this gate
+    // hard-off so env vars, skill policy, or stale project metadata cannot
+    // route a run through the critique orchestrator.
+    const critiqueEnabledForRun = false;
     const critiqueBrand = critiqueEnabledForRun
       && typeof designSystemTitle === 'string'
       && typeof designSystemBody === 'string'

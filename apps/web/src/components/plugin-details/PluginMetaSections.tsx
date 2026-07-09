@@ -497,31 +497,7 @@ export function PluginMetaSections({ record, omit, compact, heading, variant = '
         </Section>
       ) : null}
 
-      <Section
-        title={label('source')}
-        action={
-          links.contributeUrl ? (
-            <a
-              className="plugin-details-modal__chip-btn"
-              href={links.contributeUrl}
-              target="_blank"
-              rel="noreferrer"
-              data-testid="plugin-details-contribute"
-              title={
-                links.contributeOnGithub
-                  ? label('openIssueOnGithub')
-                  : label('openContributePage')
-              }
-            >
-              <Icon
-                name={links.contributeOnGithub ? 'github' : 'external-link'}
-                size={12}
-              />
-              {label('contribute')}
-            </a>
-          ) : undefined
-        }
-      >
+      <Section title={label('source')}>
         <dl className="plugin-details-modal__source">
           <div>
             <dt>{label('origin')}</dt>

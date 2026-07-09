@@ -483,7 +483,8 @@ test('detectAgents includes sanitized install and docs metadata from split runti
 
       assert.ok(amr);
       assert.equal(amr.available, false);
-      assert.equal(amr.installUrl, 'https://open-design.ai/amr');
+      assert.equal(amr.installUrl, undefined);
+      assert.equal(amr.docsUrl, undefined);
       assert.ok(qoder);
       assert.equal(qoder.available, false);
       assert.equal(qoder.installUrl, 'https://qoder.com/download');

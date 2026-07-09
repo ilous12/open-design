@@ -67,6 +67,17 @@ describe('composeSystemPrompt — API mode (#313)', () => {
   });
 
   describe('API mode (streamFormat: plain)', () => {
+    it('keeps Korean as the default language in plain API mode', () => {
+      const prompt = composeSystemPrompt({ streamFormat: 'plain' });
+      const koreanIdx = prompt.indexOf('# Korean-first default language');
+      const apiIdx = prompt.search(/API mode — no tools available/i);
+
+      expect(koreanIdx).toBeGreaterThanOrEqual(0);
+      expect(apiIdx).toBeGreaterThanOrEqual(0);
+      expect(koreanIdx).toBeLessThan(apiIdx);
+      expect(prompt).toContain('must be written in Korean');
+    });
+
     it('injects the API-mode override section', () => {
       const prompt = composeSystemPrompt({ streamFormat: 'plain' });
       expect(prompt).toMatch(/API mode — no tools available/i);

@@ -79,7 +79,7 @@
 .theater-score-tick {
   width: 6px;
   background: color-mix(in srgb, var(--accent) 35%, transparent);
-  border-radius: 2px;
+  border-radius: var(--radius);
 }
 .theater-score-tick[data-meets-threshold="true"] {
   background: var(--accent);

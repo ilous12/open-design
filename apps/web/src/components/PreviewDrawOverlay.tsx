@@ -893,7 +893,7 @@ export function PreviewDrawOverlay({
                 overflowX: 'auto',
                 padding: '6px 8px',
                 background: 'rgba(20,20,20,0.92)',
-                borderRadius: 12,
+                borderRadius: 'var(--radius)',
                 boxShadow: '0 6px 24px rgba(0,0,0,0.18)',
                 backdropFilter: 'blur(8px)',
                 zIndex: 90,
@@ -915,7 +915,7 @@ export function PreviewDrawOverlay({
                       height: 44,
                       padding: 0,
                       border: '1px solid rgba(255,255,255,0.22)',
-                      borderRadius: 8,
+                      borderRadius: 'var(--radius)',
                       overflow: 'hidden',
                       background: 'rgba(255,255,255,0.08)',
                       cursor: sending ? 'wait' : 'zoom-in',
@@ -973,7 +973,7 @@ export function PreviewDrawOverlay({
               padding: '6px 8px',
               background: 'rgba(20,20,20,0.92)',
               color: '#fff',
-              borderRadius: 24,
+              borderRadius: 'var(--radius)',
               boxShadow: '0 6px 24px rgba(0,0,0,0.18)',
               backdropFilter: 'blur(8px)',
               zIndex: 91,
@@ -1230,7 +1230,7 @@ const tooltipStyle = `
     bottom: calc(100% + 8px);
     transform: translateX(-50%) translateY(2px);
     padding: 4px 7px;
-    border-radius: 6px;
+    border-radius: var(--radius);
     background: rgba(20,20,20,0.94);
     color: #fff;
     font-size: 11px;
@@ -1401,7 +1401,7 @@ const submitMenuStyle: CSSProperties = {
   bottom: 'calc(100% + 8px)',
   minWidth: 184,
   padding: 4,
-  borderRadius: 12,
+  borderRadius: 'var(--radius)',
   background: 'rgba(20,20,20,0.98)',
   border: '1px solid rgba(255,255,255,0.10)',
   boxShadow: '0 10px 30px rgba(0,0,0,0.32)',
@@ -1418,7 +1418,7 @@ function submitMenuItemStyle(active: boolean, enabled: boolean): CSSProperties {
     gap: 8,
     width: '100%',
     padding: '7px 9px',
-    borderRadius: 8,
+    borderRadius: 'var(--radius)',
     border: 'none',
     background: active ? 'rgba(255,255,255,0.14)' : 'transparent',
     color: '#fff',

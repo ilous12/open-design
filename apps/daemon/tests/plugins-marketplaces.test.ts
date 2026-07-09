@@ -6,7 +6,7 @@
 // will read against.
 
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { mkdtemp, readFile, rm } from 'node:fs/promises';
+import { mkdtemp, readFile, readdir, rm } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import Database from 'better-sqlite3';
@@ -297,7 +297,7 @@ describe('marketplaces', () => {
     expect(resolved?.marketplaceId).toBe('community');
     expect(resolved?.marketplaceTrust).toBe('restricted');
     expect(resolved?.source).toMatch(
-      /^github:nexu-io\/open-design(?:@[^/]+)?\/plugins\/community\/registry-starter$/,
+      /^github:ilous12\/nn\.design(?:@[^/]+)?\/plugins\/community\/registry-starter$/,
     );
   });
 
@@ -336,29 +336,45 @@ describe('marketplaces', () => {
     expect(resolved?.marketplaceTrust).toBe('official');
   });
 
-  it('keeps checked-in community registry entries pointed at source folders that can pack', async () => {
+  it('keeps checked-in community registry aligned with local source folders that can pack', async () => {
     const communityManifest = JSON.parse(await readFile(
       new URL('../../../plugins/registry/community/open-design-marketplace.json', import.meta.url),
       'utf8',
     )) as {
+      metadata?: { pluginCount?: number };
       plugins?: Array<{ name?: string; source?: string }>;
     };
-    const entry = communityManifest.plugins?.find((plugin) => plugin.name === 'community/registry-starter');
-    expect(entry?.source).toBeTruthy();
+    const sourceRoot = new URL('../../../plugins/community/', import.meta.url);
+    const folders = (await readdir(sourceRoot, { withFileTypes: true }))
+      .filter((entry) => entry.isDirectory())
+      .map((entry) => entry.name)
+      .sort();
+    const sourceFolders = new Set(folders);
+    const registryEntries = communityManifest.plugins ?? [];
 
-    const sourceSubpath = entry!.source!.replace(/^github:nexu-io\/open-design(?:@[^/]+)?\//, '');
-    expect(sourceSubpath).toBe('plugins/community/registry-starter');
+    expect(registryEntries).toHaveLength(folders.length);
+    expect(communityManifest.metadata?.pluginCount).toBe(folders.length);
 
-    const sourceManifest = await readFile(
-      new URL(`../../../${sourceSubpath}/open-design.json`, import.meta.url),
-      'utf8',
-    );
-    expect(JSON.parse(sourceManifest)).toMatchObject({
-      name: 'community-registry-starter',
-      plugin: {
-        repo: expect.stringContaining('github.com/nexu-io/open-design'),
-      },
-    });
+    for (const folder of folders) {
+      const entry = registryEntries.find((plugin) => plugin.name === `community/${folder}`);
+      expect(entry, folder).toBeTruthy();
+      expect(entry?.source, folder).toMatch(
+        new RegExp(`^github:ilous12/nn\\.design(?:@[^/]+)?/plugins/community/${folder}$`),
+      );
+
+      const sourceSubpath = entry!.source!.replace(/^github:ilous12\/nn\.design(?:@[^/]+)?\//, '');
+      expect(sourceSubpath).toBe(`plugins/community/${folder}`);
+      expect(sourceFolders.has(path.basename(sourceSubpath))).toBe(true);
+
+      const sourceManifest = JSON.parse(await readFile(
+        new URL(`../../../${sourceSubpath}/open-design.json`, import.meta.url),
+        'utf8',
+      ));
+      expect(sourceManifest).toMatchObject({
+        title: expect.any(String),
+        version: expect.any(String),
+      });
+    }
   });
 });
 

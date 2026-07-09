@@ -898,7 +898,7 @@
   min-height: 28px;
   padding: 5px 8px;
   border: 1px solid transparent;
-  border-radius: calc(var(--radius-sm) - 1px);
+  border-radius: var(--radius);
   background: transparent;
   color: var(--text-muted);
   font: inherit;
@@ -1229,7 +1229,7 @@
   grid-template-columns: repeat(2, 6px);
   grid-template-rows: repeat(2, 6px);
   gap: 1px;
-  border-radius: 3px;
+  border-radius: var(--radius);
   overflow: hidden;
 }
 .composer-ds-picker-swatch { width: 6px; height: 6px; }

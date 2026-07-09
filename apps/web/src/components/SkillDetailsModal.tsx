@@ -95,7 +95,7 @@ export function SkillDetailsModal({ skillId, summary, onClose }: Props) {
             className="plugin-details-modal__close"
             onClick={onClose}
             aria-label={t('common.close')}
-            title="Close (Esc)"
+            title="닫기 (Esc)"
           >
             <Icon name="close" size={18} />
           </button>
@@ -107,7 +107,7 @@ export function SkillDetailsModal({ skillId, summary, onClose }: Props) {
           <section className="plugin-details-modal__section" role="alert">
             <div className="plugin-details-modal__section-head">
               <h3 className="plugin-details-modal__section-title">
-                Couldn&apos;t load skill details
+                스킬 세부 정보를 불러올 수 없습니다
               </h3>
             </div>
             <p className="plugin-details-modal__description">

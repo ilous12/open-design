@@ -2,11 +2,8 @@
 //
 // Renders a narrow icon-only column. The first slot is the brand logo,
 // followed by the primary destinations users expect to keep in reach:
-// New project, home, projects, brand kit, automations, plugins,
-// and integrations. Footer controls are reserved for lower-frequency
-// support affordances such as the help launcher.
-// Language switching and other account-scoped controls live behind the
-// floating settings cog in the top-right corner of the main content.
+// New project, home, projects, and design systems. Footer controls are reserved
+// for lower-frequency affordances such as settings and the help launcher.
 
 import { useEffect, useRef, type ReactNode } from 'react';
 import { EntryHelpMenu } from './EntryHelpMenu';
@@ -34,6 +31,8 @@ interface Props {
   open: boolean;
   /** Collapse the rail — called after a destination is chosen or the user dismisses it. */
   onClose: () => void;
+  /** Optional settings control shown above the help launcher in the footer. */
+  settingsSlot?: ReactNode;
 }
 
 interface NavButtonProps {
@@ -70,6 +69,7 @@ export function EntryNavRail({
   newProjectDisabled = false,
   open,
   onClose,
+  settingsSlot,
 }: Props) {
   const t = useT();
   const brandLabel = t('app.brand');
@@ -181,36 +181,12 @@ export function EntryNavRail({
             <Icon name="layers-filled" size={18} />
           </NavButton>
         ) : null}
-        <NavButton
-          active={view === 'tasks'}
-          ariaLabel={t('entry.navTasks')}
-          tooltip={t('entry.navTasks')}
-          onClick={() => selectView('tasks')}
-          testId="entry-nav-tasks"
-        >
-          <Icon name="kanban" size={18} />
-        </NavButton>
-        <NavButton
-          active={view === 'plugins'}
-          ariaLabel={t('entry.navPlugins')}
-          tooltip={t('entry.navPlugins')}
-          onClick={() => selectView('plugins')}
-          testId="entry-nav-plugins"
-        >
-          <Icon name="grid" size={18} />
-        </NavButton>
-        <NavButton
-          active={view === 'integrations'}
-          ariaLabel={t('entry.navIntegrations')}
-          tooltip={t('entry.navIntegrations')}
-          onClick={() => selectView('integrations')}
-          testId="entry-nav-integrations"
-        >
-          <Icon name="link" size={18} />
-        </NavButton>
       </div>
       <div className="entry-nav-rail__footer">
         <div className="entry-nav-rail__divider" role="separator" />
+        {settingsSlot ? (
+          <div className="entry-nav-rail__settings">{settingsSlot}</div>
+        ) : null}
         <EntryHelpMenu />
       </div>
     </nav>

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { streamViaDaemon } from '../../providers/daemon';
+import { buildLocaleHiddenPrompt } from '../../i18n/promptLanguage';
 import { listMessages, saveMessage } from '../../state/projects';
 import { appendErrorStatusEvent } from '../../runtime/chat-events';
 import { agentModelDisplayName } from '../../utils/agentLabels';
@@ -44,6 +45,18 @@ function isTerminalRunStatus(status: ChatMessage['runStatus']): boolean {
 
 function isActiveRunStatus(status: ChatMessage['runStatus']): boolean {
   return status === 'queued' || status === 'running';
+}
+
+function composeExecutionPrompt(visiblePrompt: string, hiddenPrompt: string): string {
+  const visible = visiblePrompt.trim();
+  const hidden = hiddenPrompt.trim();
+  if (!visible) return hidden;
+  return [
+    hidden,
+    '',
+    '사용자 입력:',
+    visible,
+  ].join('\n');
 }
 
 export interface ConversationChatContext {
@@ -185,6 +198,10 @@ export function useConversationChat(
             ...(attachments.length > 0 ? { attachments } : {}),
             ...(commentAttachments.length > 0 ? { commentAttachments } : {}),
           };
+      const executionPrompt = composeExecutionPrompt(prompt, buildLocaleHiddenPrompt(loc));
+      const executionUserMsg: ChatMessage = retryTarget
+        ? { ...retryTarget.userMsg, content: executionPrompt }
+        : { ...userMsg, content: executionPrompt };
       const assistantId = retryTarget?.failedAssistant.id ?? randomUUID();
       const assistantMsg: ChatMessage = {
         id: assistantId,
@@ -199,9 +216,12 @@ export function useConversationChat(
       };
 
       const history = retryTarget
+        ? [...retryTarget.priorMessages, executionUserMsg]
+        : [...messagesRef.current, executionUserMsg];
+      const visibleHistory = retryTarget
         ? [...retryTarget.priorMessages, userMsg]
         : [...messagesRef.current, userMsg];
-      setMessages([...history, assistantMsg]);
+      setMessages([...visibleHistory, assistantMsg]);
       setStreaming(true);
       setError(null);
       if (!retryTarget) persist(userMsg);

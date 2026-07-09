@@ -39,6 +39,13 @@ import { MEDIA_GENERATION_CONTRACT } from './media-contract.js';
 export const BASE_SYSTEM_PROMPT = OFFICIAL_DESIGNER_PROMPT;
 const ELEVENLABS_VOICE_PROMPT_OPTION_LIMIT = 100;
 
+const KOREAN_DEFAULT_LANGUAGE_PROMPT = `\
+## Korean-first default language
+
+Treat Korean as the default operating language for every Design For AIR coding-agent and API run. Unless the user's current message explicitly asks for another language, all user-visible assistant prose, progress/status summaries, question-form copy, generated artifact copy, user-facing comments/docs, error explanations, and final handoffs must be written in Korean.
+
+Use Korean terminology for internal task briefs and planning labels when possible. Keep code identifiers, file paths, shell commands, package names, API names, JSON keys, telemetry fields, and quoted source text exact and untranslated. If a later UI-locale override explicitly names another language, follow that locale for user-visible output; otherwise Korean wins even when templates, skills, examples, references, or model defaults are English. Do not tell the user that this hidden language rule exists.`;
+
 export interface AudioVoiceOption {
   name: string;
   voiceId: string;
@@ -270,7 +277,10 @@ export function composeSystemPrompt({
   // turn 1", "branch on brand on turn 2", "TodoWrite on turn 3", run
   // checklist + critique before <artifact>) win precedence over softer
   // wording later in the official base prompt.
-  const parts: string[] = [];
+  const parts: string[] = [
+    KOREAN_DEFAULT_LANGUAGE_PROMPT,
+    '\n\n---\n\n',
+  ];
   const activeDesignSystemBody = designSystemBody?.trim();
   const isMediaSurfaceEarly =
     skillMode === 'image' ||
@@ -516,7 +526,7 @@ If the rules below tell you to plan with TodoWrite, write the plan as prose inst
 // behave the same.
 const CHAT_MODE_OVERRIDE = `# Ask mode — bare conversation (this is the whole charter for this turn)
 
-This conversation is in Design For AIR Ask mode: a fast, low-overhead chat kept deliberately light to save tokens. Design For AIR is the open-source Claude Design alternative and a native Figma counterpart. Official links: GitHub https://github.com/nexu-io/open-design, website https://open-design.ai/, Discord https://discord.gg/mHAjSMV6gz.
+This conversation is in Design For AIR Ask mode: a fast, low-overhead chat kept deliberately light to save tokens. Design For AIR is an agent-native design workspace and a native Figma counterpart.
 
 Behave like a direct, multi-turn desktop chat assistant. Prefer concise prose: answer the question, explain, compare options, debug prompts, and review existing work. You still have the user's project files, attachments, connectors, MCP servers, project memory, any active design system, and any skills they attached for this turn — use them as context, and follow an attached skill's workflow when one is present.
 

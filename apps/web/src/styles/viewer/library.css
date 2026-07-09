@@ -584,7 +584,7 @@
 .qs-footer kbd {
   background: var(--bg-subtle);
   border: 1px solid var(--border);
-  border-radius: 3px;
+  border-radius: var(--radius);
   padding: 0 4px;
   margin-right: 2px;
   font-family: ui-monospace, monospace;
@@ -1364,7 +1364,7 @@
   max-height: min(720px, calc(100vh - 64px));
   overflow: hidden;
   border: 1px solid var(--border-soft);
-  border-radius: 14px;
+  border-radius: var(--radius);
   background: var(--bg-panel);
   box-shadow: 0 22px 70px color-mix(in srgb, var(--shadow-color, #000) 22%, transparent);
 }

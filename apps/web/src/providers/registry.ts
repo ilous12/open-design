@@ -1094,7 +1094,7 @@ function renderConnectorAuthRedirect(authWindow: Window, redirectUrl: string): v
         <div style="display:grid;gap:14px;justify-items:center;text-align:center;padding:32px;">
           <div style="font-size:15px;font-weight:600;">Continue authorization</div>
           <div style="max-width:300px;color:rgba(246,247,251,.72);font-size:13px;line-height:1.5;">If this window does not redirect automatically, use the button below.</div>
-          <a href="${escapeHtmlAttribute(redirectUrl)}" style="display:inline-flex;align-items:center;justify-content:center;min-width:164px;border-radius:8px;padding:9px 14px;background:#df7b56;color:#fff;text-decoration:none;font-size:13px;font-weight:600;">Open Composio</a>
+          <a href="${escapeHtmlAttribute(redirectUrl)}" style="display:inline-flex;align-items:center;justify-content:center;min-width:164px;border-radius:var(--radius,8px);padding:9px 14px;background:#df7b56;color:#fff;text-decoration:none;font-size:13px;font-weight:600;">Open Composio</a>
         </div>
       </main>
     `;

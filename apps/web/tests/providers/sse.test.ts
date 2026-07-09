@@ -714,6 +714,47 @@ describe('streamViaDaemon', () => {
     expect(body.currentPrompt).toBe('继续');
   });
 
+  it('normalizes total-only and cached usage events from the daemon stream', async () => {
+    const handlers = createDaemonHandlers();
+    const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url === '/api/runs') return jsonResponse({ runId: 'run-usage' });
+      if (url === '/api/runs/run-usage/events') {
+        return sseResponse(
+          [
+            'event: agent',
+            'data: {"type":"usage","usage":{"total_tokens":80805,"thought_tokens":512,"cached_read_tokens":75734,"cached_write_tokens":120},"durationMs":32000}',
+            '',
+            'event: end',
+            'data: {"code":0,"status":"succeeded"}',
+            '',
+            '',
+          ].join('\n'),
+        );
+      }
+      throw new Error(`unexpected fetch ${url}`);
+    });
+    vi.stubGlobal('fetch', fetchMock);
+
+    await streamViaDaemon({
+      agentId: 'mock',
+      history: [{ id: '1', role: 'user', content: 'show usage' }],
+      systemPrompt: '',
+      signal: new AbortController().signal,
+      handlers,
+    });
+
+    expect(handlers.onAgentEvent).toHaveBeenCalledWith({
+      kind: 'usage',
+      totalTokens: 80805,
+      thoughtTokens: 512,
+      cachedReadTokens: 75734,
+      cachedWriteTokens: 120,
+      durationMs: 32000,
+      costUsd: undefined,
+    });
+  });
+
   it('adds a compact context warning for high-usage agent-browser doc runs', () => {
     const transcript = buildDaemonTranscript([
       {

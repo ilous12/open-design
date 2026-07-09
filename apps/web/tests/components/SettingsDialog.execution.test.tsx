@@ -286,7 +286,7 @@ function renderSettingsDialog(
 function renderIntegrationsView(
   initial: Partial<AppConfig> = {},
   options: {
-    initialTab?: 'mcp' | 'connectors' | 'skills' | 'use-everywhere';
+    initialTab?: 'mcp' | 'connectors' | 'skills';
   } = {},
 ) {
   const onConfigPersist = vi.fn();
@@ -1051,7 +1051,7 @@ describe('SettingsDialog execution settings BYOK interactions', () => {
       within(modelPopover).getAllByRole('option').map((option) => option.textContent?.trim()),
     ).toEqual(expect.arrayContaining([
       'Account Model (gpt-account) · From your account',
-      'gpt-4o · Suggested',
+      'gpt-5.5 · Suggested',
       'Custom (type below)…',
     ]));
     expect(analyticsTrackMock).toHaveBeenCalledWith(
@@ -3957,7 +3957,7 @@ describe('SettingsDialog appearance interactions', () => {
     );
 
     expect(screen.getByRole('radio', { name: 'Default accent color' }).getAttribute('aria-checked')).toBe('true');
-    expect(document.documentElement.style.getPropertyValue('--accent')).toBe('#c96442');
+    expect(document.documentElement.style.getPropertyValue('--accent')).toBe('#2a60f5');
   });
 
   it('live previews explicit themes and removes the explicit document theme when switching back to System', () => {
@@ -4149,12 +4149,12 @@ describe('SettingsDialog appearance interactions', () => {
 
     fireEvent.click(screen.getByRole('radio', { name: 'Default accent color' }));
 
-    expect(document.documentElement.style.getPropertyValue('--accent')).toBe('#c96442');
+    expect(document.documentElement.style.getPropertyValue('--accent')).toBe('#2a60f5');
 
     await waitForPersist(
       onPersist,
       expect.objectContaining({
-        accentColor: '#c96442',
+        accentColor: '#2a60f5',
       }),
       {},
     );

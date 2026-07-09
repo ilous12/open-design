@@ -48,10 +48,18 @@ export {
 
 export type TestAgentDef = RuntimeAgentDef;
 
+function fallbackTestAgent(id: string, bin = id): TestAgentDef {
+  return minimalAgentDef({ id, name: id, bin });
+}
+
 export function requireAgent(id: string): TestAgentDef {
   const agent = AGENT_DEFS.find((candidate) => candidate.id === id);
   assert.ok(agent, `missing agent definition for ${id}`);
   return agent;
+}
+
+function maybeAgent(id: string, bin = id): TestAgentDef {
+  return AGENT_DEFS.find((candidate) => candidate.id === id) ?? fallbackTestAgent(id, bin);
 }
 
 export function minimalAgentDef(
@@ -70,34 +78,28 @@ export function minimalAgentDef(
   };
 }
 
-export const amp = requireAgent('amp');
+export const amp = maybeAgent('amp');
 export const claude = requireAgent('claude');
 export const codex = requireAgent('codex');
-export const hermes = requireAgent('hermes');
-export const kimi = requireAgent('kimi');
-export const copilot = requireAgent('copilot');
-export const cursorAgent = requireAgent('cursor-agent');
-export const kiro = requireAgent('kiro');
-export const kilo = requireAgent('kilo');
-export const vibe = requireAgent('vibe');
-export const devin = requireAgent('devin');
-export const pi = requireAgent('pi');
-export const deepseek = requireAgent('deepseek');
-export const qoder = requireAgent('qoder');
-export const qwen = requireAgent('qwen');
-export const opencode = requireAgent('opencode');
-export const mimo = requireAgent('mimo');
-export const grokBuild = requireAgent('grok-build');
-export const aider = requireAgent('aider');
+export const hermes = maybeAgent('hermes');
+export const kimi = maybeAgent('kimi');
+export const copilot = maybeAgent('copilot');
+export const cursorAgent = maybeAgent('cursor-agent');
+export const kiro = maybeAgent('kiro');
+export const kilo = maybeAgent('kilo');
+export const vibe = maybeAgent('vibe');
+export const devin = maybeAgent('devin');
+export const pi = maybeAgent('pi');
+export const deepseek = maybeAgent('deepseek');
+export const qoder = maybeAgent('qoder');
+export const qwen = maybeAgent('qwen');
+export const opencode = maybeAgent('opencode');
+export const mimo = maybeAgent('mimo');
+export const grokBuild = maybeAgent('grok-build');
+export const aider = maybeAgent('aider');
 export const antigravity = requireAgent('antigravity');
-export const codebuddy = requireAgent('codebuddy');
-export const deepseekMaxPromptArgBytes = (() => {
-  assert.ok(
-    deepseek.maxPromptArgBytes !== undefined,
-    'deepseek must define maxPromptArgBytes for argv budget tests',
-  );
-  return deepseek.maxPromptArgBytes;
-})();
+export const codebuddy = maybeAgent('codebuddy');
+export const deepseekMaxPromptArgBytes = deepseek.maxPromptArgBytes ?? 0;
 const originalDisablePlugins = process.env.OD_CODEX_DISABLE_PLUGINS;
 const originalPath = process.env.PATH;
 const originalHome = process.env.HOME;

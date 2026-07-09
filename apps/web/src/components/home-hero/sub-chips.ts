@@ -1,9 +1,7 @@
 // Second-level "sub-type" rail for the Home input card.
 //
-// After a first-level create chip is picked (Prototype / Slide deck), this
-// rail surfaces a compact row of sub-categories — mirroring how Manus shows
-// "landing page / dashboard / portfolio" under its "Website" choice, and
-// matching the exact sub-category taxonomy the Community plugin grid uses.
+// After the Prototype create chip is picked, this rail surfaces a compact row
+// of web/mobile sub-categories matching the Reference plugin grid.
 //
 // The list is NOT hand-authored here: it is derived from the same
 // `SUBCATEGORIES` facet table the Community section uses
@@ -19,11 +17,8 @@ import {
   type FacetOption,
 } from '../plugins-home/facets';
 
-// Parent chips that carry a second-level rail. Media chips (image/video/
-// audio/hyperframes) own their own inline composer form and are excluded;
-// the facet table only defines children for prototype/deck/image/video, and
-// we surface the rail for prototype + deck.
-export type SubChipParentId = 'prototype' | 'deck';
+// Parent chips that carry a second-level rail.
+export type SubChipParentId = 'prototype';
 
 export interface HomeHeroSubChip {
   // Facet subcategory slug, e.g. 'business-dashboards'.
@@ -32,30 +27,18 @@ export interface HomeHeroSubChip {
   icon: IconName;
 }
 
-const PARENT_IDS: readonly SubChipParentId[] = ['prototype', 'deck'];
+const PARENT_IDS: readonly SubChipParentId[] = ['prototype'];
 
 // Icon per facet subcategory slug. Falls back to a neutral glyph so a newly
 // added facet still renders a pill rather than crashing.
 const SUBCATEGORY_ICONS: Record<string, IconName> = {
-  // prototype
-  'business-dashboards': 'grid',
   'app-prototypes': 'blocks',
   'landing-marketing': 'globe',
-  'developer-tools': 'terminal',
-  'docs-reports': 'file',
-  'brand-design': 'palette',
-  // deck
-  'pitch-business': 'present',
-  'course-training': 'lightbulb',
-  'reports-briefings': 'file',
-  'product-sales': 'star',
-  'engineering-talks': 'terminal',
-  'creative-decks': 'palette',
 };
 const DEFAULT_SUBCATEGORY_ICON: IconName = 'blocks';
 
 export function isSubChipParent(chipId: string | null): chipId is SubChipParentId {
-  return chipId === 'prototype' || chipId === 'deck';
+  return chipId === 'prototype';
 }
 
 // Sub-types for a first-level chip, drawn from the Community facet catalog so

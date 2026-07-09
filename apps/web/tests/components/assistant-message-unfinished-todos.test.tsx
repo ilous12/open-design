@@ -94,9 +94,9 @@ describe('AssistantMessage unfinished todo state', () => {
       />,
     );
 
-    expect(screen.getByText('No output')).toBeTruthy();
+    expect(screen.getByText('출력 없음')).toBeTruthy();
     expect(screen.getByText(/provider ended the request/i)).toBeTruthy();
-    expect(screen.queryByText('Done')).toBeNull();
+    expect(screen.queryByText('완료됨')).toBeNull();
     expect(screen.queryByText('empty_response')).toBeNull();
   });
 
@@ -119,9 +119,9 @@ describe('AssistantMessage unfinished todo state', () => {
       />,
     );
 
-    expect(screen.getByText('Done')).toBeTruthy();
-    expect(screen.queryByText('Stopped with unfinished work')).toBeNull();
-    expect(screen.queryByRole('button', { name: 'Continue remaining tasks' })).toBeNull();
+    expect(screen.getByText('완료됨')).toBeTruthy();
+    expect(screen.queryByText('작업을 마치지 못하고 중지됨')).toBeNull();
+    expect(screen.queryByRole('button', { name: '남은 작업 계속하기' })).toBeNull();
   });
 
   it('uses persisted usage duration for completed messages that do not have endedAt', () => {
@@ -142,7 +142,60 @@ describe('AssistantMessage unfinished todo state', () => {
     );
 
     expect(screen.getByText(/32s/)).toBeTruthy();
-    expect(screen.getByText(/1439 out/)).toBeTruthy();
+    expect(screen.getByText(/1,439 토큰/)).toBeTruthy();
+    expect(screen.queryByText(/output 1,439/)).toBeNull();
+  });
+
+  it('shows only total token usage for each completed message', () => {
+    render(
+      <AssistantMessage
+        message={{
+          id: 'assistant-full-usage',
+          role: 'assistant',
+          content: 'Done',
+          startedAt: 1_000,
+          runStatus: 'succeeded',
+          events: [{ kind: 'usage', inputTokens: 831, outputTokens: 1439, thoughtTokens: 512, durationMs: 32_000 }],
+        }}
+        streaming={false}
+        projectId="project-1"
+      />,
+    );
+
+    const usage = screen.getByText(/2,782 토큰/);
+    expect(usage).toBeTruthy();
+    expect(usage.textContent).not.toContain('input 831');
+    expect(usage.textContent).not.toContain('output 1,439');
+    expect(usage.textContent).not.toContain('reasoning 512');
+  });
+
+  it('hides cache token details for each completed message', () => {
+    render(
+      <AssistantMessage
+        message={{
+          id: 'assistant-total-cache-usage',
+          role: 'assistant',
+          content: 'Done',
+          startedAt: 1_000,
+          runStatus: 'succeeded',
+          events: [
+            {
+              kind: 'usage',
+              totalTokens: 80805,
+              cachedReadTokens: 75734,
+              cachedWriteTokens: 120,
+              durationMs: 32_000,
+            },
+          ],
+        }}
+        streaming={false}
+        projectId="project-1"
+      />,
+    );
+
+    const usage = screen.getByText(/8.1만 토큰/);
+    expect(usage.textContent).not.toContain('cached 75.7K');
+    expect(usage.textContent).not.toContain('cache write 120');
   });
 
   it('hides zero cost because it is not reliable billing data', () => {
@@ -162,7 +215,8 @@ describe('AssistantMessage unfinished todo state', () => {
       />,
     );
 
-    expect(screen.getByText(/1439 out/)).toBeTruthy();
+    expect(screen.getByText(/1,439 토큰/)).toBeTruthy();
+    expect(screen.queryByText(/output 1,439/)).toBeNull();
     expect(screen.queryByText(/\$0\.0000/)).toBeNull();
   });
 
@@ -183,7 +237,8 @@ describe('AssistantMessage unfinished todo state', () => {
       />,
     );
 
-    expect(screen.getByText(/1439 out/)).toBeTruthy();
+    expect(screen.getByText(/1,439 토큰/)).toBeTruthy();
+    expect(screen.queryByText(/output 1,439/)).toBeNull();
     expect(screen.queryByText(/\$0\.0000/)).toBeNull();
   });
 
@@ -224,7 +279,8 @@ describe('AssistantMessage unfinished todo state', () => {
       />,
     );
 
-    expect(screen.getByText(/1439 out/)).toBeTruthy();
+    expect(screen.getByText(/1,439 토큰/)).toBeTruthy();
+    expect(screen.queryByText(/output 1,439/)).toBeNull();
     expect(screen.queryByText(/\d+m \d{2}s/)).toBeNull();
   });
 
@@ -259,14 +315,14 @@ describe('AssistantMessage unfinished todo state', () => {
       />,
     );
 
-    expect(screen.getByText('Stopped with unfinished work')).toBeTruthy();
-    expect(screen.getByText('2 task(s) remain')).toBeTruthy();
-    const remainingList = screen.getByText('2 task(s) remain').closest('.unfinished-todos');
+    expect(screen.getByText('작업을 마치지 못하고 중지됨')).toBeTruthy();
+    expect(screen.getByText('2개 작업 남음')).toBeTruthy();
+    const remainingList = screen.getByText('2개 작업 남음').closest('.unfinished-todos');
     expect(remainingList).not.toBeNull();
     expect(within(remainingList as HTMLElement).getByText('Building components')).toBeTruthy();
     expect(within(remainingList as HTMLElement).getByText('Run QA')).toBeTruthy();
 
-    fireEvent.click(screen.getByRole('button', { name: 'Continue remaining tasks' }));
+    fireEvent.click(screen.getByRole('button', { name: '남은 작업 계속하기' }));
 
     expect(onContinue).toHaveBeenCalledWith([
       {
@@ -298,9 +354,9 @@ describe('AssistantMessage unfinished todo state', () => {
       />,
     );
 
-    expect(screen.getByText('Stopped with unfinished work')).toBeTruthy();
-    expect(screen.getByText('1 task(s) remain')).toBeTruthy();
-    expect(screen.queryByRole('button', { name: 'Continue remaining tasks' })).toBeNull();
+    expect(screen.getByText('작업을 마치지 못하고 중지됨')).toBeTruthy();
+    expect(screen.getByText('1개 작업 남음')).toBeTruthy();
+    expect(screen.queryByRole('button', { name: '남은 작업 계속하기' })).toBeNull();
   });
 
   it('surfaces generated plugin next actions in the latest assistant turn', async () => {

@@ -74,25 +74,6 @@ export function PluginByline({ record, variant = 'default' }: Props) {
                 <span>Homepage</span>
               </a>
             ) : null}
-            {links.contributeUrl ? (
-              <a
-                className="plugin-byline__link"
-                href={links.contributeUrl}
-                target="_blank"
-                rel="noreferrer"
-                title={
-                  links.contributeOnGithub
-                    ? 'Open an issue on GitHub'
-                    : 'Open the contribute page'
-                }
-              >
-                <Icon
-                  name={links.contributeOnGithub ? 'github' : 'external-link'}
-                  size={11}
-                />
-                <span>Contribute</span>
-              </a>
-            ) : null}
           </div>
         ) : null}
       </div>

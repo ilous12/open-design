@@ -28,7 +28,7 @@ const project: Project = {
 
 describe('DesignsTab select mode', () => {
   beforeAll(() => {
-    if (window.localStorage) return;
+    if (typeof window.localStorage?.clear === 'function') return;
     const store = new Map<string, string>();
     Object.defineProperty(window, 'localStorage', {
       configurable: true,
@@ -177,7 +177,7 @@ describe('DesignsTab select mode', () => {
     expect(onRefresh).not.toHaveBeenCalled();
   });
 
-  it('only exposes select mode in grid view', () => {
+  it('hides project view mode controls and keeps select mode available', () => {
     render(
       <DesignsTab
         projects={[project]}
@@ -190,14 +190,13 @@ describe('DesignsTab select mode', () => {
       />,
     );
 
+    expect(screen.queryByLabelText('View mode')).toBeNull();
+    expect(screen.queryByTestId('designs-view-grid')).toBeNull();
+    expect(screen.queryByTestId('designs-view-kanban')).toBeNull();
     expect(screen.getByRole('button', { name: 'Select' })).toBeTruthy();
-
-    fireEvent.click(screen.getByTestId('designs-view-kanban'));
-
-    expect(screen.queryByRole('button', { name: 'Select' })).toBeNull();
   });
 
-  it('exits select mode when switching to kanban view', () => {
+  it('hides recent and my-designs project filters', () => {
     render(
       <DesignsTab
         projects={[project]}
@@ -210,14 +209,29 @@ describe('DesignsTab select mode', () => {
       />,
     );
 
-    fireEvent.click(screen.getByRole('button', { name: 'Select' }));
-    expect(screen.getByText('0 selected')).toBeTruthy();
+    expect(screen.queryByRole('group', { name: 'Project filter' })).toBeNull();
+    expect(screen.queryByRole('button', { name: 'Recent' })).toBeNull();
+    expect(screen.queryByRole('button', { name: 'My designs' })).toBeNull();
+  });
 
-    fireEvent.click(screen.getByTestId('designs-view-kanban'));
-    fireEvent.click(screen.getByTestId('designs-view-grid'));
+  it('ignores the previously stored board view and enters as a gallery', () => {
+    window.localStorage.setItem('od:designs:view', 'kanban');
+    render(
+      <DesignsTab
+        projects={[project]}
+        skills={[]}
+        designSystems={[]}
+        onOpen={vi.fn()}
+        onOpenLiveArtifact={vi.fn()}
+        onDelete={vi.fn()}
+        onRename={vi.fn()}
+      />,
+    );
 
-    expect(screen.queryByText('0 selected')).toBeNull();
+    expect(screen.queryByTestId('designs-view-kanban')).toBeNull();
     expect(screen.getByRole('button', { name: 'Select' })).toBeTruthy();
+    expect(document.querySelector('.design-kanban-board')).toBeNull();
+    expect(document.querySelector('.design-grid')).toBeTruthy();
   });
 
   it('confirms bulk project deletion and shows success feedback', async () => {
@@ -354,36 +368,35 @@ describe('DesignsTab select mode', () => {
     expect(screen.getByText('Design System')).toBeTruthy();
   });
 
-  it('uses the same updated time in recent and yours tabs', () => {
+  it('uses updated time without project filter tabs', () => {
     const now = Date.UTC(2026, 4, 19, 9, 0, 0);
     vi.useFakeTimers();
     vi.setSystemTime(now);
 
-    render(
-      <DesignsTab
-        projects={[
-          {
-            ...project,
-            createdAt: now - 70 * 60 * 1000,
-            updatedAt: now - 54 * 60 * 1000,
-          },
-        ]}
-        skills={[]}
-        designSystems={[]}
-        onOpen={vi.fn()}
-        onOpenLiveArtifact={vi.fn()}
-        onDelete={vi.fn()}
-        onRename={vi.fn()}
-      />,
-    );
+    try {
+      render(
+        <DesignsTab
+          projects={[
+            {
+              ...project,
+              createdAt: now - 70 * 60 * 1000,
+              updatedAt: now - 54 * 60 * 1000,
+            },
+          ]}
+          skills={[]}
+          designSystems={[]}
+          onOpen={vi.fn()}
+          onOpenLiveArtifact={vi.fn()}
+          onDelete={vi.fn()}
+          onRename={vi.fn()}
+        />,
+      );
 
-    expect(screen.getByText('54m ago')).toBeTruthy();
-
-    fireEvent.click(screen.getByRole('button', { name: 'Your designs' }));
-
-    expect(screen.getByText('54m ago')).toBeTruthy();
-    expect(screen.queryByText('1h ago')).toBeNull();
-
-    vi.useRealTimers();
+      expect(screen.getByText('54m ago')).toBeTruthy();
+      expect(screen.queryByRole('button', { name: 'Your designs' })).toBeNull();
+      expect(screen.queryByText('1h ago')).toBeNull();
+    } finally {
+      vi.useRealTimers();
+    }
   });
 });

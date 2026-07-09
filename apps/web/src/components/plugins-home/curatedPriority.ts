@@ -19,7 +19,6 @@ const CURATED_PROTOTYPE_PLUGIN_IDS = [
 // an annotated/redline landing wireframe. The chip's tag-matching surfaces any
 // other lo-fi templates behind these.
 const CURATED_WIREFRAME_PLUGIN_IDS = [
-  'example-wireframe-sketch',
   'example-wireframe-greybox',
   'example-wireframe-mobile-flow',
   'example-wireframe-annotated',
@@ -60,9 +59,8 @@ export const CURATED_LIVE_ARTIFACT_PLUGIN_IDS = [
   'example-live-artifact',
 ] as const;
 
-// Pinned-to-front slide library (curator request): the community-sourced
-// slides batch leads both the Home hero deck chip and the Home plugin grid's
-// Slides shelf, ahead of the standing curated deck picks below. Order here is
+// Pinned-to-front web prototype reference library (curator request): the
+// community-sourced batch leads the Home hero and Reference grid. Order here is
 // the exact display order requested (family roots first, then variants).
 const PINNED_SLIDE_PLUGIN_IDS = [
   // `example-frontend-slides` (the bare family-root template) is intentionally

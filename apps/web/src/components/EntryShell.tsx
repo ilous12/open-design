@@ -67,7 +67,7 @@ import type {
   TrackingCliProviderId,
 } from '@nn-design/contracts/analytics';
 import { agentIdToTracking } from '@nn-design/contracts/analytics';
-import { useT, useI18n } from '../i18n';
+import { useT } from '../i18n';
 import { navigate, useRoute } from '../router';
 import { setPendingDesignSystemCreateEntry } from '../analytics/ds-create-entry';
 import type {
@@ -94,11 +94,6 @@ import { BrandsTab } from './BrandsTab';
 import { EntryNavRail, type EntryView as EntryViewKind } from './EntryNavRail';
 import { LibrarySection } from './LibrarySection';
 import { UpdaterPopup } from './UpdaterPopup';
-import { GithubStarBadge } from './GithubStarBadge';
-import {
-  formatDiscordPresenceCount,
-  useDiscordPresence,
-} from './useDiscordPresence';
 import { HomeView } from './HomeView';
 import {
   createPluginAuthoringHandoff,
@@ -110,14 +105,8 @@ import { homeHeroChipLabel } from './home-hero/chip-labels';
 import type { PluginUseAction } from './plugins-home/useActions';
 import { Icon } from './Icon';
 import { AgentIcon } from './AgentIcon';
-import { LanguageMenu } from './LanguageMenu';
 import { IntegrationsView, type IntegrationTab } from './IntegrationsView';
-import { InlineModelSwitcher } from './InlineModelSwitcher';
-import { enterpriseUrl } from './enterpriseUrl';
-import {
-  EntrySettingsMenu,
-  type EntrySettingsSection,
-} from './EntrySettingsMenu';
+import type { EntrySettingsSection } from './EntrySettingsMenu';
 import { NewProjectModal } from './NewProjectModal';
 import { PluginsView } from './PluginsView';
 import type { CreateInput, CreateTab, ImportClaudeDesignOutcome } from './NewProjectPanel';
@@ -182,16 +171,11 @@ function writeStoredRailOpen(open: boolean): void {
   }
 }
 
-const DISCORD_URL = 'https://discord.gg/mHAjSMV6gz';
 const X_URL = 'https://x.com/OpenDesignHQ';
 const ONBOARDING_DROPDOWN_OPEN_EVENT = 'open-design:onboarding-dropdown-open';
 
-// The topbar chips (GitHub star, model switcher, Use everywhere)
-// collapse into the settings dropdown when the viewport gets
-// narrow. The transition is driven entirely by CSS @media queries
-// in `entry-layout.css` so server and client render identical
-// markup — both surfaces are always present, and CSS toggles
-// `display` based on `--compact-topbar` breakpoint (900px).
+// The topbar keeps only core app controls. Marketing/community chips stay off
+// the desktop home surface.
 
 // Default scenario plugin for each project kind/intent. The mapping
 // lives in `@nn-design/contracts` so the daemon's `/api/projects`
@@ -333,9 +317,8 @@ interface Props {
   skillsLoading?: boolean;
   designSystemsLoading?: boolean;
   projectsLoading?: boolean;
-  // Execution / model-switching context. Threaded down from `App` so the
-  // top-bar `InlineModelSwitcher` can render the active mode/agent/model
-  // and persist changes through the same callbacks the project view uses.
+  // Execution / model-switching context. Threaded down from `App` for
+  // onboarding and runtime configuration flows.
   config: AppConfig;
   providerModelsCache?: ProviderModelsCache;
   onProviderModelsCacheChange?: Dispatch<SetStateAction<ProviderModelsCache>>;
@@ -494,8 +477,6 @@ export function EntryShell({
   onCompleteOnboarding,
 }: Props) {
   const t = useT();
-  const { locale: uiLocale } = useI18n();
-  const discordPresence = useDiscordPresence();
   // Each entry sub-view (home / projects / design-systems) is its own
   // URL now, so the browser back/forward buttons work and a deep link
   // to /design-systems lands on that section. We derive the active
@@ -535,14 +516,6 @@ export function EntryShell({
   const [homePromptHandoff, setHomePromptHandoff] = useState<HomePromptHandoff | null>(null);
   const entryMainScrollRef = useRef<HTMLElement | null>(null);
   const analytics = useAnalytics();
-  const discordOnlineLabel = discordPresence
-    ? t('entry.discordOnlineLabel', {
-        count: formatDiscordPresenceCount(discordPresence.onlineCount),
-      })
-    : null;
-  const discordAriaLabel = discordOnlineLabel
-    ? t('entry.discordAriaWithOnline', { online: discordOnlineLabel })
-    : t('entry.discordAria');
   function changeView(next: EntryViewKind) {
     const navElement = navElementForView(next);
     if (navElement) {
@@ -683,6 +656,15 @@ export function EntryShell({
         examplePromptBrief: payload.examplePromptContext.brief,
       } : {}),
     };
+    if (metadata.kind === 'prototype') {
+      metadata.platform = metadata.platform ?? 'responsive';
+      metadata.platformTargets =
+        Array.isArray(metadata.platformTargets) && metadata.platformTargets.length > 0
+          ? metadata.platformTargets
+          : ['responsive'];
+      metadata.fidelity = metadata.fidelity ?? 'high-fidelity';
+      metadata.skipDiscoveryBrief = true;
+    }
     return onCreateProject({
       name,
       skillId: payload.skillId ?? null,
@@ -713,19 +695,24 @@ export function EntryShell({
     changeView('home');
   }
 
-  const avatarMenu = (
-    <EntrySettingsMenu
-      config={config}
-      onThemeChange={onThemeChange}
-      onOpenSettings={onOpenSettings}
-      onTrackTriggerClick={() => {
+  const settingsButton = (
+    <button
+      type="button"
+      className="entry-nav-rail__btn"
+      onClick={() => {
         trackHomeToolbarClick(analytics.track, {
           page_name: 'home',
           area: 'toolbar',
           element: 'settings',
         });
+        onOpenSettings();
       }}
-    />
+      aria-label={t('entry.openSettingsAria')}
+      data-tooltip={t('entry.openSettingsTitle')}
+      data-testid="entry-settings-menu-trigger"
+    >
+      <Icon name="settings" size={18} />
+    </button>
   );
 
 
@@ -760,40 +747,13 @@ export function EntryShell({
     );
   }
 
-  const executionSwitcher = (
-    <InlineModelSwitcher
-      config={config}
-      agents={agents}
-      providerModelsCache={activeProviderModelsCache}
-      onProviderModelsCacheChange={activeSetProviderModelsCache}
-      daemonLive={daemonLive}
-      onModeChange={onModeChange}
-      onAgentChange={onAgentChange}
-      onAgentModelChange={onAgentModelChange}
-      onApiProtocolChange={onApiProtocolChange}
-      onApiModelChange={onApiModelChange}
-      onOpenSettings={onOpenSettings}
-    />
-  );
-  const homeExecutionSwitcher = (
-    <InlineModelSwitcher
-      compact
-      config={config}
-      agents={agents}
-      providerModelsCache={activeProviderModelsCache}
-      onProviderModelsCacheChange={activeSetProviderModelsCache}
-      daemonLive={daemonLive}
-      onModeChange={onModeChange}
-      onAgentChange={onAgentChange}
-      onAgentModelChange={onAgentModelChange}
-      onApiProtocolChange={onApiProtocolChange}
-      onApiModelChange={onApiModelChange}
-      onOpenSettings={onOpenSettings}
-    />
-  );
-
   return (
-    <div className="entry-shell entry-shell--no-header">
+    <div className="entry-shell entry-shell--no-header" data-entry-view={view}>
+      <div className="entry-ambient" aria-hidden="true">
+        {Array.from({ length: 10 }, (_, index) => (
+          <span key={index} className={`entry-ambient__wash entry-ambient__wash--${index + 1}`} />
+        ))}
+      </div>
       <div className={`entry${railOpen ? ' entry--rail-open' : ''}`}>
         <EntryNavRail
           view={view}
@@ -808,6 +768,7 @@ export function EntryShell({
           }}
           open={railOpen}
           onClose={() => setRailOpen(false)}
+          settingsSlot={settingsButton}
         />
         <main className="entry-main entry-main--scroll" ref={entryMainScrollRef}>
           <div className="entry-main__topbar">
@@ -821,82 +782,7 @@ export function EntryShell({
             >
               <Icon name="panel-left" size={20} />
             </button>
-            <div className="entry-main__topbar-chips entry-main__topbar-chips--icon-only">
-              <GithubStarBadge />
-              <a
-                className="entry-workspace-chip od-tooltip"
-                href={enterpriseUrl(uiLocale)}
-                target="_blank"
-                rel="noreferrer noopener"
-                onClick={() => {
-                  trackHomeToolbarClick(analytics.track, {
-                    page_name: 'home',
-                    area: 'toolbar',
-                    element: 'workspace_teams',
-                  });
-                }}
-                data-tooltip={t('entry.workspaceTeamsTitle')}
-                data-tooltip-placement="bottom"
-                aria-label={t('entry.workspaceTeamsAria')}
-                data-testid="entry-workspace-teams"
-              >
-                <Icon
-                  name="sparkles"
-                  size={14}
-                  className="entry-workspace-chip__icon"
-                />
-                <span className="entry-workspace-chip__label">
-                  {t('entry.workspaceTeamsLabel')}
-                </span>
-              </a>
-              <a
-                className="entry-discord-badge od-tooltip"
-                href={DISCORD_URL}
-                aria-label={discordAriaLabel}
-                data-tooltip={discordAriaLabel}
-                data-tooltip-placement="bottom"
-                data-testid="entry-discord-badge"
-              >
-                <Icon name="discord" size={14} className="entry-discord-badge__icon" />
-                <span className="entry-discord-badge__label">{t('entry.discordLabel')}</span>
-                {discordOnlineLabel ? (
-                  <>
-                    <span className="entry-discord-badge__sep" aria-hidden>
-                      ·
-                    </span>
-                    <span className="entry-discord-badge__online">
-                      {discordOnlineLabel}
-                    </span>
-                  </>
-                ) : null}
-              </a>
-              {view === 'home' ? null : executionSwitcher}
-              <button
-                type="button"
-                className="use-everywhere-chip od-tooltip"
-                onClick={() => {
-                  trackHomeToolbarClick(analytics.track, {
-                    page_name: 'home',
-                    area: 'toolbar',
-                    element: 'use_everywhere',
-                  });
-                  openIntegrationTab('use-everywhere');
-                }}
-                data-tooltip={t('entry.useEverywhereTitle')}
-                data-tooltip-placement="bottom"
-                aria-label={t('entry.useEverywhereAria')}
-                data-testid="entry-use-everywhere-button"
-              >
-                <span className="use-everywhere-chip__icon" aria-hidden>
-                  <Icon name="hammer" size={13} />
-                </span>
-                <span className="use-everywhere-chip__label">
-                  {t('entry.useEverywhereTitle')}
-                </span>
-              </button>
-            </div>
             <UpdaterPopup />
-            {avatarMenu}
           </div>
           <div
             className={`entry-main__inner${
@@ -928,7 +814,6 @@ export function EntryShell({
                 skillsLoading={skillsLoading}
                 connectors={connectors}
                 promptTemplates={promptTemplates}
-                executionSwitcher={view === 'home' ? homeExecutionSwitcher : undefined}
               />
             </div>
             <div data-testid="entry-view-projects" data-active={view === 'projects' ? 'true' : 'false'} {...inactiveViewProps(view === 'projects')}>
@@ -1117,7 +1002,6 @@ function OnboardingView({
   // Initial login status fetch has settled, whether signed in or not. The
   // cloud landing uses this to avoid flashing "Sign in" before flipping to
   // "Continue" for already-authenticated users.
-  const [amrStatusResolved, setAmrStatusResolved] = useState(false);
   const [amrLoginPending, setAmrLoginPending] = useState(false);
   const [amrLoginCancelPending, setAmrLoginCancelPending] = useState(false);
   const [newsletterSubmitting, setNewsletterSubmitting] = useState(false);
@@ -1285,13 +1169,6 @@ function OnboardingView({
   }, []);
 
   useEffect(() => {
-    if (!amrAgent || runtime !== null) return;
-    setRuntime('amr');
-    onModeChange('daemon');
-    onAgentChange('amr');
-  }, [amrAgent, onAgentChange, onModeChange, runtime]);
-
-  useEffect(() => {
     if (runtime !== 'local') return;
     const scanToken = cliScanTokenRef.current;
     if (cliRefreshPendingTokenRef.current === scanToken) return;
@@ -1337,9 +1214,6 @@ function OnboardingView({
     void fetchVelaLoginStatus()
       .then((next) => {
         if (!cancelled && next) setAmrStatus(next);
-      })
-      .finally(() => {
-        if (!cancelled) setAmrStatusResolved(true);
       });
     return () => {
       cancelled = true;
@@ -1788,6 +1662,11 @@ function OnboardingView({
       void handleAmrSignInToContinue(attribution);
       return;
     }
+    if (step === 0) {
+      await runOnboardingCompletion('completed_without_design_system');
+      onFinish();
+      return;
+    }
     if (isLastStep) {
       await runOnboardingCompletion('completed_without_design_system');
       onFinish();
@@ -1798,33 +1677,6 @@ function OnboardingView({
       void persistOnboardingProfileToMemory();
     }
     setStep((current) => current + 1);
-  }
-
-  // Cloud-landing primary CTA: pick the AMR cloud runtime and kick off the
-  // Design For AIR Cloud sign-in in one gesture. Mirrors the old AMR card's
-  // selection side effects (mode/agent) followed by the sign-in path, so a
-  // successful login advances to the next onboarding step exactly the same way.
-  async function handleCloudSignIn() {
-    if (amrLoginPending || amrLoginCancelPending) return;
-    const cardAttribution = recordAmrEntry(
-      analytics.track,
-      'onboarding_amr_card',
-      new Date(),
-      { metricsConsent: config.telemetry?.metrics === true },
-    );
-    setRuntime('amr');
-    onModeChange('daemon');
-    onAgentChange('amr');
-    const attribution = recordAmrEntry(
-      analytics.track,
-      'onboarding_amr_sign_in_continue',
-      new Date(),
-      {
-        metricsConsent: config.telemetry?.metrics === true,
-        reuseExistingFrom: ['onboarding_amr_card'],
-      },
-    ) ?? cardAttribution;
-    await handleAmrSignInToContinue(attribution);
   }
 
   // Shared finish work for the final step, independent of where the user lands
@@ -2242,37 +2094,15 @@ function OnboardingView({
       ? t('settings.onboardingFinish')
       : t('settings.onboardingContinue');
 
-  // Connect step, default face: a minimal, centered Design For AIR Cloud sign-in
-  // landing. No stepper, no runtime cards — just the cloud CTA, a secondary
-  // link into the full runtime chooser, and a top-left language/theme bar.
+  // Connect step, default face: a minimal, centered runtime chooser. No stepper
+  // and no cloud sign-in CTA; users start with either a local coding agent or
+  // their own API key.
   if (step === 0 && connectExpanded === null) {
-    const activeTheme: AppTheme = config.theme ?? 'system';
-    const resolvedDark =
-      activeTheme === 'dark' ||
-      (activeTheme === 'system' &&
-        typeof window !== 'undefined' &&
-        typeof window.matchMedia === 'function' &&
-        window.matchMedia('(prefers-color-scheme: dark)').matches);
-    const themeIcon: 'sun' | 'moon' = resolvedDark ? 'moon' : 'sun';
-    const cloudBusy = amrLoginPending;
-    const amrStatusResolving = !amrStatusResolved;
     return (
       <section
         className="onboarding-view onboarding-view--cloud"
         aria-label={t('settings.welcomeTitle')}
       >
-        <div className="onboarding-cloud__topbar">
-          <LanguageMenu compact placement="down" align="end" />
-          <button
-            type="button"
-            className="onboarding-cloud__theme"
-            aria-label={resolvedDark ? t('settings.themeLight') : t('settings.themeDark')}
-            title={resolvedDark ? t('settings.themeLight') : t('settings.themeDark')}
-            onClick={() => onThemeChange(resolvedDark ? 'light' : 'dark')}
-          >
-            <Icon name={themeIcon} size={25} />
-          </button>
-        </div>
         <div className="onboarding-cloud__center">
           <span
             className="onboarding-cloud__logo"
@@ -2281,97 +2111,40 @@ function OnboardingView({
           />
           <h1 className="onboarding-cloud__title">{t('settings.onboardingCloudTitle')}</h1>
           <p className="onboarding-cloud__body">{t('settings.onboardingCloudBody')}</p>
-          <button
-            type="button"
-            className="onboarding-cloud__primary"
-            onClick={() => {
-              if (amrStatusResolving) return;
-              if (amrSignedIn) {
-                recordAmrEntry(analytics.track, 'onboarding_amr_card', new Date(), {
-                  metricsConsent: config.telemetry?.metrics === true,
-                });
-                setRuntime('amr');
-                onModeChange('daemon');
-                onAgentChange('amr');
-                recordAmrEntry(
-                  analytics.track,
-                  'onboarding_amr_sign_in_continue',
-                  new Date(),
-                  {
-                    metricsConsent: config.telemetry?.metrics === true,
-                    reuseExistingFrom: ['onboarding_amr_card'],
-                  },
-                );
-                setStep((current) => current + 1);
-                return;
-              }
-              void handleCloudSignIn();
-            }}
-            disabled={cloudBusy || amrLoginCancelPending || amrStatusResolving}
-            aria-busy={cloudBusy || amrStatusResolving ? true : undefined}
-          >
-            <Icon name="orbit" size={17} />
-            <span>
-              {cloudBusy
-                ? t('settings.amrSigningIn')
-                : amrStatusResolving
-                  ? t('common.loading')
-                  : amrSignedIn
-                    ? t('settings.onboardingCloudContinue')
-                    : t('settings.onboardingCloudSignIn')}
-            </span>
-          </button>
-          {amrLoginError ? (
-            <span className="onboarding-cloud__error" role="alert">
-              {amrLoginError}
-            </span>
-          ) : null}
-          {cloudBusy ? (
+          <div className="onboarding-cloud__choices">
             <button
               type="button"
-              className="onboarding-cloud__cancel"
-              onClick={handleCancelAmrLogin}
-              disabled={amrLoginCancelPending}
+              className="onboarding-cloud__choice"
+              onClick={() => {
+                emitOnboardingClick('local_coding_agent', 'select_runtime', {
+                  runtime_type: 'local_cli',
+                });
+                setRuntime('local');
+                onModeChange('daemon');
+                void scanCliAgents({ preferExisting: true });
+                setConnectExpanded('local');
+              }}
             >
-              {t('settings.amrCancelSignIn')}
+              <span className="onboarding-cloud__choice-emoji" aria-hidden="true">💻</span>
+              <span>{t('settings.onboardingLocalTitle')}</span>
             </button>
-          ) : (
-            <div className="onboarding-cloud__alts">
-              <button
-                type="button"
-                className="onboarding-cloud__secondary"
-                onClick={() => {
-                  emitOnboardingClick('local_coding_agent', 'select_runtime', {
-                    runtime_type: 'local_cli',
-                  });
-                  setRuntime('local');
-                  onModeChange('daemon');
-                  void scanCliAgents({ preferExisting: true });
-                  setConnectExpanded('local');
-                }}
-              >
-                {t('settings.onboardingLocalTitle')}
-              </button>
-              <span className="onboarding-cloud__alts-or">
-                {t('settings.onboardingCloudOr')}
-              </span>
-              <button
-                type="button"
-                className="onboarding-cloud__secondary"
-                onClick={() => {
-                  emitOnboardingClick('byok', 'select_runtime', { runtime_type: 'byok' });
-                  setRuntime('byok');
-                  onModeChange('api');
-                  setConnectExpanded('byok');
-                }}
-              >
-                {t('settings.onboardingByokTitle')}
-              </button>
-            </div>
-          )}
+            <button
+              type="button"
+              className="onboarding-cloud__choice"
+              onClick={() => {
+                emitOnboardingClick('byok', 'select_runtime', { runtime_type: 'byok' });
+                setRuntime('byok');
+                onModeChange('api');
+                setConnectExpanded('byok');
+              }}
+            >
+              <span className="onboarding-cloud__choice-emoji" aria-hidden="true">🔑</span>
+              <span>{t('settings.onboardingByokTitle')}</span>
+            </button>
+          </div>
         </div>
         <footer className="onboarding-cloud__footer">
-          © {new Date().getFullYear()} Design For AIR · {t('settings.onboardingCloudRights')}
+          Copyright © 2026 SKT. All rights reserved.
         </footer>
       </section>
     );

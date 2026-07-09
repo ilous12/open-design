@@ -25,7 +25,7 @@ export interface LauncherContext {
   /**
    * Focus an already-open or freshly-created tab by id. Most "create new"
    * actions will create their backing resource first (a conversation, a PTY
-   * session, …) and then call this with the resulting `chat:<id>` /
+   * session, ...) and then call this with the resulting `chat:<id>` /
    * `terminal:<id>` tab id.
    */
   openTab: (tabId: string) => void;
@@ -35,16 +35,8 @@ export interface LauncherContext {
    * session (e.g. node-pty not compiled), so the action no-ops.
    */
   createTerminal?: () => Promise<string | null>;
-  /**
-   * Open a new in-workspace Browser tab (DesignBrowserPanel). Backs the
-   * "New Browser" action. Synchronous — the browser tab needs no daemon
-   * round-trip — so it returns void and creates/focuses the tab itself.
-   */
-  createBrowser?: () => void;
   /** Create a new sketch in the current Design Files directory. */
   createSketch?: () => void;
-  /** Create a new Markdown document in the current Design Files directory. */
-  createDocument?: () => void;
   /** Open the Design Files upload picker. */
   uploadDesignFiles?: () => void;
 }
@@ -68,9 +60,7 @@ const ENABLE_TERMINAL_WORKSPACE_ENTRYPOINT = false;
  * Build the list of "create new" actions for the current context.
  *
  * Each tab kind contributes exactly one action. Stage 3 adds "New Terminal":
- * it spawns a PTY session and opens it as a `terminal:<id>` tab. The Browser
- * action mounts this branch's DesignBrowserPanel as a `__browser__:<n>` tab the
- * same way, gated on context.
+ * it spawns a PTY session and opens it as a `terminal:<id>` tab.
  */
 export function buildLauncherActions(ctx: LauncherContext): LauncherAction[] {
   const actions: LauncherAction[] = [];
@@ -87,19 +77,6 @@ export function buildLauncherActions(ctx: LauncherContext): LauncherAction[] {
       },
     });
   }
-  if (ctx.createBrowser) {
-    actions.push({
-      id: 'new-browser',
-      iconName: 'globe',
-      labelKey: 'workspace.newBrowser',
-      descriptionKey: 'workspace.newBrowserDescription',
-      // Browser tabs open synchronously and focus themselves, so there is no
-      // id to thread through openTab here.
-      run: (runCtx) => {
-        runCtx.createBrowser?.();
-      },
-    });
-  }
   if (ctx.createSketch) {
     actions.push({
       id: 'new-sketch',
@@ -108,17 +85,6 @@ export function buildLauncherActions(ctx: LauncherContext): LauncherAction[] {
       descriptionKey: 'workspace.newSketchDescription',
       run: (runCtx) => {
         runCtx.createSketch?.();
-      },
-    });
-  }
-  if (ctx.createDocument) {
-    actions.push({
-      id: 'create-document',
-      iconName: 'file',
-      labelKey: 'designFiles.paste.label',
-      descriptionKey: 'designFiles.paste.title',
-      run: (runCtx) => {
-        runCtx.createDocument?.();
       },
     });
   }

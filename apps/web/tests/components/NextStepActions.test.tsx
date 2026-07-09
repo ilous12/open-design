@@ -6,10 +6,9 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import {
   NextStepActions,
   PROJECT_CONTINUE_PROMPT,
-  PROJECT_GENERATE_ARTIFACT_PROMPT,
 } from '../../src/components/NextStepActions';
 import { I18nProvider } from '../../src/i18n';
-import { en } from '../../src/i18n/locales/en';
+import { ko } from '../../src/i18n/locales/ko';
 import type { Locale } from '../../src/i18n/types';
 import type { SkillSummary } from '../../src/types';
 
@@ -18,14 +17,8 @@ afterEach(() => {
   vi.clearAllMocks();
 });
 
-const AUTO_MATCH_TITLE = en['chat.designToolbox.action.auto-match.title'];
-const VISUAL_POLISH_TITLE = en['chat.designToolbox.action.visual-polish.title'];
-// The five non-featured actions surfaced inside the More → Design toolbox submenu.
-const MOTION_TITLE = en['chat.designToolbox.action.motion.title'];
-const MOTION_POLISH_TITLE = en['chat.designToolbox.action.motion-polish.title'];
-const ANTI_AI_TITLE = en['chat.designToolbox.action.anti-ai-polish.title'];
-const IMAGE_GEN_TITLE = en['chat.designToolbox.action.image-gen.title'];
-const VIDEO_GEN_TITLE = en['chat.designToolbox.action.video-gen.title'];
+const AUTO_MATCH_TITLE = ko['chat.designToolbox.action.auto-match.title'];
+const VISUAL_POLISH_TITLE = ko['chat.designToolbox.action.visual-polish.title'];
 
 function skill(id: string, name: string, category = 'creative-direction'): SkillSummary {
   return {
@@ -79,11 +72,11 @@ function renderActions(
 }
 
 describe('NextStepActions', () => {
-  it('renders the two featured rows and More', () => {
+  it('renders the two featured rows without More', () => {
     renderActions();
     expect(screen.getByText(AUTO_MATCH_TITLE)).toBeTruthy();
     expect(screen.getByText(VISUAL_POLISH_TITLE)).toBeTruthy();
-    expect(screen.getByTestId('next-step-toolbox-more')).toBeTruthy();
+    expect(screen.queryByTestId('next-step-toolbox-more')).toBeNull();
   });
 
   it('seeds the composer with the action id (no auto-send) when a featured row is clicked', () => {
@@ -98,8 +91,8 @@ describe('NextStepActions', () => {
 
     expect(screen.queryByText(AUTO_MATCH_TITLE)).toBeNull();
     expect(screen.queryByText(VISUAL_POLISH_TITLE)).toBeNull();
-    expect(screen.getByText(en['nextStep.designSystemAiRefineTitle'])).toBeTruthy();
-    expect(screen.getByText(en['nextStep.designSystemAuditKitTitle'])).toBeTruthy();
+    expect(screen.getByText(ko['nextStep.designSystemAiRefineTitle'])).toBeTruthy();
+    expect(screen.getByText(ko['nextStep.designSystemAuditKitTitle'])).toBeTruthy();
 
     fireEvent.click(screen.getByTestId('next-step-design-system-action-design-system-ai-refine'));
     expect(onPromptAction).toHaveBeenCalledWith(expect.stringContaining('refine this design system in place'));
@@ -116,9 +109,9 @@ describe('NextStepActions', () => {
     });
 
     expect(screen.queryByText(AUTO_MATCH_TITLE)).toBeNull();
-    expect(screen.getByText(en['nextStep.planGenerateTitle'])).toBeTruthy();
-    expect(screen.getByText(en['nextStep.planImproveTitle'])).toBeTruthy();
-    expect(screen.queryByText(en['nextStep.planImproveArtifactTitle'])).toBeNull();
+    expect(screen.getByText(ko['nextStep.planGenerateTitle'])).toBeTruthy();
+    expect(screen.getByText(ko['nextStep.planImproveTitle'])).toBeTruthy();
+    expect(screen.queryByText(ko['nextStep.planImproveArtifactTitle'])).toBeNull();
 
     fireEvent.click(screen.getByTestId('next-step-plan-action-plan-generate-from-doc'));
     expect(onPromptAction).toHaveBeenLastCalledWith(
@@ -143,9 +136,9 @@ describe('NextStepActions', () => {
       onPromptAction,
     });
 
-    expect(screen.queryByText(en['nextStep.planGenerateTitle'])).toBeNull();
-    expect(screen.queryByText(en['nextStep.planImproveTitle'])).toBeNull();
-    expect(screen.getByText(en['nextStep.planImproveArtifactTitle'])).toBeTruthy();
+    expect(screen.queryByText(ko['nextStep.planGenerateTitle'])).toBeNull();
+    expect(screen.queryByText(ko['nextStep.planImproveTitle'])).toBeNull();
+    expect(screen.getByText(ko['nextStep.planImproveArtifactTitle'])).toBeTruthy();
 
     fireEvent.click(screen.getByTestId('next-step-plan-action-plan-improve-artifact'));
     expect(onPromptAction).toHaveBeenLastCalledWith(
@@ -164,10 +157,10 @@ describe('NextStepActions', () => {
       onPromptAction,
     });
 
-    expect(screen.queryByText(en['nextStep.planGenerateTitle'])).toBeNull();
-    expect(screen.queryByText(en['nextStep.planImproveTitle'])).toBeNull();
-    expect(screen.getByText(en['nextStep.planMergeTitle'])).toBeTruthy();
-    expect(screen.getByText(en['nextStep.planImproveArtifactTitle'])).toBeTruthy();
+    expect(screen.queryByText(ko['nextStep.planGenerateTitle'])).toBeNull();
+    expect(screen.queryByText(ko['nextStep.planImproveTitle'])).toBeNull();
+    expect(screen.getByText(ko['nextStep.planMergeTitle'])).toBeTruthy();
+    expect(screen.getByText(ko['nextStep.planImproveArtifactTitle'])).toBeTruthy();
 
     fireEvent.click(screen.getByTestId('next-step-plan-action-plan-merge-doc-artifact'));
     expect(onPromptAction).toHaveBeenLastCalledWith(
@@ -184,11 +177,11 @@ describe('NextStepActions', () => {
 
     expect(screen.queryByText(AUTO_MATCH_TITLE)).toBeNull();
     expect(screen.queryByText(VISUAL_POLISH_TITLE)).toBeNull();
-    expect(screen.getByText(en['nextStep.brandAiOptimizeTitle'])).toBeTruthy();
-    expect(screen.getByText(en['nextStep.brandAiOptimizeBody'])).toBeTruthy();
-    expect(screen.getByText(en['nextStep.brandCreateDesignTitle'])).toBeTruthy();
-    expect(screen.getByText(en['nextStep.brandCreateDesignBody'])).toBeTruthy();
-    expect(screen.getByTestId('next-step-toolbox-more')).toBeTruthy();
+    expect(screen.getByText(ko['nextStep.brandAiOptimizeTitle'])).toBeTruthy();
+    expect(screen.getByText(ko['nextStep.brandAiOptimizeBody'])).toBeTruthy();
+    expect(screen.getByText(ko['nextStep.brandCreateDesignTitle'])).toBeTruthy();
+    expect(screen.getByText(ko['nextStep.brandCreateDesignBody'])).toBeTruthy();
+    expect(screen.queryByTestId('next-step-toolbox-more')).toBeNull();
 
     fireEvent.click(screen.getByTestId('next-step-brand-action-brand-ai-optimize'));
     expect(onAiOptimize).toHaveBeenCalledTimes(1);
@@ -206,10 +199,10 @@ describe('NextStepActions', () => {
       onCreateDesign: undefined,
     });
 
-    expect(screen.getByText(en['nextStep.brandContinueExtractionTitle'])).toBeTruthy();
-    expect(screen.getByText(en['nextStep.brandContinueAiExtractionTitle'])).toBeTruthy();
-    expect(screen.queryByText(en['nextStep.brandCreateDesignTitle'])).toBeNull();
-    expect(screen.queryByText(en['nextStep.brandAiOptimizeTitle'])).toBeNull();
+    expect(screen.getByText(ko['nextStep.brandContinueExtractionTitle'])).toBeTruthy();
+    expect(screen.getByText(ko['nextStep.brandContinueAiExtractionTitle'])).toBeTruthy();
+    expect(screen.queryByText(ko['nextStep.brandCreateDesignTitle'])).toBeNull();
+    expect(screen.queryByText(ko['nextStep.brandAiOptimizeTitle'])).toBeNull();
 
     fireEvent.click(screen.getByTestId('next-step-brand-action-brand-continue-extraction'));
     expect(onContinueExtraction).toHaveBeenCalledTimes(1);
@@ -227,10 +220,10 @@ describe('NextStepActions', () => {
       onCreateDesign: vi.fn(),
     });
 
-    expect(screen.getByText(en['nextStep.brandContinueAiExtractionTitle'])).toBeTruthy();
-    expect(screen.queryByText(en['nextStep.brandContinueExtractionTitle'])).toBeNull();
-    expect(screen.queryByText(en['nextStep.brandAiOptimizeTitle'])).toBeNull();
-    expect(screen.queryByText(en['nextStep.brandCreateDesignTitle'])).toBeNull();
+    expect(screen.getByText(ko['nextStep.brandContinueAiExtractionTitle'])).toBeTruthy();
+    expect(screen.queryByText(ko['nextStep.brandContinueExtractionTitle'])).toBeNull();
+    expect(screen.queryByText(ko['nextStep.brandAiOptimizeTitle'])).toBeNull();
+    expect(screen.queryByText(ko['nextStep.brandCreateDesignTitle'])).toBeNull();
 
     fireEvent.click(screen.getByTestId('next-step-brand-action-brand-continue-ai-extraction'));
     expect(onContinueAiExtraction).toHaveBeenCalledTimes(1);
@@ -244,12 +237,12 @@ describe('NextStepActions', () => {
       onPromptAction,
     });
 
-    expect(screen.getByText(en['nextStep.projectContinueTitle'])).toBeTruthy();
-    expect(screen.getByText(en['nextStep.projectGenerateArtifactTitle'])).toBeTruthy();
+    expect(screen.getByText(ko['nextStep.projectContinueTitle'])).toBeTruthy();
+    expect(screen.queryByText(ko['nextStep.projectGenerateArtifactTitle'])).toBeNull();
+    expect(screen.queryByTestId('next-step-project-action-project-generate-artifact')).toBeNull();
     fireEvent.click(screen.getByTestId('next-step-project-action-project-continue'));
-    expect(onPromptAction).toHaveBeenCalledWith(PROJECT_CONTINUE_PROMPT);
-    fireEvent.click(screen.getByTestId('next-step-project-action-project-generate-artifact'));
-    expect(onPromptAction).toHaveBeenCalledWith(PROJECT_GENERATE_ARTIFACT_PROMPT);
+    expect(onPromptAction).toHaveBeenCalledWith(expect.stringContaining('숨김 지시'));
+    expect(onPromptAction).toHaveBeenCalledWith(expect.stringContaining(PROJECT_CONTINUE_PROMPT));
   });
 
   it('localizes incomplete-project recovery prompts in Chinese', () => {
@@ -262,15 +255,9 @@ describe('NextStepActions', () => {
 
     fireEvent.click(screen.getByTestId('next-step-project-action-project-continue'));
     expect(onPromptAction).toHaveBeenCalledWith(
-      expect.stringContaining('从已停止或未完成的回合继续处理'),
+      expect.stringContaining('중단되었거나 완료되지 않은 작업을 이어서 진행하세요'),
     );
-    fireEvent.click(screen.getByTestId('next-step-project-action-project-generate-artifact'));
-    expect(onPromptAction).toHaveBeenCalledWith(
-      expect.stringContaining('现在生成缺失的项目产物'),
-    );
-    expect(onPromptAction).not.toHaveBeenCalledWith(
-      expect.stringContaining('Generate the missing project artifact now'),
-    );
+    expect(screen.queryByTestId('next-step-project-action-project-generate-artifact')).toBeNull();
   });
 
   it('localizes design-system project prompts in Chinese', () => {
@@ -279,11 +266,11 @@ describe('NextStepActions', () => {
 
     fireEvent.click(screen.getByTestId('next-step-design-system-action-design-system-ai-refine'));
     expect(onPromptAction).toHaveBeenCalledWith(
-      expect.stringContaining('原地优化这个设计系统'),
+      expect.stringContaining('AI 추출을 사용해 이 디자인 시스템을 제자리에서 계속 개선하세요'),
     );
     fireEvent.click(screen.getByTestId('next-step-design-system-action-design-system-audit-kit'));
     expect(onPromptAction).toHaveBeenCalledWith(
-      expect.stringContaining('审查这个设计系统是否已经可用'),
+      expect.stringContaining('이 디자인 시스템의 사용 준비 상태를 점검하세요'),
     );
     expect(onPromptAction).not.toHaveBeenCalledWith(
       expect.stringContaining('refine this design system in place'),
@@ -301,8 +288,8 @@ describe('NextStepActions', () => {
 
     const optimize = screen.getByTestId('next-step-brand-action-brand-ai-optimize') as HTMLButtonElement;
     const create = screen.getByTestId('next-step-brand-action-brand-create-design') as HTMLButtonElement;
-    expect(screen.getByText(en['brandEnrichment.busy'])).toBeTruthy();
-    expect(screen.getByText(en['nextStep.createDesignBusy'])).toBeTruthy();
+    expect(screen.getByText(ko['brandEnrichment.busy'])).toBeTruthy();
+    expect(screen.getByText(ko['nextStep.createDesignBusy'])).toBeTruthy();
     expect(optimize.disabled).toBe(true);
     expect(create.disabled).toBe(true);
   });
@@ -317,8 +304,8 @@ describe('NextStepActions', () => {
     fireEvent.mouseEnter(screen.getByTestId('next-step-brand-action-brand-ai-optimize'));
 
     const tooltip = screen.getByRole('tooltip');
-    expect(within(tooltip).getByText(en['nextStep.brandAiOptimizeTitle'])).toBeTruthy();
-    expect(within(tooltip).getByText(en['nextStep.brandAiOptimizeBody'])).toBeTruthy();
+    expect(within(tooltip).getByText(ko['nextStep.brandAiOptimizeTitle'])).toBeTruthy();
+    expect(within(tooltip).getByText(ko['nextStep.brandAiOptimizeBody'])).toBeTruthy();
   });
 
   it('reveals the matched @skill in the featured-row hover detail', () => {
@@ -327,141 +314,15 @@ describe('NextStepActions', () => {
     expect(screen.getByText('@creative-director')).toBeTruthy();
   });
 
-  it('opens the More menu with Design toolbox + Share on hover', () => {
-    renderActions();
-    fireEvent.mouseEnter(screen.getByTestId('next-step-toolbox-more'));
-    const menu = screen.getByTestId('next-step-more-menu');
-    expect(menu).toBeTruthy();
-    expect(screen.getByTestId('next-step-more-toolbox')).toBeTruthy();
-    expect(screen.getByTestId('next-step-more-share')).toBeTruthy();
-  });
-
-  it('cascades into searchable non-featured toolbox actions and global resources', () => {
-    renderActions();
-    fireEvent.mouseEnter(screen.getByTestId('next-step-toolbox-more'));
-    fireEvent.mouseEnter(screen.getByTestId('next-step-more-toolbox'));
-    const list = screen.getByTestId('next-step-toolbox-actions');
-
-    for (const title of [
-      MOTION_TITLE,
-      MOTION_POLISH_TITLE,
-      ANTI_AI_TITLE,
-      IMAGE_GEN_TITLE,
-      VIDEO_GEN_TITLE,
-    ]) {
-      expect(within(list).getByText(title)).toBeTruthy();
-    }
-
-    // The two featured actions are not duplicated inside the submenu.
-    expect(within(list).queryByText(AUTO_MATCH_TITLE)).toBeNull();
-    expect(within(list).queryByText(VISUAL_POLISH_TITLE)).toBeNull();
-    expect(within(list).getByRole('textbox')).toBeTruthy();
-    expect(within(list).getByText(en['chat.designToolbox.resourcesSection'])).toBeTruthy();
-    expect(within(list).getByText('Creative Director')).toBeTruthy();
-    expect(within(list).getByText('Emil Kowalski Motion')).toBeTruthy();
-  });
-
-  it('filters actions and global resources from the toolbox search box', () => {
-    renderActions();
-    fireEvent.mouseEnter(screen.getByTestId('next-step-toolbox-more'));
-    fireEvent.mouseEnter(screen.getByTestId('next-step-more-toolbox'));
-    const list = screen.getByTestId('next-step-toolbox-actions');
-
-    fireEvent.change(within(list).getByRole('textbox'), { target: { value: 'image' } });
-
-    expect(within(list).getByText(IMAGE_GEN_TITLE)).toBeTruthy();
-    expect(within(list).getByText('Imagegen Frontend Web')).toBeTruthy();
-    expect(within(list).queryByText(MOTION_TITLE)).toBeNull();
-  });
-
-  it('keeps an action visible when searching by its preferred skill id (parity with the composer matcher)', () => {
-    renderActions();
-    fireEvent.mouseEnter(screen.getByTestId('next-step-toolbox-more'));
-    fireEvent.mouseEnter(screen.getByTestId('next-step-more-toolbox'));
-    const list = screen.getByTestId('next-step-toolbox-actions');
-
-    // `emilkowalski-motion` is the preferred skill of the `motion` action.
-    fireEvent.change(within(list).getByRole('textbox'), { target: { value: 'emilkowalski-motion' } });
-
-    // The skill resource row matches by id...
-    expect(within(list).getByTestId('next-step-toolbox-resource-emilkowalski-motion')).toBeTruthy();
-    // ...and the action it is the preferred skill for must stay visible too,
-    // instead of the action row disappearing while its resource row shows.
-    expect(within(list).getByTestId('next-step-toolbox-sub-action-motion')).toBeTruthy();
-  });
-
-  it('matches and renders a global resource by its localized text under a non-English locale', () => {
-    const localizedSkill = {
-      ...skill('creative-director', 'creative-director'),
-      displayName: { 'zh-CN': '创意总监' },
-      descriptionI18n: { 'zh-CN': 'AI 创意总监，负责整体审美方向' },
-    } as SkillSummary;
-    renderActions({ skills: [localizedSkill] }, 'zh-CN');
-    fireEvent.mouseEnter(screen.getByTestId('next-step-toolbox-more'));
-    fireEvent.mouseEnter(screen.getByTestId('next-step-more-toolbox'));
-    const list = screen.getByTestId('next-step-toolbox-actions');
-
-    fireEvent.change(within(list).getByRole('textbox'), { target: { value: '创意总监' } });
-
-    // The localized query matches (parity with the composer's localized index)...
-    expect(within(list).getByTestId('next-step-toolbox-resource-creative-director')).toBeTruthy();
-    // ...and the row renders the localized name rather than the raw id.
-    expect(within(list).getByText('创意总监')).toBeTruthy();
-  });
-
-  it('keeps the paired action visible for a localized preferred-skill query (action/resource parity under a non-English locale)', () => {
-    const motionSkill = {
-      ...skill('emilkowalski-motion', 'emilkowalski-motion', 'animation-motion'),
-      displayName: { 'zh-CN': '动效大师' },
-    } as SkillSummary;
-    renderActions({ skills: [motionSkill] }, 'zh-CN');
-    fireEvent.mouseEnter(screen.getByTestId('next-step-toolbox-more'));
-    fireEvent.mouseEnter(screen.getByTestId('next-step-more-toolbox'));
-    const list = screen.getByTestId('next-step-toolbox-actions');
-
-    fireEvent.change(within(list).getByRole('textbox'), { target: { value: '动效大师' } });
-
-    // The resource row matches the localized name...
-    expect(within(list).getByTestId('next-step-toolbox-resource-emilkowalski-motion')).toBeTruthy();
-    // ...and the action it is the preferred skill for must stay visible, instead
-    // of the action matcher ignoring the localized skill text and hiding it.
-    expect(within(list).getByTestId('next-step-toolbox-sub-action-motion')).toBeTruthy();
-  });
-
-  it('seeds the composer with a non-featured action id when picked from the submenu', () => {
+  it('does not render the removed More cascade or hidden toolbox/share menus', () => {
     const h = renderActions();
-    fireEvent.mouseEnter(screen.getByTestId('next-step-toolbox-more'));
-    fireEvent.mouseEnter(screen.getByTestId('next-step-more-toolbox'));
-    fireEvent.click(screen.getByTestId('next-step-toolbox-sub-action-motion'));
-    expect(h.onToolboxAction).toHaveBeenCalledWith('motion');
-  });
-
-  it('seeds the composer with a global resource skill when picked from the submenu', () => {
-    const h = renderActions();
-    fireEvent.mouseEnter(screen.getByTestId('next-step-toolbox-more'));
-    fireEvent.mouseEnter(screen.getByTestId('next-step-more-toolbox'));
-    fireEvent.click(screen.getByTestId('next-step-toolbox-resource-emilkowalski-motion'));
-    expect(h.onPickSkill).toHaveBeenCalledWith('emilkowalski-motion');
-  });
-
-  it('cascades into Share / Download / Contribute and routes each action', () => {
-    const h = renderActions();
-    fireEvent.mouseEnter(screen.getByTestId('next-step-toolbox-more'));
-    fireEvent.mouseEnter(screen.getByTestId('next-step-more-share'));
-    expect(screen.getByTestId('next-step-share-menu')).toBeTruthy();
-
-    fireEvent.click(screen.getByTestId('next-step-share-share'));
-    expect(h.onShare).toHaveBeenCalledWith('landing.html');
-
-    fireEvent.mouseEnter(screen.getByTestId('next-step-toolbox-more'));
-    fireEvent.mouseEnter(screen.getByTestId('next-step-more-share'));
-    fireEvent.click(screen.getByTestId('next-step-share-download'));
-    expect(h.onDownload).toHaveBeenCalledWith('landing.html');
-
-    fireEvent.mouseEnter(screen.getByTestId('next-step-toolbox-more'));
-    fireEvent.mouseEnter(screen.getByTestId('next-step-more-share'));
-    fireEvent.click(screen.getByTestId('next-step-share-contribute'));
-    expect(h.onShareToOpenDesign).toHaveBeenCalledTimes(1);
+    expect(screen.queryByTestId('next-step-toolbox-more')).toBeNull();
+    expect(screen.queryByTestId('next-step-more-menu')).toBeNull();
+    expect(screen.queryByTestId('next-step-toolbox-actions')).toBeNull();
+    expect(screen.queryByTestId('next-step-share-menu')).toBeNull();
+    expect(h.onShare).not.toHaveBeenCalled();
+    expect(h.onDownload).not.toHaveBeenCalled();
+    expect(h.onPickSkill).not.toHaveBeenCalled();
   });
 
   it('hides the toolbox rows when no toolbox handler is wired', () => {

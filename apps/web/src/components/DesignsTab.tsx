@@ -29,7 +29,6 @@ import {
 import { LiveArtifactBadges } from "./LiveArtifactBadges";
 import { Toast } from "./Toast";
 
-type SubTab = "recent" | "yours";
 type ViewMode = "grid" | "kanban";
 
 type DesignListItem =
@@ -42,8 +41,11 @@ type DesignListItem =
 			createdAt: number;
 	  };
 
-const DESIGNS_VIEW_STORAGE_KEY = "od:designs:view";
 const PROJECTS_AUTO_REFRESH_MS = 15000;
+
+function fixedDesignsViewMode(): ViewMode {
+	return "grid";
+}
 
 export const STATUS_ORDER = [
 	"not_started",
@@ -109,7 +111,6 @@ export function DesignsTab({
 		trackPageView(analytics.track, { page_name: 'projects' });
 	}, [analytics.track]);
 	const [filter, setFilter] = useState("");
-	const [sub, setSub] = useState<SubTab>("recent");
 	const [liveArtifactsByProject, setLiveArtifactsByProject] = useState<
 		Record<string, LiveArtifactSummary[]>
 	>({});
@@ -137,17 +138,7 @@ export function DesignsTab({
 		confirmLabel: string;
 		onConfirm: () => void;
 	} | null>(null);
-	const [view, setView] = useState<ViewMode>(() => {
-		if (typeof window === "undefined") return "grid";
-		try {
-			const storedView = window.localStorage.getItem(DESIGNS_VIEW_STORAGE_KEY);
-			return storedView === "grid" || storedView === "kanban"
-				? storedView
-				: "grid";
-		} catch {
-			return "grid";
-		}
-	});
+	const view = fixedDesignsViewMode();
 
 	useEffect(() => {
 		let cancelled = false;
@@ -274,16 +265,6 @@ export function DesignsTab({
 		});
 	}, [projects]);
 
-	useEffect(() => {
-		try {
-			window.localStorage.setItem(DESIGNS_VIEW_STORAGE_KEY, view);
-		} catch {}
-	}, [view]);
-
-	useEffect(() => {
-		if (view === "kanban" && selectMode) exitSelectMode();
-	}, [selectMode, view]);
-
 	const refreshProjectsList = useCallback(
 		async (source: "manual" | "auto") => {
 			if (!onRefresh || projectsRefreshInFlightRef.current) return;
@@ -369,13 +350,7 @@ export function DesignsTab({
 
 		list = [...list, ...liveItems];
 
-		if (sub === "recent") {
-			list = [...list].sort((a, b) => b.updatedAt - a.updatedAt);
-		}
-
-		if (sub === "yours") {
-			list = [...list].sort((a, b) => b.createdAt - a.createdAt);
-		}
+		list = [...list].sort((a, b) => b.updatedAt - a.updatedAt);
 
 		if (!q) return list;
 		return list.filter((item) => {
@@ -385,7 +360,7 @@ export function DesignsTab({
 				item.liveArtifact.title.toLowerCase().includes(q)
 			);
 		});
-	}, [projects, liveArtifactsByProject, filter, sub]);
+	}, [projects, liveArtifactsByProject, filter]);
 
 	const filteredProjects = useMemo(
 		() =>
@@ -508,40 +483,6 @@ export function DesignsTab({
 		>
 			<div className="tab-panel-toolbar designs-toolbar">
 				<div className="toolbar-left">
-					<div
-						className="subtab-pill"
-						role="group"
-						aria-label={t("designs.filterAria")}
-					>
-						<button
-							aria-pressed={sub === "recent"}
-							className={sub === "recent" ? "active" : ""}
-							onClick={() => {
-								trackProjectsListControlsClick(analytics.track, {
-									page_name: "projects",
-									area: "list_controls",
-									element: "recent",
-								});
-								setSub("recent");
-							}}
-						>
-							{t("designs.subRecent")}
-						</button>
-						<button
-							aria-pressed={sub === "yours"}
-							className={sub === "yours" ? "active" : ""}
-							onClick={() => {
-								trackProjectsListControlsClick(analytics.track, {
-									page_name: "projects",
-									area: "list_controls",
-									element: "your_designs",
-								});
-								setSub("yours");
-							}}
-						>
-							{t("designs.subYours")}
-						</button>
-					</div>
 				</div>
 				<div className="toolbar-right">
 					{onNewProject && projects.length > 0 ? (
@@ -649,46 +590,6 @@ export function DesignsTab({
 							<span>{t("designs.selectMode")}</span>
 						</button>
 					) : null}
-					<div
-						className="subtab-pill"
-						role="group"
-						aria-label={t("designs.viewToggleAria")}
-					>
-						<button
-							aria-pressed={view === "grid"}
-							className={view === "grid" ? "active" : ""}
-							onClick={() => {
-								trackProjectsListControlsClick(analytics.track, {
-									page_name: "projects",
-									area: "list_controls",
-									element: "grid_view",
-								});
-								setView("grid");
-							}}
-							title={t("designs.viewGrid")}
-							data-testid="designs-view-grid"
-						>
-							<Icon name="grid" size={14} />
-						</button>
-						<button
-							aria-pressed={view === "kanban"}
-							className={view === "kanban" ? "active" : ""}
-							onClick={() => {
-								// Kanban view substitutes for the contract's
-								// list_view element.
-								trackProjectsListControlsClick(analytics.track, {
-									page_name: "projects",
-									area: "list_controls",
-									element: "list_view",
-								});
-								setView("kanban");
-							}}
-							title={t("designs.viewKanban")}
-							data-testid="designs-view-kanban"
-						>
-							<Icon name="kanban" size={14} />
-						</button>
-					</div>
 				</div>
 			</div>
 			{filtered.length === 0 ? (
@@ -998,11 +899,9 @@ export function DesignsTab({
 												{publishedDesignSystem ? t("designs.status.published") : statusLabel(status, t)}
 											</span>
 										</span>
-										{sub === "recent" || sub === "yours" ? (
-											<span className="design-card-meta-time">
-												{relativeTime(p.updatedAt, t)}
-											</span>
-										) : null}
+										<span className="design-card-meta-time">
+											{relativeTime(p.updatedAt, t)}
+										</span>
 									</div>
 								</div>
 							</div>
@@ -1080,9 +979,7 @@ export function DesignsTab({
 															<span>{t("designs.cardFreeform")}</span>
 														)}
 														{skill ? ` · ${skill}` : ""}
-														{sub === "recent" || sub === "yours"
-															? ` · ${relativeTime(p.updatedAt, t)}`
-															: ""}
+														{` · ${relativeTime(p.updatedAt, t)}`}
 													</div>
 												</div>
 											);

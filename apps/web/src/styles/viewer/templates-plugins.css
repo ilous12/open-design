@@ -282,7 +282,7 @@
 .mcp-agent-support-line code {
   font-size: 11.5px;
   padding: 1px 4px;
-  border-radius: 3px;
+  border-radius: var(--radius);
   background: color-mix(in srgb, var(--bg) 70%, transparent);
 }
 .mcp-agent-support-unsupported {
@@ -750,7 +750,7 @@
   font-size: 11px;
   padding: 1px 5px;
   border: 1px solid var(--border);
-  border-radius: 3px;
+  border-radius: var(--radius);
   background: var(--bg-subtle);
 }
 .plugin-loop-home__active {
@@ -806,7 +806,7 @@
   line-height: 1.5;
   padding: 10px 12px;
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm, 6px);
+  border-radius: var(--radius-sm, 8px);
   background: var(--bg);
   color: var(--text);
 }
@@ -822,7 +822,7 @@
   background: var(--accent);
   color: white;
   padding: 6px 14px;
-  border-radius: var(--radius-sm, 6px);
+  border-radius: var(--radius-sm, 8px);
   font-size: 12.5px;
   font-weight: 600;
   cursor: pointer;
@@ -863,14 +863,14 @@
   font-size: 11.5px;
   background: var(--bg-subtle);
   padding: 1px 5px;
-  border-radius: 3px;
+  border-radius: var(--radius);
 }
 .plugin-loop-home__card {
   display: flex;
   flex-direction: column;
   gap: 6px;
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm, 6px);
+  border-radius: var(--radius-sm, 8px);
   padding: 10px 12px;
   background: var(--bg);
   font-size: 12.5px;
@@ -941,7 +941,7 @@
   text-decoration: none;
   border: 1px solid transparent;
   padding: 1px 6px;
-  border-radius: var(--radius-sm, 6px);
+  border-radius: var(--radius-sm, 8px);
   max-width: 100%;
 }
 .plugin-loop-home__card-byline-source > span {
@@ -987,7 +987,7 @@
   background: var(--bg-subtle);
   color: var(--text);
   padding: 5px 10px;
-  border-radius: var(--radius-sm, 6px);
+  border-radius: var(--radius-sm, 8px);
   font-size: 12px;
   cursor: pointer;
   text-align: left;
@@ -1014,7 +1014,7 @@
   background: var(--bg-panel);
   color: var(--text-muted);
   padding: 5px 10px;
-  border-radius: var(--radius-sm, 6px);
+  border-radius: var(--radius-sm, 8px);
   font-size: 12px;
   cursor: pointer;
 }
@@ -1118,7 +1118,7 @@
   color: var(--text-muted);
   width: 40px;
   height: 40px;
-  border-radius: var(--radius-sm, 6px);
+  border-radius: var(--radius-sm, 8px);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1274,7 +1274,7 @@
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
 }
 .plugin-details-modal__hero-frame {
-  border-radius: var(--radius-md, 10px);
+  border-radius: var(--radius-md, 8px);
   border: 1px solid var(--border);
   background: var(--bg-elevated);
   overflow: hidden;
@@ -1421,7 +1421,7 @@
   margin: 0;
   padding: 10px 12px;
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm, 6px);
+  border-radius: var(--radius-sm, 8px);
   background: var(--bg-subtle);
   color: var(--text);
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
@@ -1451,7 +1451,7 @@
   padding: 12px 14px;
   background: var(--bg-subtle);
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm, 6px);
+  border-radius: var(--radius-sm, 8px);
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 12.5px;
   line-height: 1.55;
@@ -1474,7 +1474,7 @@
 .plugin-details-modal__input {
   padding: 8px 10px;
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm, 6px);
+  border-radius: var(--radius-sm, 8px);
   background: var(--bg);
   display: flex;
   flex-direction: column;
@@ -1602,7 +1602,7 @@
   position: relative;
   padding: 10px 12px 10px 12px;
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm, 6px);
+  border-radius: var(--radius-sm, 8px);
   background: var(--bg);
   display: flex;
   flex-direction: column;
@@ -1668,7 +1668,7 @@
   top: 8px;
   bottom: 8px;
   width: 3px;
-  border-radius: 0 3px 3px 0;
+  border-radius: 0 var(--radius) var(--radius) 0;
   background: transparent;
   transition: background-color 140ms var(--ease-out);
   pointer-events: none;
@@ -1840,7 +1840,7 @@
 .plugin-details-modal__surface {
   padding: 8px 10px;
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm, 6px);
+  border-radius: var(--radius-sm, 8px);
   background: var(--bg);
   display: flex;
   flex-direction: column;
@@ -1875,7 +1875,7 @@
 .plugin-details-modal__connector {
   padding: 6px 10px;
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm, 6px);
+  border-radius: var(--radius-sm, 8px);
   background: var(--bg);
   display: flex;
   align-items: center;
@@ -1935,7 +1935,7 @@
 .plugins-view__version-select select {
   width: min(240px, 100%);
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm, 6px);
+  border-radius: var(--radius-sm, 8px);
   background: var(--bg);
   color: var(--text);
   padding: 7px 9px;
@@ -1953,7 +1953,7 @@
   overflow-wrap: anywhere;
   padding: 7px 10px;
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm, 6px);
+  border-radius: var(--radius-sm, 8px);
   background: var(--bg-subtle);
   color: var(--text);
   font-size: 12px;
@@ -1984,7 +1984,7 @@
   text-decoration: none;
   border: 1px solid transparent;
   padding: 1px 6px;
-  border-radius: var(--radius-sm, 6px);
+  border-radius: var(--radius-sm, 8px);
   max-width: 100%;
 }
 .plugin-details-modal__ext-link > span {
@@ -2015,7 +2015,7 @@
   background: var(--bg);
   color: var(--text);
   padding: 7px 14px;
-  border-radius: var(--radius-sm, 6px);
+  border-radius: var(--radius-sm, 8px);
   font-size: 12.5px;
   font-weight: 500;
   cursor: pointer;
@@ -2032,7 +2032,7 @@
   background: var(--accent);
   color: white;
   padding: 7px 16px;
-  border-radius: var(--radius-sm, 6px);
+  border-radius: var(--radius-sm, 8px);
   font-size: 12.5px;
   font-weight: 600;
   cursor: pointer;
@@ -2097,7 +2097,7 @@
   padding: 8px 10px;
   background: transparent;
   border: none;
-  border-radius: var(--radius-sm, 6px);
+  border-radius: var(--radius-sm, 8px);
   text-align: left;
   cursor: pointer;
   color: var(--text);
@@ -2140,7 +2140,7 @@
   min-width: 0;
   padding: 10px 12px;
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm, 6px);
+  border-radius: var(--radius-sm, 8px);
   background: var(--bg);
 }
 .plugin-share-confirm__facts dt {
@@ -2335,7 +2335,7 @@
 .plugin-info-pane .plugin-details-modal__query {
   background: color-mix(in srgb, var(--text) 4%, transparent);
   border: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
-  border-radius: 8px;
+  border-radius: var(--radius);
   font-family: inherit;
   font-size: 12.5px;
   line-height: 1.6;

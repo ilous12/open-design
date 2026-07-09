@@ -59,6 +59,30 @@ describe('daemonAgentPayloadToPersistedAgentEvent — tool_loop', () => {
   });
 });
 
+describe('daemonAgentPayloadToPersistedAgentEvent — usage', () => {
+  it('persists total-only and cached token usage fields', () => {
+    const persisted = daemonAgentPayloadToPersistedAgentEvent({
+      type: 'usage',
+      usage: {
+        total_tokens: 80805,
+        reasoning_output_tokens: 512,
+        cached_read_tokens: 75734,
+        cached_write_tokens: 120,
+      },
+      durationMs: 32000,
+    });
+
+    expect(persisted).toEqual({
+      kind: 'usage',
+      totalTokens: 80805,
+      thoughtTokens: 512,
+      cachedReadTokens: 75734,
+      cachedWriteTokens: 120,
+      durationMs: 32000,
+    });
+  });
+});
+
 describe('daemonAgentPayloadToPersistedAgentEvent — diagnostic', () => {
   it('persists safe structured runtime diagnostics', () => {
     const persisted = daemonAgentPayloadToPersistedAgentEvent({

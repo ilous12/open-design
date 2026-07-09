@@ -21,6 +21,7 @@ type Usage = {
   input_tokens?: number;
   output_tokens?: number;
   thought_tokens?: number;
+  total_tokens?: number;
   cached_read_tokens?: number;
   cached_write_tokens?: number;
 };
@@ -144,6 +145,48 @@ function formatOpenCodeUsage(tokens: unknown): Usage | null {
     if (typeof tokens.cache.read === 'number') usage.cached_read_tokens = tokens.cache.read;
     if (typeof tokens.cache.write === 'number') usage.cached_write_tokens = tokens.cache.write;
   }
+  return Object.keys(usage).length > 0 ? usage : null;
+}
+
+function finiteNumber(value: unknown): number | undefined {
+  return typeof value === 'number' && Number.isFinite(value) ? value : undefined;
+}
+
+function normalizeUsageFields(raw: JsonObject): Usage | null {
+  const usage: Usage = {};
+  const input = finiteNumber(raw.input_tokens ?? raw.inputTokens ?? raw.prompt_tokens ?? raw.promptTokens);
+  const output = finiteNumber(raw.output_tokens ?? raw.outputTokens ?? raw.completion_tokens ?? raw.completionTokens);
+  const thought = finiteNumber(
+    raw.thought_tokens ??
+      raw.thoughtTokens ??
+      raw.reasoning_output_tokens ??
+      raw.reasoningOutputTokens ??
+      raw.reasoning_tokens ??
+      raw.reasoningTokens,
+  );
+  const total = finiteNumber(raw.total_tokens ?? raw.totalTokens);
+  const cachedRead = finiteNumber(
+    raw.cached_read_tokens ??
+      raw.cachedReadTokens ??
+      raw.cached_input_tokens ??
+      raw.cachedInputTokens ??
+      raw.cache_read_input_tokens ??
+      raw.cacheReadInputTokens,
+  );
+  const cachedWrite = finiteNumber(
+    raw.cached_write_tokens ??
+      raw.cachedWriteTokens ??
+      raw.cache_creation_input_tokens ??
+      raw.cacheCreationInputTokens ??
+      raw.cache_write_input_tokens ??
+      raw.cacheWriteInputTokens,
+  );
+  if (input !== undefined) usage.input_tokens = input;
+  if (output !== undefined) usage.output_tokens = output;
+  if (thought !== undefined) usage.thought_tokens = thought;
+  if (total !== undefined) usage.total_tokens = total;
+  if (cachedRead !== undefined) usage.cached_read_tokens = cachedRead;
+  if (cachedWrite !== undefined) usage.cached_write_tokens = cachedWrite;
   return Object.keys(usage).length > 0 ? usage : null;
 }
 
@@ -800,16 +843,8 @@ function handleCodexEvent(obj: unknown, onEvent: StreamEventHandler, state: Pars
   }
 
   if (obj.type === 'turn.completed' && isRecord(obj.usage)) {
-    const usage: Usage = {};
-    if (typeof obj.usage.input_tokens === 'number') usage.input_tokens = obj.usage.input_tokens;
-    if (typeof obj.usage.output_tokens === 'number') usage.output_tokens = obj.usage.output_tokens;
-    if (typeof obj.usage.reasoning_output_tokens === 'number') {
-      usage.thought_tokens = obj.usage.reasoning_output_tokens;
-    }
-    if (typeof obj.usage.cached_input_tokens === 'number') {
-      usage.cached_read_tokens = obj.usage.cached_input_tokens;
-    }
-    onEvent({ type: 'usage', usage });
+    const usage = normalizeUsageFields(obj.usage);
+    if (usage) onEvent({ type: 'usage', usage });
     return true;
   }
 

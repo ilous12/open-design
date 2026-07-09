@@ -1,16 +1,15 @@
 /* ============================================================
    Plugins home section — gallery layout.
 
-   The gallery now renders large preview tiles (image / video /
-   sandboxed HTML / design-system patch) instead of text-only
-   cards, so the home view reads more like a Lovart-style
-   inspiration board. The faceted filter row above the grid is
-   unchanged; only the card visuals + grid sizing changed.
+   The gallery renders large web/mobile prototype preview tiles
+   instead of text-only cards, so the home view reads like a focused
+   prototype reference board. The faceted filter row above the grid
+   stays compact; only the card visuals + grid sizing changed.
    ============================================================ */
 .plugins-home {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
 }
 .plugins-home__head {
   display: flex;
@@ -26,20 +25,20 @@
 }
 .plugins-home__subtitle {
   margin: 0;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-muted);
   line-height: 1.4;
 }
 .plugins-home__title {
   margin: 0;
   font-family: var(--serif);
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 720;
   color: var(--text-strong);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 .plugins-home__count {
-  font-size: 11.5px;
+  font-size: 12px;
   color: var(--text-muted);
   font-variant-numeric: tabular-nums;
 }
@@ -49,83 +48,6 @@
   gap: 10px;
   flex: 0 0 auto;
 }
-.plugins-home__search {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  width: 200px;
-  max-width: 100%;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-pill);
-  background: var(--bg-panel);
-  transition: border-color 120ms var(--ease-out), background-color 120ms var(--ease-out),
-    box-shadow 120ms var(--ease-out);
-}
-.plugins-home__search:focus-within {
-  border-color: var(--border-strong);
-  box-shadow: 0 0 0 3px var(--accent-tint);
-}
-.plugins-home__search-icon {
-  position: absolute;
-  left: 10px;
-  color: var(--text-faint);
-  pointer-events: none;
-}
-/* The bare <input> below picks up the global `input { ... }` rule
-   from index.css (border, radius-sm, padding, and a rectangular
-   focus box-shadow). We override every property the parent pill
-   already provides so the focus halo only paints once, on the
-   pill-shaped container, and the input renders flush inside it. */
-.plugins-home__search .plugins-home__search-input,
-.plugins-home__search .plugins-home__search-input:focus {
-  appearance: none;
-  width: 100%;
-  border: 0;
-  background: transparent;
-  padding: 6px 28px;
-  font-size: 12px;
-  color: var(--text);
-  outline: none;
-  box-shadow: none;
-  border-radius: var(--radius-pill);
-  font-family: inherit;
-}
-.plugins-home__search-input::placeholder {
-  color: var(--text-faint);
-}
-.plugins-home__search-input::-webkit-search-cancel-button,
-.plugins-home__search-input::-webkit-search-decoration {
-  appearance: none;
-  display: none;
-}
-/* Override the shared <Button> component's own padding (6/12) and sizing.
-   The reset must be scoped under `.plugins-home__search` so it out-specifies
-   the Button CSS-module class (`.button_button__…`); a bare
-   `.plugins-home__search-clear` only ties that class and loses, leaving the
-   24px horizontal padding to crush the X glyph down to zero width. */
-.plugins-home__search .plugins-home__search-clear {
-  position: absolute;
-  right: 5px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 20px;
-  min-width: 0;
-  padding: 0;
-  border-radius: 50%;
-  color: var(--text-muted);
-  transition: background-color 120ms var(--ease-out), color 120ms var(--ease-out);
-}
-.plugins-home__search .plugins-home__search-clear:hover {
-  background: var(--border-soft, var(--border));
-  border-color: transparent;
-  color: var(--text);
-}
-.plugins-home__search .plugins-home__search-clear:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 1px;
-}
 @media (max-width: 720px) {
   .plugins-home__head {
     flex-direction: column;
@@ -134,28 +56,20 @@
   .plugins-home__head-tools {
     justify-content: flex-end;
   }
-  .plugins-home__facet-tools {
-    width: 100%;
-    justify-content: flex-start;
-  }
-  .plugins-home__search {
-    flex: 1;
-    min-width: 0;
-  }
 }
 .plugins-home__empty {
   color: var(--text-muted);
-  font-size: 13px;
-  padding: 20px 16px;
-  border: 1px dashed var(--border);
-  border-radius: var(--radius);
+  font-size: 14px;
+  padding: 22px 16px;
+  border: 1px dashed color-mix(in srgb, var(--accent) 24%, var(--border));
+  border-radius: var(--radius-md);
   text-align: center;
 }
 .plugins-home__empty code {
   font-size: 12px;
   background: var(--bg-subtle);
   padding: 1px 5px;
-  border-radius: 3px;
+  border-radius: var(--radius);
 }
 
 /* ============================================================
@@ -168,12 +82,12 @@
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  padding: 4px 10px;
+  padding: 5px 11px;
   border: 1px solid var(--border);
   border-radius: var(--radius-pill);
-  background: var(--bg-panel);
+  background: color-mix(in srgb, var(--bg-panel) 92%, var(--accent-tint));
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: 12.5px;
   cursor: pointer;
   transition: border-color 120ms var(--ease-out), background-color 120ms var(--ease-out), color 120ms var(--ease-out);
 }
@@ -220,7 +134,7 @@
 .plugins-home__facets {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0;
   /* Pin the Scenario row (and the optional advanced panel below it)
      directly under the sticky topbar so the category bar stays
      reachable while the plugin grid scrolls underneath -- mirrors
@@ -230,7 +144,8 @@
   position: sticky;
   top: var(--entry-topbar-h, 56px);
   z-index: 5;
-  background: var(--bg);
+  background: color-mix(in srgb, #ffffff 86%, transparent);
+  backdrop-filter: blur(16px);
 }
 .plugins-home__facet-row {
   display: grid;
@@ -242,21 +157,8 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 8px 12px;
-  padding: 4px 0;
-}
-/* Right-aligned cluster paired with the chip strip on the same row.
-   Hosts the search input, the filtered-count, and a clear-filters
-   link when at least one facet is active. It can wrap under the
-   chip strip on constrained viewports instead of forcing a local
-   horizontal scrollbar. */
-.plugins-home__facet-tools {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex: 0 1 240px;
-  margin-left: auto;
-  min-width: min(100%, 200px);
+  gap: 0;
+  padding: 0;
 }
 .plugins-home__facet-row--sub {
   padding-top: 0;
@@ -273,7 +175,7 @@
 }
 .plugins-home__facet-label {
   padding-top: 7px;
-  font-size: 10.5px;
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -283,30 +185,35 @@
 .plugins-home__facet-pills {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 0;
 }
 .plugins-home__pill {
   appearance: none;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  padding: 5px 10px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-pill);
-  background: var(--bg-panel);
-  color: var(--text-muted);
-  font-size: 12px;
+  gap: 6px;
+  align-self: stretch;
+  padding: 9px 14px;
+  border: 0;
+  border-radius: 0;
+  background: var(--tab-pastel, color-mix(in srgb, var(--accent-tint) 74%, #ffffff));
+  color: color-mix(in srgb, var(--text-strong) 82%, var(--accent));
+  font-size: 12.5px;
+  font-weight: 650;
   cursor: pointer;
-  transition: border-color 120ms var(--ease-out), background-color 120ms var(--ease-out), color 120ms var(--ease-out);
+  box-shadow: inset 0 -1px 0 color-mix(in srgb, var(--accent) 14%, transparent);
+  transition: background-color 120ms var(--ease-out), color 120ms var(--ease-out), box-shadow 120ms var(--ease-out);
 }
 .plugins-home__pill:hover {
-  border-color: var(--border-strong);
-  color: var(--text);
+  color: var(--text-strong);
+  box-shadow:
+    inset 0 -2px 0 color-mix(in srgb, var(--accent) 38%, transparent),
+    inset 0 0 0 999px rgba(255, 255, 255, 0.18);
 }
 .plugins-home__pill.is-active {
-  background: var(--text);
-  border-color: var(--text);
-  color: var(--bg-panel);
+  background: color-mix(in srgb, var(--accent) 82%, #ffffff);
+  color: #ffffff;
+  box-shadow: inset 0 -3px 0 color-mix(in srgb, var(--accent-strong, var(--accent)) 78%, #ffffff);
 }
 .plugins-home__pill.is-active .plugins-home__pill-count {
   color: var(--bg-panel);
@@ -318,13 +225,11 @@
   font-variant-numeric: tabular-nums;
 }
 .plugins-home__pill--all {
-  background: var(--accent-tint);
-  border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
+  background: color-mix(in srgb, #d9ecff 72%, #ffffff);
   color: var(--accent);
 }
 .plugins-home__pill--all.is-active {
-  background: var(--accent);
-  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 84%, #ffffff);
   color: white;
 }
 .plugins-home__pill--all.is-active .plugins-home__pill-count {
@@ -332,17 +237,34 @@
   opacity: 0.85;
 }
 .plugins-home__pill--sub-all {
-  background: var(--bg-subtle);
+  background: color-mix(in srgb, #eff7ff 82%, #ffffff);
   color: var(--text-muted);
 }
+.plugins-home__facet-pills .plugins-home__pill:nth-child(6n + 1) {
+  --tab-pastel: #e7f0ff;
+}
+.plugins-home__facet-pills .plugins-home__pill:nth-child(6n + 2) {
+  --tab-pastel: #e7f8f2;
+}
+.plugins-home__facet-pills .plugins-home__pill:nth-child(6n + 3) {
+  --tab-pastel: #fff0d9;
+}
+.plugins-home__facet-pills .plugins-home__pill:nth-child(6n + 4) {
+  --tab-pastel: #f2edff;
+}
+.plugins-home__facet-pills .plugins-home__pill:nth-child(6n + 5) {
+  --tab-pastel: #ffeaf0;
+}
+.plugins-home__facet-pills .plugins-home__pill:nth-child(6n) {
+  --tab-pastel: #e9f7ff;
+}
 /*
- * Planned scene buckets stay visible even before the bundled catalog
+ * Planned prototype buckets stay visible even before the bundled catalog
  * has examples for every bucket. Fade zero-count chips without adding
  * synthetic placeholder cards to the starter grid.
  */
 .plugins-home__pill[data-empty='true']:not(.is-active) {
   opacity: 0.45;
-  border-style: dashed;
 }
 .plugins-home__pill[data-empty='true']:not(.is-active):hover {
   opacity: 0.75;
@@ -358,7 +280,6 @@
 .plugins-home__pill--all[data-empty='true'],
 .plugins-home__pill--sub-all[data-empty='true'] {
   opacity: 1;
-  border-style: solid;
 }
 
 .plugins-home__empty--filtered {
@@ -388,7 +309,7 @@
 .plugins-home__grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 14px;
+  gap: 16px;
 }
 .plugins-home__load-more-sentinel {
   height: 1px;
@@ -410,8 +331,8 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border: 1px solid color-mix(in srgb, var(--accent) 13%, var(--border));
+  border-radius: var(--radius-md);
   background: var(--bg-panel);
   overflow: hidden;
   transition: border-color 120ms var(--ease-out), box-shadow 160ms var(--ease-out),
@@ -422,8 +343,8 @@
   contain-intrinsic-size: 280px 260px;
 }
 .plugins-home__card:hover {
-  border-color: var(--border-strong);
-  box-shadow: var(--shadow-md, 0 12px 32px rgba(0, 0, 0, 0.08));
+  border-color: color-mix(in srgb, var(--accent) 38%, var(--border));
+  box-shadow: var(--shadow-md, 0 12px 32px rgba(104, 116, 140, 0.12));
   transform: translateY(-2px);
 }
 .plugins-home__card.is-active {
@@ -442,7 +363,7 @@
    ============================================================ */
 .plugins-home__grid--gallery {
   grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-  gap: 16px;
+  gap: 18px;
 }
 @media (min-width: 1400px) {
   .plugins-home__grid--gallery {
@@ -461,9 +382,9 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 12px;
-  border-bottom: 1px solid var(--border);
-  background: var(--bg-subtle);
+  padding: 9px 13px;
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 12%, var(--border));
+  background: linear-gradient(180deg, #ffffff, color-mix(in srgb, var(--accent-tint) 72%, #ffffff));
   min-width: 0;
 }
 .plugins-home__gallery-dot {
@@ -485,8 +406,8 @@
   margin: 0;
   text-align: left;
   cursor: pointer;
-  font-size: 12.5px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 700;
   color: var(--text-strong);
   white-space: nowrap;
   overflow: hidden;
@@ -498,11 +419,12 @@
 .plugins-home__gallery-name:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
-  border-radius: 4px;
+  border-radius: var(--radius);
 }
 .plugins-home__gallery-frame {
   position: relative;
-  height: 300px;
+  height: auto;
+  aspect-ratio: 16 / 10;
   background: #fff;
   overflow: hidden;
 }
@@ -543,7 +465,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-/* PreviewSurface fills the fixed-height gallery frame instead of its
+/* PreviewSurface fills the aspect-ratio gallery frame instead of its
    default 4/3 aspect box. */
 .plugins-home__card--gallery .plugins-home__preview {
   position: absolute;
@@ -551,28 +473,22 @@
   aspect-ratio: auto;
   height: 100%;
 }
-.plugins-home__card--gallery .plugins-home__html-iframe {
-  width: 1440px;
-  height: 2200px;
-  transform: scale(0.32);
-  transition: top 6s linear;
+.plugins-home__card--gallery .plugins-home__media-img,
+.plugins-home__card--gallery .plugins-home__media-video {
+  object-fit: contain;
 }
-/* Hover auto-pans the scaled preview down to reveal the rest of the
-   page. The iframe stays inert (pointer-events: none, inherited) so a
-   click anywhere on the tile — preview included — opens the detail
-   modal rather than being swallowed by the embedded page. */
-.plugins-home__card--gallery:hover .plugins-home__html-iframe {
-  top: -404px;
+.plugins-home__card--gallery .plugins-home__html-iframe {
+  inset: 0;
+  width: 400%;
+  height: 400%;
+  transform: scale(0.25);
+  transition: none;
 }
 /* Decks ship a fixed 16:9 stage that scales itself to its viewport. The tall
-   scroll-preview viewport above would letterbox that stage, leaving a dark
+   scroll-preview viewport used to letterbox that stage, leaving a dark
    --stage-bg band above/below the slide. Give deck tiles a 16:9 frame and let
-   the iframe fill it natively (no transform), so the stage fits edge-to-edge
-   with no band, and skip the scroll-pan (there is nothing below to reveal). */
+   the iframe fill it natively, so the stage fits edge-to-edge with no band. */
 .plugins-home__card--gallery[data-od-mode="deck"] .plugins-home__gallery-frame {
-  /* Replace the fixed 300px scroll-preview frame with a 16:9 box so the deck
-     stage fills it exactly — no dark letterbox band, and no leftover white
-     strip below the slide. */
   height: auto;
   aspect-ratio: 16 / 9;
 }
@@ -589,7 +505,7 @@
 .plugins-home__preview {
   position: relative;
   aspect-ratio: 4 / 3;
-  background: var(--bg-subtle);
+  background: linear-gradient(135deg, var(--accent-tint), #ffffff);
   overflow: hidden;
 }
 .plugins-home__preview--design,
@@ -632,14 +548,14 @@
   position: relative;
   overflow: hidden;
   background:
-    radial-gradient(circle at 22% 18%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 34%),
-    linear-gradient(135deg, color-mix(in srgb, var(--accent-tint) 64%, white), var(--bg-subtle));
+    radial-gradient(circle at 24% 18%, color-mix(in srgb, var(--accent) 20%, transparent), transparent 34%),
+    linear-gradient(135deg, color-mix(in srgb, var(--accent-tint) 76%, white), #ffffff);
 }
 .plugins-home__media-fallback-glyph {
   color: color-mix(in srgb, var(--accent) 74%, var(--text));
   font-family: var(--serif);
-  font-size: 56px;
-  font-weight: 650;
+  font-size: 58px;
+  font-weight: 800;
   line-height: 1;
   opacity: 0.86;
 }
@@ -829,7 +745,7 @@
 .plugins-home__design-swatches span {
   width: 14px;
   height: 14px;
-  border-radius: 3px;
+  border-radius: var(--radius);
   border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
@@ -1075,7 +991,7 @@
   justify-content: flex-start;
   padding: 7px 8px;
   border: 0;
-  border-radius: calc(var(--radius-sm) - 2px);
+  border-radius: var(--radius);
   background: transparent;
   color: inherit;
   font: inherit;
@@ -1144,6 +1060,20 @@ button.plugins-home__use-menu-item:focus-visible {
   border-color: rgba(17, 17, 17, 0.18);
   color: #111;
 }
+.plugins-home__gallery-actions .plugins-home__action--remix,
+.plugins-home__action--remix {
+  background: #dc2626;
+  border-color: #dc2626;
+  color: #fff;
+}
+.plugins-home__gallery-actions .plugins-home__action--remix:hover:not(:disabled),
+.plugins-home__gallery-actions .plugins-home__action--remix:focus-visible,
+.plugins-home__action--remix:hover:not(:disabled),
+.plugins-home__action--remix:focus-visible {
+  background: #b91c1c;
+  border-color: #b91c1c;
+  color: #fff;
+}
 
 /* Touch/coarse-pointer fallback — overlays should be visible
    without hover so phone/tablet users can still see metadata. */
@@ -1156,133 +1086,5 @@ button.plugins-home__use-menu-item:focus-visible {
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
-  }
-}
-
-/* ============================================================
-   New-user templates reveal (HomeTemplatesReveal)
-   Collapsed by default for users with no projects so the hero
-   composer owns the first screen; a bottom hint + upward scroll
-   gesture smoothly reveals the Community gallery.
-   ============================================================ */
-.home-templates-reveal {
-  display: flex;
-  flex-direction: column;
-}
-/* Collapsed: clip the gallery to zero height and fade it out. Uses the repo's
-   canonical auto-height pattern (grid-template-rows 0fr -> 1fr) so the expand
-   animates to the gallery's NATURAL height — a fixed max-height ceiling (was
-   6000px) clipped the last rows once the gallery outgrew it. The inner wrapper
-   owns overflow:hidden so the collapsed rows clip cleanly. */
-.home-templates-reveal__body {
-  display: grid;
-  grid-template-rows: 0fr;
-  opacity: 0;
-  transition:
-    grid-template-rows 420ms cubic-bezier(0.23, 1, 0.32, 1),
-    opacity 320ms cubic-bezier(0.23, 1, 0.32, 1);
-}
-.home-templates-reveal__inner {
-  min-height: 0;
-  overflow: hidden;
-}
-.home-templates-reveal.is-revealed .home-templates-reveal__body {
-  grid-template-rows: 1fr;
-  opacity: 1;
-}
-.home-templates-reveal.is-revealed .home-templates-reveal__inner {
-  /* Leave room for the fixed collapse pill so it never covers the last row. */
-  padding-bottom: 64px;
-}
-
-/* Bottom hint — pinned to the very bottom of the viewport, intentionally
-   faint so it sits at the edge of attention. An up arrow bobs gently to
-   suggest the scroll-up gesture without pulling focus from the hero. */
-button.home-templates-reveal__hint {
-  position: fixed;
-  left: 50%;
-  bottom: 18px;
-  transform: translateX(-50%);
-  z-index: 5;
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  border: 0;
-  border-radius: var(--radius-pill);
-  color: var(--text-faint);
-  font-size: 12px;
-  letter-spacing: 0.01em;
-  opacity: 0.7;
-  transition: opacity 160ms cubic-bezier(0.23, 1, 0.32, 1);
-}
-button.home-templates-reveal__hint:hover {
-  background: transparent;
-  opacity: 1;
-  color: var(--text-muted);
-}
-button.home-templates-reveal__hint:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-  opacity: 1;
-}
-.home-templates-reveal__hint-arrow {
-  animation: home-templates-bob 1.8s ease-in-out infinite;
-}
-/* Fade + lift the arrow on each cycle so the affordance reads clearly:
-   it rises and brightens, then settles and dims — a gentle "pull me up". */
-@keyframes home-templates-bob {
-  0% {
-    transform: translateY(3px);
-    opacity: 0.25;
-  }
-  50% {
-    transform: translateY(-4px);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(3px);
-    opacity: 0.25;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .home-templates-reveal__hint-arrow,
-  .home-templates-reveal__collapse {
-    animation: none;
-  }
-  .home-templates-reveal__hint-arrow {
-    opacity: 0.85;
-  }
-  .home-templates-reveal__body {
-    transition: none;
-  }
-}
-
-/* Collapse control — pinned to the bottom of the viewport (mirroring the
-   hint slot) so it's always reachable while the gallery is open, instead of
-   being stranded far below the fold. Reversible: folds the gallery away. */
-button.home-templates-reveal__collapse {
-  position: fixed;
-  left: 50%;
-  bottom: 18px;
-  transform: translateX(-50%);
-  z-index: 5;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 7px 15px;
-  border-radius: var(--radius-pill);
-  font-size: 12px;
-  box-shadow: var(--shadow-sm, 0 4px 14px rgba(0, 0, 0, 0.08));
-  animation: home-templates-fade-in 220ms cubic-bezier(0.23, 1, 0.32, 1);
-}
-@keyframes home-templates-fade-in {
-  from {
-    opacity: 0;
-    transform: translate(-50%, 8px);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, 0);
   }
 }

@@ -2392,21 +2392,12 @@ export function FileWorkspace({
   const activeSketch = activeFile && isActiveSketch ? sketches[activeFile.name] : null;
   // The "+" launcher's create-new actions come from the registry. `openTab`
   // reuses the same tab-state path as opening a file so a new terminal:<id>
-  // tab is focused; `createBrowser` opens an embedded browser tab.
-  // Built fresh each render (not memoized): `createBrowser` closes over
-  // `openBrowserTab`, which reads the live `browserTabs` state — memoizing it
-  // would capture a stale closure and make every "New Browser" click overwrite
-  // the same single tab. The terminal action routes through `openFile`
-  // (ref-based), so freshness here is cheap and only matters while the launcher
-  // is open.
+  // tab is focused. The terminal action routes through `openFile` (ref-based),
+  // so freshness here is cheap and only matters while the launcher is open.
   const launcherContext: LauncherContext = {
     projectId,
     openTab: openFile,
-    // Browser is owned by this branch's DesignBrowserPanel: spin up a browser
-    // tab synchronously (no daemon round-trip) and let the launcher close.
-    createBrowser: () => openBrowserTab(),
     createSketch: () => void startNewSketch(),
-    createDocument: () => void createMarkdownDocument(),
     uploadDesignFiles: () => fileInputRef.current?.click(),
     // Terminal needs only the project id — spawn the PTY here and hand the
     // resulting session id back so the launcher opens a terminal:<id> tab.
@@ -2788,7 +2779,6 @@ export function FileWorkspace({
             projectId={projectId}
             rootDirName={rootDirName}
             reloading={reloading}
-            running={Boolean(streaming)}
             files={visibleFiles}
             folders={projectFolders}
             liveArtifacts={liveArtifactEntries}
@@ -2824,14 +2814,6 @@ export function FileWorkspace({
               fileInputRef.current?.click();
             }}
             onUploadFiles={(picked) => void uploadFiles(picked)}
-            onPaste={() => {
-              trackFileManagerClick(analytics.track, {
-                page_name: 'file_manager',
-                area: 'file_manager',
-                element: 'paste',
-              });
-              void createMarkdownDocument();
-            }}
             onNewSketch={() => {
               trackFileManagerClick(analytics.track, {
                 page_name: 'file_manager',
@@ -2839,14 +2821,6 @@ export function FileWorkspace({
                 element: 'new_sketch',
               });
               void startNewSketch();
-            }}
-            onOpenBrowser={() => {
-              trackFileManagerClick(analytics.track, {
-                page_name: 'file_manager',
-                area: 'file_manager',
-                element: 'new_browser',
-              });
-              openBrowserTab();
             }}
             onCreateDesignSystem={() => {
               trackFileManagerClick(analytics.track, {

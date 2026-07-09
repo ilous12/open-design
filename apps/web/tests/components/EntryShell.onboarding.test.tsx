@@ -355,6 +355,19 @@ describe('EntryShell design systems view', () => {
 });
 
 describe('EntryShell new project rail', () => {
+  it('hides automation, plugin, and integration destinations from the entry rail', () => {
+    globalThis.fetch = vi.fn(async () => jsonResponse({})) as typeof fetch;
+    renderHome();
+
+    fireEvent.click(screen.getByTestId('entry-rail-toggle'));
+
+    expect(screen.queryByTestId('entry-nav-tasks')).toBeNull();
+    expect(screen.queryByTestId('entry-nav-plugins')).toBeNull();
+    expect(screen.queryByTestId('entry-nav-integrations')).toBeNull();
+    expect(screen.getByTestId('entry-nav-projects')).toBeTruthy();
+    expect(screen.getByTestId('entry-nav-design-systems')).toBeTruthy();
+  });
+
   it('creates a blank project directly from the rail plus', async () => {
     window.localStorage.setItem('od.entry.railOpen', 'false');
     const fetchMock = vi.fn(
@@ -1208,7 +1221,7 @@ describe('EntryShell onboarding Design For AIR AMR runtime', () => {
     expect(aboutYouSubmits).toHaveLength(1);
   });
 
-  it('persists the BYOK config before finishing onboarding', async () => {
+  it('persists the BYOK config and finishes onboarding without optional steps', async () => {
     globalThis.fetch = vi.fn(async (input, init) => {
       const url = String(input);
       if (url.endsWith('/api/integrations/vela/status')) {
@@ -1238,7 +1251,7 @@ describe('EntryShell onboarding Design For AIR AMR runtime', () => {
     }) as typeof fetch;
     const props = renderOnboarding();
 
-    fireEvent.click(screen.getByRole('button', { name: /Bring your own key/i }));
+    fireEvent.click(screen.getByRole('button', { name: /Use API Key/i }));
     fireEvent.change(screen.getByLabelText('API key'), { target: { value: 'test-api-key' } });
     fireEvent.change(screen.getByLabelText('Base URL'), { target: { value: 'https://api.anthropic.com' } });
     fireEvent.click(screen.getByRole('button', { name: /Fetch models/i }));
@@ -1253,24 +1266,15 @@ describe('EntryShell onboarding Design For AIR AMR runtime', () => {
 
     fireEvent.click(screen.getByRole('button', { name: /^Continue$/i }));
     await waitFor(() => {
-      expect(screen.getByRole('heading', { name: 'About you' })).toBeTruthy();
+      expect(props.onCompleteOnboarding).toHaveBeenCalledTimes(1);
     });
-    fireEvent.click(screen.getByRole('button', { name: /^Continue$/i }));
-    await waitFor(() => {
-      expect(document.querySelector('.onboarding-view__email-input')).toBeTruthy();
-    });
-    fireEvent.click(screen.getByRole('button', { name: /^Continue$/i }));
-    await waitFor(() => {
-      expect(screen.getByRole('heading', { name: 'Create once, build everywhere' })).toBeTruthy();
-    });
-    fireEvent.click(screen.getByRole('button', { name: 'Build a design system' }));
 
     expect(props.onModeChange).toHaveBeenCalledWith('api');
     expect(props.onApiModelChange).toHaveBeenCalledWith('claude-opus-4-8');
     expect(props.onConfigPersist).toHaveBeenCalled();
-    await waitFor(() => {
-      expect(props.onCompleteOnboarding).toHaveBeenCalledTimes(1);
-    });
+    expect(screen.queryByRole('heading', { name: 'About you' })).toBeNull();
+    expect(screen.queryByRole('heading', { name: 'Stay in the loop' })).toBeNull();
+    expect(screen.queryByRole('heading', { name: 'Create once, build everywhere' })).toBeNull();
     expect((props.onConfigPersist as ReturnType<typeof vi.fn>).mock.calls.at(-1)?.[0]).toMatchObject({
       mode: 'api',
       apiProtocol: 'anthropic',

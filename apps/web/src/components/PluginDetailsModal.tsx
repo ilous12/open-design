@@ -19,7 +19,9 @@
 // same callback wiring.
 
 import type { InstalledPluginRecord } from '@nn-design/contracts';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useI18n } from '../i18n';
 import { inferPluginPreview } from './plugins-home/preview';
 import { PluginScenarioDetail } from './plugin-details/PluginScenarioDetail';
 import { PluginExampleDetail } from './plugin-details/PluginExampleDetail';
@@ -27,6 +29,13 @@ import { PluginDesignSystemDetail } from './plugin-details/PluginDesignSystemDet
 import { PluginMediaDetail } from './plugin-details/PluginMediaDetail';
 import type { PluginUseAction } from './plugins-home/useActions';
 import type { PreviewSharePopoverItem } from './PreviewModal';
+import { PreviewModal } from './PreviewModal';
+import {
+  homeReferenceCloneUrl,
+  homeReferenceSlugFromPluginId,
+  isHomeReferencePlugin,
+} from './home-reference-plugins';
+import { localizePluginDescription, localizePluginTitle } from './plugins-home/localization';
 
 interface Props {
   record: InstalledPluginRecord;
@@ -50,6 +59,20 @@ export function PluginDetailsModal({
   hideUseAction,
   onSharePopoverItemClick,
 }: Props) {
+  if (isHomeReferencePlugin(record)) {
+    return (
+      <ReferencePluginDetail
+        record={record}
+        onClose={onClose}
+        onUse={onUse}
+        onDuplicate={onDuplicate}
+        isApplying={isApplying}
+        hideUseAction={hideUseAction}
+        onSharePopoverItemClick={onSharePopoverItemClick}
+      />
+    );
+  }
+
   const preview = inferPluginPreview(record);
   let detail: JSX.Element;
 
@@ -107,4 +130,109 @@ export function PluginDetailsModal({
 
   if (typeof document === 'undefined') return detail;
   return createPortal(detail, document.body);
+}
+
+function ReferencePluginDetail({
+  record,
+  onClose,
+  onUse,
+  onDuplicate,
+  isApplying,
+  hideUseAction,
+}: Props) {
+  const { locale, t } = useI18n();
+  const localizedTitle = localizePluginTitle(locale, record);
+  const description = localizePluginDescription(locale, record);
+  const slug = homeReferenceSlugFromPluginId(record.id);
+  const cloneUrl = slug ? homeReferenceCloneUrl(slug) : null;
+  const [html, setHtml] = useState<string | null | undefined>(undefined);
+  const [error, setError] = useState<string | null>(null);
+  const inFlightRef = useRef(false);
+
+  const load = useCallback(async () => {
+    if (!cloneUrl || inFlightRef.current) return;
+    inFlightRef.current = true;
+    try {
+      setHtml(null);
+      setError(null);
+      const resp = await fetch(cloneUrl, { cache: 'no-store' });
+      if (!resp.ok) {
+        setError(`HTTP ${resp.status}`);
+        setHtml(undefined);
+        return;
+      }
+      const body = await resp.text();
+      setHtml(withReferenceBaseHref(body, cloneUrl));
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'network error';
+      setError(message);
+      setHtml(undefined);
+    } finally {
+      inFlightRef.current = false;
+    }
+  }, [cloneUrl]);
+
+  useEffect(() => {
+    void load();
+  }, [load]);
+
+  const onView = useCallback(() => {
+    void load();
+  }, [load]);
+
+  const detail = (
+    <PreviewModal
+      title={localizedTitle}
+      subtitle={description || undefined}
+      views={[
+        {
+          id: 'preview',
+          label: t('examples.previewLabel'),
+          html,
+          error,
+        },
+      ]}
+      onView={onView}
+      exportTitleFor={() => localizedTitle}
+      onClose={onClose}
+      primaryAction={hideUseAction
+        ? undefined
+        : {
+            label: t('pluginCard.duplicate'),
+            onClick: () => onDuplicate?.(record),
+            disabled: !onDuplicate,
+            busy: false,
+            busyLabel: t('pluginCard.duplicating'),
+            testId: `plugin-details-use-${record.id}`,
+            menu: [
+              {
+                label: isApplying ? t('pluginCard.applying') : t('pluginCard.use'),
+                onClick: () => onUse(record, 'use'),
+                testId: `plugin-details-use-option-${record.id}`,
+              },
+            ],
+          }}
+      hideShareAction
+    />
+  );
+
+  if (typeof document === 'undefined') return detail;
+  return createPortal(detail, document.body);
+}
+
+function withReferenceBaseHref(html: string, cloneUrl: string): string {
+  if (/<base\s/i.test(html)) return html;
+  const baseHref =
+    typeof window !== 'undefined'
+      ? new URL(cloneUrl, window.location.href).href
+      : cloneUrl;
+  const base = `<base href="${escapeHtmlAttribute(baseHref)}">`;
+  if (/<head[^>]*>/i.test(html)) {
+    return html.replace(/<head([^>]*)>/i, `<head$1>${base}`);
+  }
+  return `${base}${html}`;
+}
+
+function escapeHtmlAttribute(value: string): string {
+  return value.replace(/&/g, '&amp;').replace(/"/g, '&quot;');
 }

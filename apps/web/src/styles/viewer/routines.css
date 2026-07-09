@@ -19,7 +19,7 @@
   padding: 5px 12px;
   font-size: 12.5px;
   line-height: 1.3;
-  border-radius: var(--radius-sm, 4px);
+  border-radius: var(--radius-sm, 8px);
   border: 1px solid var(--border);
   background: var(--bg);
   color: var(--text-strong, var(--text));
@@ -50,7 +50,7 @@
   align-items: center;
   gap: 8px;
   padding: 5px 12px;
-  border-radius: var(--radius-sm, 4px);
+  border-radius: var(--radius-sm, 8px);
   border: 1px solid var(--border);
   background: var(--bg);
 }
@@ -108,7 +108,7 @@
   transform: translateX(-50%);
   max-width: 480px;
   padding: 10px 36px 10px 14px;
-  border-radius: var(--radius-sm, 4px);
+  border-radius: var(--radius-sm, 8px);
   background: var(--text-strong, #1f2328);
   color: var(--bg, white);
   font-size: 12.5px;
@@ -122,7 +122,7 @@
   width: min(460px, calc(100vw - 48px));
   max-width: calc(100vw - 48px);
   padding: 14px 52px 14px 18px;
-  border-radius: 8px;
+  border-radius: var(--radius);
   font-size: 13px;
   line-height: 1.45;
   box-shadow:
@@ -226,7 +226,7 @@
   font-size: 11.5px;
   font-weight: 600;
   padding: 4px 10px;
-  border-radius: var(--radius-sm, 4px);
+  border-radius: var(--radius-sm, 8px);
   cursor: pointer;
 }
 .od-toast-action:hover {
@@ -239,7 +239,7 @@
 .od-toast-code {
   margin: 8px 0 0;
   padding: 8px 10px;
-  border-radius: var(--radius-sm, 4px);
+  border-radius: var(--radius-sm, 8px);
   background: rgba(255, 255, 255, 0.08);
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 11px;
@@ -309,7 +309,7 @@
   color: var(--bg, white);
   font-size: 11.5px;
   padding: 4px 10px;
-  border-radius: var(--radius-sm, 4px);
+  border-radius: var(--radius-sm, 8px);
   cursor: pointer;
 }
 .od-toast-dismiss:hover {
@@ -318,7 +318,7 @@
 .od-toast-action {
   margin-top: 8px;
   border: 1px solid color-mix(in srgb, currentColor 24%, transparent);
-  border-radius: var(--radius-sm, 4px);
+  border-radius: var(--radius-sm, 8px);
   background: color-mix(in srgb, currentColor 12%, transparent);
   color: currentColor;
   font: inherit;
@@ -330,7 +330,7 @@
 .od-toast.od-toast-browser-snapshot .od-toast-action {
   margin-top: 10px;
   padding: 6px 12px;
-  border-radius: 6px;
+  border-radius: var(--radius);
   font-size: 12px;
 }
 .od-toast-action:hover {
@@ -748,7 +748,7 @@
 .newproj-aspect-icon {
   display: inline-block;
   border: 1.5px solid currentColor;
-  border-radius: 2px;
+  border-radius: var(--radius);
   flex: none;
   opacity: 0.85;
 }
@@ -812,7 +812,7 @@
 .palette-tweaks {
   position: absolute; top: calc(100% + 6px); right: 0; z-index: 60;
   min-width: 240px; background: var(--bg-panel); border: 1px solid var(--border);
-  border-radius: var(--radius-md, 10px);
+  border-radius: var(--radius-md, 8px);
   box-shadow: var(--shadow-md, 0 8px 24px rgba(0, 0, 0, 0.12));
   padding: 8px; display: flex; flex-direction: column; gap: 6px; user-select: none;
 }
@@ -826,7 +826,7 @@
 .palette-tweaks-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
 .palette-tweaks-item {
   display: flex; align-items: center; gap: 10px;
-  padding: 6px 8px; border-radius: var(--radius-sm, 6px);
+  padding: 6px 8px; border-radius: var(--radius-sm, 8px);
   cursor: pointer; font-size: 12.5px; color: var(--text);
   transition: background 100ms var(--ease-out);
 }
@@ -892,7 +892,7 @@
   align-self: center;
   /* Intentional compact-chrome value (26px tab); kept off the radius scale
      and pinned by workspace-tabs-chrome.test.ts. */
-  border-radius: 7px;
+  border-radius: var(--radius);
   border: 1px solid transparent;
   background: transparent;
   box-shadow: none;
@@ -926,7 +926,7 @@
 }
 .workspace-shell .workspace-tab:not(.is-active):hover,
 .workspace-shell .workspace-tab:not(.is-active):focus-within {
-  border-radius: 7px;
+  border-radius: var(--radius);
   background:
     linear-gradient(
       color-mix(in srgb, var(--bg-panel) 78%, transparent),
@@ -1148,11 +1148,11 @@
 .app .msg.user .user-text {
   padding: 8px 12px;
   border: 1px solid color-mix(in srgb, var(--selected) 88%, #000);
-  border-radius: 14px 14px 4px 14px;
+  border-radius: var(--radius);
   background: var(--selected);
   color: #fff;
-  line-height: 1.45;
-  font-size: 13.5px;
+  line-height: var(--chat-body-line-height, 1.6);
+  font-size: var(--chat-body-font-size, 14.5px);
   box-shadow: var(--shadow-xs);
 }
 .app .msg.user .user-copy-btn {
@@ -1168,8 +1168,8 @@
 .app .msg.assistant .prose-block {
   max-width: 68ch;
   color: var(--text);
-  font-size: var(--prose-font-size, 15px);
-  line-height: var(--prose-line-height, 1.75);
+  font-size: var(--chat-body-font-size, 14.5px);
+  line-height: var(--chat-body-line-height, 1.6);
 }
 .app .msg.assistant .prose-block .md-p + .md-p {
   margin-top: 14px;
@@ -1198,7 +1198,8 @@
 }
 .app .msg.assistant:hover .assistant-footer,
 .app .assistant-footer[data-streaming="true"],
-.app .assistant-footer[data-last="true"] { opacity: 1; }
+.app .assistant-footer[data-last="true"],
+.app .assistant-footer[data-has-usage="true"] { opacity: 1; }
 .app .assistant-footer .dot {
   width: 5px;
   height: 5px;
@@ -2866,7 +2867,7 @@ body.od-quick-switcher-open .chat-composer-fixed-layer .composer-send:disabled {
   height: 24px;
   padding: 0 8px;
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm, 6px);
+  border-radius: var(--radius-sm, 8px);
   background: var(--bg-panel);
   color: var(--text-muted);
   font: inherit;
@@ -2986,7 +2987,7 @@ body.od-quick-switcher-open .chat-composer-fixed-layer .composer-send:disabled {
 .project-ds-picker-option-swatch {
   width: 14px;
   height: 14px;
-  border-radius: 3px;
+  border-radius: var(--radius);
   border: 1px solid var(--border);
 }
 .project-ds-picker-option-check {

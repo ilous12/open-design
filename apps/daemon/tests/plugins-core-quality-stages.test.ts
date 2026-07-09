@@ -3,17 +3,15 @@
 // Bug: template / community plugins commonly declare a generate-only
 // pipeline (`stages: [{ id: 'generate', atoms: ['file-write','live-artifact'] }]`)
 // to reuse a locked reference seed. resolveAppliedPipeline returns that
-// verbatim (`source: 'declared'`), so the `plan` (TodoWrite) and
-// `critique` (5-dimension quality / anti-slop) stages never run. The
-// colleague's symptom: using a plugin/template skipped the five-stage
-// main flow — no todolist, no real anti-slop critique loop.
+// verbatim (`source: 'declared'`), so the `plan` (TodoWrite) stage never
+// runs. The colleague's symptom: using a plugin/template skipped the
+// five-stage main flow — no todolist.
 //
 // Invariant under test: when a plugin produces a code/document design
 // artifact (a `generate` stage whose atoms include `file-write` or
-// `live-artifact`), the applied pipeline always carries `plan` and
-// `critique` — whether the artifact came from a free-form prompt or a
-// template. Pure media generation (image/video/audio) stays
-// generate-only.
+// `live-artifact`), the applied pipeline always carries `plan`, and the
+// disabled critique-theater stage is stripped. Pure media generation
+// (image/video/audio) stays generate-only.
 
 import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
@@ -73,7 +71,7 @@ function stageIds(pipeline: PluginPipeline | undefined): string[] {
 }
 
 describe('core quality-stage floor', () => {
-  it('injects plan + critique into a generate-only HTML/live-artifact template', () => {
+  it('injects plan into a generate-only HTML/live-artifact template without critique', () => {
     const plugin = templateFixture({
       stages: [{ id: 'generate', atoms: ['file-write', 'live-artifact'] }],
     });
@@ -82,14 +80,10 @@ describe('core quality-stage floor', () => {
 
     expect(ids).toContain('plan');
     expect(ids).toContain('generate');
-    expect(ids).toContain('critique');
-    // plan must precede generate; critique must follow it.
+    expect(ids).not.toContain('critique');
+    // plan must precede generate.
     expect(ids.indexOf('plan')).toBeLessThan(ids.indexOf('generate'));
-    expect(ids.indexOf('critique')).toBeGreaterThan(ids.indexOf('generate'));
 
-    const critique = result.pipeline!.stages.find((s) => s.id === 'critique');
-    expect(critique?.atoms).toContain('critique-theater');
-    expect(critique?.repeat).toBe(true);
     const plan = result.pipeline!.stages.find((s) => s.id === 'plan');
     expect(plan?.atoms).toContain('todo-write');
   });
@@ -108,13 +102,26 @@ describe('core quality-stage floor', () => {
   // them generate-only; gating on atom shape alone would wrongly rewrite
   // them to plan -> generate -> critique.
   it.each([
-    ['image', 'plugins/_official/examples/image-poster/open-design.json'],
-    ['video', 'plugins/_official/examples/vfx-text-cursor/open-design.json'],
-    ['audio', 'plugins/_official/examples/audio-jingle/open-design.json'],
-  ])('leaves the bundled %s media template generate-only despite file-write/live-artifact atoms', (mode, relPath) => {
-    const manifest = JSON.parse(
-      readFileSync(path.join(REPO_ROOT, relPath), 'utf8'),
-    ) as PluginManifest;
+    ['image'],
+    ['video'],
+    ['audio'],
+  ])('leaves a bundled %s media template generate-only despite file-write/live-artifact atoms', (mode) => {
+    const manifest: PluginManifest = {
+      name: `${mode}-media-template`,
+      title: `${mode} media template`,
+      version: '1.0.0',
+      description: 'Synthetic media fixture with an example-driven HTML seed.',
+      od: {
+        kind: 'scenario',
+        taskKind: 'new-generation',
+        mode,
+        useCase: { query: 'Generate media.' },
+        capabilities: ['prompt:inject', 'fs:write'],
+        pipeline: {
+          stages: [{ id: 'generate', atoms: ['file-write', 'live-artifact'] }],
+        },
+      },
+    };
     // Sanity: the shipped media template carries the code-artifact atom
     // shape, so this guards the exact false-positive class the reviewer flagged.
     expect(manifest.od?.mode).toBe(mode);
@@ -173,16 +180,13 @@ describe('core quality-stage floor', () => {
     const { result } = applyPlugin({ plugin, inputs: {}, registry: REGISTRY });
     const ids = stageIds(result.pipeline);
     expect(ids).toContain('plan');
-    expect(ids).toContain('critique');
+    expect(ids).not.toContain('critique');
     expect(ids.indexOf('plan')).toBeLessThan(ids.indexOf('generate'));
-    expect(ids.indexOf('critique')).toBeGreaterThan(ids.indexOf('generate'));
   });
 
-  // Regression: critique must land immediately AFTER generate, not at the
-  // end of the pipeline. A template with post-generate work
-  // (generate -> handoff) would otherwise become generate -> handoff ->
-  // critique, letting the downstream stage run before the quality loop.
-  it('inserts critique right after generate, before any post-generate stage', () => {
+  // Regression: plan must land immediately BEFORE generate while preserving
+  // any post-generate work.
+  it('inserts plan before generate and preserves post-generate stages', () => {
     const plugin = templateFixture({
       stages: [
         { id: 'generate', atoms: ['file-write', 'live-artifact'] },
@@ -191,7 +195,7 @@ describe('core quality-stage floor', () => {
     });
     const { result } = applyPlugin({ plugin, inputs: {}, registry: REGISTRY });
     const ids = stageIds(result.pipeline);
-    expect(ids).toEqual(['plan', 'generate', 'critique', 'handoff']);
+    expect(ids).toEqual(['plan', 'generate', 'handoff']);
   });
 
   // Regression: a media manifest that omits `od.pipeline` falls back to
@@ -241,9 +245,9 @@ describe('core quality-stage floor', () => {
     expect(stageIds(result.pipeline)).toEqual(['generate']);
   });
 
-  // Control: a NON-media manifest that omits od.pipeline keeps the full
-  // scenario fallback untouched (plan + critique already present → no-op).
-  it('leaves a non-media scenario-fallback pipeline intact', () => {
+  // Control: a NON-media manifest that omits od.pipeline keeps the scenario
+  // fallback shape while stripping disabled critique.
+  it('leaves a non-media scenario-fallback pipeline without critique', () => {
     const plugin: InstalledPluginRecord = {
       ...templateFixture({ stages: [] }),
       manifest: {
@@ -280,10 +284,10 @@ describe('core quality-stage floor', () => {
     };
 
     const { result } = applyPlugin({ plugin, inputs: {}, registry: registryWithScenario });
-    expect(stageIds(result.pipeline)).toEqual(['discovery', 'plan', 'generate', 'critique']);
+    expect(stageIds(result.pipeline)).toEqual(['discovery', 'plan', 'generate']);
   });
 
-  it('does not duplicate stages a template already declares', () => {
+  it('does not duplicate plan and strips critique a template already declares', () => {
     const plugin = templateFixture({
       stages: [
         { id: 'plan', atoms: ['todo-write'] },
@@ -294,6 +298,6 @@ describe('core quality-stage floor', () => {
     const { result } = applyPlugin({ plugin, inputs: {}, registry: REGISTRY });
     const ids = stageIds(result.pipeline);
     expect(ids.filter((id) => id === 'plan')).toHaveLength(1);
-    expect(ids.filter((id) => id === 'critique')).toHaveLength(1);
+    expect(ids.filter((id) => id === 'critique')).toHaveLength(0);
   });
 });

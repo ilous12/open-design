@@ -301,7 +301,12 @@ export function RecentProjectsStrip({
                       deckCoverOnly={project.metadata?.kind === 'deck'}
                     />
                   ) : (
-                    <span className="recent-projects__card-glyph">{cover.initial}</span>
+                    <span className="recent-projects__card-preview-fallback">
+                      <span className="recent-projects__preview-fallback-bar" />
+                      <span className="recent-projects__preview-fallback-block" />
+                      <span className="recent-projects__preview-fallback-row" />
+                      <span className="recent-projects__preview-fallback-row short" />
+                    </span>
                   )}
                 </div>
                 <div className="recent-projects__card-meta">

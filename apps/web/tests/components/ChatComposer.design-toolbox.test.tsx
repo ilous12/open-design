@@ -232,7 +232,7 @@ describe('ChatComposer design toolbox', () => {
 
     await waitFor(() => {
       expect(composerText()).toContain('@design-taste-frontend');
-      expect(composerText()).toContain('anti-AI-feel polish');
+      expect(composerText()).toContain('Remove template feel');
     });
 
     fireEvent.click(screen.getByTestId('chat-send'));
@@ -243,6 +243,7 @@ describe('ChatComposer design toolbox', () => {
 
     expect(onSend).toHaveBeenCalledTimes(1);
     expect(onSend.mock.calls[0]?.[3]?.skillIds).toEqual(['design-taste-frontend']);
+    expect(onSend.mock.calls[0]?.[3]?.hiddenPrompt).toContain('anti-AI-feel polish');
     expect(fetchMock).not.toHaveBeenCalledWith(
       '/api/projects/project-1',
       expect.objectContaining({ method: 'PATCH' }),
@@ -250,7 +251,9 @@ describe('ChatComposer design toolbox', () => {
   });
 
   it('gives creative director a searchable index across all resource types', async () => {
+    const onSend = vi.fn();
     const { ref } = renderComposer({
+      onSend,
       skills: [
         DESIGN_TASTE_SKILL,
         GSAP_SKILL,
@@ -274,14 +277,21 @@ describe('ChatComposer design toolbox', () => {
 
     await waitFor(() => {
       expect(composerText()).toContain('@creative-director');
-      expect(composerText()).toContain('Global resource index');
-      expect(composerText()).toContain('spreadsheet-ops');
-      expect(composerText()).toContain('Research Asset Plugin');
-      expect(composerText()).toContain('Higgsfield Video MCP');
-      expect(composerText()).toContain('Figma');
-      expect(composerText()).toContain('data/proof.csv');
-      expect(composerText()).toContain('Do not only use design toolbox recommendations');
+      expect(composerText()).toContain('Match next step');
     });
+
+    fireEvent.click(screen.getByTestId('chat-send'));
+
+    await waitFor(() => {
+      expect(onSend).toHaveBeenCalledTimes(1);
+    });
+    expect(onSend.mock.calls[0]?.[3]?.hiddenPrompt).toContain('Global resource index');
+    expect(onSend.mock.calls[0]?.[3]?.hiddenPrompt).toContain('spreadsheet-ops');
+    expect(onSend.mock.calls[0]?.[3]?.hiddenPrompt).toContain('Research Asset Plugin');
+    expect(onSend.mock.calls[0]?.[3]?.hiddenPrompt).toContain('Higgsfield Video MCP');
+    expect(onSend.mock.calls[0]?.[3]?.hiddenPrompt).toContain('Figma');
+    expect(onSend.mock.calls[0]?.[3]?.hiddenPrompt).toContain('data/proof.csv');
+    expect(onSend.mock.calls[0]?.[3]?.hiddenPrompt).toContain('Do not only use design toolbox recommendations');
   });
 
   it('refreshes connected connectors when connector auth changes in another surface', async () => {

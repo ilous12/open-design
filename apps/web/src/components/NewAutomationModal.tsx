@@ -513,7 +513,7 @@ export function NewAutomationModal({
 
   const projectName = projects.find((p) => p.id === form.projectId)?.name ?? null;
   const projectLabel =
-    form.mode === 'reuse' && projectName ? projectName : 'New project each run';
+    form.mode === 'reuse' && projectName ? projectName : '실행마다 새 프로젝트';
   const scheduleLabel = describeScheduleSummary(buildSchedule(form));
   const scheduleLabelNode = buildScheduleSummaryNode(buildSchedule(form));
   const mentionQueryNorm = (mention?.query ?? '').trim().toLowerCase();
@@ -641,7 +641,7 @@ export function NewAutomationModal({
               type="button"
               className="automation-modal__close"
               onClick={onClose}
-              aria-label="Close (Esc)"
+              aria-label="닫기 (Esc)"
             >
               <Icon name="close" size={14} />
             </button>
@@ -806,12 +806,12 @@ export function NewAutomationModal({
                       setForm({ ...form, mode: 'create_each_run', projectId: '' });
                       setPopover(null);
                     }}
-                    label="New project each run"
-                    hint="Each run starts a fresh project and conversation."
+                    label="실행마다 새 프로젝트"
+                    hint="실행할 때마다 새 프로젝트와 대화를 시작합니다."
                   />
                   {projects.length > 0 ? (
                     <>
-                      <div className="automation-popover__section-label">Existing projects</div>
+                      <div className="automation-popover__section-label">기존 프로젝트</div>
                       {projects.map((p) => (
                         <PopoverItem
                           key={p.id}

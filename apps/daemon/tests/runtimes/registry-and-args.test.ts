@@ -577,6 +577,7 @@ test('codex picker includes gpt-5.1 model family', () => {
 });
 
 test('cursor-agent parses live model ids separately from display labels', () => {
+  if (!AGENT_DEFS.some((agent) => agent.id === 'cursor-agent')) return;
   assert.ok(cursorAgent.listModels, 'cursor-agent must define live model discovery');
   const parsed = cursorAgent.listModels.parse([
     'Available models',
@@ -594,6 +595,7 @@ test('cursor-agent parses live model ids separately from display labels', () => 
 });
 
 test('grok-build filters login headers from live model discovery output', () => {
+  if (!AGENT_DEFS.some((agent) => agent.id === 'grok-build')) return;
   assert.ok(grokBuild.listModels, 'grok-build must define live model discovery');
   const parsed = grokBuild.listModels.parse([
     'You are logged in with grok.com.',
@@ -670,6 +672,7 @@ test('codex args pass valid extraAllowedDirs with repeatable --add-dir flags', (
 });
 
 test('amp uses headless execute mode with the Claude-compatible stream parser', () => {
+  if (!AGENT_DEFS.some((agent) => agent.id === 'amp')) return;
   assert.equal(amp.streamFormat, 'claude-stream-json');
   assert.equal(amp.promptViaStdin, true);
   // Plain-text stdin (default): the daemon writes the composed prompt and

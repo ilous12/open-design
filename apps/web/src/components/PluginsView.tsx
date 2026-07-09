@@ -22,6 +22,7 @@ import {
 import {
   addPluginMarketplace,
   applyPlugin,
+  duplicateReferenceRemixAsProject,
   duplicatePluginAsProject,
   installPluginSource,
   listPluginMarketplaces,
@@ -49,6 +50,7 @@ import { copyToClipboard } from '../lib/copy-to-clipboard';
 import type { PluginUseAction } from './plugins-home/useActions';
 import { AnimatePresence } from 'motion/react';
 import { navigate } from '../router';
+import { homeReferenceSlugFromPluginId } from './home-reference-plugins';
 
 type PluginsTab = 'installed' | 'available' | 'sources' | 'team';
 
@@ -228,9 +230,11 @@ export function PluginsView({
     setPendingDuplicatePluginId(record.id);
     setNotice(null);
     try {
-      const result = await duplicatePluginAsProject(record.id, {
-        name: localizePluginTitle(locale, record),
-      });
+      const name = localizePluginTitle(locale, record);
+      const referenceSlug = homeReferenceSlugFromPluginId(record.id);
+      const result = referenceSlug
+        ? await duplicateReferenceRemixAsProject(referenceSlug, { name })
+        : await duplicatePluginAsProject(record.id, { name });
       setDetailsRecord(null);
       navigate({
         kind: 'project',

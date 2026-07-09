@@ -1,5 +1,6 @@
 import { execFile } from "node:child_process";
 import { createHmac, randomBytes } from "node:crypto";
+import { existsSync } from "node:fs";
 import { appendFile, mkdir, realpath, stat, writeFile } from "node:fs/promises";
 import { release } from "node:os";
 import { dirname, isAbsolute, join, resolve } from "node:path";
@@ -25,7 +26,7 @@ import { renderDeckSlides } from "./deck-capture.js";
 import { openValidatedDirectory } from "./open-path.js";
 import { exportArtifact as exportArtifactFromHtml } from "./artifact-export.js";
 import { createElectronPdfTarget, exportPdfFromHtml, savePrintReadyDocumentAsPdf } from "./pdf-export.js";
-import { SPLASH_VIDEO_DATA_URL } from "./splash-video.js";
+import { SPLASH_AIR_LOGO_SVG } from "./splash-video.js";
 import type { PrintReadyPdfOptions } from "./pdf-export.js";
 import type { DesktopUpdater } from "./updater.js";
 
@@ -227,11 +228,9 @@ export function signDesktopImportToken(
 const PENDING_POLL_MS = 120;
 const RUNNING_POLL_MS = 2000;
 // Minimum time the light splash window stays on screen before we reveal the main
-// window. It is sized to outlast the ~1.7s clip so the brand animation always
-// plays through. The splash is shown immediately and in parallel with the
-// daemon/web boot (see the packaged entry), so this time overlaps startup rather
-// than adding to it; the <video> holds on its final frame (it does not loop)
-// while the runtime finishes coming up. See `createSplashWindow`.
+// window. The splash is shown immediately and in parallel with the daemon/web
+// boot (see the packaged entry), so this time overlaps startup rather than
+// adding to it. See `createSplashWindow`.
 const MIN_SPLASH_MS = 2000;
 // While the splash is up, the real web app loads in a hidden main window. We
 // reveal it only once the web bundle reports it has actually mounted (it sets
@@ -809,22 +808,31 @@ const MAC_WINDOW_CHROME_CSS = `
   }
 `;
 
-// Light-background startup splash shown while the web runtime boots. It plays
-// the brand intro clip once and then holds on its final settled logo frame until
-// the main window is ready. The clip is embedded as a base64 data URL so it
-// renders identically in dev and in packaged builds (see `splash-video.ts`).
+// Light-background startup splash shown while the web runtime boots. It renders
+// the AIR logo and product name inline so packaged builds do not depend on
+// sidecar-served assets or resource-relative file paths.
 function createPendingHtml(): string {
   const start = splashStagePayload("starting");
   const initialPct = Math.max(0, Math.min(100, Math.round((start.step / start.total) * 100)));
+  const splashLogoMarkup = SPLASH_AIR_LOGO_SVG;
   return `data:text/html;charset=utf-8,${encodeURIComponent(`<!doctype html>
 <html>
   <head>
     <meta charset="utf-8" />
     <title>Design For AIR</title>
     <style>
+      :root {
+        font-family: "Pretend", "Pretendard", "Pretendard Variable", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
       html,
       body {
-        background: #f2f4f5;
+        background: #ffffff;
+        font-family: inherit;
         height: 100%;
         margin: 0;
         overflow: hidden;
@@ -834,20 +842,39 @@ function createPendingHtml(): string {
         display: flex;
         justify-content: center;
       }
-      video {
-        background: #f2f4f5;
+      .splash-brand {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        transform: translateY(-18px);
+        user-select: none;
+      }
+      .splash-logo {
+        display: block;
         height: auto;
-        max-height: 100%;
-        max-width: 100%;
-        width: auto;
+        width: min(360px, 42vw);
+      }
+      .splash-logo svg {
+        display: block;
+        height: auto;
+        width: 100%;
+      }
+      .splash-title {
+        color: #111315;
+        font-family: inherit;
+        font-size: 29px;
+        font-weight: 700;
+        letter-spacing: 0;
+        line-height: 1.1;
       }
       .boot-stage {
         bottom: 56px;
         color: #7a838a;
-        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-        font-size: 13px;
+        font-family: inherit;
+        font-size: 14px;
         left: 0;
-        letter-spacing: 0.02em;
+        letter-spacing: 0;
         position: fixed;
         right: 0;
         text-align: center;
@@ -893,14 +920,10 @@ function createPendingHtml(): string {
     </style>
   </head>
   <body>
-    <video
-      id="splash"
-      autoplay
-      muted
-      playsinline
-      disablepictureinpicture
-      src="${SPLASH_VIDEO_DATA_URL}"
-    ></video>
+    <main class="splash-brand" aria-label="Design For AIR startup">
+      <div class="splash-logo" aria-hidden="true">${splashLogoMarkup}</div>
+      <div class="splash-title">Design For AIR</div>
+    </main>
     <div class="boot-progress" aria-hidden="true">
       <div class="boot-progress-fill" id="boot-progress-fill" data-pct="${initialPct}" style="width: ${initialPct}%;"></div>
     </div>
@@ -908,17 +931,6 @@ function createPendingHtml(): string {
       <span class="boot-stage-step" id="boot-stage-step">${start.step}/${start.total}</span><span id="boot-stage-text">${start.label}</span><span class="boot-dots" aria-hidden="true"><span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></span>
     </div>
     <script>
-      (function () {
-        var video = document.getElementById("splash");
-        if (!video) return;
-        var play = function () {
-          var attempt = video.play();
-          if (attempt && typeof attempt.catch === "function") attempt.catch(function () {});
-        };
-        video.addEventListener("loadedmetadata", function () { video.currentTime = 0; });
-        video.addEventListener("loadeddata", play);
-        play();
-      })();
       // Accepts the structured { step, total, label } payload (and tolerates a
       // bare label string for back-compat). The step counter + progress bar give
       // a slow cold boot a sense of how far along it is; the bar only ever grows
@@ -1113,7 +1125,7 @@ export function createSplashWindow(): SplashWindowHandle {
   const startedAt = Date.now();
   const splash = new BrowserWindow({
     autoHideMenuBar: true,
-    backgroundColor: "#f2f4f5",
+    backgroundColor: "#ffffff",
     frame: false,
     height: 900,
     resizable: false,
@@ -1135,7 +1147,20 @@ export function createSplashWindow(): SplashWindowHandle {
 }
 
 function resolveDesktopIconPath(): string {
-  return resolve(dirname(fileURLToPath(import.meta.url)), "../../../web/public/app-icon.png");
+  const currentDir = dirname(fileURLToPath(import.meta.url));
+  const candidates = process.platform === "darwin"
+    ? [
+        // Packaged app resource copied by tools/pack. This PNG uses the same
+        // visual padding as the .icns so the Dock icon does not render oversized.
+        resolve(process.resourcesPath, "nn.design", "assets", "app-icon.png"),
+        // Dev/build fallback from apps/desktop/dist/main back to the workspace.
+        resolve(currentDir, "../../../../tools/pack/resources/mac/icon.png"),
+        resolve(currentDir, "../../../web/public/app-icon.png"),
+      ]
+    : [
+        resolve(currentDir, "../../../web/public/app-icon.png"),
+      ];
+  return candidates.find((candidate) => existsSync(candidate)) ?? candidates[candidates.length - 1];
 }
 
 function applyDockIcon(): void {
@@ -1785,7 +1810,7 @@ export async function createDesktopRuntime(options: DesktopRuntimeOptions): Prom
   const windowTitle = options.windowTitle ?? "Design For AIR";
   const window = new BrowserWindow({
     height: 900,
-    icon: resolveDesktopIconPath(),
+    ...(process.platform === "darwin" ? {} : { icon: resolveDesktopIconPath() }),
     // Below this size the project page's left/right split (chat
     // composer + designs panel + preview pane) overlaps and the top
     // navigation clips, so prevent Electron from honoring user drags

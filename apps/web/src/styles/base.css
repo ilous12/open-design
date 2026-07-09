@@ -6,8 +6,8 @@ body {
   font-family: var(--sans);
   color: var(--text);
   background: var(--bg-app);
-  font-size: 13.5px;
-  line-height: 1.5;
+  font-size: 15px;
+  line-height: 1.58;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -18,6 +18,5 @@ body {
   place-items: center;
   color: var(--text-muted);
   background: var(--bg-app);
-  font: 500 13px/1.4 var(--sans);
+  font: 500 14px/1.4 var(--sans);
 }
-

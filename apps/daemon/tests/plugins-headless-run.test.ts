@@ -163,7 +163,7 @@ describe('Plan §8 e2e-3 (entry slice) — headless install → project → run'
     const plugin = (listBody.plugins ?? []).find((record) =>
       record.id === 'example-mobile-app' ||
       record.manifest?.name === 'example-mobile-app' ||
-      record.title === 'Mobile App',
+      record.title === 'Mobile Prototype',
     );
     expect(plugin).toBeTruthy();
 

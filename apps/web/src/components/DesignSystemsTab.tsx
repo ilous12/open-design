@@ -63,6 +63,12 @@ const CATEGORY_ORDER = [
 type SurfaceFilter = 'all' | Surface;
 type DesignSystemCollection = 'mine' | 'official' | 'enterprise';
 type DesignSystemActionKind = 'edit' | 'publish' | 'default' | 'delete';
+type DesignSystemScopeTab = {
+  value: DesignSystemCollection;
+  label: string;
+  count?: number;
+  comingSoon?: boolean;
+};
 
 const SURFACE_PILLS: { value: SurfaceFilter; labelKey: 'examples.modeAll' | 'ds.surfaceWeb' | 'ds.surfaceImage' | 'ds.surfaceVideo' | 'ds.surfaceAudio' }[] = [
   { value: 'all', labelKey: 'examples.modeAll' },
@@ -489,10 +495,9 @@ export function DesignSystemsTab({
     trackCardClick(system);
   }
 
-  const scopeTabs = [
+  const scopeTabs: DesignSystemScopeTab[] = [
     { value: 'mine' as const, label: t('dsManager.yourSystems'), count: userSearched.length },
     { value: 'official' as const, label: t('dsManager.officialPresets'), count: queryScoped.length },
-    { value: 'enterprise' as const, label: t('dsManager.enterprise'), comingSoon: true },
   ];
 
   const showPresetFilters = designSystemCollection === 'official';
@@ -529,7 +534,6 @@ export function DesignSystemsTab({
           <div className={styles.scopes} aria-hidden>
             <SkeletonBlock className={`${styles.scopeChip} ${styles.skeletonScopeChipWide}`} />
             <SkeletonBlock className={`${styles.scopeChip} ${styles.skeletonScopeChip}`} />
-            <SkeletonBlock className={`${styles.scopeChip} ${styles.skeletonScopeChipWide}`} />
           </div>
 
           <div className={styles.list} data-testid="design-systems-list" aria-hidden>

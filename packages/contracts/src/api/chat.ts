@@ -461,7 +461,17 @@ export type PersistedAgentEvent =
       confidence?: number;
       draftPath?: string | null;
     }
-  | { kind: 'usage'; inputTokens?: number; outputTokens?: number; costUsd?: number; durationMs?: number }
+  | {
+      kind: 'usage';
+      inputTokens?: number;
+      outputTokens?: number;
+      thoughtTokens?: number;
+      totalTokens?: number;
+      cachedReadTokens?: number;
+      cachedWriteTokens?: number;
+      costUsd?: number;
+      durationMs?: number;
+    }
   | { kind: 'raw'; line: string };
 
 export interface ChatMessage {
