@@ -1,13 +1,13 @@
-<h1 align="center">Design For AIR: ทางเลือกโอเพนซอร์สแทน Claude Design</h1>
+<h1 align="center">design for air: ทางเลือกโอเพนซอร์สแทน Claude Design</h1>
 
-> 🔥 **Design For AIR 0.10.0 มาแล้ว: workspace สำหรับ Agentic design แบบครบวงจร.** งานคราฟต์ทั้งหมดมาอยู่ในหน้าต่างเดียว ตั้งแต่ไอเดียคร่าว ๆ ไปจนถึงการค้นหา reference, รวบรวม material, แก้ไขแบบ interactive, จัดคิว comment, ขัดเกลา motion และส่งต่อให้ editor หรือ Code Agent โดยไม่ต้องออกจากแอป. เมื่อใช้ parallel sessions ประสบการณ์จะไม่เหมือนผู้ช่วยคนเดียวอีกต่อไป แต่เหมือนมีทีมออกแบบ local ทำงานอยู่กับคุณ. [ดาวน์โหลด 0.10.0](https://github.com/nexu-io/open-design/releases) · [เข้าร่วม discussion](https://github.com/nexu-io/open-design/discussions/4153)
+> 🔥 **design for air 0.10.0 มาแล้ว: workspace สำหรับ Agentic design แบบครบวงจร.** งานคราฟต์ทั้งหมดมาอยู่ในหน้าต่างเดียว ตั้งแต่ไอเดียคร่าว ๆ ไปจนถึงการค้นหา reference, รวบรวม material, แก้ไขแบบ interactive, จัดคิว comment, ขัดเกลา motion และส่งต่อให้ editor หรือ Code Agent โดยไม่ต้องออกจากแอป. เมื่อใช้ parallel sessions ประสบการณ์จะไม่เหมือนผู้ช่วยคนเดียวอีกต่อไป แต่เหมือนมีทีมออกแบบ local ทำงานอยู่กับคุณ. [ดาวน์โหลด 0.10.0](https://github.com/nexu-io/open-design/releases) · [เข้าร่วม discussion](https://github.com/nexu-io/open-design/discussions/4153)
 >
-> ⚡ **Design For AIR AMR (Agentic Model Router) — บริการโมเดลอย่างเป็นทางการ.** เติมเงินครั้งเดียวเพื่อใช้ GPT, Claude, Gemini และ DeepSeek ใน Design For AIR: โมเดลระดับ flagship กว่า 20 ตัว, ไม่ต้องตั้งค่า, คิดเงินตาม token ที่ใช้จริง. [ลองใช้ AMR](https://open-design.ai/amr/)
+> ⚡ **design for air AMR (Agentic Model Router) — บริการโมเดลอย่างเป็นทางการ.** เติมเงินครั้งเดียวเพื่อใช้ GPT, Claude, Gemini และ DeepSeek ใน design for air: โมเดลระดับ flagship กว่า 20 ตัว, ไม่ต้องตั้งค่า, คิดเงินตาม token ที่ใช้จริง. [ลองใช้ AMR](https://open-design.ai/amr/)
 >
-> 🏅 **Design For AIR Fellow program เปิดรับแล้ว.** ถ้าคุณเชื่อเหมือนกันว่า design ควรเปิดกว้าง มาเป็น Design For AIR Fellow, ร่วม shape ผลิตภัณฑ์กับ core team และช่วยให้คนมากขึ้นมีส่วนร่วมกำหนดอนาคตของ design. รายละเอียด → [`MAINTAINERS.th.md`](MAINTAINERS.th.md) และ [Discord](https://discord.gg/qhbcCH8Am4).
+> 🏅 **design for air Fellow program เปิดรับแล้ว.** ถ้าคุณเชื่อเหมือนกันว่า design ควรเปิดกว้าง มาเป็น design for air Fellow, ร่วม shape ผลิตภัณฑ์กับ core team และช่วยให้คนมากขึ้นมีส่วนร่วมกำหนดอนาคตของ design. รายละเอียด → [`MAINTAINERS.th.md`](MAINTAINERS.th.md) และ [Discord](https://discord.gg/qhbcCH8Am4).
 
 <p align="center">
-  <img src="https://repo-assets.open-design.ai/resources/images/hero.png" alt="Design For AIR — ทางเลือกโอเพนซอร์สแทน Claude Design · 150 Design Systems · 261 Plugins · 21 Coding Agents · 14 Media Providers" width="100%" />
+  <img src="https://repo-assets.open-design.ai/resources/images/hero.png" alt="design for air — ทางเลือกโอเพนซอร์สแทน Claude Design · 150 Design Systems · 261 Plugins · 21 Coding Agents · 14 Media Providers" width="100%" />
 </p>
 
 <p align="center">
@@ -29,11 +29,11 @@
 
 ---
 
-## Design For AIR คืออะไร
+## design for air คืออะไร
 
 🎨 **ทางเลือก [Claude Design][cd] แบบ local-first และโอเพนซอร์ส.** &nbsp;🖥️ **แอป desktop native สำหรับ macOS และ Windows.** &nbsp;⚡ **100+ skills** · ✨ **ระบบ `DESIGN.md` ระดับแบรนด์ 150 ชุด** · 📦 **plugin พร้อมใช้ 261 ตัว.** &nbsp;🖼️ สร้าง **prototype สำหรับ web · desktop · mobile**, **live dashboard / artifact**, **deck**, **image**, **video** และ motion graphics ด้วย **HyperFrames**. 🔒 preview ผ่าน sandboxed iframe · export เป็น HTML / PDF / PPTX / MP4. &nbsp;🤖 **รันบน Claude Code · OpenClaw · Codex · Cursor · OpenCode · Qwen · Copilot · Amp · Hermes · Kimi · Antigravity และ local CLI 22 ตัว**, หรือ endpoint ที่เข้ากันได้กับ OpenAI ผ่าน BYOK.
 
-Design For AIR คือสิ่งที่เกิดขึ้นเมื่อ loop แบบ **agent-native** ที่ Anthropic เปิดตัวกับ Claude Design — ค้นหา brief, ล็อก direction, stream artifact, critique, deliver — เลิกเป็นระบบปิด แล้วกลายเป็น **filesystem ของ skills, design systems และ plugins** ที่ coding agent บน laptop ของคุณอ่าน เขียน และ remix ได้. CLI ของคุณกลายเป็น design engine, laptop ของคุณกลายเป็น studio, และ `DESIGN.md` ของทีมกลายเป็น brand contract.
+design for air คือสิ่งที่เกิดขึ้นเมื่อ loop แบบ **agent-native** ที่ Anthropic เปิดตัวกับ Claude Design — ค้นหา brief, ล็อก direction, stream artifact, critique, deliver — เลิกเป็นระบบปิด แล้วกลายเป็น **filesystem ของ skills, design systems และ plugins** ที่ coding agent บน laptop ของคุณอ่าน เขียน และ remix ได้. CLI ของคุณกลายเป็น design engine, laptop ของคุณกลายเป็น studio, และ `DESIGN.md` ของทีมกลายเป็น brand contract.
 
 มันยังเป็น **ทางเลือกแทน Figma สำหรับยุค agent** ด้วย แทนที่จะขยับ pixel บน canvas ระบบจะส่งมอบ artifact หน้าเดียวที่เป็น CSS จริง, font จริง, component จริง และ export ตรงเป็น HTML / PDF / PPTX / MP4 โดยถูก shape ด้วย design system ของคุณแล้ว และรันได้ใน agent ที่คุณใช้ทุกวัน.
 
@@ -43,7 +43,7 @@ Design For AIR คือสิ่งที่เกิดขึ้นเมื�
 
 ## ทัวร์ผลิตภัณฑ์
 
-ภาพรวมเร็ว ๆ ว่า Design For AIR คืออะไรและทำอะไรได้บ้าง. เริ่มจาก **Home**, จัด workflow ซ้ำ ๆ ด้วย **Automation**, กลั่น brand contract ใน **Design System**, และต่อยอดด้วย **Plugins** กับ **integrations**; ภายใน **Studio** ของแต่ละ project, design system เดียวกันจะ stream ออกมาเป็น prototypes, live artifacts, HyperFrames, decks และ images.
+ภาพรวมเร็ว ๆ ว่า design for air คืออะไรและทำอะไรได้บ้าง. เริ่มจาก **Home**, จัด workflow ซ้ำ ๆ ด้วย **Automation**, กลั่น brand contract ใน **Design System**, และต่อยอดด้วย **Plugins** กับ **integrations**; ภายใน **Studio** ของแต่ละ project, design system เดียวกันจะ stream ออกมาเป็น prototypes, live artifacts, HyperFrames, decks และ images.
 
 ### หน้าหลัก
 
@@ -74,7 +74,7 @@ Design For AIR คือสิ่งที่เกิดขึ้นเมื�
 </td>
 <td width="50%" valign="top">
 <img src="https://repo-assets.open-design.ai/resources/images/product/integrations.png" alt="หน้า Integrations" /><br/>
-<sub><b>Integrations</b> — เชื่อมต่อระบบภายนอกและ MCP tools แล้วใช้ Design For AIR จาก IDE, script หรือ automation ใดก็ได้.</sub>
+<sub><b>Integrations</b> — เชื่อมต่อระบบภายนอกและ MCP tools แล้วใช้ design for air จาก IDE, script หรือ automation ใดก็ได้.</sub>
 </td>
 </tr>
 </table>
@@ -110,7 +110,7 @@ Design For AIR คือสิ่งที่เกิดขึ้นเมื�
 
 ## ความเข้ากันได้ของแพลตฟอร์ม
 
-> Design For AIR มาพร้อม **skills, CLI และ MCP server** ที่ coding agent กระแสหลักใช้งานได้แบบ native. เมื่อติดตั้ง OD แล้ว คำสั่งเดียว `od mcp install <agent>` จะเชื่อม MCP server เข้ากับ config ของ agent นั้น และคุณเรียกใช้ tools เดียวกันจากใน agent ใดก็ได้.
+> design for air มาพร้อม **skills, CLI และ MCP server** ที่ coding agent กระแสหลักใช้งานได้แบบ native. เมื่อติดตั้ง OD แล้ว คำสั่งเดียว `od mcp install <agent>` จะเชื่อม MCP server เข้ากับ config ของ agent นั้น และคุณเรียกใช้ tools เดียวกันจากใน agent ใดก็ได้.
 
 | Coding agent / platform &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Status &nbsp;&nbsp; | One-line MCP server install &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
 |---|:---:|---|
@@ -133,7 +133,7 @@ Design For AIR คือสิ่งที่เกิดขึ้นเมื�
 ใช้ `od mcp install <agent> --print` เพื่อ preview แบบ dry-run · ใช้ `--uninstall` เพื่อลบ · ดูรายการเต็มด้วย `od mcp install --help`.
 
 <p align="center">
-  <img src="https://repo-assets.open-design.ai/resources/images/coding-agents.png" alt="CLI coding-agent 21 ตัวที่ Design For AIR รองรับ — Claude Code · Codex · OpenCode · Hermes · Antigravity · Gemini · Grok Build · Kimi · Cursor Agent · Qwen · Qoder · GitHub Copilot · Pi · Kiro · Kilo · Mistral Vibe · DeepSeek · Reasonix · Aider · Devin · Trae" width="100%" />
+  <img src="https://repo-assets.open-design.ai/resources/images/coding-agents.png" alt="CLI coding-agent 21 ตัวที่ design for air รองรับ — Claude Code · Codex · OpenCode · Hermes · Antigravity · Gemini · Grok Build · Kimi · Cursor Agent · Qwen · Qoder · GitHub Copilot · Pi · Kiro · Kilo · Mistral Vibe · DeepSeek · Reasonix · Aider · Devin · Trae" width="100%" />
 </p>
 
 **ยังไม่มี CLI ติดตั้ง?** BYOK proxy ที่ `POST /api/proxy/{anthropic,openai,azure,google,ollama,senseaudio}/stream` ให้ loop แบบเดียวกัน (ไม่ต้อง spawn process) — วาง `baseUrl` + `apiKey` + `model` ได้เลย พร้อมรองรับ OpenAI, Anthropic, Azure OpenAI, Google Gemini, Ollama, LM Studio, vLLM หรือ endpoint ที่เข้ากันได้กับ OpenAI. การป้องกัน SSRF ต่อ target จะบล็อก internal IPs / link-local / CGNAT ที่ daemon edge.
@@ -233,7 +233,7 @@ Live dashboard, decision room, KPI wall — artifact หน้าเดียว
 
 ### 5 · Video & HyperFrames — motion graphics แบบ agent-native
 
-**[HyperFrames][hyperframes]** คือ framework วิดีโอแบบโอเพนซอร์สและ agent-native ของ HeyGen ซึ่งผสานเป็น first-class citizen ใน Design For AIR. Agent เขียน HTML + CSS + GSAP แล้ว HyperFrames render เป็น MP4 ที่ deterministic ผ่าน headless Chrome + FFmpeg. ใช้คู่กับ **Seedance 2.0** สำหรับ cinematic t2v / i2v, **Veo 3 / Sora 2 / Kling 2** สำหรับ routed model variants และ **Suno v5 / Lyria 2** สำหรับ audio layer.
+**[HyperFrames][hyperframes]** คือ framework วิดีโอแบบโอเพนซอร์สและ agent-native ของ HeyGen ซึ่งผสานเป็น first-class citizen ใน design for air. Agent เขียน HTML + CSS + GSAP แล้ว HyperFrames render เป็น MP4 ที่ deterministic ผ่าน headless Chrome + FFmpeg. ใช้คู่กับ **Seedance 2.0** สำหรับ cinematic t2v / i2v, **Veo 3 / Sora 2 / Kling 2** สำหรับ routed model variants และ **Suno v5 / Lyria 2** สำหรับ audio layer.
 
 <table>
 <tr>
@@ -256,11 +256,11 @@ Live dashboard, decision room, KPI wall — artifact หน้าเดียว
 
 ---
 
-## ทำไมต้อง Design For AIR
+## ทำไมต้อง design for air
 
 > **ในเดือนเมษายน 2026, Anthropic เปิดตัว [Claude Design][cd] — ครั้งแรกที่ LLM หยุดแค่เขียนข้อความ และเริ่มส่งมอบ design artifacts โดยตรง.** มัน viral มาก แต่ยังเป็น closed-source, paid-only, cloud-only, ผูกกับโมเดลของ Anthropic, skills ของ Anthropic และ surface ของ Anthropic. ไม่มี checkout, ไม่มี self-host, ไม่มี Vercel deploy, ไม่มีการสลับ agent ของคุณเอง.
 
-Design For AIR (OD) คือทางเลือกโอเพนซอร์ส. Loop เดียวกัน, mental model แบบ artifact-first เดียวกัน, แต่ไม่มี lock-in:
+design for air (OD) คือทางเลือกโอเพนซอร์ส. Loop เดียวกัน, mental model แบบ artifact-first เดียวกัน, แต่ไม่มี lock-in:
 
 - 🤖 **Agent-native, model-agnostic.** เราไม่ได้ ship agent. `claude` / `codex` / `cursor-agent` / `copilot` / `hermes` / `kimi` ที่มีอยู่แล้วบน `PATH` ของคุณคือ design engine. สลับได้ในคลิกเดียว.
 - 🧠 **Brand-grade เป็นค่าเริ่มต้น.** ทุก render อ่าน `DESIGN.md` ที่ active อยู่ — schema 9 section ครอบคลุม palette, type, spacing, motion, voice และ anti-patterns. Repo ship systems 150 ชุด (Linear, Stripe, Vercel, Airbnb, Apple, Tesla, Notion, Anthropic, Cursor, Supabase, Figma…). วาง folder เข้าไป picker ก็หาเจอ.
@@ -271,7 +271,7 @@ Design For AIR (OD) คือทางเลือกโอเพนซอร์
 
 ### เปรียบเทียบ
 
-| | [Claude Design][cd] | Figma | Lovable / v0 / Bolt | **Design For AIR** |
+| | [Claude Design][cd] | Figma | Lovable / v0 / Bolt | **design for air** |
 |---|---|---|---|---|
 | Open source | ❌ | ❌ | ❌ | **✅ Apache-2.0** |
 | Self-host / desktop | ❌ | ❌ | ❌ | **✅ macOS + Windows + Vercel** |
@@ -288,7 +288,7 @@ Design For AIR (OD) คือทางเลือกโอเพนซอร์
 
 ### 🖥️ ดาวน์โหลด desktop app (แนะนำ — ไม่ต้องตั้งค่า)
 
-วิธีที่เร็วที่สุดในการใช้ Design For AIR. ไม่ต้องมี Node, ไม่ต้องมี pnpm, ไม่ต้อง clone.
+วิธีที่เร็วที่สุดในการใช้ design for air. ไม่ต้องมี Node, ไม่ต้องมี pnpm, ไม่ต้อง clone.
 
 - **macOS** (Apple Silicon · Intel x64) → [**open-design.ai**](https://open-design.ai/) หรือ [GitHub Releases](https://github.com/nexu-io/open-design/releases)
 - **Windows** (x64) → [**open-design.ai**](https://open-design.ai/) หรือ [GitHub Releases](https://github.com/nexu-io/open-design/releases)
@@ -298,7 +298,7 @@ Design For AIR (OD) คือทางเลือกโอเพนซอร์
 
 ### 🤖 ติดตั้งเข้า coding agent ของคุณ (ไม่ใช้ UI)
 
-คุณใช้ Design For AIR ได้โดยไม่ต้องเปิด GUI เลย — เรียกใช้เป็น skill, plugin หรือ MCP server ใน Claude Code, Codex, Cursor, Copilot, OpenClaw, Antigravity, Hermes, Kimi และอื่น ๆ.
+คุณใช้ design for air ได้โดยไม่ต้องเปิด GUI เลย — เรียกใช้เป็น skill, plugin หรือ MCP server ใน Claude Code, Codex, Cursor, Copilot, OpenClaw, Antigravity, Hermes, Kimi และอื่น ๆ.
 
 ```bash
 # One-line install into the agent you're using:
@@ -347,13 +347,13 @@ Node `~24`, pnpm `10.33.x`. ผู้ใช้ Windows ดู [`docs/windows-tro
 2. **Designer (หรือ agent) ล็อก direction.** ยังไม่มี brand? เลือกจาก 5 direction ที่ curate ไว้. มี brand แล้ว? วาง screenshot / URL → agent เชื่อม GitHub, import Figma และ codify เป็น `DESIGN.md` ที่ reusable.
 3. **Agent emit `<artifact>` แรก.** Plugin + skill + `DESIGN.md` ถูก bind แล้ว. มัน stream เข้า sandboxed iframe และแก้ไขในที่เดิมได้ — ไม่ใช่ "regenerate from scratch."
 4. **ส่งต่อให้ engineering.** Artifact คือ HTML/CSS จริง — วางเข้า Cursor, Codex หรือ Claude Code เพื่อ build ต่อเป็น code. หรือ export PPTX / PDF / MP4 ตรงไป marketing.
-5. **Design For AIR ฉลาดขึ้นเมื่อคุณใช้มัน.** Screenshot, font, palette และ artifact ที่ confirm แล้วจะสะสมเป็น default สำหรับ session ถัดไป. งานซ้ำน้อยลง, drift น้อยลง.
+5. **design for air ฉลาดขึ้นเมื่อคุณใช้มัน.** Screenshot, font, palette และ artifact ที่ confirm แล้วจะสะสมเป็น default สำหรับ session ถัดไป. งานซ้ำน้อยลง, drift น้อยลง.
 
 ---
 
-## ใช้ Design For AIR จาก coding agent ของคุณ
+## ใช้ design for air จาก coding agent ของคุณ
 
-Design For AIR ship **stdio MCP server** และ **install scripts** สำหรับแต่ละ agent. Agent ที่รองรับ MCP ใน repo อื่นสามารถอ่านไฟล์จาก project Design For AIR local ของคุณได้โดยตรง — tokens CSS, JSX components, entry HTML — ในรูปแบบ structured API ที่ query ตามชื่อได้. Agent เห็นไฟล์ live เสมอ ไม่ใช่ stale export.
+design for air ship **stdio MCP server** และ **install scripts** สำหรับแต่ละ agent. Agent ที่รองรับ MCP ใน repo อื่นสามารถอ่านไฟล์จาก project design for air local ของคุณได้โดยตรง — tokens CSS, JSX components, entry HTML — ในรูปแบบ structured API ที่ query ตามชื่อได้. Agent เห็นไฟล์ live เสมอ ไม่ใช่ stale export.
 
 ```bash
 # One-line install (รองรับ 16+ CLIs):
@@ -443,7 +443,7 @@ Re-import library ผ่าน [`scripts/sync-design-systems.ts`](../../scripts/
 
 ## Plugins
 
-**Official plugins 261 ตัว** อยู่ใน [`plugins/_official/`](../../plugins/_official/). Plugin แต่ละตัวเป็น **portable agent-skill folder** — มี `SKILL.md` (อ่านได้โดย agent ใดก็ได้ที่รองรับ Agent Skills), พร้อม manifest `open-design.json` แบบ optional ที่ให้ metadata ของ Design For AIR marketplace, inputs, previews, pipelines และ capability declarations. ไปที่ category ได้ทันที:
+**Official plugins 261 ตัว** อยู่ใน [`plugins/_official/`](../../plugins/_official/). Plugin แต่ละตัวเป็น **portable agent-skill folder** — มี `SKILL.md` (อ่านได้โดย agent ใดก็ได้ที่รองรับ Agent Skills), พร้อม manifest `open-design.json` แบบ optional ที่ให้ metadata ของ design for air marketplace, inputs, previews, pipelines และ capability declarations. ไปที่ category ได้ทันที:
 
 | Category | Count | Contents |
 |---|---|---|
@@ -485,7 +485,7 @@ od plugin uninstall od-default       # uninstall
 
 ### การสร้าง plugin
 
-Plugin **ต้องมีแค่ `SKILL.md` เป็นขั้นต่ำ**; ถ้าต้องการให้แสดงใน Design For AIR marketplace ให้เพิ่ม `open-design.json`:
+Plugin **ต้องมีแค่ `SKILL.md` เป็นขั้นต่ำ**; ถ้าต้องการให้แสดงใน design for air marketplace ให้เพิ่ม `open-design.json`:
 
 ```
 my-plugin/
@@ -510,7 +510,7 @@ Field set และ runtime contract เต็ม → [`plugins/spec/SPEC.md`](.
 
 ### การ contribute plugin
 
-1. วาง plugin folder ใน [`plugins/community/`](../../plugins/community/) (third-party plugins), หรือ — ถ้าจะ ship bundled กับ Design For AIR — วางใน tier ที่ตรงกันของ [`plugins/_official/`](../../plugins/_official/).
+1. วาง plugin folder ใน [`plugins/community/`](../../plugins/community/) (third-party plugins), หรือ — ถ้าจะ ship bundled กับ design for air — วางใน tier ที่ตรงกันของ [`plugins/_official/`](../../plugins/_official/).
 2. ผ่าน validation: `od plugin validate`, `pnpm guard`, `pnpm --filter @nn-design/plugin-runtime typecheck`.
 3. กรอก PR ด้วย template ใน [`plugins/spec/CONTRIBUTING.md`](../../plugins/spec/CONTRIBUTING.md) (ID, version, lane, mode, capabilities, trigger examples; แนบ screenshot / preview สำหรับ visual plugins).
 4. ถ้าจะ publish ไป registry ภายนอก (skills.sh / ClawHub / standalone GitHub) → [`plugins/spec/PUBLISHING-REGISTRIES.md`](../../plugins/spec/PUBLISHING-REGISTRIES.md).
@@ -573,7 +573,7 @@ Architecture เต็ม → [`docs/architecture.md`](../../docs/architecture.m
 - [x] Sidecar protocol + Electron desktop + IPC automation
 - [x] Artifact lint API + 5-dim self-critique pre-emit gate
 - [x] **0.8.0** — plugin marketplace infrastructure (official plugins 261 ตัว, manifest spec, per-agent install scripts)
-- [x] **0.9.0** — Design For AIR AMR (official Model Router ในตัวแอป: zero config, one-click sign-in)
+- [x] **0.9.0** — design for air AMR (official Model Router ในตัวแอป: zero config, one-click sign-in)
 - [x] Packaged Electron builds — macOS (Apple Silicon + Intel) + Windows (x64) + Linux AppImage (optional lane)
 - [ ] Comment-mode surgical edits — ship บางส่วนแล้ว; reliable targeted patching กำลังทำอยู่
 - [ ] AI-emitted tweaks panel UX — ยังไม่ implement
@@ -601,7 +601,7 @@ Label [`good-first-issue`](https://github.com/nexu-io/open-design/issues?q=is%3A
 
 ## Contributing
 
-Design For AIR เดินหน้าได้เพราะ contributors — designers, engineers, prompt authors — กลับมา contribute อย่างต่อเนื่อง. Skills, design systems และ plugins ที่ถูกใช้มากที่สุดหลายตัวเขียนโดยคนนอก core team.
+design for air เดินหน้าได้เพราะ contributors — designers, engineers, prompt authors — กลับมา contribute อย่างต่อเนื่อง. Skills, design systems และ plugins ที่ถูกใช้มากที่สุดหลายตัวเขียนโดยคนนอก core team.
 
 ### 🎯 เริ่มตรงไหนดี (impact สูง, change น้อย)
 
@@ -638,9 +638,9 @@ gh pr create --fill
 
 Contribution flow สำหรับ agent, code style และ PR bar แบบเต็ม → [`CONTRIBUTING.th.md`](CONTRIBUTING.th.md) ([Deutsch](CONTRIBUTING.de.md) · [Français](CONTRIBUTING.fr.md) · [简体中文](CONTRIBUTING.zh-CN.md) · [日本語](CONTRIBUTING.ja-JP.md) · [한국어](CONTRIBUTING.ko.md) · [Português](CONTRIBUTING.pt-BR.md)).
 
-### 🏅 Design For AIR Fellow program
+### 🏅 design for air Fellow program
 
-เรากำลังรับสมัคร **Design For AIR Fellows** ทั่วโลก — Fellows ร่วม shape ผลิตภัณฑ์กับ core team, เป็นตัวแทน Design For AIR อย่างเป็นทางการในภูมิภาคของตน และขยาย community local โดยมี funded support ($1,000 / MR), LLM credits ฟรี และ direct review track. รายละเอียด → [`MAINTAINERS.th.md`](MAINTAINERS.th.md) และประกาศใน [Discord](https://discord.gg/qhbcCH8Am4).
+เรากำลังรับสมัคร **design for air Fellows** ทั่วโลก — Fellows ร่วม shape ผลิตภัณฑ์กับ core team, เป็นตัวแทน design for air อย่างเป็นทางการในภูมิภาคของตน และขยาย community local โดยมี funded support ($1,000 / MR), LLM credits ฟรี และ direct review track. รายละเอียด → [`MAINTAINERS.th.md`](MAINTAINERS.th.md) และประกาศใน [Discord](https://discord.gg/qhbcCH8Am4).
 
 ---
 
@@ -681,7 +681,7 @@ Contribution flow สำหรับ agent, code style และ PR bar แบ�
 ขอบคุณทุกคนที่มีส่วนร่วม — code, docs, feedback, issue ที่คม, skill ใหม่, design system ใหม่.
 
 <a href="https://github.com/nexu-io/open-design/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=nexu-io/open-design&max=500&columns=20&anon=1&cache_bust=2026-05-30" alt="Design For AIR contributors" />
+  <img src="https://contrib.rocks/image?repo=nexu-io/open-design&max=500&columns=20&anon=1&cache_bust=2026-05-30" alt="design for air contributors" />
 </a>
 
 ---
@@ -689,7 +689,7 @@ Contribution flow สำหรับ agent, code style และ PR bar แบ�
 ## Repository activity
 
 <picture>
-  <img alt="Design For AIR — repository metrics" src="https://repo-assets.open-design.ai/resources/images/github-metrics.svg" />
+  <img alt="design for air — repository metrics" src="https://repo-assets.open-design.ai/resources/images/github-metrics.svg" />
 </picture>
 
 SVG ด้านบน regenerate ทุกวันโดย [`.github/workflows/metrics.yml`](../../.github/workflows/metrics.yml) ด้วย [`lowlighter/metrics`](https://github.com/lowlighter/metrics).
@@ -699,7 +699,7 @@ SVG ด้านบน regenerate ทุกวันโดย [`.github/workflow
 ## Star us
 
 <p align="center">
-  <a href="https://github.com/nexu-io/open-design"><img src="https://repo-assets.open-design.ai/resources/images/star-us.png" alt="Star Design For AIR บน GitHub — github.com/nexu-io/open-design" width="100%" /></a>
+  <a href="https://github.com/nexu-io/open-design"><img src="https://repo-assets.open-design.ai/resources/images/star-us.png" alt="Star design for air บน GitHub — github.com/nexu-io/open-design" width="100%" /></a>
 </p>
 
 ถ้าสิ่งนี้ช่วยคุณประหยัดเวลาได้สามสิบนาที กด ★ ให้เราได้เลย. Stars ไม่ได้จ่ายค่าเช่า — แต่มันบอก designer, agent และ contributor คนถัดไปว่าการทดลองนี้ควรค่าแก่ความสนใจ. คลิกเดียว, สามวินาที, เป็นสัญญาณจริง.
@@ -708,7 +708,7 @@ SVG ด้านบน regenerate ทุกวันโดย [`.github/workflow
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=nexu-io/open-design&type=Date&theme=dark&cache_bust=2026-05-28" />
     <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=nexu-io/open-design&type=Date&cache_bust=2026-05-28" />
-    <img alt="Design For AIR star history" src="https://api.star-history.com/svg?repos=nexu-io/open-design&type=Date&cache_bust=2026-05-28" />
+    <img alt="design for air star history" src="https://api.star-history.com/svg?repos=nexu-io/open-design&type=Date&cache_bust=2026-05-28" />
   </picture>
 </a>
 
@@ -726,7 +726,7 @@ SVG ด้านบน regenerate ทุกวันโดย [`.github/workflow
 | [`multica-ai/multica`](https://github.com/multica-ai/multica) | สถาปัตยกรรม daemon + adapter — PATH-scan agent detection, local daemon เป็น privileged process เพียงตัวเดียว. |
 | [`VoltAgent/awesome-design-md`](https://github.com/VoltAgent/awesome-design-md) | แหล่งที่มาของ schema `DESIGN.md` 9 section และ product systems 70 ชุด. |
 | [`bergside/awesome-design-skills`](https://github.com/bergside/awesome-design-skills) | แหล่งที่มาของ design skills 57 ชุดที่เพิ่มไว้ใต้ `design-systems/`. |
-| [`heygen-com/hyperframes`](https://github.com/heygen-com/hyperframes) | Framework motion-graphics HTML→MP4 ที่ integrate เป็น `hyperframes-html` แบบ first-class ใน Design For AIR. |
+| [`heygen-com/hyperframes`](https://github.com/heygen-com/hyperframes) | Framework motion-graphics HTML→MP4 ที่ integrate เป็น `hyperframes-html` แบบ first-class ใน design for air. |
 | [Claude Code skills][skill] | Convention `SKILL.md` ที่เรารับมาใช้ตรง ๆ. |
 
 Provenance แบบละเอียด → [`docs/references.md`](../../docs/references.md).

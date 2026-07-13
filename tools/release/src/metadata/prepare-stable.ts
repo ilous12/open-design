@@ -589,7 +589,7 @@ if (latestStable != null && compareReleaseBaseVersions(packagedParsed, latestSta
 }
 
 let releaseVersion = packagedVersion;
-let releaseName = `Design For AIR ${packagedVersion}`;
+let releaseName = `design for air ${packagedVersion}`;
 let prereleaseNumber = "";
 let stateSource = channel === "prerelease" ? "R2 metadata.json" : "GitHub Releases";
 
@@ -631,7 +631,7 @@ if (channel === "prerelease") {
 
   prereleaseNumber = String(nextPrereleaseNumber);
   releaseVersion = formatReleaseVersion("prerelease", packagedVersion, nextPrereleaseNumber);
-  releaseName = `Design For AIR Prerelease ${releaseVersion}`;
+  releaseName = `design for air Prerelease ${releaseVersion}`;
   log(`latest prerelease: ${latestPrerelease.prereleaseVersion}`);
 } else {
   const stablePrerelease = await validateStablePrereleaseMetadata({

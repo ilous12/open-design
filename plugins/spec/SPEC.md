@@ -1,8 +1,8 @@
-# Design For AIR Plugin Spec
+# design for air Plugin Spec
 
 Language: English | [简体中文](SPEC.zh-CN.md)
 
-This spec is the compact contract for portable Design For AIR plugins. The canonical product spec remains `docs/plugins-spec.md`; this document is optimized for contributors and external coding agents.
+This spec is the compact contract for portable design for air plugins. The canonical product spec remains `docs/plugins-spec.md`; this document is optimized for contributors and external coding agents.
 
 ## 1. Minimum Plugin
 
@@ -24,9 +24,9 @@ description: Use this plugin when the user wants...
 
 The folder name, `name`, and manifest `name` should match. Use lowercase letters, numbers, and hyphens.
 
-## 2. Enriched Design For AIR Plugin
+## 2. Enriched design for air Plugin
 
-Add `open-design.json` when the plugin should appear in Design For AIR as a marketplace card or starter:
+Add `open-design.json` when the plugin should appear in design for air as a marketplace card or starter:
 
 ```text
 my-plugin/
@@ -129,7 +129,7 @@ HyperFrames plugins may use `od.mode: "video"` plus a `hyperframes` tag when the
 ## 6. Manifest Rules
 
 - `name` is the stable plugin id.
-- `specVersion` is the Design For AIR plugin spec version that this manifest follows. Use the current spec kit value (`1.0.0`) unless the schema moves.
+- `specVersion` is the design for air plugin spec version that this manifest follows. Use the current spec kit value (`1.0.0`) unless the schema moves.
 - `version` is required. Use semver when possible.
 - `version` is the plugin package version, independent from `specVersion`.
 - `compat.agentSkills[0].path` should point to `./SKILL.md`.
@@ -215,4 +215,4 @@ Before opening a PR:
 6. Include one screenshot, rendered preview, or example output when the plugin is visual.
 7. Explain trust and capabilities in the PR body.
 
-For external registry distribution, follow [`PUBLISHING-REGISTRIES.md`](PUBLISHING-REGISTRIES.md). In short: keep GitHub or the Design For AIR PR as source of truth, make the folder installable as a generic `SKILL.md` skill, then publish or list it on skills.sh, ClawHub, or other registries only after local validation passes.
+For external registry distribution, follow [`PUBLISHING-REGISTRIES.md`](PUBLISHING-REGISTRIES.md). In short: keep GitHub or the design for air PR as source of truth, make the folder installable as a generic `SKILL.md` skill, then publish or list it on skills.sh, ClawHub, or other registries only after local validation passes.

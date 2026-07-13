@@ -1,6 +1,6 @@
 # Export To Next.js
 
-Use this plugin when the user wants to hand an accepted Design For AIR artifact to a Next.js App Router project.
+Use this plugin when the user wants to hand an accepted design for air artifact to a Next.js App Router project.
 
 ## Workflow
 

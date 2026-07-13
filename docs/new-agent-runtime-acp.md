@@ -1,15 +1,15 @@
 # New agent runtime expectations: ACP over stdio
 
-This note documents the preferred integration shape for a new Design For AIR agent runtime.
+This note documents the preferred integration shape for a new design for air agent runtime.
 
 ## Recommendation
 
 New agent runtimes should expose an **ACP over stdio** CLI mode.
 
-In practice, Design For AIR expects to spawn a local executable and speak JSON-RPC over the child process streams:
+In practice, design for air expects to spawn a local executable and speak JSON-RPC over the child process streams:
 
 ```text
-Design For AIR daemon
+design for air daemon
   └─ spawn your-agent acp
        ├─ stdin  <- ACP JSON-RPC requests/responses
        ├─ stdout -> ACP JSON-RPC responses/notifications
@@ -23,7 +23,7 @@ your-agent acp
   └─ connects to your runtime server / SDK / model backend
 ```
 
-That wrapper keeps Design For AIR on the standard ACP subprocess transport and avoids requiring a daemon-side network transport adapter.
+That wrapper keeps design for air on the standard ACP subprocess transport and avoids requiring a daemon-side network transport adapter.
 
 ## Why stdio, not an ACP server?
 
@@ -31,29 +31,29 @@ The ACP protocol uses JSON-RPC, but transport matters.
 
 The ACP transport documentation defines **stdio** as communication over standard input and standard output. In that transport, the client launches the agent as a subprocess, the agent reads from `stdin`, writes protocol messages to `stdout`, and writes logs to `stderr`.
 
-ACP's remote HTTP/WebSocket transport is still described as a draft/proposal rather than the established compatibility path. Design For AIR's implemented ACP adapters therefore use stdio subprocesses today.
+ACP's remote HTTP/WebSocket transport is still described as a draft/proposal rather than the established compatibility path. design for air's implemented ACP adapters therefore use stdio subprocesses today.
 
-## Messages Design For AIR sends
+## Messages design for air sends
 
-For `streamFormat: 'acp-json-rpc'`, Design For AIR currently drives a session with these JSON-RPC methods:
+For `streamFormat: 'acp-json-rpc'`, design for air currently drives a session with these JSON-RPC methods:
 
 1. `initialize`
    - Sent first.
-   - Includes Design For AIR client metadata and `clientCapabilities`.
+   - Includes design for air client metadata and `clientCapabilities`.
 2. `session/new`
    - Creates a working session.
    - Includes the project working directory.
-   - May include MCP server descriptors when the runtime is allowed to use Design For AIR-provided tools.
+   - May include MCP server descriptors when the runtime is allowed to use design for air-provided tools.
 3. `session/set_config_option` or `session/set_model` *(optional)*
    - Sent when the user selected a non-default model.
-   - Design For AIR prefers `session/set_config_option` when `session/new` reports a model config option; otherwise it falls back to `session/set_model`.
+   - design for air prefers `session/set_config_option` when `session/new` reports a model config option; otherwise it falls back to `session/set_model`.
 4. `session/prompt`
    - Sends the composed user/system prompt as text content.
    - A successful response marks the prompt as complete.
 5. `session/cancel`
    - Sent on user cancellation when a session exists and stdin is still writable.
 
-## Messages Design For AIR expects from the agent
+## Messages design for air expects from the agent
 
 The runtime should support the corresponding JSON-RPC responses and notifications:
 
@@ -63,28 +63,28 @@ The runtime should support the corresponding JSON-RPC responses and notification
    - Should report the current model if available.
    - Should report model config options if model selection is supported through config options.
 3. Notifications using `session/update`.
-   - Design For AIR currently maps:
+   - design for air currently maps:
      - `agent_thought_chunk` to thinking output.
      - `agent_message_chunk` to assistant text output.
 4. Optional `session/request_permission` requests.
-   - Design For AIR auto-selects an approve/allow-style option when available.
+   - design for air auto-selects an approve/allow-style option when available.
    - If no acceptable option is present, the turn fails fast.
 5. Response to `session/prompt`.
    - Should include usage metadata when available.
-   - This response tells Design For AIR the turn is finished.
+   - This response tells design for air the turn is finished.
 
 ## Process lifecycle expectations
 
 - Keep protocol messages on `stdout` parseable as JSON-RPC lines.
 - Write human-readable logs and diagnostics to `stderr`.
 - Return clear JSON-RPC errors for protocol failures.
-- After `session/prompt` completes, either exit cleanly when stdin closes or tolerate Design For AIR sending `SIGTERM` after a short grace period.
-- Implement `session/cancel` if possible. Design For AIR falls back to process termination when the transport is no longer usable.
+- After `session/prompt` completes, either exit cleanly when stdin closes or tolerate design for air sending `SIGTERM` after a short grace period.
+- Implement `session/cancel` if possible. design for air falls back to process termination when the transport is no longer usable.
 - Avoid interactive terminal prompts. If permission is required, use ACP permission requests instead.
 
-## Design For AIR adapter shape
+## design for air adapter shape
 
-An ACP runtime definition in Design For AIR is intentionally small:
+An ACP runtime definition in design for air is intentionally small:
 
 ```ts
 export const myAgentDef = {
@@ -110,7 +110,7 @@ Existing examples include Devin, Hermes, Kimi, Kiro, Kilo, and Vibe runtime defi
 - ACP remote transport RFD: <https://agentclientprotocol.com/rfds/streamable-http-websocket-transport>
   - Describes Streamable HTTP / WebSocket as the proposed remote transport direction.
   - Notes that ACP's standard transport has historically been stdio and that a standard remote transport is still being defined.
-- Design For AIR implementation:
+- design for air implementation:
   - `apps/daemon/src/acp.ts` implements the ACP JSON-RPC session lifecycle.
   - `apps/daemon/src/server.ts` spawns ACP runtimes as child processes with piped stdio.
   - `apps/daemon/src/runtimes/defs/*.ts` contains existing ACP runtime definitions using `streamFormat: 'acp-json-rpc'`.

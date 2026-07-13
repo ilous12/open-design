@@ -1201,7 +1201,7 @@ export const HomeHero = forwardRef<HomeHeroHandle, Props>(function HomeHero(
         <span className="home-hero__brand-mark">
           <img src="/app-icon.svg" alt="" draggable={false} />
         </span>
-        <span className="home-hero__brand-name">Design For AIR</span>
+        <span className="home-hero__brand-name">design for air</span>
       </div>
       <h1 className="home-hero__title">{t('homeHero.title')}</h1>
       {t('homeHero.subtitlePrefix') ? (

@@ -183,8 +183,8 @@ function stablePrereleaseMetadata(publicOrigin: string, baseVersion: string): Re
       mac: {
         arch: "arm64",
         artifacts: {
-          dmg: artifact("Design For AIR.dmg"),
-          zip: artifact("Design For AIR-mac-arm64.zip"),
+          dmg: artifact("design for air.dmg"),
+          zip: artifact("design for air-mac-arm64.zip"),
         },
         enabled: true,
         signed: true,
@@ -192,8 +192,8 @@ function stablePrereleaseMetadata(publicOrigin: string, baseVersion: string): Re
       macIntel: {
         arch: "x64",
         artifacts: {
-          dmg: artifact("Design For AIR Intel.dmg"),
-          zip: artifact("Design For AIR-mac-x64.zip"),
+          dmg: artifact("design for air Intel.dmg"),
+          zip: artifact("design for air-mac-x64.zip"),
         },
         enabled: true,
         signed: true,
@@ -201,7 +201,7 @@ function stablePrereleaseMetadata(publicOrigin: string, baseVersion: string): Re
       win: {
         arch: "x64",
         artifacts: {
-          installer: artifact("Design For AIR Setup.exe"),
+          installer: artifact("design for air Setup.exe"),
         },
         enabled: true,
       },

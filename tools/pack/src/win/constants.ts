@@ -1,4 +1,4 @@
-export const PRODUCT_NAME = "Design For AIR";
+export const PRODUCT_NAME = "design for air";
 export const DESKTOP_LOG_ECHO_ENV = "OD_DESKTOP_LOG_ECHO";
 export const WEB_STANDALONE_HOOK_CONFIG_ENV = "OD_TOOLS_PACK_WEB_STANDALONE_HOOK_CONFIG";
 export const WEB_STANDALONE_RESOURCE_NAME = "nn.design-web-standalone";

@@ -1,4 +1,4 @@
-export const PRODUCT_NAME = "Design For AIR";
+export const PRODUCT_NAME = "design for air";
 
 export const INTERNAL_PACKAGES = [
   { directory: "packages/release", name: "@nn-design/release" },

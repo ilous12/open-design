@@ -9,16 +9,16 @@ import {
 describe('resolveSafeProjectAttachments', () => {
   it('keeps Windows attachments when root and attachment path use different separators and drive casing', () => {
     const existing = new Set([
-      'C:\\Users\\Designer\\Design For AIR\\m5-logo.png',
+      'C:\\Users\\Designer\\design for air\\m5-logo.png',
       'c:\\users\\designer\\open design\\assets\\mark.png',
     ]);
 
     const safe = resolveSafeProjectAttachments(
-      'C:/Users/Designer/Design For AIR/',
+      'C:/Users/Designer/design for air/',
       [
         'm5-logo.png',
         'c:/users/designer/open design/assets/mark.png',
-        'C:/Users/Designer/Design For AIR Adjacent/secret.png',
+        'C:/Users/Designer/design for air Adjacent/secret.png',
         '..\\secret.png',
       ],
       {

@@ -195,7 +195,7 @@ describe('telemetry worker', () => {
     fetchSpy.mockRestore();
   });
 
-  it('rejects requests without the Design For AIR client marker', async () => {
+  it('rejects requests without the design for air client marker', async () => {
     const response = await worker.fetch(
       new Request('https://telemetry.open-design.ai/api/langfuse', {
         method: 'POST',

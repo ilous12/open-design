@@ -1086,7 +1086,7 @@ export function DesignFilesPanel({
                               void handlePluginFolderAgentAction(folder.path, 'contribute')
                             }
                           >
-                            {sharingFolder === `contribute:${folder.path}` ? 'Sending…' : 'Design For AIR PR'}
+                            {sharingFolder === `contribute:${folder.path}` ? 'Sending…' : 'design for air PR'}
                           </button>
                         </div>
                       ) : null}

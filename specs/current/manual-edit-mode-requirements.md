@@ -1,8 +1,8 @@
-# Design For AIR Manual Edit Mode Requirements
+# design for air Manual Edit Mode Requirements
 
 ## Purpose
 
-This document records the accepted manual edit-mode model from `apps/edit-mode-demo` so it can be migrated into the main Design For AIR web app.
+This document records the accepted manual edit-mode model from `apps/edit-mode-demo` so it can be migrated into the main design for air web app.
 
 The key product decision is:
 
@@ -95,7 +95,7 @@ Purpose: live artifact preview.
 Required behavior:
 
 - Render artifact in sandboxed iframe.
-- Preserve Design For AIR's existing preview model.
+- Preserve design for air's existing preview model.
 - In edit mode, selectable elements show subtle outlines.
 - Hovered/selectable elements should feel discoverable without overwhelming the artifact.
 - Center toolbar includes:
@@ -411,7 +411,7 @@ The accepted design direction:
   - left layers
   - center canvas
   - right properties modal
-- Design For AIR-specific mode rail:
+- design for air-specific mode rail:
   - Preview
   - Edit
   - Comment AI
@@ -443,7 +443,7 @@ Likely production destinations:
 - `apps/web/src/components/FileViewer.tsx`
 - `apps/web/src/index.css`
 
-Existing Design For AIR integration points:
+Existing design for air integration points:
 
 - `FileViewer` already owns preview iframe and mode toolbar.
 - Existing comment mode already injects a preview bridge.

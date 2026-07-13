@@ -3,28 +3,28 @@
     "beta": {
       "channel": "beta",
       "storagePrefix": "beta",
-      "productName": "Design For AIR Beta"
+      "productName": "design for air Beta"
     },
     "betas": {
       "channel": "betas",
       "storagePrefix": "betas",
-      "productName": "Design For AIR Betas",
+      "productName": "design for air Betas",
       "publicOrigin": "https://s3.nexu.space/od-releases"
     },
     "prerelease": {
       "channel": "prerelease",
       "storagePrefix": "prerelease",
-      "productName": "Design For AIR Prerelease"
+      "productName": "design for air Prerelease"
     },
     "preview": {
       "channel": "preview",
       "storagePrefix": "preview",
-      "productName": "Design For AIR Preview"
+      "productName": "design for air Preview"
     },
     "stable": {
       "channel": "stable",
       "storagePrefix": "stable",
-      "productName": "Design For AIR"
+      "productName": "design for air"
     }
   }
 }

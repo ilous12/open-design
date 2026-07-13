@@ -31,6 +31,7 @@ By default, the script:
 - exports update files under `.tmp/release-public`;
 - deploys installer/update artifacts to versioned GitHub Releases and keeps the
   GitHub Pages repo limited to small updater metadata.
+- includes the macOS DMG and launcher payload in the release assets by default.
 
 To export directly to a separate public repo checkout:
 
@@ -70,12 +71,10 @@ The public Pages repo keeps this metadata layout:
 stable/
   latest/
     metadata.json
-    latest-mac.yml
     platforms/mac_arm64.json
   versions/
     0.12.1/
       metadata.json
-      latest-mac.yml
       platforms/mac_arm64.json
 ```
 

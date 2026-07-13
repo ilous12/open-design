@@ -80,7 +80,7 @@ Pendant le développement local, `tools-dev` démarre d’abord le daemon, trans
 
 ## Configuration Docker
 
-Exécutez Design For AIR dans un environnement entièrement conteneurisé sans installer Node.js ou pnpm localement.
+Exécutez design for air dans un environnement entièrement conteneurisé sans installer Node.js ou pnpm localement.
 
 ### Prérequis
 
@@ -95,7 +95,7 @@ docker compose version
 
 ---
 
-## Démarrer Design For AIR
+## Démarrer design for air
 
 Depuis la racine du dépôt :
 
@@ -229,7 +229,7 @@ ls -la apps/daemon/dist/cli.js
 curl -s http://127.0.0.1:7457/api/health
 ```
 
-Ouvrez ensuite de nouveau le projet depuis l’app Design For AIR au lieu de reprendre une ancienne session agent dans le terminal. Un agent lancé par le daemon devrait voir des valeurs comme :
+Ouvrez ensuite de nouveau le projet depuis l’app design for air au lieu de reprendre une ancienne session agent dans le terminal. Un agent lancé par le daemon devrait voir des valeurs comme :
 
 ```bash
 echo "OD_BIN=$OD_BIN"
@@ -313,7 +313,7 @@ open-design/
 │   └── desktop/               # runtime Electron, lancé/inspecté par tools-dev
 ├── packages/
 │   ├── contracts/             # contrats app partagés web/daemon
-│   ├── sidecar-proto/         # contrat du protocole sidecar Design For AIR
+│   ├── sidecar-proto/         # contrat du protocole sidecar design for air
 │   ├── sidecar/               # primitives runtime sidecar génériques
 │   └── platform/              # primitives process/platform génériques
 ├── tools/dev/                 # lifecycle `pnpm tools-dev` et inspect CLI
@@ -346,8 +346,8 @@ open-design/
 
 - **"no agents found on PATH"** — installez une CLI compatible, par exemple `claude`, `codex`, `gemini`, `opencode`, `cursor-agent`, `qwen` ou `copilot`. La liste exacte des adapters détectés vit dans `apps/daemon/src/agents.ts`. Ou passez au mode API/BYOK dans la barre supérieure et collez une clé dans **Settings**.
 - **daemon 500 sur /api/chat** — vérifiez la fin de stderr dans le terminal daemon ; la CLI a généralement rejeté ses args. Les CLIs n’acceptent pas toutes la même forme d’argv ; consultez `apps/daemon/src/agents.ts` `buildArgs` si vous devez ajuster.
-- **la génération média dit que `OD_BIN` manque ou que l’URL daemon vaut `:0`** — exécutez les checks du dispatcher média ci-dessus. Ne reprenez pas l’ancienne session CLI ; rouvrez le projet depuis l’app Design For AIR pour que le daemon injecte des variables `OD_*` fraîches.
-- **Codex charge trop de contexte plugin** — démarrez Design For AIR avec `OD_CODEX_DISABLE_PLUGINS=1 pnpm tools-dev` pour que les processus Codex lancés par le daemon tournent avec `--disable plugins`.
+- **la génération média dit que `OD_BIN` manque ou que l’URL daemon vaut `:0`** — exécutez les checks du dispatcher média ci-dessus. Ne reprenez pas l’ancienne session CLI ; rouvrez le projet depuis l’app design for air pour que le daemon injecte des variables `OD_*` fraîches.
+- **Codex charge trop de contexte plugin** — démarrez design for air avec `OD_CODEX_DISABLE_PLUGINS=1 pnpm tools-dev` pour que les processus Codex lancés par le daemon tournent avec `--disable plugins`.
 - **l’artifact ne rend jamais** — le modèle a produit du texte sans wrapper `<artifact>`. Vérifiez que le system prompt passe bien (log daemon) et envisagez un modèle plus capable ou un Skill plus strict.
 
 ## Retour à la vision

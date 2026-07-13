@@ -25,7 +25,7 @@ let codexRuntime: Awaited<ReturnType<typeof createFakeAgentRuntimes>>['codex'];
 const ACTIVE_ARTIFACT_PREVIEW_SELECTOR = '[data-testid="artifact-preview-frame"]:visible, [data-testid="artifact-preview-frame-url-load"]:visible, [data-testid="artifact-preview-frame-srcdoc"]:visible, [data-testid="live-artifact-preview-frame"]:visible';
 const AMR_AGENT = {
   id: 'amr',
-  name: 'Design For AIR AMR',
+  name: 'design for air AMR',
   bin: 'vela',
   available: true,
   version: 'test',
@@ -299,7 +299,7 @@ test('[P0] @critical AMR model catalog invalid-key failures route to authorizati
   const authorizeAndRetry = page.getByRole('button', { name: /Authorize.*retry|授权并重试/i }).first();
   await expect(authorizeAndRetry).toBeVisible({ timeout: T.long });
   await expect(page.getByRole('button', { name: /^Retry$|^重试$|^重試$/i })).toHaveCount(0);
-  await expect(page.getByRole('button', { name: /Switch to Design For AIR & retry/i })).toHaveCount(0);
+  await expect(page.getByRole('button', { name: /Switch to design for air & retry/i })).toHaveCount(0);
 
   await authorizeAndRetry.click();
   await expect.poll(() => loginRequested, { timeout: T.medium }).toBe(true);
@@ -515,7 +515,7 @@ test('[P0] @critical Settings preserves AMR account, recharge shortcut, and mode
 
   await settings.getByTestId('settings-agent-select-codex').click();
   await expect(settings.getByTestId('settings-agent-select-codex')).toHaveAttribute('aria-pressed', 'true');
-  await expect(settings.getByTestId('settings-agent-select-amr')).toContainText('Design For AIR');
+  await expect(settings.getByTestId('settings-agent-select-amr')).toContainText('design for air');
 
   await settings.getByTestId('settings-agent-select-amr').click();
   await expect(settings.getByTestId('settings-agent-select-amr')).toHaveAttribute('aria-pressed', 'true');
@@ -568,7 +568,7 @@ test('[P0] after an AMR failure the user can switch to Codex and complete a fres
   await gotoProject(page, amr.projectId);
   await sendPrompt(page, 'AMR auth failure before switch smoke');
   await expect(runErrorCard(page)).toContainText(
-    /Design For AIR agent isn't signed in yet|AMR sign-in is required/i,
+    /design for air agent isn't signed in yet|AMR sign-in is required/i,
     { timeout: T.long },
   );
   await expect(page.getByRole('button', { name: /Authorize.*retry|授权并重试/i }).first()).toBeVisible();
@@ -666,7 +666,7 @@ test('[P0] upstream outages keep Retry available without promoting AMR', async (
 
   await expect(page.getByRole('button', { name: /^Retry$|^重试$|^重試$/i }).first()).toBeVisible({ timeout: T.long });
   await expect(page.getByText(/Generation service unavailable|model provider is temporarily unavailable/i).first()).toBeVisible();
-  await expect(page.getByRole('button', { name: /Switch to Design For AIR & retry/i })).toHaveCount(0);
+  await expect(page.getByRole('button', { name: /Switch to design for air & retry/i })).toHaveCount(0);
   await expect(page.getByText(/Model call failed/i)).toHaveCount(0);
 });
 
@@ -749,7 +749,7 @@ test('[P0] antigravity rate limits offer terminal model switching without promot
   const launchTerminal = page.getByRole('button', { name: /Switch model in terminal/i }).first();
   await expect(launchTerminal).toBeVisible({ timeout: T.long });
   await expect(page.getByRole('button', { name: /^Retry$|^重试$|^重試$/i }).first()).toBeVisible();
-  await expect(page.getByRole('button', { name: /Switch to Design For AIR & retry/i })).toHaveCount(0);
+  await expect(page.getByRole('button', { name: /Switch to design for air & retry/i })).toHaveCount(0);
 
   await launchTerminal.click();
 

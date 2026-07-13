@@ -1,4 +1,4 @@
-// Design For AIR web clipper service worker.
+// design for air web clipper service worker.
 //
 // Zero-config: there is no pairing and no token. The daemon is loopback-bound,
 // and a web page cannot forge this extension's chrome-extension:// origin, so
@@ -25,7 +25,7 @@ async function getDaemonUrl() {
   return daemonUrl || DEFAULT_DAEMON_URL;
 }
 
-// Is Design For AIR running and reachable? We probe the narrow clipper route the
+// Is design for air running and reachable? We probe the narrow clipper route the
 // daemon auto-trusts for extension origins and treat any 2xx as connected.
 async function probe() {
   const daemonUrl = await getDaemonUrl();

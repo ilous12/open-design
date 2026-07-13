@@ -28,7 +28,7 @@ export interface BuildMcpInstallPayloadInputs {
    *  caller wants propagated into the snippet. The caller decides
    *  what's worth propagating; this builder just merges. */
   sidecarEnv: Record<string, string>;
-  /** Browser-facing Design For AIR studio base URL (e.g.
+  /** Browser-facing design for air studio base URL (e.g.
    *  `http://127.0.0.1:65321`). Used by MCP clients to build deep
    *  links to `/projects/.../conversations/.../files/...` so the
    *  outer agent can suggest a URL that shows both the file preview
@@ -58,12 +58,12 @@ export function buildMcpInstallPayload(
   const hints: string[] = [];
   if (!inputs.cliExists) {
     hints.push(
-      `Design For AIR CLI entry is missing at ${inputs.cliPath}. Rebuild the daemon or packaged app and refresh.`,
+      `design for air CLI entry is missing at ${inputs.cliPath}. Rebuild the daemon or packaged app and refresh.`,
     );
   }
   if (!inputs.nodeExists) {
     hints.push(
-      `Node-compatible runtime at ${inputs.execPath} no longer exists. Reinstall Design For AIR or Node and restart the daemon.`,
+      `Node-compatible runtime at ${inputs.execPath} no longer exists. Reinstall design for air or Node and restart the daemon.`,
     );
   }
   // Pin OD_DATA_DIR to the daemon's resolved data root so the spawned

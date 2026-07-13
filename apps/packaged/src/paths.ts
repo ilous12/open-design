@@ -64,13 +64,13 @@ function resolvePackagedDataRoot(
     if (!isAbs) {
       throw new PackagedPathAccessError(
         [
-          "Design For AIR's packaged runtime requires OD_DATA_DIR to be an absolute path.",
+          "design for air's packaged runtime requires OD_DATA_DIR to be an absolute path.",
           "",
           `Configured value: ${odDataDir}`,
           "",
-          "Set OD_DATA_DIR to an absolute path (for example, C:\\\\Users\\\\You\\\\OpenDesign on Windows or /Users/you/OpenDesign on macOS/Linux) and relaunch Design For AIR.",
+          "Set OD_DATA_DIR to an absolute path (for example, C:\\\\Users\\\\You\\\\OpenDesign on Windows or /Users/you/OpenDesign on macOS/Linux) and relaunch design for air.",
         ].join("\n"),
-        { title: "Design For AIR cannot start with this OD_DATA_DIR" },
+        { title: "design for air cannot start with this OD_DATA_DIR" },
       );
     }
     const scopedNamespace = getScopedPackagedDataRootNamespace(expanded);
@@ -78,7 +78,7 @@ function resolvePackagedDataRoot(
       if (scopedNamespace !== namespace) {
         throw new PackagedPathAccessError(
           [
-            "Design For AIR's packaged runtime requires OD_DATA_DIR to target the active namespace.",
+            "design for air's packaged runtime requires OD_DATA_DIR to target the active namespace.",
             "",
             `Configured value: ${odDataDir}`,
             `Configured namespace: ${scopedNamespace}`,
@@ -86,7 +86,7 @@ function resolvePackagedDataRoot(
             "",
             "Use an unscoped absolute base path or relaunch the matching packaged namespace.",
           ].join("\n"),
-          { title: "Design For AIR cannot start with this OD_DATA_DIR" },
+          { title: "design for air cannot start with this OD_DATA_DIR" },
         );
       }
       return expanded;
@@ -107,7 +107,7 @@ export function resolvePackagedNamespacePaths(
   const dataRoot = resolvePackagedDataRoot(config, normalizedNamespace, env);
   // Channel root = parent of the `namespaces/` directory. With the default
   // packaged layout this resolves to `<electronApp.userData>` — e.g.
-  // `~/Library/Application Support/Design For AIR Prerelease/` on mac. Custom
+  // `~/Library/Application Support/design for air Prerelease/` on mac. Custom
   // `namespaceBaseRoot` overrides (tests, multi-namespace deployments)
   // still get a usable parent here.
   const installationRoot = join(config.namespaceBaseRoot, "..");

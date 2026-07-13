@@ -1,12 +1,12 @@
 # Azure deployment (evaluation)
 
-Deploy Design For AIR to Microsoft Azure from the published runtime image — the
+Deploy design for air to Microsoft Azure from the published runtime image — the
 same single Alpine image used by [`deploy/docker-compose.yml`](../docker-compose.yml)
 and the [Helm chart](../../charts/open-design). The daemon serves both the API
 and the built web UI on one port, so there is no separate web container.
 
 > [!IMPORTANT]
-> **These lanes are for evaluation and demos, not durable data.** Design For AIR
+> **These lanes are for evaluation and demos, not durable data.** design for air
 > stores its state in a SQLite database under `/app/.od`, and SQLite needs real
 > file locking. The persistent-storage options on both App Service and ACI are
 > backed by **Azure Files (SMB)**, where SQLite WAL/locking is unsupported and
@@ -26,7 +26,7 @@ Two lanes are provided:
 | **App Service for Containers** | [`app-service.bicep`](./app-service.bicep) | Always-on eval with managed HTTPS | `https://<app>.azurewebsites.net` |
 | **Azure Container Instances (ACI)** | [`aci.bicep`](./aci.bicep) | Quick, pay-per-second eval | `http://<dns>.<region>.azurecontainer.io:7456` |
 
-Both run as a single instance (Design For AIR uses single-writer SQLite).
+Both run as a single instance (design for air uses single-writer SQLite).
 
 ## Prerequisites
 

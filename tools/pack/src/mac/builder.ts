@@ -101,9 +101,19 @@ export async function runElectronBuilder(
       output: paths.appBuilderOutputRoot,
     },
     dmg: {
+      background: macResources.dmgBackground,
+      contents: [
+        { x: 132, y: 278, type: "file" },
+        { x: 408, y: 278, type: "link", path: "/Applications" },
+      ],
       icon: macResources.icon,
       iconSize: 96,
+      iconTextSize: 13,
       title: identity.installerTitle,
+      window: {
+        width: 540,
+        height: 380,
+      },
     },
     electronVersion: config.electronVersion,
     executableName: identity.executableName,

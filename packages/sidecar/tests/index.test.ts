@@ -73,7 +73,7 @@ function testIpcPath(root: string): string {
 }
 
 describe("generic sidecar path boundary", () => {
-  it("uses descriptor defaults instead of Design For AIR constants", () => {
+  it("uses descriptor defaults instead of design for air constants", () => {
     const sourceRoot = resolveSourceRuntimeRoot({
       contract: fakeContract,
       projectRoot: "/repo/product",

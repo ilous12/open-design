@@ -33,9 +33,9 @@ function buildMailtoUrl(subject: string, body: string): string {
 }
 
 const HELP_MAILTO = buildMailtoUrl(
-  '[Design For AIR] AIR 서비스팀 도움 요청',
+  '[design for air] AIR 서비스팀 도움 요청',
   [
-    '안녕하세요. Design For AIR 사용 중 도움이 필요합니다.',
+    '안녕하세요. design for air 사용 중 도움이 필요합니다.',
     '',
     '문의 유형:',
     '계정/로그인',
@@ -60,9 +60,9 @@ const HELP_MAILTO = buildMailtoUrl(
 );
 
 const FEATURE_MAILTO = buildMailtoUrl(
-  '[Design For AIR] 기능 제안',
+  '[design for air] 기능 제안',
   [
-    '안녕하세요. Design For AIR 기능 제안을 전달드립니다.',
+    '안녕하세요. design for air 기능 제안을 전달드립니다.',
     '',
     '제안 제목:',
     '',

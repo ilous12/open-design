@@ -51,7 +51,7 @@
 
 推荐格式：
 
-- `Design For AIR main CI failed`
+- `design for air main CI failed`
 - `failing jobs: ...`
 - `commit: ...`
 - `PR: ...`

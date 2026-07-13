@@ -503,7 +503,7 @@ describe("resolveProductionInstallCommand", () => {
 describe("renderDesktopTemplate", () => {
   const template = `[Desktop Entry]
 Type=Application
-Name=Design For AIR (@@NAMESPACE@@)
+Name=design for air (@@NAMESPACE@@)
 Exec=env OD_PACKAGED_NAMESPACE=@@NAMESPACE@@ @@EXEC_PATH@@ --appimage-extract-and-run %U
 Icon=@@ICON_PATH@@
 MimeType=x-scheme-handler/nd;
@@ -515,7 +515,7 @@ MimeType=x-scheme-handler/nd;
       execPath: "/home/u/.local/bin/Open-Design.default.AppImage",
       iconName: "open-design-default",
     });
-    expect(out).toContain("Name=Design For AIR (default)");
+    expect(out).toContain("Name=design for air (default)");
     expect(out).toContain(
       "Exec=env OD_PACKAGED_NAMESPACE=default /home/u/.local/bin/Open-Design.default.AppImage --appimage-extract-and-run %U",
     );
@@ -620,7 +620,7 @@ describe("inspectPackedLinuxApp", () => {
     requestJsonIpcMock.mockReset();
     requestJsonIpcMock
       .mockResolvedValueOnce({ state: "running", url: "nd://app/" })
-      .mockResolvedValueOnce({ ok: true, value: "Design For AIR" })
+      .mockResolvedValueOnce({ ok: true, value: "design for air" })
       .mockResolvedValueOnce({ path: "/tmp/open-design-linux.png" });
 
     const result = await inspectPackedLinuxApp(makeConfig(), {
@@ -629,7 +629,7 @@ describe("inspectPackedLinuxApp", () => {
     });
 
     expect(result).toEqual({
-      eval: { ok: true, value: "Design For AIR" },
+      eval: { ok: true, value: "design for air" },
       screenshot: { path: "/tmp/open-design-linux.png" },
       status: { state: "running", url: "nd://app/" },
     });
@@ -684,7 +684,7 @@ describe("matchesAppImageProcess", () => {
     const ok = matchesAppImageProcess(
       {
         pid: 1234,
-        executable: "/tmp/appimage_extracted_fe548e54/Design For AIR",
+        executable: "/tmp/appimage_extracted_fe548e54/design for air",
         env: { APPIMAGE: installPath },
       },
       installPath,
@@ -696,7 +696,7 @@ describe("matchesAppImageProcess", () => {
     const ok = matchesAppImageProcess(
       {
         pid: 1234,
-        executable: "/tmp/appimage_extracted_fe548e54/Design For AIR",
+        executable: "/tmp/appimage_extracted_fe548e54/design for air",
         env: { APPIMAGE: "/elsewhere/Other.AppImage" },
       },
       installPath,

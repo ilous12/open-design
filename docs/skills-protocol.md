@@ -153,9 +153,9 @@ Conflicts by `name` resolve to the higher-priority version. All locations are wa
 
 `cc-switch` maintains a central skill dir and symlinks it into each agent's
 expected location (`~/.claude/skills/`, `~/.codex/skills/`, etc.). OD can opt
-into the same model, but this protocol MUST NOT define Design For AIR daemon data
+into the same model, but this protocol MUST NOT define design for air daemon data
 paths. Read the root `AGENTS.md` section **Daemon data directory contract**
-before changing or documenting any Design For AIR-owned storage location.
+before changing or documenting any design for air-owned storage location.
 
 One install → every agent sees the skill. This is optional; users who only use one agent don't need it.
 

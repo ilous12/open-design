@@ -2,11 +2,11 @@
 
 ## Title
 
-Public Agent CLI Contract Registry for Design For AIR runtime compatibility.
+Public Agent CLI Contract Registry for design for air runtime compatibility.
 
 ## Why
 
-Design For AIR depends on many external coding-agent CLIs. Their observable
+design for air depends on many external coding-agent CLIs. Their observable
 protocols can change across CLI versions, platforms, account state, provider
 backends, and server-side rollout flags. The current mock CLI corpus is useful,
 but it is not enough as a compatibility source of truth because many recordings
@@ -15,8 +15,8 @@ usually validates only the CLI versions installed on one machine.
 
 The desired outcome is a public, auditable contract registry that says exactly
 which agent CLI versions, observed protocol shapes, platforms, and error forms
-Design For AIR has validated. The registry must support automated drift detection,
-safe public publishing, and offline consumption by the Design For AIR repository.
+design for air has validated. The registry must support automated drift detection,
+safe public publishing, and offline consumption by the design for air repository.
 
 ## Sources
 
@@ -53,8 +53,8 @@ safe public publishing, and offline consumption by the Design For AIR repository
   server-side rollout variants.
 - Cover success streams, model/version probes, tool/file/artifact flows,
   bidirectional RPC transports, and error classification shapes.
-- Let Design For AIR CI replay supported contracts through the daemon parsers.
-- Let Design For AIR runtime classify installed CLIs as verified, newer than
+- Let design for air CI replay supported contracts through the daemon parsers.
+- Let design for air runtime classify installed CLIs as verified, newer than
   verified, too old, known breaking, or unknown.
 - Keep raw transcripts, credentials, runner homes, and account-specific state out
   of public artifacts.
@@ -64,7 +64,7 @@ safe public publishing, and offline consumption by the Design For AIR repository
 - Do not prove that every historical CLI build or every provider backend state
   works forever.
 - Do not evaluate model output quality.
-- Do not automatically generate Design For AIR parser logic from contract data.
+- Do not automatically generate design for air parser logic from contract data.
 - Do not run real CLI capture on untrusted PR code or fork PRs.
 - Do not publish raw stdout/stderr/stdin transcripts that may contain secrets,
   local paths, account identifiers, or model-generated user content.
@@ -297,7 +297,7 @@ Invalid examples that must fail validation:
 |---|---:|---|---|
 | `schema_version` | yes | none | integer, currently `1` |
 | `generated_at` | yes | none | UTC timestamp |
-| `open_design_min_commit` | no | `null` | lowest Design For AIR commit that consumed this matrix |
+| `open_design_min_commit` | no | `null` | lowest design for air commit that consumed this matrix |
 | `agents[]` | yes | none | one entry per agent with any public claim |
 
 Each `agents[]` entry requires:
@@ -441,7 +441,7 @@ Example observation:
 
 Capturing stdout and stderr is necessary but not sufficient.
 
-Design For AIR starts agent CLIs as child processes, but the protocol over the
+design for air starts agent CLIs as child processes, but the protocol over the
 pipes differs by runtime:
 
 - `plain`: stdout is assistant text; stderr carries diagnostics.
@@ -481,7 +481,7 @@ Design harness as well as frames emitted by the CLI:
 ```
 
 Without the client-side frames, the shape cannot prove that the observed CLI was
-responding to the same handshake Design For AIR uses.
+responding to the same handshake design for air uses.
 
 ## Capture Protocol
 
@@ -535,17 +535,17 @@ Example minimum event expectation:
 
 ### Capture Runner
 
-For Design For AIR-owned protocol semantics, the runner must not hand-roll a
+For design for air-owned protocol semantics, the runner must not hand-roll a
 "similar enough" client:
 
 - `plain`, `claude-stream-json`, `json-event-stream`,
   `qoder-stream-json`, and `copilot-stream-json` captures should use the same
   spawn argv, environment, prompt transport, stdin-close behavior, stderr
   filtering, and process-close rules as `server.ts`.
-- `acp-json-rpc` captures must reuse or vendor the Design For AIR ACP attach
+- `acp-json-rpc` captures must reuse or vendor the design for air ACP attach
   harness, including initialize, session creation, model selection, prompt
   send, permission handling, content filtering, and termination semantics.
-- `pi-rpc` captures must reuse or vendor the Design For AIR Pi RPC attach harness,
+- `pi-rpc` captures must reuse or vendor the design for air Pi RPC attach harness,
   including new/resumed session handling, prompt send, image encoding, session
   file capture, and termination semantics.
 
@@ -553,7 +553,7 @@ This can be implemented either by running a daemon in capture mode and recording
 its child-process boundary, or by extracting the production harnesses into a
 small shared package used by both the daemon and contract runner. The contract
 is not valid if the capture runner speaks a protocol dialect that production
-Design For AIR never sends.
+design for air never sends.
 
 ```ts
 async function captureContract(input: CaptureInput) {
@@ -655,7 +655,7 @@ protocol shape visible.
 ## Error Contract Coverage
 
 Error parsing is a first-class contract surface. The registry must not only
-prove successful streams parse correctly; it must also prove that Design For AIR's
+prove successful streams parse correctly; it must also prove that design for air's
 failure classification remains accurate.
 
 Every Tier 0 runtime should have error probes for:
@@ -709,7 +709,7 @@ Error contract fixtures must include:
 }
 ```
 
-Design For AIR CI should replay error fixtures through the same classifier used by
+design for air CI should replay error fixtures through the same classifier used by
 production:
 
 ```ts
@@ -790,7 +790,7 @@ Each shape receives a public validity level:
 - `runtime_observed`: observed from a real CLI capture.
 - `confirmed`: observed at least twice, ideally across independent time windows
   or runners.
-- `community_confirmed`: independently reproduced by a non-Design For AIR
+- `community_confirmed`: independently reproduced by a non-design for air
   contributor using the public capture command.
 - `server_variant`: same CLI version has multiple active observed shapes.
 - `source_derived`: derived from open-source CLI code, not yet observed at
@@ -836,9 +836,9 @@ Source scan does not replace runtime capture because service-side rollout,
 account feature flags, provider errors, and closed-source wrappers can change
 the actual observed shape.
 
-## Design For AIR Consumption
+## design for air Consumption
 
-Design For AIR should consume the contract package in three ways.
+design for air should consume the contract package in three ways.
 
 ### Parser Replay Gate
 
@@ -847,7 +847,7 @@ Add a daemon parser test that replays all supported parser-level shapes:
 ```ts
 import contracts from "@nn-design/agent-cli-contracts";
 
-test("supported agent CLI contracts replay through Design For AIR parsers", () => {
+test("supported agent CLI contracts replay through design for air parsers", () => {
   for (const contract of contracts.supportedShapes()) {
     const parser = getParserHarness(contract.agent, contract.protocolFamily);
     const actualEvents = parser.replay(contract.sanitizedFixture);
@@ -958,7 +958,7 @@ The web UI can show:
   confirmation.
 - `active_shape_unknown` or `unknown`: experimental warning.
 
-### Design For AIR Surface Closure
+### design for air Surface Closure
 
 Runtime compatibility is user-facing, so the implementation must close the
 shared API, web UI, and `od` CLI in the same PR. The daemon HTTP route remains
@@ -1161,7 +1161,7 @@ The first milestone should be deliberately small and end-to-end:
 
 After that baseline is stable, broaden the probe catalog by risk.
 
-The registry should cover Design For AIR's integration surface, not every CLI
+The registry should cover design for air's integration surface, not every CLI
 feature.
 
 Minimum viable contract per runtime:
@@ -1285,12 +1285,12 @@ Contract repository:
 - Re-normalize every sanitized fixture and verify it matches the published
   shape hash.
 - Verify observation metadata references existing shape, fixture, and golden.
-- Run replay harness against embedded Design For AIR parser package or a checked
-  Design For AIR parser adapter.
+- Run replay harness against embedded design for air parser package or a checked
+  design for air parser adapter.
 - Run secret/path scans over all publishable artifacts.
 - Generate support matrix from observations and check it is committed.
 
-Design For AIR repository:
+design for air repository:
 
 - Add `agent-contract-replay.test.ts`.
 - Add `agent-contract-errors.test.ts`.
@@ -1307,7 +1307,7 @@ Design For AIR repository:
 - What is the freshness SLA for Tier 0 runtimes?
 - Which exact agents are Tier 0 for the first milestone?
 - Should known breaking versions block local runs or only warn?
-- Should Design For AIR consume the full contract package at runtime, or only a
+- Should design for air consume the full contract package at runtime, or only a
   generated compact support matrix?
 - How should community-submitted observations be verified before moving from
   `single_observed` to `community_confirmed`?

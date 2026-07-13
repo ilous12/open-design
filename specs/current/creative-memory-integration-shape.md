@@ -5,7 +5,7 @@
 Capture the integration-boundary decisions the product/pipeline team needs to
 make before any creative-memory implementation can land in the live generation
 loop. What this doc covers is **not** the memory engine itself. It is the
-contract between memory and the rest of Design For AIR: where signals come from,
+contract between memory and the rest of design for air: where signals come from,
 where the prompt block goes (and how it relates to the existing `## Personal
 memory` slot the daemon composer already populates), how users control it,
 and how the raw-events / content-addressed-derivations contract (background
@@ -154,7 +154,7 @@ space.
 - **Headless / CLI parity.** Per the dual-track rule, every signal capture
   surface in the UI must have a CLI equivalent that emits the same event
   shape. `od memory ingest` (or similar) is the contract; without it,
-  external agents driving Design For AIR through `od` cannot contribute to the
+  external agents driving design for air through `od` cannot contribute to the
   user's preference memory and the memory becomes UI-only.
 
 ## 2. Retrieval insertion into generation / critique
@@ -359,7 +359,7 @@ no other user surface. Everything else needs to be designed.
 ### Storage location and portability
 
 The engine defaults to `<package install dir>/memory/<userId>/preferences.json`
-overridable via `MEMORY_STORAGE_ROOT`. For Design For AIR integration, two
+overridable via `MEMORY_STORAGE_ROOT`. For design for air integration, two
 decisions:
 
 - **Default location.** Lean: `<OD_DATA_DIR>/memory/<userId>/preferences.json`

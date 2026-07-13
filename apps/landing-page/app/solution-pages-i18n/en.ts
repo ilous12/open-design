@@ -2,9 +2,9 @@ import type { SolutionLocaleCopy } from './types';
 
 export const EN: SolutionLocaleCopy = {
   aiWireframeGenerator: {
-    title: 'AI Wireframe Generator — prompt to wireframe with Design For AIR',
+    title: 'AI Wireframe Generator — prompt to wireframe with design for air',
     description:
-      'A free, open-source AI wireframe generator that turns a prompt into editable, multi-screen wireframes — and takes them all the way to shipped code. Design For AIR runs inside the coding agent you already use, so the wireframe and the real product share one source.',
+      'A free, open-source AI wireframe generator that turns a prompt into editable, multi-screen wireframes — and takes them all the way to shipped code. design for air runs inside the coding agent you already use, so the wireframe and the real product share one source.',
     breadcrumb: 'AI wireframe generator',
     label: 'Tool · AI wireframe generator',
     heading: 'Wireframe at the speed of a prompt',
@@ -13,12 +13,12 @@ export const EN: SolutionLocaleCopy = {
       'Editorial illustration of a prompt turning into an editable wireframe and then a finished UI, framed by a green selection box',
     tldrTitle: 'In one line',
     tldrBody:
-      'Most AI wireframe generators hand you a picture you rebuild later. Design For AIR generates the wireframe inside your coding agent and carries it from prompt to shipped code — no export step, no handoff gap, no per-seat meter.',
+      'Most AI wireframe generators hand you a picture you rebuild later. design for air generates the wireframe inside your coding agent and carries it from prompt to shipped code — no export step, no handoff gap, no per-seat meter.',
     stepsTitle: 'How the AI wireframe generator works',
     steps: [
       {
         title: 'Describe the screen',
-        body: 'Tell your agent what to wireframe in plain language — "a dashboard with a sidebar, a stats row, and a recent-activity table." Design For AIR loads the wireframe skill so the agent lays out structure and hierarchy, not just a single static image.',
+        body: 'Tell your agent what to wireframe in plain language — "a dashboard with a sidebar, a stats row, and a recent-activity table." design for air loads the wireframe skill so the agent lays out structure and hierarchy, not just a single static image.',
         imageAlt: 'Illustration of a plain-language screen description typed into a terminal',
       },
       {
@@ -37,9 +37,9 @@ export const EN: SolutionLocaleCopy = {
         imageAlt: 'Illustration of a wireframe flowing into shipped code held in a green selection frame',
       },
     ],
-    tableTitle: 'Design For AIR vs. typical AI wireframe generators',
+    tableTitle: 'design for air vs. typical AI wireframe generators',
     tableColCapability: 'What you need',
-    tableColWithOd: 'With Design For AIR',
+    tableColWithOd: 'With design for air',
     tableColWithout: 'Typical AI wireframe generators',
     tableRows: [
       {
@@ -101,7 +101,7 @@ export const EN: SolutionLocaleCopy = {
         thumb: 'example-kami-landing',
       },
     ],
-    galleryTitle: 'Wireframes built with Design For AIR',
+    galleryTitle: 'Wireframes built with design for air',
     galleryLead:
       'Every one started as a prompt and rendered to an editable, clickable artifact. Pick a template close to your idea, describe your variation, and the agent adapts it — from wireframe to shipped code.',
     gallery: [
@@ -116,7 +116,7 @@ export const EN: SolutionLocaleCopy = {
     faq: [
       {
         q: 'Is the AI wireframe generator free?',
-        a: 'Yes. Design For AIR is open source and runs inside the coding agent you already use with your own provider keys — there is no per-seat or per-credit meter on the wireframe generator itself.',
+        a: 'Yes. design for air is open source and runs inside the coding agent you already use with your own provider keys — there is no per-seat or per-credit meter on the wireframe generator itself.',
       },
       {
         q: 'Are the wireframes editable, or just images?',
@@ -128,24 +128,24 @@ export const EN: SolutionLocaleCopy = {
       },
       {
         q: 'Which agents does it work with?',
-        a: 'Design For AIR works with Claude Code, Codex, Cursor Agent, Gemini CLI, and a dozen more first-party adapters. You bring your own provider keys; nothing is hosted for you.',
+        a: 'design for air works with Claude Code, Codex, Cursor Agent, Gemini CLI, and a dozen more first-party adapters. You bring your own provider keys; nothing is hosted for you.',
       },
     ],
     ctaTitle: 'Generate your first wireframe tonight',
     ctaBody:
-      'Star the repo, install Design For AIR, and turn your next screen idea into an editable wireframe — and then into shipped code — in the agent you already use.',
+      'Star the repo, install design for air, and turn your next screen idea into an editable wireframe — and then into shipped code — in the agent you already use.',
     relatedTitle: 'Related tools & guides',
     related: [
       { href: '/solutions/ai-ui-generator/', label: 'AI UI generator' },
-      { href: '/solutions/design-to-code/', label: 'Design to code with Design For AIR' },
+      { href: '/solutions/design-to-code/', label: 'Design to code with design for air' },
       { href: '/blog/design-to-code-tools/', label: 'Best design-to-code tools' },
-      { href: '/solutions/prototype/', label: 'Prototyping with Design For AIR' },
+      { href: '/solutions/prototype/', label: 'Prototyping with design for air' },
     ],
   },
   aiUiGenerator: {
-    title: 'AI UI Generator — prompt to production UI with Design For AIR',
+    title: 'AI UI Generator — prompt to production UI with design for air',
     description:
-      'A free, open-source AI UI generator that turns a prompt into a real, component-based interface — and takes it all the way to shipped code. Design For AIR runs inside the coding agent you already use, so the generated UI and the production code are the same artifact.',
+      'A free, open-source AI UI generator that turns a prompt into a real, component-based interface — and takes it all the way to shipped code. design for air runs inside the coding agent you already use, so the generated UI and the production code are the same artifact.',
     breadcrumb: 'AI UI generator',
     label: 'Tool · AI UI generator',
     heading: 'Generate UI you can actually ship',
@@ -154,12 +154,12 @@ export const EN: SolutionLocaleCopy = {
       'Editorial illustration of a prompt turning into a component-based UI and then production code, framed by a green selection box',
     tldrTitle: 'In one line',
     tldrBody:
-      'Most AI UI generators give you a mockup or a throwaway React snippet. Design For AIR generates the UI inside your coding agent and carries it from prompt to shipped code — real components, your design system, no export step, no per-seat meter.',
+      'Most AI UI generators give you a mockup or a throwaway React snippet. design for air generates the UI inside your coding agent and carries it from prompt to shipped code — real components, your design system, no export step, no per-seat meter.',
     stepsTitle: 'How the AI UI generator works',
     steps: [
       {
         title: 'Describe the interface',
-        body: 'Tell your agent what to build in plain language — "a settings page with a sidebar, tabbed sections, and a save bar." Design For AIR loads the UI skill so the agent reaches for real components and a design system, not a one-off screen.',
+        body: 'Tell your agent what to build in plain language — "a settings page with a sidebar, tabbed sections, and a save bar." design for air loads the UI skill so the agent reaches for real components and a design system, not a one-off screen.',
         imageAlt: 'Illustration of a plain-language UI description typed into a terminal',
       },
       {
@@ -178,9 +178,9 @@ export const EN: SolutionLocaleCopy = {
         imageAlt: 'Illustration of a generated UI flowing into shipped code held in a green selection frame',
       },
     ],
-    tableTitle: 'Design For AIR vs. typical AI UI generators',
+    tableTitle: 'design for air vs. typical AI UI generators',
     tableColCapability: 'What you need',
-    tableColWithOd: 'With Design For AIR',
+    tableColWithOd: 'With design for air',
     tableColWithout: 'Typical AI UI generators',
     tableRows: [
       {
@@ -242,7 +242,7 @@ export const EN: SolutionLocaleCopy = {
         thumb: 'example-kami-landing',
       },
     ],
-    galleryTitle: 'UI built with Design For AIR',
+    galleryTitle: 'UI built with design for air',
     galleryLead:
       'Every one started as a prompt and rendered to a real, component-based artifact. Pick a template close to your idea, describe your variation, and the agent adapts it — from UI to shipped code.',
     gallery: [
@@ -257,7 +257,7 @@ export const EN: SolutionLocaleCopy = {
     faq: [
       {
         q: 'Is the AI UI generator free?',
-        a: 'Yes. Design For AIR is open source and runs inside the coding agent you already use with your own provider keys — there is no per-seat or per-credit meter on the UI generator itself.',
+        a: 'Yes. design for air is open source and runs inside the coding agent you already use with your own provider keys — there is no per-seat or per-credit meter on the UI generator itself.',
       },
       {
         q: 'Does it generate real components or just a mockup?',
@@ -269,22 +269,22 @@ export const EN: SolutionLocaleCopy = {
       },
       {
         q: 'Which agents does it work with?',
-        a: 'Design For AIR works with Claude Code, Codex, Cursor Agent, Gemini CLI, and a dozen more first-party adapters. You bring your own provider keys; nothing is hosted for you.',
+        a: 'design for air works with Claude Code, Codex, Cursor Agent, Gemini CLI, and a dozen more first-party adapters. You bring your own provider keys; nothing is hosted for you.',
       },
     ],
     ctaTitle: 'Generate your first UI tonight',
     ctaBody:
-      'Star the repo, install Design For AIR, and turn your next interface idea into a real, component-based UI — and then into shipped code — in the agent you already use.',
+      'Star the repo, install design for air, and turn your next interface idea into a real, component-based UI — and then into shipped code — in the agent you already use.',
     relatedTitle: 'Related tools & guides',
     related: [
       { href: '/solutions/ai-wireframe-generator/', label: 'AI wireframe generator' },
-      { href: '/solutions/design-to-code/', label: 'Design to code with Design For AIR' },
+      { href: '/solutions/design-to-code/', label: 'Design to code with design for air' },
       { href: '/blog/best-ai-design-tools/', label: 'Best AI design tools' },
-      { href: '/solutions/designer/', label: 'Design For AIR for designers' },
+      { href: '/solutions/designer/', label: 'design for air for designers' },
     ],
   },
   designToCode: {
-    title: 'Design to Code — turn a design into shipped code with Design For AIR',
+    title: 'Design to Code — turn a design into shipped code with design for air',
     description:
       'A free, open-source design-to-code workflow that turns a prompt or a design into real, editable code — inside the coding agent you already use. No export, no handoff: the design and the production code are one artifact you own and ship.',
     breadcrumb: 'Design to code',
@@ -295,12 +295,12 @@ export const EN: SolutionLocaleCopy = {
       'Editorial illustration of a design turning into clean production code, framed by a green selection box',
     tldrTitle: 'In one line',
     tldrBody:
-      'Most design-to-code tools export a one-time snapshot you then babysit. Design For AIR keeps the design and the code as one living artifact inside your agent — iterate by talking, ship code you own, no per-seat meter.',
+      'Most design-to-code tools export a one-time snapshot you then babysit. design for air keeps the design and the code as one living artifact inside your agent — iterate by talking, ship code you own, no per-seat meter.',
     stepsTitle: 'How design to code works',
     steps: [
       {
         title: 'Start from a prompt or a design',
-        body: 'Describe the screen in plain language, or point your agent at a design direction. Design For AIR loads the right skill so the agent builds structure and components, not a brittle one-off conversion.',
+        body: 'Describe the screen in plain language, or point your agent at a design direction. design for air loads the right skill so the agent builds structure and components, not a brittle one-off conversion.',
         imageAlt: 'Illustration of a design and a prompt feeding into a terminal',
       },
       {
@@ -319,9 +319,9 @@ export const EN: SolutionLocaleCopy = {
         imageAlt: 'Illustration of finished code held in a green selection frame, ready to ship',
       },
     ],
-    tableTitle: 'Design For AIR vs. typical design-to-code tools',
+    tableTitle: 'design for air vs. typical design-to-code tools',
     tableColCapability: 'What you need',
-    tableColWithOd: 'With Design For AIR',
+    tableColWithOd: 'With design for air',
     tableColWithout: 'Typical design-to-code tools',
     tableRows: [
       {
@@ -383,7 +383,7 @@ export const EN: SolutionLocaleCopy = {
         thumb: 'example-gamified-app',
       },
     ],
-    galleryTitle: 'Shipped from design with Design For AIR',
+    galleryTitle: 'Shipped from design with design for air',
     galleryLead:
       'Every one started as a prompt or a design and became code you can ship. Pick a template close to your idea, describe your variation, and the agent converts it — design to code, with no handoff.',
     gallery: [
@@ -398,7 +398,7 @@ export const EN: SolutionLocaleCopy = {
     faq: [
       {
         q: 'Is the design-to-code workflow free?',
-        a: 'Yes. Design For AIR is open source and runs inside the coding agent you already use with your own provider keys — there is no per-seat or per-credit meter on the design-to-code workflow itself.',
+        a: 'Yes. design for air is open source and runs inside the coding agent you already use with your own provider keys — there is no per-seat or per-credit meter on the design-to-code workflow itself.',
       },
       {
         q: 'What kind of code does it produce?',
@@ -410,24 +410,24 @@ export const EN: SolutionLocaleCopy = {
       },
       {
         q: 'Which agents does it work with?',
-        a: 'Design For AIR works with Claude Code, Codex, Cursor Agent, Gemini CLI, and a dozen more first-party adapters. You bring your own provider keys; nothing is hosted for you.',
+        a: 'design for air works with Claude Code, Codex, Cursor Agent, Gemini CLI, and a dozen more first-party adapters. You bring your own provider keys; nothing is hosted for you.',
       },
     ],
     ctaTitle: 'Turn your next design into code tonight',
     ctaBody:
-      'Star the repo, install Design For AIR, and turn your next screen — prompt, wireframe, or design — into clean, shippable code in the agent you already use.',
+      'Star the repo, install design for air, and turn your next screen — prompt, wireframe, or design — into clean, shippable code in the agent you already use.',
     relatedTitle: 'Related tools & guides',
     related: [
       { href: '/solutions/ai-wireframe-generator/', label: 'AI wireframe generator' },
       { href: '/solutions/ai-ui-generator/', label: 'AI UI generator' },
       { href: '/blog/design-to-code-tools/', label: 'Best design-to-code tools' },
-      { href: '/solutions/engineering/', label: 'Design For AIR for engineering' },
+      { href: '/solutions/engineering/', label: 'design for air for engineering' },
     ],
   },
   aiLandingPageGenerator: {
     title: 'AI Landing Page Generator — prompt to a landing page you ship',
     description:
-      'A free, open-source AI landing page generator that turns a prompt into a real, responsive landing page — and takes it all the way to shipped code. Design For AIR runs inside the coding agent you already use, so the generated page and the deployed page are the same artifact you own.',
+      'A free, open-source AI landing page generator that turns a prompt into a real, responsive landing page — and takes it all the way to shipped code. design for air runs inside the coding agent you already use, so the generated page and the deployed page are the same artifact you own.',
     breadcrumb: 'AI landing page generator',
     label: 'Tool · AI landing page generator',
     heading: 'Generate a landing page you can ship',
@@ -436,12 +436,12 @@ export const EN: SolutionLocaleCopy = {
       'Editorial illustration of a prompt turning into a responsive landing page and then production code, framed by a green selection box',
     tldrTitle: 'In one line',
     tldrBody:
-      'Most AI landing page builders lock your page inside their editor and meter it per seat. Design For AIR generates the landing page inside your coding agent and carries it from prompt to shipped code — real sections, your brand, no export step, no per-seat meter.',
+      'Most AI landing page builders lock your page inside their editor and meter it per seat. design for air generates the landing page inside your coding agent and carries it from prompt to shipped code — real sections, your brand, no export step, no per-seat meter.',
     stepsTitle: 'How the AI landing page generator works',
     steps: [
       {
         title: 'Describe the page',
-        body: 'Tell your agent what to build in plain language — "a launch page for a note-taking app: hero, three features, pricing, and a waitlist form." Design For AIR loads the landing-page skill so the agent lays out real sections with clear hierarchy.',
+        body: 'Tell your agent what to build in plain language — "a launch page for a note-taking app: hero, three features, pricing, and a waitlist form." design for air loads the landing-page skill so the agent lays out real sections with clear hierarchy.',
         imageAlt: 'Illustration of a plain-language landing-page brief typed into a terminal',
       },
       {
@@ -460,9 +460,9 @@ export const EN: SolutionLocaleCopy = {
         imageAlt: 'Illustration of a landing page flowing into shipped code held in a green selection frame',
       },
     ],
-    tableTitle: 'Design For AIR vs. typical AI landing page builders',
+    tableTitle: 'design for air vs. typical AI landing page builders',
     tableColCapability: 'What you need',
-    tableColWithOd: 'With Design For AIR',
+    tableColWithOd: 'With design for air',
     tableColWithout: 'Typical AI landing page builders',
     tableRows: [
       {
@@ -524,7 +524,7 @@ export const EN: SolutionLocaleCopy = {
         thumb: 'example-gamified-app',
       },
     ],
-    galleryTitle: 'Landing pages built with Design For AIR',
+    galleryTitle: 'Landing pages built with design for air',
     galleryLead:
       'Every one started as a prompt and rendered to a real, responsive artifact. Pick a template close to your idea, describe your variation, and the agent adapts it — from landing page to shipped code.',
     gallery: [
@@ -539,7 +539,7 @@ export const EN: SolutionLocaleCopy = {
     faq: [
       {
         q: 'Is the AI landing page generator free?',
-        a: 'Yes. Design For AIR is open source and runs inside the coding agent you already use with your own provider keys — there is no per-seat or per-page meter on the landing page generator itself.',
+        a: 'Yes. design for air is open source and runs inside the coding agent you already use with your own provider keys — there is no per-seat or per-page meter on the landing page generator itself.',
       },
       {
         q: 'Can I host the page anywhere?',
@@ -551,22 +551,22 @@ export const EN: SolutionLocaleCopy = {
       },
       {
         q: 'Which agents does it work with?',
-        a: 'Design For AIR works with Claude Code, Codex, Cursor Agent, Gemini CLI, and a dozen more first-party adapters. You bring your own provider keys; nothing is hosted for you.',
+        a: 'design for air works with Claude Code, Codex, Cursor Agent, Gemini CLI, and a dozen more first-party adapters. You bring your own provider keys; nothing is hosted for you.',
       },
     ],
     ctaTitle: 'Generate your first landing page tonight',
     ctaBody:
-      'Star the repo, install Design For AIR, and turn your next launch idea into a real, responsive landing page — and then into shipped code — in the agent you already use.',
+      'Star the repo, install design for air, and turn your next launch idea into a real, responsive landing page — and then into shipped code — in the agent you already use.',
     relatedTitle: 'Related tools & guides',
     related: [
       { href: '/solutions/ai-ui-generator/', label: 'AI UI generator' },
-      { href: '/solutions/design-to-code/', label: 'Design to code with Design For AIR' },
-      { href: '/solutions/marketing/', label: 'Design For AIR for marketing' },
+      { href: '/solutions/design-to-code/', label: 'Design to code with design for air' },
+      { href: '/solutions/marketing/', label: 'design for air for marketing' },
       { href: '/blog/best-ai-design-tools/', label: 'Best AI design tools' },
     ],
   },
   figmaToCode: {
-    title: 'Figma to Code — turn Figma designs into shipped code with Design For AIR',
+    title: 'Figma to Code — turn Figma designs into shipped code with design for air',
     description:
       'A free, open-source Figma-to-code workflow that turns a Figma design into clean, component-based code — inside the coding agent you already use, from Claude Code to Codex. Pull the design through the Figma MCP and let the agent build real code you own and ship, with no locked-in export.',
     breadcrumb: 'Figma to code',
@@ -577,12 +577,12 @@ export const EN: SolutionLocaleCopy = {
       'Editorial illustration of a Figma design turning into clean production code inside a coding agent, framed by a green selection box',
     tldrTitle: 'In one line',
     tldrBody:
-      'Most Figma-to-code plugins export a one-time snapshot of absolute-positioned markup you then rewrite. Design For AIR keeps the design and the code as one living artifact inside your agent — pull frames through the Figma MCP, iterate by talking, ship code you own.',
+      'Most Figma-to-code plugins export a one-time snapshot of absolute-positioned markup you then rewrite. design for air keeps the design and the code as one living artifact inside your agent — pull frames through the Figma MCP, iterate by talking, ship code you own.',
     stepsTitle: 'How Figma to code works',
     steps: [
       {
         title: 'Connect Figma to your agent',
-        body: 'With the Figma MCP set up, your coding agent — Claude Code, Codex, Cursor Agent — can read a Figma file or a selected frame directly. Design For AIR loads the right skill so the agent turns design intent into structure, not a brittle pixel copy.',
+        body: 'With the Figma MCP set up, your coding agent — Claude Code, Codex, Cursor Agent — can read a Figma file or a selected frame directly. design for air loads the right skill so the agent turns design intent into structure, not a brittle pixel copy.',
         imageAlt: 'Illustration of a Figma frame connecting to a terminal through an MCP link',
       },
       {
@@ -601,9 +601,9 @@ export const EN: SolutionLocaleCopy = {
         imageAlt: 'Illustration of finished code held in a green selection frame, ready to ship',
       },
     ],
-    tableTitle: 'Design For AIR vs. typical Figma-to-code tools',
+    tableTitle: 'design for air vs. typical Figma-to-code tools',
     tableColCapability: 'What you need',
-    tableColWithOd: 'With Design For AIR',
+    tableColWithOd: 'With design for air',
     tableColWithout: 'Typical Figma-to-code tools',
     tableRows: [
       {
@@ -665,7 +665,7 @@ export const EN: SolutionLocaleCopy = {
         thumb: 'example-gamified-app',
       },
     ],
-    galleryTitle: 'Shipped from Figma with Design For AIR',
+    galleryTitle: 'Shipped from Figma with design for air',
     galleryLead:
       'Every one started as a Figma frame and became code you can ship. Pick a template close to your design, describe your variation, and the agent converts it — Figma to code, with no locked-in export.',
     gallery: [
@@ -679,7 +679,7 @@ export const EN: SolutionLocaleCopy = {
     faqTitle: 'Figma to code FAQ',
     faq: [
       {
-        q: 'How does Design For AIR turn Figma into code?',
+        q: 'How does design for air turn Figma into code?',
         a: 'Through the Figma MCP, your coding agent — Claude Code, Codex, Cursor Agent — reads the Figma file or a selected frame directly and generates clean, component-based code, instead of exporting a one-time snapshot from a plugin.',
       },
       {
@@ -688,26 +688,26 @@ export const EN: SolutionLocaleCopy = {
       },
       {
         q: 'Is it free?',
-        a: 'Yes. Design For AIR is open source and runs inside the coding agent you already use with your own provider keys — there is no per-seat or per-export meter on the Figma-to-code workflow itself.',
+        a: 'Yes. design for air is open source and runs inside the coding agent you already use with your own provider keys — there is no per-seat or per-export meter on the Figma-to-code workflow itself.',
       },
       {
         q: 'Which agents does it work with?',
-        a: 'Design For AIR works with Claude Code, Codex, Cursor Agent, Gemini CLI, and a dozen more first-party adapters. You bring your own provider keys and your own Figma MCP setup; nothing is hosted for you.',
+        a: 'design for air works with Claude Code, Codex, Cursor Agent, Gemini CLI, and a dozen more first-party adapters. You bring your own provider keys and your own Figma MCP setup; nothing is hosted for you.',
       },
     ],
     ctaTitle: 'Turn your next Figma frame into code tonight',
     ctaBody:
-      'Star the repo, install Design For AIR, connect the Figma MCP, and turn your next Figma design into clean, shippable code in the agent you already use.',
+      'Star the repo, install design for air, connect the Figma MCP, and turn your next Figma design into clean, shippable code in the agent you already use.',
     relatedTitle: 'Related tools & guides',
     related: [
-      { href: '/solutions/design-to-code/', label: 'Design to code with Design For AIR' },
+      { href: '/solutions/design-to-code/', label: 'Design to code with design for air' },
       { href: '/solutions/ai-ui-generator/', label: 'AI UI generator' },
-      { href: '/agents/claude-code-design/', label: 'Design For AIR for Claude Code' },
-      { href: '/solutions/engineering/', label: 'Design For AIR for engineering' },
+      { href: '/agents/claude-code-design/', label: 'design for air for Claude Code' },
+      { href: '/solutions/engineering/', label: 'design for air for engineering' },
     ],
   },
   screenshotToCode: {
-    title: 'Screenshot to Code — turn a screenshot into code with Design For AIR',
+    title: 'Screenshot to Code — turn a screenshot into code with design for air',
     description:
       'A free, open-source screenshot-to-code workflow that turns a screenshot of any UI into clean, component-based code — inside the coding agent you already use. Drop in an image, describe what you want, and the agent rebuilds it as real code you own and ship, no locked-in export.',
     breadcrumb: 'Screenshot to code',
@@ -718,12 +718,12 @@ export const EN: SolutionLocaleCopy = {
       'Editorial illustration of a UI screenshot turning into clean production code inside a coding agent, framed by a green selection box',
     tldrTitle: 'In one line',
     tldrBody:
-      'Most screenshot-to-code tools spit out one-time, absolute-positioned markup you then rewrite. Design For AIR rebuilds the screenshot inside your coding agent as clean, component-based code — real structure, your design system, no export step, no per-seat meter.',
+      'Most screenshot-to-code tools spit out one-time, absolute-positioned markup you then rewrite. design for air rebuilds the screenshot inside your coding agent as clean, component-based code — real structure, your design system, no export step, no per-seat meter.',
     stepsTitle: 'How screenshot to code works',
     steps: [
       {
         title: 'Drop in the screenshot',
-        body: 'Give your agent an image of the screen you want — a screenshot of an app, a website, or a design. Design For AIR loads the right skill so the agent reads the layout and intent, not just pixels.',
+        body: 'Give your agent an image of the screen you want — a screenshot of an app, a website, or a design. design for air loads the right skill so the agent reads the layout and intent, not just pixels.',
         imageAlt: 'Illustration of a UI screenshot being dropped into a terminal',
       },
       {
@@ -742,9 +742,9 @@ export const EN: SolutionLocaleCopy = {
         imageAlt: 'Illustration of finished code held in a green selection frame, ready to ship',
       },
     ],
-    tableTitle: 'Design For AIR vs. typical screenshot-to-code tools',
+    tableTitle: 'design for air vs. typical screenshot-to-code tools',
     tableColCapability: 'What you need',
-    tableColWithOd: 'With Design For AIR',
+    tableColWithOd: 'With design for air',
     tableColWithout: 'Typical screenshot-to-code tools',
     tableRows: [
       {
@@ -806,7 +806,7 @@ export const EN: SolutionLocaleCopy = {
         thumb: 'example-gamified-app',
       },
     ],
-    galleryTitle: 'Rebuilt from a screenshot with Design For AIR',
+    galleryTitle: 'Rebuilt from a screenshot with design for air',
     galleryLead:
       'Every one started as an image and became code you can ship. Pick a template close to your screenshot, describe your variation, and the agent rebuilds it — screenshot to code, with no locked-in export.',
     gallery: [
@@ -820,8 +820,8 @@ export const EN: SolutionLocaleCopy = {
     faqTitle: 'Screenshot to code FAQ',
     faq: [
       {
-        q: 'How does Design For AIR turn a screenshot into code?',
-        a: 'You give your coding agent an image of the screen and Design For AIR loads the right skill so the agent rebuilds it as clean, component-based code — reading layout and intent, not just tracing pixels.',
+        q: 'How does design for air turn a screenshot into code?',
+        a: 'You give your coding agent an image of the screen and design for air loads the right skill so the agent rebuilds it as clean, component-based code — reading layout and intent, not just tracing pixels.',
       },
       {
         q: 'What kind of code does it produce?',
@@ -829,22 +829,22 @@ export const EN: SolutionLocaleCopy = {
       },
       {
         q: 'Is it free?',
-        a: 'Yes. Design For AIR is open source and runs inside the coding agent you already use with your own provider keys — there is no per-seat or per-credit meter on the screenshot-to-code workflow itself.',
+        a: 'Yes. design for air is open source and runs inside the coding agent you already use with your own provider keys — there is no per-seat or per-credit meter on the screenshot-to-code workflow itself.',
       },
       {
         q: 'Which agents does it work with?',
-        a: 'Design For AIR works with Claude Code, Codex, Cursor Agent, Gemini CLI, and a dozen more first-party adapters. You bring your own provider keys; nothing is hosted for you.',
+        a: 'design for air works with Claude Code, Codex, Cursor Agent, Gemini CLI, and a dozen more first-party adapters. You bring your own provider keys; nothing is hosted for you.',
       },
     ],
     ctaTitle: 'Turn your next screenshot into code tonight',
     ctaBody:
-      'Star the repo, install Design For AIR, and turn a screenshot of the screen you want into clean, shippable code in the agent you already use.',
+      'Star the repo, install design for air, and turn a screenshot of the screen you want into clean, shippable code in the agent you already use.',
     relatedTitle: 'Related tools & guides',
     related: [
-      { href: '/solutions/figma-to-code/', label: 'Figma to code with Design For AIR' },
-      { href: '/solutions/design-to-code/', label: 'Design to code with Design For AIR' },
+      { href: '/solutions/figma-to-code/', label: 'Figma to code with design for air' },
+      { href: '/solutions/design-to-code/', label: 'Design to code with design for air' },
       { href: '/solutions/ai-ui-generator/', label: 'AI UI generator' },
-      { href: '/solutions/engineering/', label: 'Design For AIR for engineering' },
+      { href: '/solutions/engineering/', label: 'design for air for engineering' },
     ],
   },
   aiPrototypeGenerator: {
@@ -854,17 +854,17 @@ export const EN: SolutionLocaleCopy = {
     breadcrumb: 'AI prototype generator',
     label: 'Tool · AI prototype generator',
     heading: 'The AI prototype generator that ships code',
-    lead: 'Describe the flow and let your agent generate a real, clickable prototype — linked screens, consistent styles, working interactions. Unlike prototype generators that stop at a mockup, Design For AIR carries the same artifact to shipped code, in the agent you already run.',
+    lead: 'Describe the flow and let your agent generate a real, clickable prototype — linked screens, consistent styles, working interactions. Unlike prototype generators that stop at a mockup, design for air carries the same artifact to shipped code, in the agent you already run.',
     heroImageAlt:
       'Editorial illustration of a prompt turning into a clickable multi-screen prototype and then production code, framed by a green selection box',
     tldrTitle: 'In one line',
     tldrBody:
-      'Most AI prototype generators (Figma, Cursor, Penpot) stop at a clickable mockup you then rebuild. Design For AIR generates the prototype inside your coding agent and carries it from prompt to shipped code — no export step, no handoff gap, no per-seat meter.',
+      'Most AI prototype generators (Figma, Cursor, Penpot) stop at a clickable mockup you then rebuild. design for air generates the prototype inside your coding agent and carries it from prompt to shipped code — no export step, no handoff gap, no per-seat meter.',
     stepsTitle: 'How the AI prototype generator works',
     steps: [
       {
         title: 'Describe the flow',
-        body: 'Tell your agent the journey in plain language — "an onboarding flow: sign-up, plan picker, and a dashboard." Design For AIR loads the prototype skill so the agent lays out linked screens, not a single static frame.',
+        body: 'Tell your agent the journey in plain language — "an onboarding flow: sign-up, plan picker, and a dashboard." design for air loads the prototype skill so the agent lays out linked screens, not a single static frame.',
         imageAlt: 'Illustration of a plain-language flow description typed into a terminal',
       },
       {
@@ -883,9 +883,9 @@ export const EN: SolutionLocaleCopy = {
         imageAlt: 'Illustration of a prototype flowing into shipped code held in a green selection frame',
       },
     ],
-    tableTitle: 'Design For AIR vs. typical AI prototype generators',
+    tableTitle: 'design for air vs. typical AI prototype generators',
     tableColCapability: 'What you need',
-    tableColWithOd: 'With Design For AIR',
+    tableColWithOd: 'With design for air',
     tableColWithout: 'Figma / Cursor / Penpot prototype generators',
     tableRows: [
       {
@@ -947,7 +947,7 @@ export const EN: SolutionLocaleCopy = {
         thumb: 'example-kami-landing',
       },
     ],
-    galleryTitle: 'Prototypes built with Design For AIR',
+    galleryTitle: 'Prototypes built with design for air',
     galleryLead:
       'Every one started as a prompt and rendered to a clickable, editable artifact. Pick a template close to your idea, describe your variation, and the agent adapts it — from prototype to shipped code.',
     gallery: [
@@ -962,11 +962,11 @@ export const EN: SolutionLocaleCopy = {
     faq: [
       {
         q: 'Is the AI prototype generator free?',
-        a: 'Yes. Design For AIR is open source and runs inside the coding agent you already use with your own provider keys — there is no per-seat or per-credit meter on the prototype generator itself.',
+        a: 'Yes. design for air is open source and runs inside the coding agent you already use with your own provider keys — there is no per-seat or per-credit meter on the prototype generator itself.',
       },
       {
         q: 'How is it different from Figma, Cursor, or Penpot prototype generators?',
-        a: 'Those stop at a clickable mockup inside their app. Design For AIR generates the prototype in your coding agent and carries the same artifact all the way to shipped code you own — no export, no rebuild for production.',
+        a: 'Those stop at a clickable mockup inside their app. design for air generates the prototype in your coding agent and carries the same artifact all the way to shipped code you own — no export, no rebuild for production.',
       },
       {
         q: 'Are the prototypes clickable and multi-screen?',
@@ -974,24 +974,24 @@ export const EN: SolutionLocaleCopy = {
       },
       {
         q: 'Which agents does it work with?',
-        a: 'Design For AIR works with Claude Code, Codex, Cursor Agent, Gemini CLI, and a dozen more first-party adapters. You bring your own provider keys; nothing is hosted for you.',
+        a: 'design for air works with Claude Code, Codex, Cursor Agent, Gemini CLI, and a dozen more first-party adapters. You bring your own provider keys; nothing is hosted for you.',
       },
     ],
     ctaTitle: 'Generate your first prototype tonight',
     ctaBody:
-      'Star the repo, install Design For AIR, and turn your next flow into a clickable prototype — and then into shipped code — in the agent you already use.',
+      'Star the repo, install design for air, and turn your next flow into a clickable prototype — and then into shipped code — in the agent you already use.',
     relatedTitle: 'Related tools & guides',
     related: [
-      { href: '/solutions/prototype/', label: 'Prototyping with Design For AIR' },
+      { href: '/solutions/prototype/', label: 'Prototyping with design for air' },
       { href: '/solutions/ai-wireframe-generator/', label: 'AI wireframe generator' },
       { href: '/solutions/ai-ui-generator/', label: 'AI UI generator' },
-      { href: '/solutions/design-to-code/', label: 'Design to code with Design For AIR' },
+      { href: '/solutions/design-to-code/', label: 'Design to code with design for air' },
     ],
   },
   prototype: {
-    title: 'Build interactive prototypes with Design For AIR + Claude Code',
+    title: 'Build interactive prototypes with design for air + Claude Code',
     description:
-      'Turn a prompt into a clickable, multi-screen prototype without leaving your terminal. Design For AIR gives your coding agent the design skills, templates, and design system to ship real prototypes you can open in a browser.',
+      'Turn a prompt into a clickable, multi-screen prototype without leaving your terminal. design for air gives your coding agent the design skills, templates, and design system to ship real prototypes you can open in a browser.',
     breadcrumb: 'Prototype',
     label: 'Use case · Prototype',
     heading: 'Prototype at the speed of a prompt',
@@ -1000,18 +1000,18 @@ export const EN: SolutionLocaleCopy = {
       'Editorial illustration of a hand sketching a wireframe that turns into a clickable multi-screen app prototype',
     tldrTitle: 'In one line',
     tldrBody:
-      'Design For AIR is the design layer for the coding agent you already use. For prototyping, that means going from a one-paragraph idea to a navigable, styled prototype in a single session — no design tool, no export step, no handoff gap.',
-    stepsTitle: 'How prototyping works with Design For AIR',
+      'design for air is the design layer for the coding agent you already use. For prototyping, that means going from a one-paragraph idea to a navigable, styled prototype in a single session — no design tool, no export step, no handoff gap.',
+    stepsTitle: 'How prototyping works with design for air',
     steps: [
       {
         title: 'Describe the flow',
-        body: 'Tell your agent what you are building in plain language — "an onboarding flow with a welcome screen, a plan picker, and a confirmation." Design For AIR loads the prototype skill so the agent knows to produce screens, not a single page.',
+        body: 'Tell your agent what you are building in plain language — "an onboarding flow with a welcome screen, a plan picker, and a confirmation." design for air loads the prototype skill so the agent knows to produce screens, not a single page.',
         imageAlt:
           'Illustration of a person typing a plain-language description of an app flow into a terminal',
       },
       {
         title: 'Generate styled screens',
-        body: 'The agent applies a design system and prototype templates from Design For AIR, so every screen shares typography, spacing, and components instead of looking like a rough draft. You get a coherent set of screens, not disconnected mockups.',
+        body: 'The agent applies a design system and prototype templates from design for air, so every screen shares typography, spacing, and components instead of looking like a rough draft. You get a coherent set of screens, not disconnected mockups.',
         imageAlt:
           'Illustration of several app screens appearing in sequence, all sharing one consistent visual style',
       },
@@ -1028,9 +1028,9 @@ export const EN: SolutionLocaleCopy = {
           'Illustration of a prototype being revised then passed to an engineer, with design and code merging into one file',
       },
     ],
-    tableTitle: 'Prototyping with Design For AIR vs. the old way',
+    tableTitle: 'Prototyping with design for air vs. the old way',
     tableColCapability: 'What you need',
-    tableColWithOd: 'With Design For AIR',
+    tableColWithOd: 'With design for air',
     tableColWithout: 'Traditional prototyping tools',
     tableRows: [
       {
@@ -1097,7 +1097,7 @@ export const EN: SolutionLocaleCopy = {
         thumb: 'example-gamified-app',
       },
     ],
-    galleryTitle: 'Prototypes people built with Design For AIR',
+    galleryTitle: 'Prototypes people built with design for air',
     galleryLead:
       'Every one of these started as a prompt and rendered to a clickable artifact. Pick a template close to your idea, describe your variation, and the agent adapts it.',
     gallery: [
@@ -1111,8 +1111,8 @@ export const EN: SolutionLocaleCopy = {
     faqTitle: 'Prototyping FAQ',
     faq: [
       {
-        q: 'Do I need a design tool like Figma to prototype with Design For AIR?',
-        a: 'No. Design For AIR runs inside your coding agent and renders prototypes to HTML. You describe the flow in language; the agent produces the screens. There is no separate canvas tool to learn or pay for.',
+        q: 'Do I need a design tool like Figma to prototype with design for air?',
+        a: 'No. design for air runs inside your coding agent and renders prototypes to HTML. You describe the flow in language; the agent produces the screens. There is no separate canvas tool to learn or pay for.',
       },
       {
         q: 'Are the prototypes interactive or just static mockups?',
@@ -1120,7 +1120,7 @@ export const EN: SolutionLocaleCopy = {
       },
       {
         q: 'Which agents can I use?',
-        a: 'Design For AIR works with Claude Code, Codex, Cursor Agent, Gemini CLI, and a dozen more first-party adapters. You bring your own provider keys; nothing is hosted for you.',
+        a: 'design for air works with Claude Code, Codex, Cursor Agent, Gemini CLI, and a dozen more first-party adapters. You bring your own provider keys; nothing is hosted for you.',
       },
       {
         q: 'Can a prototype become the real product?',
@@ -1129,22 +1129,22 @@ export const EN: SolutionLocaleCopy = {
     ],
     ctaTitle: 'Prototype your next idea tonight',
     ctaBody:
-      'Star the repo, install Design For AIR, and turn your next "what if" into something you can click — in the agent you already use.',
+      'Star the repo, install design for air, and turn your next "what if" into something you can click — in the agent you already use.',
   },
   dashboard: {
-    title: 'Generate data dashboards with Design For AIR + Claude Code',
+    title: 'Generate data dashboards with design for air + Claude Code',
     description:
       'Describe the metrics you track and let your coding agent build a styled, responsive dashboard — charts, KPI cards, and tables rendered to HTML you can host anywhere. No BI tool seat, no drag-and-drop builder.',
     breadcrumb: 'Dashboard',
     label: 'Use case · Dashboard',
     heading: 'Dashboards from a description, not a drag-and-drop builder',
-    lead: 'Tell your agent what to show and how it should feel. Design For AIR supplies the chart patterns, layout system, and visual language so you get a coherent, presentable dashboard — not a wall of default-styled widgets.',
+    lead: 'Tell your agent what to show and how it should feel. design for air supplies the chart patterns, layout system, and visual language so you get a coherent, presentable dashboard — not a wall of default-styled widgets.',
     heroImageAlt:
       'Editorial illustration of raw numbers on the left flowing into a clean dashboard of charts and KPI cards on the right',
     tldrTitle: 'In one line',
     tldrBody:
-      'Design For AIR turns a plain-language spec of your metrics into a styled dashboard your agent renders to HTML — versioned in your repo, hostable anywhere, with no per-seat BI subscription.',
-    stepsTitle: 'How dashboards work with Design For AIR',
+      'design for air turns a plain-language spec of your metrics into a styled dashboard your agent renders to HTML — versioned in your repo, hostable anywhere, with no per-seat BI subscription.',
+    stepsTitle: 'How dashboards work with design for air',
     steps: [
       {
         title: 'Describe the metrics',
@@ -1153,7 +1153,7 @@ export const EN: SolutionLocaleCopy = {
       },
       {
         title: 'Pick the chart patterns',
-        body: 'Design For AIR ships chart and layout templates, so trends become line charts, breakdowns become bars, and ratios become the right visual — consistent typography and spacing throughout instead of mismatched defaults.',
+        body: 'design for air ships chart and layout templates, so trends become line charts, breakdowns become bars, and ratios become the right visual — consistent typography and spacing throughout instead of mismatched defaults.',
         imageAlt: 'Illustration of several chart types arranged into a coherent grid',
       },
       {
@@ -1167,9 +1167,9 @@ export const EN: SolutionLocaleCopy = {
         imageAlt: 'Illustration of a dashboard being refined then deployed',
       },
     ],
-    tableTitle: 'Dashboards with Design For AIR vs. the old way',
+    tableTitle: 'Dashboards with design for air vs. the old way',
     tableColCapability: 'What you need',
-    tableColWithOd: 'With Design For AIR',
+    tableColWithOd: 'With design for air',
     tableColWithout: 'BI tools / hand-coded',
     tableRows: [
       {
@@ -1212,7 +1212,7 @@ export const EN: SolutionLocaleCopy = {
       { title: "Social & marketing", body: "Channel performance and campaign tracking in one view.", thumb: "example-social-media-dashboard" },
       { title: "Domain reports", body: "Structured reports for any field — from clinical to trading.", thumb: "example-clinical-case-report" },
     ],
-    galleryTitle: 'Dashboards people built with Design For AIR',
+    galleryTitle: 'Dashboards people built with design for air',
     galleryLead:
       'Real dashboards rendered from a prompt and a data source. Start from one close to yours and describe the metrics you track.',
     gallery: [
@@ -1227,7 +1227,7 @@ export const EN: SolutionLocaleCopy = {
     faq: [
       {
         q: 'Do I need a BI tool like Tableau or Looker?',
-        a: 'No. Design For AIR renders dashboards to HTML inside your coding agent. You describe the metrics and point it at your data; there is no separate BI platform to license or learn.',
+        a: 'No. design for air renders dashboards to HTML inside your coding agent. You describe the metrics and point it at your data; there is no separate BI platform to license or learn.',
       },
       {
         q: 'Where does the data come from?',
@@ -1244,22 +1244,22 @@ export const EN: SolutionLocaleCopy = {
     ],
     ctaTitle: 'Build your dashboard tonight',
     ctaBody:
-      'Star the repo, install Design For AIR, and turn your metrics into a dashboard you can host anywhere — in the agent you already use.',
+      'Star the repo, install design for air, and turn your metrics into a dashboard you can host anywhere — in the agent you already use.',
   },
   slides: {
-    title: 'Generate presentation decks with Design For AIR + Claude Code',
+    title: 'Generate presentation decks with design for air + Claude Code',
     description:
-      'Turn an outline into a designed, on-brand slide deck without opening a presentation app. Design For AIR gives your coding agent deck templates and a visual system, rendering slides to HTML you can present, export, or share.',
+      'Turn an outline into a designed, on-brand slide deck without opening a presentation app. design for air gives your coding agent deck templates and a visual system, rendering slides to HTML you can present, export, or share.',
     breadcrumb: 'Slides',
     label: 'Use case · Slides',
     heading: 'Decks that look designed, written by a prompt',
-    lead: 'Hand your agent an outline and a tone. Design For AIR applies a deck template and visual system so every slide is laid out, typeset, and on-brand — not a bullet list on a blank background.',
+    lead: 'Hand your agent an outline and a tone. design for air applies a deck template and visual system so every slide is laid out, typeset, and on-brand — not a bullet list on a blank background.',
     heroImageAlt:
       'Editorial illustration of an outline on the left turning into a sequence of designed presentation slides on the right',
     tldrTitle: 'In one line',
     tldrBody:
-      'Design For AIR turns an outline into a designed HTML deck your agent renders in one session — present it in the browser, export to PDF or PPTX, and keep the source in your repo.',
-    stepsTitle: 'How decks work with Design For AIR',
+      'design for air turns an outline into a designed HTML deck your agent renders in one session — present it in the browser, export to PDF or PPTX, and keep the source in your repo.',
+    stepsTitle: 'How decks work with design for air',
     steps: [
       {
         title: 'Give it the outline',
@@ -1268,7 +1268,7 @@ export const EN: SolutionLocaleCopy = {
       },
       {
         title: 'Choose a deck style',
-        body: 'Design For AIR ships deck templates — editorial, Swiss-international, dark technical, and more. The agent applies one so typography, grid, and accents stay consistent across every slide.',
+        body: 'design for air ships deck templates — editorial, Swiss-international, dark technical, and more. The agent applies one so typography, grid, and accents stay consistent across every slide.',
         imageAlt: 'Illustration of several deck style options laid side by side',
       },
       {
@@ -1282,9 +1282,9 @@ export const EN: SolutionLocaleCopy = {
         imageAlt: 'Illustration of a deck being presented and exported to multiple formats',
       },
     ],
-    tableTitle: 'Decks with Design For AIR vs. the old way',
+    tableTitle: 'Decks with design for air vs. the old way',
     tableColCapability: 'What you need',
-    tableColWithOd: 'With Design For AIR',
+    tableColWithOd: 'With design for air',
     tableColWithout: 'PowerPoint / Keynote / AI slide tools',
     tableRows: [
       {
@@ -1327,7 +1327,7 @@ export const EN: SolutionLocaleCopy = {
       { title: "Presenter mode", body: "Reveal-style decks built to present live in the browser.", thumb: "example-html-ppt-presenter-mode-reveal" },
       { title: "Technical blueprints", body: "Architecture and knowledge decks that map complex systems.", thumb: "example-html-ppt-knowledge-arch-blueprint" },
     ],
-    galleryTitle: 'Decks people built with Design For AIR',
+    galleryTitle: 'Decks people built with design for air',
     galleryLead:
       'Real decks rendered from an outline. Pick a style close to your talk and describe the content.',
     gallery: [
@@ -1342,7 +1342,7 @@ export const EN: SolutionLocaleCopy = {
     faq: [
       {
         q: 'Do I need PowerPoint or Keynote?',
-        a: 'No. Design For AIR renders decks to HTML inside your coding agent and can export to PDF or PPTX. You present from the browser or hand off a file — no presentation app required to build it.',
+        a: 'No. design for air renders decks to HTML inside your coding agent and can export to PDF or PPTX. You present from the browser or hand off a file — no presentation app required to build it.',
       },
       {
         q: 'Are these just AI-generated bullet points?',
@@ -1359,22 +1359,22 @@ export const EN: SolutionLocaleCopy = {
     ],
     ctaTitle: 'Build your next deck tonight',
     ctaBody:
-      'Star the repo, install Design For AIR, and turn your outline into a designed deck — in the agent you already use.',
+      'Star the repo, install design for air, and turn your outline into a designed deck — in the agent you already use.',
   },
   image: {
-    title: 'Generate on-brand graphics with Design For AIR + Claude Code',
+    title: 'Generate on-brand graphics with design for air + Claude Code',
     description:
       'Produce social cards, article covers, and marketing graphics from a prompt — laid out with real typography and your brand system, rendered to crisp HTML you can export to PNG. No design app, no template subscription.',
     breadcrumb: 'Image',
     label: 'Use case · Image',
     heading: 'On-brand graphics, generated and laid out for you',
-    lead: 'Describe the card or cover you need. Design For AIR composes it with real type, grid, and your brand colors — then renders to HTML you can export as an image, instead of wrestling a design app or a generic template.',
+    lead: 'Describe the card or cover you need. design for air composes it with real type, grid, and your brand colors — then renders to HTML you can export as an image, instead of wrestling a design app or a generic template.',
     heroImageAlt:
       'Editorial illustration of a prompt turning into a set of laid-out social cards and article covers',
     tldrTitle: 'In one line',
     tldrBody:
-      'Design For AIR turns a prompt into a typeset, on-brand graphic your agent renders to HTML and exports to PNG — repeatable, versioned, and free of per-seat design tools.',
-    stepsTitle: 'How graphics work with Design For AIR',
+      'design for air turns a prompt into a typeset, on-brand graphic your agent renders to HTML and exports to PNG — repeatable, versioned, and free of per-seat design tools.',
+    stepsTitle: 'How graphics work with design for air',
     steps: [
       {
         title: 'Describe the graphic',
@@ -1383,7 +1383,7 @@ export const EN: SolutionLocaleCopy = {
       },
       {
         title: 'Apply the brand system',
-        body: 'Design For AIR pulls your colors, type, and spacing from a reusable design system, so every card matches the rest of your brand instead of looking like a one-off.',
+        body: 'design for air pulls your colors, type, and spacing from a reusable design system, so every card matches the rest of your brand instead of looking like a one-off.',
         imageAlt: 'Illustration of brand colors and type being applied to a card layout',
       },
       {
@@ -1397,9 +1397,9 @@ export const EN: SolutionLocaleCopy = {
         imageAlt: 'Illustration of one card template producing a consistent series of graphics',
       },
     ],
-    tableTitle: 'Graphics with Design For AIR vs. the old way',
+    tableTitle: 'Graphics with design for air vs. the old way',
     tableColCapability: 'What you need',
-    tableColWithOd: 'With Design For AIR',
+    tableColWithOd: 'With design for air',
     tableColWithout: 'Design apps / generic templates',
     tableRows: [
       {
@@ -1442,7 +1442,7 @@ export const EN: SolutionLocaleCopy = {
       { title: "Carousels", body: "Multi-slide social carousels that stay consistent across frames.", thumb: "example-social-carousel" },
       { title: "UI mock frames", body: "Notification and device frames for product storytelling.", thumb: "example-frame-macos-notification" },
     ],
-    galleryTitle: 'Graphics people built with Design For AIR',
+    galleryTitle: 'Graphics people built with design for air',
     galleryLead:
       'Real cards and covers rendered from a prompt. Pick one close to what you need and swap in your copy.',
     gallery: [
@@ -1457,7 +1457,7 @@ export const EN: SolutionLocaleCopy = {
     faq: [
       {
         q: 'Is this an AI image generator like Midjourney?',
-        a: 'No. Design For AIR composes graphics with real layout and typography — your headline, your brand, exact dimensions — and renders to HTML you export as PNG. It is design composition, not pixel generation.',
+        a: 'No. design for air composes graphics with real layout and typography — your headline, your brand, exact dimensions — and renders to HTML you export as PNG. It is design composition, not pixel generation.',
       },
       {
         q: 'Can I make a consistent series of cards?',
@@ -1474,22 +1474,22 @@ export const EN: SolutionLocaleCopy = {
     ],
     ctaTitle: 'Make your next graphic tonight',
     ctaBody:
-      'Star the repo, install Design For AIR, and turn a prompt into an on-brand graphic — in the agent you already use.',
+      'Star the repo, install design for air, and turn a prompt into an on-brand graphic — in the agent you already use.',
   },
   video: {
-    title: 'Generate motion graphics & short video with Design For AIR + Claude Code',
+    title: 'Generate motion graphics & short video with design for air + Claude Code',
     description:
       'Turn a script into animated frames and short-form video — title cards, motion backgrounds, and outros composed with your brand system and rendered from HTML. No motion-graphics suite, no timeline scrubbing.',
     breadcrumb: 'Video',
     label: 'Use case · Video',
     heading: 'Motion graphics from a script, not a timeline',
-    lead: 'Describe the moment you want — a title reveal, a data animation, a logo outro. Design For AIR composes animated frames with your brand system and renders them to video, no motion-graphics suite required.',
+    lead: 'Describe the moment you want — a title reveal, a data animation, a logo outro. design for air composes animated frames with your brand system and renders them to video, no motion-graphics suite required.',
     heroImageAlt:
       'Editorial illustration of a script turning into a sequence of animated video frames',
     tldrTitle: 'In one line',
     tldrBody:
-      'Design For AIR turns a script into animated, on-brand frames your agent renders to short-form video — composed from HTML, versioned in your repo, with no timeline editor to learn.',
-    stepsTitle: 'How motion works with Design For AIR',
+      'design for air turns a script into animated, on-brand frames your agent renders to short-form video — composed from HTML, versioned in your repo, with no timeline editor to learn.',
+    stepsTitle: 'How motion works with design for air',
     steps: [
       {
         title: 'Describe the moment',
@@ -1498,7 +1498,7 @@ export const EN: SolutionLocaleCopy = {
       },
       {
         title: 'Apply the brand & motion style',
-        body: 'Design For AIR supplies frame templates — cinematic light leaks, glitch titles, logo outros — and applies your colors and type, so the motion looks intentional and on-brand.',
+        body: 'design for air supplies frame templates — cinematic light leaks, glitch titles, logo outros — and applies your colors and type, so the motion looks intentional and on-brand.',
         imageAlt: 'Illustration of brand styling applied to animated frames',
       },
       {
@@ -1512,9 +1512,9 @@ export const EN: SolutionLocaleCopy = {
         imageAlt: 'Illustration of a video clip being refined and exported for social',
       },
     ],
-    tableTitle: 'Motion with Design For AIR vs. the old way',
+    tableTitle: 'Motion with design for air vs. the old way',
     tableColCapability: 'What you need',
-    tableColWithOd: 'With Design For AIR',
+    tableColWithOd: 'With design for air',
     tableColWithout: 'After Effects / motion suites',
     tableRows: [
       {
@@ -1557,7 +1557,7 @@ export const EN: SolutionLocaleCopy = {
       { title: "Glitch titles", body: "Title reveals with motion and texture.", thumb: "example-frame-glitch-title" },
       { title: "Logo outros", body: "Branded closing animations for any clip.", thumb: "example-frame-logo-outro" },
     ],
-    galleryTitle: 'Motion people built with Design For AIR',
+    galleryTitle: 'Motion people built with design for air',
     galleryLead:
       'Real animated frames and clips rendered from a prompt. Pick one close to your idea and describe the motion.',
     gallery: [
@@ -1572,7 +1572,7 @@ export const EN: SolutionLocaleCopy = {
     faq: [
       {
         q: 'Do I need After Effects or a motion-graphics suite?',
-        a: 'No. Design For AIR composes animated frames in HTML and renders them to video inside your coding agent. There is no timeline editor to learn or license.',
+        a: 'No. design for air composes animated frames in HTML and renders them to video inside your coding agent. There is no timeline editor to learn or license.',
       },
       {
         q: 'What kind of video is this good for?',
@@ -1589,31 +1589,31 @@ export const EN: SolutionLocaleCopy = {
     ],
     ctaTitle: 'Animate your next idea tonight',
     ctaBody:
-      'Star the repo, install Design For AIR, and turn a script into motion — in the agent you already use.',
+      'Star the repo, install design for air, and turn a script into motion — in the agent you already use.',
   },
   designSystem: {
-    title: 'Build and apply a design system with Design For AIR + Claude Code',
+    title: 'Build and apply a design system with design for air + Claude Code',
     description:
       'Capture your brand as a reusable design system your coding agent applies to every artifact — colors, type, components, and tone in one DESIGN.md. Define it once; every prototype, deck, and dashboard stays on brand.',
     breadcrumb: 'Design System',
     label: 'Use case · Design System',
     heading: 'One design system, applied to everything your agent makes',
-    lead: 'Define your brand once and Design For AIR carries it into every output — prototypes, decks, dashboards, graphics. The system lives in your repo as a DESIGN.md the agent reads, so consistency is automatic, not manual.',
+    lead: 'Define your brand once and design for air carries it into every output — prototypes, decks, dashboards, graphics. The system lives in your repo as a DESIGN.md the agent reads, so consistency is automatic, not manual.',
     heroImageAlt:
       'Editorial illustration of a single design system radiating into many on-brand artifacts',
     tldrTitle: 'In one line',
     tldrBody:
-      'Design For AIR captures your brand as a portable design system your agent applies to every artifact — defined once in your repo, enforced everywhere, with no central design tool to gate-keep it.',
-    stepsTitle: 'How design systems work with Design For AIR',
+      'design for air captures your brand as a portable design system your agent applies to every artifact — defined once in your repo, enforced everywhere, with no central design tool to gate-keep it.',
+    stepsTitle: 'How design systems work with design for air',
     steps: [
       {
         title: 'Capture the system',
-        body: 'Describe your brand — colors, type, spacing, voice — or point the agent at an existing site to extract it. Design For AIR writes it into a DESIGN.md that lives in your project.',
+        body: 'Describe your brand — colors, type, spacing, voice — or point the agent at an existing site to extract it. design for air writes it into a DESIGN.md that lives in your project.',
         imageAlt: 'Illustration of a brand being captured into a single design-system file',
       },
       {
         title: 'Start from a proven base',
-        body: 'Design For AIR ships 140+ reference design systems — from Apple and Linear to editorial and brutalist. Fork one close to your brand instead of starting from a blank page.',
+        body: 'design for air ships 140+ reference design systems — from Apple and Linear to editorial and brutalist. Fork one close to your brand instead of starting from a blank page.',
         imageAlt: 'Illustration of a gallery of reference design systems being browsed',
       },
       {
@@ -1627,9 +1627,9 @@ export const EN: SolutionLocaleCopy = {
         imageAlt: 'Illustration of a design system being updated and propagating to all outputs',
       },
     ],
-    tableTitle: 'Design systems with Design For AIR vs. the old way',
+    tableTitle: 'Design systems with design for air vs. the old way',
     tableColCapability: 'What you need',
-    tableColWithOd: 'With Design For AIR',
+    tableColWithOd: 'With design for air',
     tableColWithout: 'Design-tool libraries / style guides',
     tableRows: [
       {
@@ -1672,7 +1672,7 @@ export const EN: SolutionLocaleCopy = {
       { title: "OpenAI", body: "Minimal, neutral, research-grade.", thumb: "design-system-openai" },
       { title: "GitHub", body: "Dense, technical, developer-native.", thumb: "design-system-github" },
     ],
-    galleryTitle: 'Design systems in Design For AIR',
+    galleryTitle: 'Design systems in design for air',
     galleryLead:
       'A few of the 140+ reference systems you can fork as a starting point. Pick one close to your brand and adapt it.',
     gallery: [
@@ -1687,11 +1687,11 @@ export const EN: SolutionLocaleCopy = {
     faq: [
       {
         q: 'What exactly is the design system here?',
-        a: 'A DESIGN.md file in your repo that captures colors, type, spacing, components, and voice. Every Design For AIR skill reads it, so your brand is applied automatically to whatever the agent produces.',
+        a: 'A DESIGN.md file in your repo that captures colors, type, spacing, components, and voice. Every design for air skill reads it, so your brand is applied automatically to whatever the agent produces.',
       },
       {
         q: 'Do I have to start from scratch?',
-        a: 'No. Design For AIR ships 140+ reference design systems you can fork — from Apple and Linear to editorial and brutalist — then adapt to your brand.',
+        a: 'No. design for air ships 140+ reference design systems you can fork — from Apple and Linear to editorial and brutalist — then adapt to your brand.',
       },
       {
         q: 'How does it stay consistent across decks, dashboards, and prototypes?',
@@ -1704,12 +1704,12 @@ export const EN: SolutionLocaleCopy = {
     ],
     ctaTitle: 'Define your design system tonight',
     ctaBody:
-      'Star the repo, install Design For AIR, and give your agent one brand to apply everywhere — in the agent you already use.',
+      'Star the repo, install design for air, and give your agent one brand to apply everywhere — in the agent you already use.',
   },
   roleSoloBuilder: {
-    title: 'Design For AIR for solo builders & indie hackers',
+    title: 'design for air for solo builders & indie hackers',
     description:
-      'Ship like a team of one. Design For AIR turns your coding agent into the design half of your startup — prototypes, landing pages, dashboards, and brand visuals, all from a prompt, all on brand, all in your repo.',
+      'Ship like a team of one. design for air turns your coding agent into the design half of your startup — prototypes, landing pages, dashboards, and brand visuals, all from a prompt, all on brand, all in your repo.',
     breadcrumb: 'Solo Builder',
     label: 'For · Solo Builders',
     heading: 'Your design team is the agent you already run',
@@ -1718,8 +1718,8 @@ export const EN: SolutionLocaleCopy = {
       'Editorial illustration of one person at a desk surrounded by a landing page, an app, a dashboard and social cards all in one consistent style',
     tldrTitle: 'In one line',
     tldrBody:
-      'Design For AIR is the design department a solo founder never had: prompt-to-artifact across every surface your product needs, on one brand, with zero handoff and no extra tools.',
-    stepsTitle: 'How a solo builder uses Design For AIR',
+      'design for air is the design department a solo founder never had: prompt-to-artifact across every surface your product needs, on one brand, with zero handoff and no extra tools.',
+    stepsTitle: 'How a solo builder uses design for air',
     steps: [
       {
         title: 'Define your brand once',
@@ -1737,9 +1737,9 @@ export const EN: SolutionLocaleCopy = {
         imageAlt: 'Illustration of an artifact going straight from prompt to live',
       },
     ],
-    tableTitle: 'Solo building with Design For AIR vs. doing it the hard way',
+    tableTitle: 'Solo building with design for air vs. doing it the hard way',
     tableColCapability: 'What you need',
-    tableColWithOd: 'With Design For AIR',
+    tableColWithOd: 'With design for air',
     tableColWithout: 'Going it alone today',
     tableRows: [
       { capability: 'Cover every design surface', withOd: 'One agent does prototype, landing, dashboard, brand', without: 'Stitch together five SaaS tools and tutorials' },
@@ -1757,7 +1757,7 @@ export const EN: SolutionLocaleCopy = {
       { title: 'Mobile flows', body: 'App screens when you go beyond the web.', thumb: 'example-mobile-app' },
       { title: 'Social cards', body: 'Launch and update cards for every channel.', thumb: 'example-card-twitter' },
     ],
-    galleryTitle: 'Built solo with Design For AIR',
+    galleryTitle: 'Built solo with design for air',
     galleryLead:
       'Every surface a one-person startup needs, from a prompt. Pick one close to your next move and describe it.',
     gallery: [
@@ -1777,12 +1777,12 @@ export const EN: SolutionLocaleCopy = {
     ],
     ctaTitle: 'Build your whole thing tonight',
     ctaBody:
-      'Star the repo, install Design For AIR, and let one agent be your design team — in the agent you already use.',
+      'Star the repo, install design for air, and let one agent be your design team — in the agent you already use.',
   },
   roleDesigner: {
-    title: 'Design For AIR for designers',
+    title: 'design for air for designers',
     description:
-      'Spend your time on taste, not toil. Design For AIR lets your agent handle the repetitive production work — variants, states, full design systems — while you direct the look and keep final say.',
+      'Spend your time on taste, not toil. design for air lets your agent handle the repetitive production work — variants, states, full design systems — while you direct the look and keep final say.',
     breadcrumb: 'Designer',
     label: 'For · Designers',
     heading: 'Direct the design — let the agent do the production',
@@ -1791,8 +1791,8 @@ export const EN: SolutionLocaleCopy = {
       'Editorial illustration of a designer directing while an agent fills in screens, variants and a design system',
     tldrTitle: 'In one line',
     tldrBody:
-      'Design For AIR is the production assistant that never tires: you define the design system and call the taste; the agent generates the rest, on system, in your repo.',
-    stepsTitle: 'How a designer uses Design For AIR',
+      'design for air is the production assistant that never tires: you define the design system and call the taste; the agent generates the rest, on system, in your repo.',
+    stepsTitle: 'How a designer uses design for air',
     steps: [
       {
         title: 'Encode your system',
@@ -1810,9 +1810,9 @@ export const EN: SolutionLocaleCopy = {
         imageAlt: 'Illustration of a designer giving direction and the design updating',
       },
     ],
-    tableTitle: 'Designing with Design For AIR vs. the manual way',
+    tableTitle: 'Designing with design for air vs. the manual way',
     tableColCapability: 'What you need',
-    tableColWithOd: 'With Design For AIR',
+    tableColWithOd: 'With design for air',
     tableColWithout: 'Manual design tooling',
     tableRows: [
       { capability: 'Build a design system', withOd: 'A DESIGN.md the agent applies everywhere', without: 'A library you maintain by hand per tool' },
@@ -1830,7 +1830,7 @@ export const EN: SolutionLocaleCopy = {
       { title: 'App screens', body: 'High-fidelity mobile and web screens.', thumb: 'example-mobile-app' },
       { title: 'Dashboards', body: 'Data UI that respects your system.', thumb: 'example-dashboard' },
     ],
-    galleryTitle: 'Directed with Design For AIR',
+    galleryTitle: 'Directed with design for air',
     galleryLead:
       'High-fidelity, on-system work the agent produced from direction. Pick one close to your style and refine it.',
     gallery: [
@@ -1850,12 +1850,12 @@ export const EN: SolutionLocaleCopy = {
     ],
     ctaTitle: 'Direct your next design tonight',
     ctaBody:
-      'Star the repo, install Design For AIR, and let the agent handle production while you call the taste — in the agent you already use.',
+      'Star the repo, install design for air, and let the agent handle production while you call the taste — in the agent you already use.',
   },
   roleEngineering: {
-    title: 'Design For AIR for engineers',
+    title: 'design for air for engineers',
     description:
-      'Skip the design handoff. Design For AIR turns a DESIGN.md into real front-end your coding agent writes directly — on-system UI, prototypes, and dashboards, in the repo, no Figma round-trip.',
+      'Skip the design handoff. design for air turns a DESIGN.md into real front-end your coding agent writes directly — on-system UI, prototypes, and dashboards, in the repo, no Figma round-trip.',
     breadcrumb: 'Engineering',
     label: 'For · Engineering',
     heading: 'From spec to front-end, no handoff in between',
@@ -1864,8 +1864,8 @@ export const EN: SolutionLocaleCopy = {
       'Editorial illustration of a DESIGN.md flowing directly into front-end code and rendered UI, skipping a handoff step',
     tldrTitle: 'In one line',
     tldrBody:
-      'Design For AIR closes the designer-to-engineer gap by making the design system machine-readable: the same agent that writes your code applies the system and renders real UI.',
-    stepsTitle: 'How an engineer uses Design For AIR',
+      'design for air closes the designer-to-engineer gap by making the design system machine-readable: the same agent that writes your code applies the system and renders real UI.',
+    stepsTitle: 'How an engineer uses design for air',
     steps: [
       {
         title: 'Read the system, not a redline',
@@ -1883,9 +1883,9 @@ export const EN: SolutionLocaleCopy = {
         imageAlt: 'Illustration of generated UI landing as a reviewable PR',
       },
     ],
-    tableTitle: 'Front-end with Design For AIR vs. the handoff way',
+    tableTitle: 'Front-end with design for air vs. the handoff way',
     tableColCapability: 'What you need',
-    tableColWithOd: 'With Design For AIR',
+    tableColWithOd: 'With design for air',
     tableColWithout: 'Design-to-dev handoff',
     tableRows: [
       { capability: 'Get a design to build from', withOd: 'A DESIGN.md your agent reads directly', without: 'A Figma file you re-interpret by hand' },
@@ -1903,7 +1903,7 @@ export const EN: SolutionLocaleCopy = {
       { title: 'Landing pages', body: 'Marketing pages without waiting on design.', thumb: 'example-saas-landing' },
       { title: 'Kanban / boards', body: 'Internal workflow UIs.', thumb: 'example-kanban-board' },
     ],
-    galleryTitle: 'Built by engineers with Design For AIR',
+    galleryTitle: 'Built by engineers with design for air',
     galleryLead:
       'Real, on-system front-end generated straight in the repo. Pick one close to what you are building and describe it.',
     gallery: [
@@ -1923,12 +1923,12 @@ export const EN: SolutionLocaleCopy = {
     ],
     ctaTitle: 'Generate your next UI tonight',
     ctaBody:
-      'Star the repo, install Design For AIR, and turn a DESIGN.md into front-end — in the agent you already use.',
+      'Star the repo, install design for air, and turn a DESIGN.md into front-end — in the agent you already use.',
   },
   roleProductManagers: {
-    title: 'Design For AIR for product managers',
+    title: 'design for air for product managers',
     description:
-      'Stop waiting on design bandwidth to communicate an idea. Design For AIR lets a PM turn a prompt into a clickable prototype or wireframe — to align stakeholders and brief the team, without a design ticket.',
+      'Stop waiting on design bandwidth to communicate an idea. design for air lets a PM turn a prompt into a clickable prototype or wireframe — to align stakeholders and brief the team, without a design ticket.',
     breadcrumb: 'Product Managers',
     label: 'For · Product Managers',
     heading: 'Make the idea clickable before the kickoff',
@@ -1937,8 +1937,8 @@ export const EN: SolutionLocaleCopy = {
       'Editorial illustration of a PM turning a written idea into a clickable prototype shown to stakeholders',
     tldrTitle: 'In one line',
     tldrBody:
-      'Design For AIR gives a PM a design-free way to make ideas tangible: prompt-to-prototype for alignment and briefs, without spending the team’s design budget.',
-    stepsTitle: 'How a PM uses Design For AIR',
+      'design for air gives a PM a design-free way to make ideas tangible: prompt-to-prototype for alignment and briefs, without spending the team’s design budget.',
+    stepsTitle: 'How a PM uses design for air',
     steps: [
       {
         title: 'Describe the flow',
@@ -1956,9 +1956,9 @@ export const EN: SolutionLocaleCopy = {
         imageAlt: 'Illustration of a prototype shared for alignment then handed to the team',
       },
     ],
-    tableTitle: 'PM work with Design For AIR vs. waiting on design',
+    tableTitle: 'PM work with design for air vs. waiting on design',
     tableColCapability: 'What you need',
-    tableColWithOd: 'With Design For AIR',
+    tableColWithOd: 'With design for air',
     tableColWithout: 'Without it today',
     tableRows: [
       { capability: 'Make an idea tangible', withOd: 'Prompt → clickable prototype yourself', without: 'File a design ticket and wait for bandwidth' },
@@ -1976,7 +1976,7 @@ export const EN: SolutionLocaleCopy = {
       { title: 'Web prototypes', body: 'Multi-screen web flows to review.', thumb: 'example-web-prototype' },
       { title: 'Trend views', body: '30-day and trend snapshots for context.', thumb: 'example-last30days' },
     ],
-    galleryTitle: 'Prototyped by PMs with Design For AIR',
+    galleryTitle: 'Prototyped by PMs with design for air',
     galleryLead:
       'Clickable flows rendered from a description, ready for a stakeholder review. Pick one close to your idea and describe it.',
     gallery: [
@@ -1996,12 +1996,12 @@ export const EN: SolutionLocaleCopy = {
     ],
     ctaTitle: 'Make your idea clickable tonight',
     ctaBody:
-      'Star the repo, install Design For AIR, and turn your next spec into something people can click — in the agent you already use.',
+      'Star the repo, install design for air, and turn your next spec into something people can click — in the agent you already use.',
   },
   roleMarketing: {
-    title: 'Design For AIR for marketing teams',
+    title: 'design for air for marketing teams',
     description:
-      'Ship campaigns at content speed. Design For AIR lets your agent produce landing pages, social cards, and campaign visuals from a prompt — on brand, on demand, without queuing design.',
+      'Ship campaigns at content speed. design for air lets your agent produce landing pages, social cards, and campaign visuals from a prompt — on brand, on demand, without queuing design.',
     breadcrumb: 'Marketing',
     label: 'For · Marketing',
     heading: 'Campaign visuals at the speed of a prompt',
@@ -2010,8 +2010,8 @@ export const EN: SolutionLocaleCopy = {
       'Editorial illustration of a marketer turning a brief into a landing page and a set of on-brand social cards',
     tldrTitle: 'In one line',
     tldrBody:
-      'Design For AIR is the always-on design resource for marketing: prompt-to-asset for landing pages and social, on brand, so campaigns ship at the speed you write copy.',
-    stepsTitle: 'How a marketing team uses Design For AIR',
+      'design for air is the always-on design resource for marketing: prompt-to-asset for landing pages and social, on brand, so campaigns ship at the speed you write copy.',
+    stepsTitle: 'How a marketing team uses design for air',
     steps: [
       {
         title: 'Lock the brand',
@@ -2029,9 +2029,9 @@ export const EN: SolutionLocaleCopy = {
         imageAlt: 'Illustration of campaign assets shipping and being iterated quickly',
       },
     ],
-    tableTitle: 'Marketing with Design For AIR vs. the usual scramble',
+    tableTitle: 'Marketing with design for air vs. the usual scramble',
     tableColCapability: 'What you need',
-    tableColWithOd: 'With Design For AIR',
+    tableColWithOd: 'With design for air',
     tableColWithout: 'Without it today',
     tableRows: [
       { capability: 'Launch a landing page', withOd: 'Prompt → on-brand page, deployable', without: 'Brief design or fight a website builder' },
@@ -2049,7 +2049,7 @@ export const EN: SolutionLocaleCopy = {
       { title: 'Article covers', body: 'Blog and newsletter covers.', thumb: 'example-article-magazine' },
       { title: 'Web pages', body: 'Microsites and campaign pages.', thumb: 'example-web-prototype' },
     ],
-    galleryTitle: 'Shipped by marketing with Design For AIR',
+    galleryTitle: 'Shipped by marketing with design for air',
     galleryLead:
       'On-brand campaign assets rendered from a prompt. Pick one close to your campaign and swap in your copy.',
     gallery: [
@@ -2069,7 +2069,7 @@ export const EN: SolutionLocaleCopy = {
     ],
     ctaTitle: 'Ship your next campaign tonight',
     ctaBody:
-      'Star the repo, install Design For AIR, and turn briefs into on-brand assets — in the agent you already use.',
+      'Star the repo, install design for air, and turn briefs into on-brand assets — in the agent you already use.',
   },
 };
 

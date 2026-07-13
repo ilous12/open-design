@@ -56,8 +56,8 @@ const OFFICIAL_URL = `${origin}official/`;
 const websiteSchema = {
   '@type': 'WebSite',
   '@id': `${origin}#website`,
-  name: 'Design For AIR',
-  alternateName: ['OpenDesign', 'open-design', 'opendesign', 'Design For AIR AI', 'OD'],
+  name: 'design for air',
+  alternateName: ['OpenDesign', 'open-design', 'opendesign', 'design for air AI', 'OD'],
   url: origin,
   inLanguage: localeDef.htmlLang,
   availableLanguage: LANDING_LOCALES.map((entry) => entry.htmlLang),
@@ -67,8 +67,8 @@ const websiteSchema = {
 const organizationSchema = {
   '@type': 'Organization',
   '@id': `${origin}#organization`,
-  name: 'Design For AIR',
-  alternateName: ['OpenDesign', 'open-design', 'opendesign', 'Design For AIR AI', 'OD', 'nexu-io/open-design'],
+  name: 'design for air',
+  alternateName: ['OpenDesign', 'open-design', 'opendesign', 'design for air AI', 'OD', 'nexu-io/open-design'],
   url: origin,
   logo: {
     '@type': 'ImageObject',
@@ -86,8 +86,8 @@ const organizationSchema = {
 const softwareSchema = {
   '@type': 'SoftwareApplication',
   '@id': `${origin}#software`,
-  name: 'Design For AIR',
-  alternateName: ['OpenDesign', 'open-design', 'opendesign', 'Design For AIR AI', 'OD'],
+  name: 'design for air',
+  alternateName: ['OpenDesign', 'open-design', 'opendesign', 'design for air AI', 'OD'],
   description,
   url: origin,
   inLanguage: localeDef.htmlLang,
@@ -188,7 +188,7 @@ const cobeEnhancerUrl = `/enhancers/cobe.js?v=${
     />
 
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Design For AIR" />
+    <meta property="og:site_name" content="design for air" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={metaDescription} />
     <meta property="og:url" content={canonical} />
@@ -281,13 +281,13 @@ const cobeEnhancerUrl = `/enhancers/cobe.js?v=${
         };
 
         // Pull a clean 'v0.3.0'-style label from a GitHub release record.
-        // We prefer release.name (e.g. 'Design For AIR 0.3.0') because that's
+        // We prefer release.name (e.g. 'design for air 0.3.0') because that's
         // what we hand-author; fall back to tag_name (e.g.
         // 'open-design-v0.3.0') with the project prefix stripped.
         //
         // Expected input shapes (release.name / release.tag_name):
-        //   { name: 'Design For AIR 0.3.0',  tag_name: 'v0.3.0' }            → 'v0.3.0'
-        //   { name: 'Design For AIR v0.3.0', tag_name: 'open-design-v0.3.0' } → 'v0.3.0'
+        //   { name: 'design for air 0.3.0',  tag_name: 'v0.3.0' }            → 'v0.3.0'
+        //   { name: 'design for air v0.3.0', tag_name: 'open-design-v0.3.0' } → 'v0.3.0'
         //   { name: '0.3.0-beta.1',       tag_name: 'open-design_0.3.0' }  → 'v0.3.0-beta.1' (name wins)
         //   { name: null,                 tag_name: 'open-design-v0.3.0' } → 'v0.3.0' (tag fallback)
         //   { name: null,                 tag_name: null }                  → null (caller skips)
@@ -1489,7 +1489,7 @@ const cobeEnhancerUrl = `/enhancers/cobe.js?v=${
             if (ev.key === 'Escape') setNavOpen(false);
           });
         })();
-        // Design For AIR Cloud header account. Same as `enhanceMobileNav`
+        // design for air Cloud header account. Same as `enhanceMobileNav`
         // above, this mirrors `header-enhancer.astro` because the homepage does
         // not include that enhancer. Detect a live cloud session, swap the
         // "Sign in" link for the avatar menu, drive popup login + polling, and

@@ -1,6 +1,6 @@
-# Design For AIR 용어집
+# design for air 용어집
 
-이 문서는 Design For AIR에서 자주 사용하는 핵심 용어를 정리합니다.  
+이 문서는 design for air에서 자주 사용하는 핵심 용어를 정리합니다.  
 구현 세부사항보다 제품 문맥과 사용자 이해를 우선합니다.
 
 ## 핵심 용어

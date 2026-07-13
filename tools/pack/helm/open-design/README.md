@@ -1,4 +1,4 @@
-# Design For AIR Helm chart
+# design for air Helm chart
 
 > Spec §15.5 reference deployment.
 > Status: **values + templates shipped; per-cloud override files pending.**

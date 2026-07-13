@@ -38,7 +38,7 @@ export type SolutionFeature = {
 export type SolutionTableRow = {
   /** Row label — the capability or task. */
   capability: string;
-  /** What Design For AIR does. */
+  /** What design for air does. */
   withOd: string;
   /** The old / manual / tool-bound way. */
   without: string;

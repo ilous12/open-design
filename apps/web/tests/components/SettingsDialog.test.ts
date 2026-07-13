@@ -131,10 +131,10 @@ describe('SettingsDialog about update control', () => {
           incoming: {
             arch: 'arm64',
             artifact: {
-              name: 'Design For AIR Beta.dmg',
+              name: 'design for air Beta.dmg',
               platformKey: 'macAppleSilicon',
               type: 'dmg',
-              url: 'https://fixture.test/Design For AIR Beta.dmg',
+              url: 'https://fixture.test/design for air Beta.dmg',
             },
             channel: 'beta',
             progress: {
@@ -164,13 +164,13 @@ describe('SettingsDialog about update control', () => {
       deriveUpdaterModel(
         updateStatus({
           artifact: {
-            name: 'Design For AIR Beta.dmg',
+            name: 'design for air Beta.dmg',
             platformKey: 'macAppleSilicon',
             type: 'dmg',
-            url: 'https://fixture.test/Design For AIR Beta.dmg',
+            url: 'https://fixture.test/design for air Beta.dmg',
           },
           availableVersion: '1.2.3-beta.4',
-          downloadPath: '/tmp/Design For AIR Beta.dmg',
+          downloadPath: '/tmp/design for air Beta.dmg',
           state: 'downloaded',
         }),
         { hostAvailable: true },
@@ -224,17 +224,17 @@ describe('SettingsDialog about update control', () => {
       deriveUpdaterModel(
         updateStatus({
           artifact: {
-            name: 'Design For AIR Beta.dmg',
+            name: 'design for air Beta.dmg',
             platformKey: 'macAppleSilicon',
             type: 'dmg',
-            url: 'https://fixture.test/Design For AIR Beta.dmg',
+            url: 'https://fixture.test/design for air Beta.dmg',
           },
           availableVersion: '1.2.3-beta.4',
-          downloadPath: '/tmp/Design For AIR Beta.dmg',
+          downloadPath: '/tmp/design for air Beta.dmg',
           installResult: {
             dryRun: true,
             openedAt: '2026-05-19T00:00:00.000Z',
-            path: '/tmp/Design For AIR Beta.dmg',
+            path: '/tmp/design for air Beta.dmg',
           },
           state: 'downloaded',
         }),

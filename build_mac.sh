@@ -207,7 +207,7 @@ if [ "$EXPORT_PUBLIC_RELEASE" = "true" ]; then
   RELEASE_PUBLIC_DIR="$RELEASE_PUBLIC_DIR" \
   TOOLS_PACK_DIR="$TOOLS_PACK_DIR" \
   RELEASE_SIGNED="$([ "$SIGN_MODE" = "no" ] && printf false || printf true)" \
-  RELEASE_ARTIFACT_MODE="${RELEASE_ARTIFACT_MODE:-dmg-and-zip}" \
+  RELEASE_ARTIFACT_MODE="${RELEASE_ARTIFACT_MODE:-dmg-and-payload}" \
   ./scripts/export-mac-release-public.sh
 
   if [ "${DEPLOY_PUBLIC_GITHUB:-false}" = "true" ]; then

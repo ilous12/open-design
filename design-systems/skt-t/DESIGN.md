@@ -70,7 +70,7 @@ The emotional goal is not playful discovery. It is service confidence: "I can fi
 - **Body:** Pretendard Variable / Pretendard / Apple SD Gothic Neo / Roboto / Noto Sans KR / system-ui / sans-serif
 - **Mono:** SF Mono / ui-monospace / Menlo / Consolas / monospace
 
-T world source CSS uses Apple SD Gothic Neo, Roboto, and Noto Sans-style webfonts with strong, practical Korean layout rules. In Design For AIR, keep Pretend/Pretendard as the default family while preserving the same hierarchy and visual density.
+T world source CSS uses Apple SD Gothic Neo, Roboto, and Noto Sans-style webfonts with strong, practical Korean layout rules. In design for air, keep Pretend/Pretendard as the default family while preserving the same hierarchy and visual density.
 
 | Role | Size | Weight | Line Height | Notes |
 | --- | --- | --- | --- | --- |

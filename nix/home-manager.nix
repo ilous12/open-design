@@ -1,4 +1,4 @@
-# Home Manager module for Design For AIR — primary interface for individual
+# Home Manager module for design for air — primary interface for individual
 # developers. Linux uses systemd --user units; macOS uses launchd agents.
 #
 # Both the daemon and the optional web frontend are user-scoped and run
@@ -203,7 +203,7 @@ in {
     (lib.mkIf (pkgs.stdenv.isLinux && cfg.autoStart) {
       systemd.user.services.open-design = {
         Unit = {
-          Description = "Design For AIR daemon (user service)";
+          Description = "design for air daemon (user service)";
           After = ["network-online.target"];
           Wants = ["network-online.target"];
         };
@@ -225,7 +225,7 @@ in {
     (lib.mkIf (pkgs.stdenv.isLinux && cfg.webFrontend.enable) {
       systemd.user.services.open-design-web = {
         Unit = {
-          Description = "Design For AIR web frontend (static file server)";
+          Description = "design for air web frontend (static file server)";
           After = ["network-online.target"];
           Wants = ["network-online.target"];
         };

@@ -14,49 +14,49 @@ const execFileAsync = promisify(execFile);
 describe("resolveWinInstallIdentity", () => {
   it("keeps the default namespace on the canonical Windows display name", () => {
     expect(resolveWinInstallIdentity({ namespace: "default" })).toMatchObject({
-      displayName: "Design For AIR",
-      shortcutName: "Design For AIR.lnk",
-      uninstallerName: "Uninstall Design For AIR.exe",
+      displayName: "design for air",
+      shortcutName: "design for air.lnk",
+      uninstallerName: "Uninstall design for air.exe",
     });
   });
 
   it("uses the canonical Windows display name for stable release namespaces", () => {
     expect(resolveWinInstallIdentity({ namespace: "release-stable-win" })).toMatchObject({
-      appPathsKey: "Software\\Microsoft\\Windows\\CurrentVersion\\App Paths\\Design For AIR.exe",
-      displayName: "Design For AIR",
-      registryKey: "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Design For AIR-release-stable-win",
-      shortcutName: "Design For AIR.lnk",
-      uninstallerName: "Uninstall Design For AIR.exe",
+      appPathsKey: "Software\\Microsoft\\Windows\\CurrentVersion\\App Paths\\design for air.exe",
+      displayName: "design for air",
+      registryKey: "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\design for air-release-stable-win",
+      shortcutName: "design for air.lnk",
+      uninstallerName: "Uninstall design for air.exe",
     });
   });
 
   it("uses first-class beta display identity for beta release namespaces", () => {
     expect(resolveWinInstallIdentity({ namespace: "release-beta-win" })).toMatchObject({
-      appPathsKey: "Software\\Microsoft\\Windows\\CurrentVersion\\App Paths\\Design For AIR Beta.exe",
-      displayName: "Design For AIR Beta",
-      registryKey: "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Design For AIR-release-beta-win",
-      shortcutName: "Design For AIR Beta.lnk",
-      uninstallerName: "Uninstall Design For AIR Beta.exe",
+      appPathsKey: "Software\\Microsoft\\Windows\\CurrentVersion\\App Paths\\design for air Beta.exe",
+      displayName: "design for air Beta",
+      registryKey: "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\design for air-release-beta-win",
+      shortcutName: "design for air Beta.lnk",
+      uninstallerName: "Uninstall design for air Beta.exe",
     });
   });
 
   it("keeps non-release beta-like namespaces isolated from the real beta channel identity", () => {
     expect(resolveWinInstallIdentity({ namespace: "beta-local-flow" })).toMatchObject({
-      appPathsKey: "Software\\Microsoft\\Windows\\CurrentVersion\\App Paths\\Design For AIR beta-local-flow.exe",
-      displayName: "Design For AIR beta-local-flow",
-      registryKey: "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Design For AIR-beta-local-flow",
-      shortcutName: "Design For AIR beta-local-flow.lnk",
-      uninstallerName: "Uninstall Design For AIR beta-local-flow.exe",
+      appPathsKey: "Software\\Microsoft\\Windows\\CurrentVersion\\App Paths\\design for air beta-local-flow.exe",
+      displayName: "design for air beta-local-flow",
+      registryKey: "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\design for air-beta-local-flow",
+      shortcutName: "design for air beta-local-flow.lnk",
+      uninstallerName: "Uninstall design for air beta-local-flow.exe",
     });
   });
 
   it("uses first-class preview display identity for preview release namespaces", () => {
     expect(resolveWinInstallIdentity({ namespace: "release-preview-win" })).toMatchObject({
-      appPathsKey: "Software\\Microsoft\\Windows\\CurrentVersion\\App Paths\\Design For AIR Preview.exe",
-      displayName: "Design For AIR Preview",
-      registryKey: "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Design For AIR-release-preview-win",
-      shortcutName: "Design For AIR Preview.lnk",
-      uninstallerName: "Uninstall Design For AIR Preview.exe",
+      appPathsKey: "Software\\Microsoft\\Windows\\CurrentVersion\\App Paths\\design for air Preview.exe",
+      displayName: "design for air Preview",
+      registryKey: "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\design for air-release-preview-win",
+      shortcutName: "design for air Preview.lnk",
+      uninstallerName: "Uninstall design for air Preview.exe",
     });
   });
 
@@ -65,15 +65,15 @@ describe("resolveWinInstallIdentity", () => {
       appVersion: "0.8.0-prerelease.2",
       namespace: "release-stable-win",
     })).toMatchObject({
-      appPathsKey: "Software\\Microsoft\\Windows\\CurrentVersion\\App Paths\\Design For AIR Prerelease.exe",
-      displayName: "Design For AIR Prerelease",
-      registryKey: "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Design For AIR-release-stable-win",
-      shortcutName: "Design For AIR Prerelease.lnk",
-      uninstallerName: "Uninstall Design For AIR Prerelease.exe",
+      appPathsKey: "Software\\Microsoft\\Windows\\CurrentVersion\\App Paths\\design for air Prerelease.exe",
+      displayName: "design for air Prerelease",
+      registryKey: "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\design for air-release-stable-win",
+      shortcutName: "design for air Prerelease.lnk",
+      uninstallerName: "Uninstall design for air Prerelease.exe",
     });
     expect(resolveWinInstallIdentity({ namespace: "release-prerelease-win" })).toMatchObject({
-      displayName: "Design For AIR Prerelease",
-      shortcutName: "Design For AIR Prerelease.lnk",
+      displayName: "design for air Prerelease",
+      shortcutName: "design for air Prerelease.lnk",
     });
   });
 

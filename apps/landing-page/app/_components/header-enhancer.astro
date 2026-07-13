@@ -190,7 +190,7 @@
         .catch(() => {});
     }
 
-    // Design For AIR Cloud header account. Detects an existing cloud
+    // design for air Cloud header account. Detects an existing cloud
     // session via the vela API, swaps the "Sign in" link for an avatar menu,
     // drives popup login + polling, and handles sign-out. All endpoints/URLs
     // arrive as `data-*` on `[data-amr-account]` (header.tsx) since this inline
@@ -202,7 +202,7 @@
     if (account) {
       const api = (account.getAttribute('data-amr-api') || '').replace(/\/$/, '');
       const loginUrl = account.getAttribute('data-amr-login') || '';
-      // Localized Design For AIR homepage — where the user lands after a
+      // Localized design for air homepage — where the user lands after a
       // successful popup login ("回到官网首页"). Empty disables the redirect.
       const homeUrl = account.getAttribute('data-amr-home') || '';
       const signinEl = account.querySelector('[data-amr-signin]');

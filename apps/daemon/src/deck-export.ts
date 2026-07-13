@@ -148,7 +148,7 @@ export async function buildScreenshotPptx(
     pptx.defineLayout({ name: 'OD_DECK', width: PPTX_SLIDE_WIDTH_IN, height });
     pptx.layout = 'OD_DECK';
   }
-  pptx.author = 'Design For AIR';
+  pptx.author = 'design for air';
   if (opts.title) pptx.title = opts.title;
   pptx.subject = 'Screenshot-based PPTX';
   for (const img of images) {

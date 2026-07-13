@@ -1,6 +1,6 @@
 targetScope = 'resourceGroup'
 
-@description('Azure region for the Design For AIR container group and storage account.')
+@description('Azure region for the design for air container group and storage account.')
 param location string = resourceGroup().location
 
 @description('Container group name.')
@@ -9,11 +9,11 @@ param containerGroupName string = 'open-design'
 @description('DNS label for the Azure Container Instances upstream endpoint. Must be unique in the selected region.')
 param dnsNameLabel string = toLower('open-design-${uniqueString(resourceGroup().id, location)}')
 
-@description('Design For AIR container image.')
+@description('design for air container image.')
 param image string = 'ghcr.io/nexu-io/od:latest'
 
 @secure()
-@description('Required Design For AIR API token. Generate with: openssl rand -hex 32')
+@description('Required design for air API token. Generate with: openssl rand -hex 32')
 param odApiToken string
 
 @description('Comma-separated browser-visible origins allowed by the daemon. Set this to the authenticated reverse proxy origin, for example https://od.example.com.')
@@ -30,7 +30,7 @@ param cpuCores int = 1
 @minValue(1)
 param memoryInGB int = 1
 
-@description('Azure Files share quota in GiB for persistent Design For AIR data.')
+@description('Azure Files share quota in GiB for persistent design for air data.')
 @minValue(1)
 @maxValue(5120)
 param fileShareQuotaGB int = 10

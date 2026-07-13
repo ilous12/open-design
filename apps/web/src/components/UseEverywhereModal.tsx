@@ -1,4 +1,4 @@
-// Use Design For AIR Everywhere — modal entry that documents Design For AIR's
+// Use design for air Everywhere — modal entry that documents design for air's
 // non-UI surfaces (CLI, MCP, HTTP, Skills) and ships a one-click "copy
 // guide for an agent" payload. Reachable from the entry top-bar and
 // from Settings → Integrations as a sibling of the existing MCP install
@@ -49,7 +49,7 @@ interface Props {
   onOpenSettings?: () => void;
   /** Live daemon URL when known (e.g. http://127.0.0.1:7456). */
   daemonUrl?: string;
-  /** Optional Design For AIR version string surfaced in the agent guide header. */
+  /** Optional design for air version string surfaced in the agent guide header. */
   versionHint?: string;
 }
 

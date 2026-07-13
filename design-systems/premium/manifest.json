@@ -3,10 +3,10 @@
   "id": "premium",
   "name": "Premium",
   "category": "Professional & Corporate",
-  "description": "Bundled Design For AIR package for Premium, derived from curated DESIGN.md, tokens.css, and components.html fixtures.",
+  "description": "Bundled design for air package for Premium, derived from curated DESIGN.md, tokens.css, and components.html fixtures.",
   "source": {
     "type": "bundled",
-    "origin": "Design For AIR curated bundled fixture"
+    "origin": "design for air curated bundled fixture"
   },
   "files": {
     "design": "DESIGN.md",

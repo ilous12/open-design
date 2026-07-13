@@ -21,7 +21,7 @@ export const ES_ES_SKILL_COPY: Record<string, { description?: string; examplePro
   },
   'agent-browser': {
     description:
-      'CLI de automatización de navegador para agentes de IA. Úsalo cuando el usuario necesite inspeccionar,\nprobar o automatizar el comportamiento del navegador: navegar por páginas, rellenar formularios,\nhacer clic en botones, tomar capturas de pantalla, extraer datos de páginas, leer el contexto\nseleccionado de pestañas del navegador en Design For AIR, probar aplicaciones web, hacer dogfooding de\nlas previsualizaciones de Design For AIR, QA, búsqueda de errores o revisar la calidad de la aplicación. Prioriza las URL\nde previsualización locales de Design For AIR salvo que el usuario pida explícitamente navegación externa.',
+      'CLI de automatización de navegador para agentes de IA. Úsalo cuando el usuario necesite inspeccionar,\nprobar o automatizar el comportamiento del navegador: navegar por páginas, rellenar formularios,\nhacer clic en botones, tomar capturas de pantalla, extraer datos de páginas, leer el contexto\nseleccionado de pestañas del navegador en design for air, probar aplicaciones web, hacer dogfooding de\nlas previsualizaciones de design for air, QA, búsqueda de errores o revisar la calidad de la aplicación. Prioriza las URL\nde previsualización locales de design for air salvo que el usuario pida explícitamente navegación externa.',
     examplePrompt:
       'CLI de automatización de navegador para agentes de IA.',
   },
@@ -849,7 +849,7 @@ export const ES_ES_SKILL_COPY: Record<string, { description?: string; examplePro
   },
   'ui-ux-pro-max': {
     description:
-      'Entrada de UI/UX Pro Max solo de catálogo. Las plantillas, datos y flujo de búsqueda originales completos no se incluyen en Design For AIR.',
+      'Entrada de UI/UX Pro Max solo de catálogo. Las plantillas, datos y flujo de búsqueda originales completos no se incluyen en design for air.',
     examplePrompt:
       'Entrada de UI/UX Pro Max solo de catálogo.',
   },

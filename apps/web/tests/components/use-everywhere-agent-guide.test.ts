@@ -6,7 +6,7 @@ import { GUIDE_SECTIONS } from '../../src/components/use-everywhere/sections';
 describe('buildAgentGuideMarkdown', () => {
   it('emits a top-level header and the setup checklist by default', () => {
     const md = buildAgentGuideMarkdown();
-    expect(md).toMatch(/^# Design For AIR — agent setup guide/);
+    expect(md).toMatch(/^# design for air — agent setup guide/);
     expect(md).toContain('## Setup checklist');
     expect(md).toContain('http://127.0.0.1:7456/api/health');
     expect(md).toContain('http://127.0.0.1:7456/api/mcp/install-info');
@@ -58,13 +58,13 @@ describe('buildAgentGuideMarkdown', () => {
       versionHint: '0.42.0',
       cliHint: '/usr/local/bin/od',
     });
-    expect(md).toContain('Reported Design For AIR version: `0.42.0`');
+    expect(md).toContain('Reported design for air version: `0.42.0`');
     expect(md).toContain('The user reported `od` at: `/usr/local/bin/od`');
   });
 
   it('omits hint sentences when the corresponding option is not provided', () => {
     const md = buildAgentGuideMarkdown();
-    expect(md).not.toContain('Reported Design For AIR version');
+    expect(md).not.toContain('Reported design for air version');
     expect(md).not.toContain('The user reported `od` at');
   });
 
@@ -79,24 +79,24 @@ describe('buildAgentGuideMarkdown', () => {
     const md = buildAgentGuideMarkdown({
       daemonUrl: 'http://127.0.0.1:7456',
       mcpInstallInfo: {
-        command: 'C:\\Program Files\\Design For AIR\\Design For AIR.exe',
+        command: 'C:\\Program Files\\design for air\\design for air.exe',
         args: [
-          'C:\\Program Files\\Design For AIR\\resources\\app\\apps\\daemon\\dist\\cli.js',
+          'C:\\Program Files\\design for air\\resources\\app\\apps\\daemon\\dist\\cli.js',
           'mcp',
         ],
         env: {
           ELECTRON_RUN_AS_NODE: '1',
-          OD_DATA_DIR: 'C:\\Users\\Ada\\AppData\\Roaming\\Design For AIR',
+          OD_DATA_DIR: 'C:\\Users\\Ada\\AppData\\Roaming\\design for air',
         },
       },
     });
 
-    expect(md).toContain('"command": "C:\\\\Program Files\\\\Design For AIR\\\\Design For AIR.exe"');
+    expect(md).toContain('"command": "C:\\\\Program Files\\\\design for air\\\\design for air.exe"');
     expect(md).toContain(
-      '"C:\\\\Program Files\\\\Design For AIR\\\\resources\\\\app\\\\apps\\\\daemon\\\\dist\\\\cli.js"',
+      '"C:\\\\Program Files\\\\design for air\\\\resources\\\\app\\\\apps\\\\daemon\\\\dist\\\\cli.js"',
     );
     expect(md).toContain('"ELECTRON_RUN_AS_NODE": "1"');
-    expect(md).toContain('"OD_DATA_DIR": "C:\\\\Users\\\\Ada\\\\AppData\\\\Roaming\\\\Design For AIR"');
+    expect(md).toContain('"OD_DATA_DIR": "C:\\\\Users\\\\Ada\\\\AppData\\\\Roaming\\\\design for air"');
     expect(md).not.toContain('"command": "od"');
   });
 
@@ -104,19 +104,19 @@ describe('buildAgentGuideMarkdown', () => {
     const md = buildAgentGuideMarkdown({
       daemonUrl: 'http://127.0.0.1:7456',
       mcpInstallInfo: {
-        command: 'C:\\Program Files\\Design For AIR\\Design For AIR.exe',
+        command: 'C:\\Program Files\\design for air\\design for air.exe',
         args: [
-          'C:\\Program Files\\Design For AIR\\resources\\app\\apps\\daemon\\dist\\cli.js',
+          'C:\\Program Files\\design for air\\resources\\app\\apps\\daemon\\dist\\cli.js',
           'mcp',
         ],
         env: {
           ELECTRON_RUN_AS_NODE: '1',
-          OD_DATA_DIR: 'C:\\Users\\Ada\\AppData\\Roaming\\Design For AIR',
+          OD_DATA_DIR: 'C:\\Users\\Ada\\AppData\\Roaming\\design for air',
         },
       },
     });
 
-    expect(md).toContain('"command": "C:\\\\Program Files\\\\Design For AIR\\\\Design For AIR.exe"');
+    expect(md).toContain('"command": "C:\\\\Program Files\\\\design for air\\\\design for air.exe"');
     expect(md).toContain('"ELECTRON_RUN_AS_NODE": "1"');
     expect(md).toContain('od skills list --json');
     expect(md).not.toMatch(/^\s*ELECTRON_RUN_AS_NODE=1\s+OD_DATA_DIR=/m);

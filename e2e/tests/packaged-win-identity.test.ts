@@ -8,7 +8,7 @@ describe("packaged windows smoke identity", () => {
       namespace: "release-stable-win",
       releaseVersion: "0.8.0-prerelease.2",
     })).toEqual({
-      displayName: "Design For AIR Prerelease",
+      displayName: "design for air Prerelease",
       namespaceToken: "release-stable-win",
     });
     expect(releaseAppVersionArgs("0.8.0-prerelease.2")).toEqual(["--app-version", "0.8.0-prerelease.2"]);
@@ -19,14 +19,14 @@ describe("packaged windows smoke identity", () => {
       namespace: "release-stable-win",
       releaseVersion: "0.8.0",
     })).toEqual({
-      displayName: "Design For AIR",
+      displayName: "design for air",
       namespaceToken: "release-stable-win",
     });
     expect(resolvePackagedWinInstallIdentity({
       namespace: "default",
       releaseVersion: undefined,
     })).toEqual({
-      displayName: "Design For AIR",
+      displayName: "design for air",
       namespaceToken: "default",
     });
   });
@@ -35,11 +35,11 @@ describe("packaged windows smoke identity", () => {
     expect(resolvePackagedWinInstallIdentity({
       namespace: "release-stable-win",
       releaseVersion: "0.8.0-preview.1",
-    }).displayName).toBe("Design For AIR Preview");
+    }).displayName).toBe("design for air Preview");
     expect(resolvePackagedWinInstallIdentity({
       namespace: "release-beta-win",
       releaseVersion: undefined,
-    }).displayName).toBe("Design For AIR Beta");
+    }).displayName).toBe("design for air Beta");
   });
 
   it("[P2] keeps ad hoc namespaces isolated from release channel identities", () => {
@@ -47,7 +47,7 @@ describe("packaged windows smoke identity", () => {
       namespace: "beta-local-flow",
       releaseVersion: undefined,
     })).toEqual({
-      displayName: "Design For AIR beta-local-flow",
+      displayName: "design for air beta-local-flow",
       namespaceToken: "beta-local-flow",
     });
     expect(releaseAppVersionArgs("   ")).toEqual([]);

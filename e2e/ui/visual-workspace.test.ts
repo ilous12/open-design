@@ -71,7 +71,7 @@ test('[P2] captures the topbar execution switcher surface', async ({ page }) => 
   );
 });
 
-test('[P1] captures the topbar Design For AIR account balance surface', async ({ page }) => {
+test('[P1] captures the topbar design for air account balance surface', async ({ page }) => {
   test.setTimeout(60_000);
 
   await configureVisualPage(page, {
@@ -98,7 +98,7 @@ test('[P1] captures the topbar Design For AIR account balance surface', async ({
   expect(codexBox).toBeTruthy();
   expect(amrBox!.y).toBeLessThan(claudeBox!.y);
   expect(amrBox!.y).toBeLessThan(codexBox!.y);
-  await expect(popover.locator('.inline-switcher__account')).toContainText('Design For AIR');
+  await expect(popover.locator('.inline-switcher__account')).toContainText('design for air');
   await expect(popover.locator('.inline-switcher__account')).toContainText('plus');
   await expect(popover.locator('.inline-switcher__account')).toContainText('$247.51');
   const upgrade = page.getByTestId('inline-model-switcher-account-upgrade');
@@ -225,7 +225,7 @@ test('[P1] Avatar menu surfaces the signed-in plan/balance and upgrade entry', a
     'avatar-agent-option-codex',
   ]);
   const row = menu.locator('.avatar-amr-row');
-  await expect(row).toContainText('Design For AIR');
+  await expect(row).toContainText('design for air');
   await expect(row).toContainText('Plus');
   await expect(row).toContainText('$247.51');
   const upgrade = row.locator('.avatar-amr-row__upgrade');

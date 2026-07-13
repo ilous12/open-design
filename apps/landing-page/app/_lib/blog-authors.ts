@@ -1,7 +1,7 @@
 /*
  * Blog author registry.
  *
- * Authors are Design For AIR *team personas* — recurring bylines attributed to the
+ * Authors are design for air *team personas* — recurring bylines attributed to the
  * team, NOT impersonations of independent outside experts. A post opts in via
  * the optional `author: <id>` frontmatter field; posts without it render no
  * byline (unchanged behaviour). Avatars are warm editorial portrait
@@ -19,22 +19,22 @@ export const BLOG_AUTHORS: Record<string, BlogAuthor> = {
   'mira-zhao': {
     id: 'mira-zhao',
     name: 'Mira Zhao',
-    role: 'Design Engineer, Design For AIR',
-    bio: 'Works on the design-to-code pipeline at Design For AIR and writes about agentic design workflows.',
+    role: 'Design Engineer, design for air',
+    bio: 'Works on the design-to-code pipeline at design for air and writes about agentic design workflows.',
     avatar: '/blog/authors/mira-zhao.webp',
   },
   'theo-lindqvist': {
     id: 'theo-lindqvist',
     name: 'Theo Lindqvist',
-    role: 'Product, Design For AIR',
-    bio: 'Product at Design For AIR, focused on BYOK and the open plugin ecosystem.',
+    role: 'Product, design for air',
+    bio: 'Product at design for air, focused on BYOK and the open plugin ecosystem.',
     avatar: '/blog/authors/theo-lindqvist.webp',
   },
   'nadia-haddad': {
     id: 'nadia-haddad',
     name: 'Nadia Haddad',
-    role: 'Design Systems, Design For AIR',
-    bio: 'Works on design systems and developer experience at Design For AIR.',
+    role: 'Design Systems, design for air',
+    bio: 'Works on design systems and developer experience at design for air.',
     avatar: '/blog/authors/nadia-haddad.webp',
   },
 };

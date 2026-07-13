@@ -21,14 +21,14 @@
     "uk": "Поділитися зі спільнотою"
   },
   "version": "0.1.0",
-  "description": "Package the work the user just finished into an Design For AIR plugin and route them to the existing Add-to-My-plugins / Open-Design-PR buttons. Triggered by the post-completion 'Share to Design For AIR' submission action.",
+  "description": "Package the work the user just finished into an design for air plugin and route them to the existing Add-to-My-plugins / Open-Design-PR buttons. Triggered by the post-completion 'Share to design for air' submission action.",
   "description_i18n": {
-    "en": "Package the work the user just finished into an Design For AIR plugin and route them to the existing Add-to-My-plugins / Open-Design-PR buttons. Triggered by the post-completion 'Share to Design For AIR' submission action.",
-    "zh-CN": "把用户刚做完的作品打包成 Design For AIR 插件,然后引导他们点已有的 Add to My plugins / Design For AIR PR 按钮。由生成完成后的 'Share to Design For AIR' 投稿操作触发。"
+    "en": "Package the work the user just finished into an design for air plugin and route them to the existing Add-to-My-plugins / Open-Design-PR buttons. Triggered by the post-completion 'Share to design for air' submission action.",
+    "zh-CN": "把用户刚做完的作品打包成 design for air 插件,然后引导他们点已有的 Add to My plugins / design for air PR 按钮。由生成完成后的 'Share to design for air' 投稿操作触发。"
   },
   "license": "MIT",
   "author": {
-    "name": "Design For AIR",
+    "name": "design for air",
     "url": "https://github.com/nexu-io"
   },
   "homepage": "https://github.com/nexu-io/open-design/tree/main/plugins/_official/scenarios/od-share-to-community",
@@ -77,8 +77,8 @@
     ],
     "useCase": {
       "query": {
-        "en": "Package the work I just finished in this project as an Design For AIR plugin so I can install it into My plugins and open a PR to the Design For AIR community catalog. Auto-derive the manifest from what's already in the project — don't ask me for fields the project files already answer.",
-        "zh-CN": "把我在这个 project 里刚做完的作品打包成一个 Design For AIR 插件,让我可以安装到 My plugins 并提交 PR 到 Design For AIR 社区。manifest 从项目里已有的内容自动推断,别问我已经能从文件里看出来的字段。"
+        "en": "Package the work I just finished in this project as an design for air plugin so I can install it into My plugins and open a PR to the design for air community catalog. Auto-derive the manifest from what's already in the project — don't ask me for fields the project files already answer.",
+        "zh-CN": "把我在这个 project 里刚做完的作品打包成一个 design for air 插件,让我可以安装到 My plugins 并提交 PR 到 design for air 社区。manifest 从项目里已有的内容自动推断,别问我已经能从文件里看出来的字段。"
       }
     }
   }

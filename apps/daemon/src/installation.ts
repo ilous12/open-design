@@ -23,9 +23,9 @@
 //
 // Locations:
 //
-//   packaged (mac):    ~/Library/Application Support/Design For AIR Prerelease/installation.json
-//   packaged (win):    %APPDATA%/Design For AIR Prerelease/installation.json
-//   packaged (linux):  $XDG_CONFIG_HOME/Design For AIR Prerelease/installation.json
+//   packaged (mac):    ~/Library/Application Support/design for air Prerelease/installation.json
+//   packaged (win):    %APPDATA%/design for air Prerelease/installation.json
+//   packaged (linux):  $XDG_CONFIG_HOME/design for air Prerelease/installation.json
 //   tools-dev / OSS:   <dataDir>/installation.json  (no namespace concept; fall back to dataDir)
 //
 // `OD_INSTALLATION_DIR` is the env override. Packaged sidecars.ts sets it

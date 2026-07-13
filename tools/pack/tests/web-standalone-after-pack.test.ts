@@ -112,9 +112,9 @@ async function runFixture(options: {
   const platformName = options.platformName ?? "win32";
   const appOutDir = join(root, "builder", platformName === "darwin" ? "mac-arm64" : "win-unpacked");
   const resourcesRoot = platformName === "darwin"
-    ? join(appOutDir, "Design For AIR.app", "Contents", "Resources")
+    ? join(appOutDir, "design for air.app", "Contents", "Resources")
     : join(appOutDir, "resources");
-  const appPath = join(appOutDir, "Design For AIR.app");
+  const appPath = join(appOutDir, "design for air.app");
   const auditReportPath = join(root, "audit.json");
   const configPath = join(root, "config.json");
   const oldConfigEnv = process.env[CONFIG_ENV];
@@ -132,7 +132,7 @@ async function runFixture(options: {
     await writeFile(join(electronFrameworkRoot, "Versions", "A", "Helpers", "chrome_crashpad_handler"), "binary\n", "utf8");
     await writeFile(join(electronFrameworkRoot, "Versions", "Current", "Electron Framework"), "binary\n", "utf8");
     await mkdir(join(frameworksRoot, "ReactiveObjC.framework"), { recursive: true });
-    await mkdir(join(frameworksRoot, "Design For AIR Helper.app"), { recursive: true });
+    await mkdir(join(frameworksRoot, "design for air Helper.app"), { recursive: true });
   }
   if (options.omitRootWebPackage !== true) {
     await writeRootWebPackage(resourcesRoot);
@@ -167,7 +167,7 @@ async function runFixture(options: {
     await runWebStandaloneAfterPack({
       appOutDir,
       electronPlatformName: platformName,
-      packager: { appInfo: { productFilename: "Design For AIR" } },
+      packager: { appInfo: { productFilename: "design for air" } },
     });
   } catch (error) {
     await rm(root, { force: true, recursive: true });
@@ -325,15 +325,15 @@ describe("web standalone afterPack hook", () => {
         expect.arrayContaining([
           expect.stringMatching(/Electron Framework\.framework\/Versions\/Current$/),
           expect.stringMatching(/ReactiveObjC\.framework$/),
-          expect.stringMatching(/Design For AIR Helper\.app$/),
-          expect.stringMatching(/Design For AIR\.app$/),
+          expect.stringMatching(/design for air Helper\.app$/),
+          expect.stringMatching(/design for air\.app$/),
         ]),
       );
       expect(signedTargets).not.toContainEqual(expect.stringMatching(/Electron Framework\.framework$/));
       await expect(
         readlink(join(
           fixture.appOutDir,
-          "Design For AIR.app",
+          "design for air.app",
           "Contents",
           "Frameworks",
           "Electron Framework.framework",
@@ -344,7 +344,7 @@ describe("web standalone afterPack hook", () => {
       await expect(
         readlink(join(
           fixture.appOutDir,
-          "Design For AIR.app",
+          "design for air.app",
           "Contents",
           "Frameworks",
           "Electron Framework.framework",
@@ -354,7 +354,7 @@ describe("web standalone afterPack hook", () => {
       await expect(
         readlink(join(
           fixture.appOutDir,
-          "Design For AIR.app",
+          "design for air.app",
           "Contents",
           "Frameworks",
           "Electron Framework.framework",

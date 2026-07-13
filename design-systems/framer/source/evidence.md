@@ -2,7 +2,7 @@
 
 ## Source Scope
 
-This Design System 2.0 backfill is derived from the curated Design For AIR bundled fixture.
+This Design System 2.0 backfill is derived from the curated design for air bundled fixture.
 It does not claim a fresh crawl of the original upstream brand repository or website.
 
 ## Included Fixture Files

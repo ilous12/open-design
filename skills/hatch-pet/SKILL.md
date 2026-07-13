@@ -30,8 +30,8 @@ od:
 
 # Hatch Pet
 
-> **Design For AIR integration.** This is the unmodified Codex `hatch-pet` skill,
-> vendored under `skills/hatch-pet/` so any Design For AIR agent can run it. After
+> **design for air integration.** This is the unmodified Codex `hatch-pet` skill,
+> vendored under `skills/hatch-pet/` so any design for air agent can run it. After
 > the skill finishes packaging, the resulting `spritesheet.webp` (under
 > `${CODEX_HOME:-$HOME/.codex}/pets/<pet-name>/`) can be imported into the
 > floating pet companion via **Settings → Pets → Import Codex sprite**. The

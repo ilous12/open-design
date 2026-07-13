@@ -74,7 +74,7 @@ describe("resolvePackagedLauncherRuntime", () => {
         root,
         version: "1.2.3-beta.5",
       });
-      const resourcesPath = join(versionPaths.payloadRoot, "Design For AIR Beta.app", "Contents", "Resources");
+      const resourcesPath = join(versionPaths.payloadRoot, "design for air Beta.app", "Contents", "Resources");
       await mkdir(join(resourcesPath, "nn.design", "bin"), { recursive: true });
       await mkdir(join(resourcesPath, "prebundled", "daemon"), { recursive: true });
       await mkdir(join(resourcesPath, "prebundled", "web"), { recursive: true });
@@ -96,8 +96,8 @@ describe("resolvePackagedLauncherRuntime", () => {
         `${JSON.stringify({
           channel: "beta",
           entry: {
-            cwd: "payload/Design For AIR Beta.app",
-            executable: "payload/Design For AIR Beta.app/Contents/MacOS/Design For AIR Beta",
+            cwd: "payload/design for air Beta.app",
+            executable: "payload/design for air Beta.app/Contents/MacOS/design for air Beta",
           },
           namespace: config.namespace,
           payloadRoot: "payload",
@@ -121,7 +121,7 @@ describe("resolvePackagedLauncherRuntime", () => {
         join(paths.installationRoot, "launcher", "channels", "beta", "namespaces", config.namespace, "install.json"),
         `${JSON.stringify({
           channel: "beta",
-          launchPath: "/Applications/Design For AIR Beta.app",
+          launchPath: "/Applications/design for air Beta.app",
           namespace: config.namespace,
           schemaVersion: LAUNCHER_SCHEMA_VERSION,
         })}\n`,
@@ -131,7 +131,7 @@ describe("resolvePackagedLauncherRuntime", () => {
 
       expect(runtime.source).toBe("payload");
       expect(runtime.electronNodeCommand).toBeNull();
-      expect(runtime.installedLaunchPath).toBe("/Applications/Design For AIR Beta.app");
+      expect(runtime.installedLaunchPath).toBe("/Applications/design for air Beta.app");
       expect(runtime.targetVersion).toBe("1.2.3-beta.5");
       expect(runtime.config.appVersion).toBe("1.2.3-beta.5");
       expect(runtime.config.resourceRoot).toBe(join(resourcesPath, "nn.design"));
@@ -170,7 +170,7 @@ describe("resolvePackagedLauncherRuntime", () => {
         version: "1.2.3-beta.5",
       });
       const resourcesPath = join(versionPaths.versionRoot, "payload", "resources");
-      const payloadExePath = join(versionPaths.versionRoot, "payload", "Design For AIR.exe");
+      const payloadExePath = join(versionPaths.versionRoot, "payload", "design for air.exe");
       const webStandaloneRoot = join(resourcesPath, "nn.design-web-standalone");
       await mkdir(join(resourcesPath, "prebundled", "daemon"), { recursive: true });
       await mkdir(join(resourcesPath, "prebundled", "web"), { recursive: true });
@@ -194,7 +194,7 @@ describe("resolvePackagedLauncherRuntime", () => {
           channel: "beta",
           entry: {
             cwd: "payload",
-            executable: "payload/Design For AIR.exe",
+            executable: "payload/design for air.exe",
           },
           namespace: config.namespace,
           payloadRoot: "payload",

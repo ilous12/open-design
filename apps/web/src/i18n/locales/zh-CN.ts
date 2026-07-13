@@ -3,7 +3,7 @@ import type { Dict } from "../types";
 export const zhCN: Dict = {
   "chat.amrCard.switchTitle": "模型调用失败，当前任务已暂停",
   "chat.amrCard.switchBody":
-    "可切换到 Design For AIR 官方 AMR 模型服务，无需配置 API Key。完成登录、授权和充值后，将自动重试当前任务。",
+    "可切换到 design for air 官方 AMR 模型服务，无需配置 API Key。完成登录、授权和充值后，将自动重试当前任务。",
   "chat.amrCard.chipOfficial": "官方托管",
   "chat.amrCard.chipNoKey": "无需 API Key",
   "chat.amrCard.chipAutoRetry": "授权后自动重试",
@@ -25,9 +25,9 @@ export const zhCN: Dict = {
   "chat.runError.title.rateLimited": "已达用量上限",
   "chat.runError.title.generic": "任务执行失败",
   "chat.runError.signInMessage.amr":
-    "Design For AIR 智能体尚未登录，前往登录即可正常使用",
+    "design for air 智能体尚未登录，前往登录即可正常使用",
   "chat.runError.signInMessage.other":
-    "{agent}尚未登录，请本地检查登录状态。推荐使用 Design For AIR 智能体，更稳定划算",
+    "{agent}尚未登录，请本地检查登录状态。推荐使用 design for air 智能体，更稳定划算",
   "chat.runError.agentFallback": "智能体",
   "chat.runError.sourceLabel": "报错源码",
   "chat.runError.sourceExpandAria": "展开报错源码",
@@ -57,7 +57,7 @@ export const zhCN: Dict = {
   "chat.referenceProject.loadFailed": "无法加载项目。请确认 daemon 正在运行后重试。",
   "chat.referenceProject.confirm": "引用项目",
   "chat.contextPrompt.referenceProject":
-    "请把 Design For AIR 项目“{name}”作为参考上下文。它的本地路径是：{path}。在设计或修改前，如有帮助请先搜索并读取这个目录。",
+    "请把 design for air 项目“{name}”作为参考上下文。它的本地路径是：{path}。在设计或修改前，如有帮助请先搜索并读取这个目录。",
   "chat.contextPrompt.localCode":
     "请把本地代码目录“{name}”作为代码参考。它的绝对路径是：{path}。如有帮助请先读取相关文件，并与现有实现保持一致。",
   "chat.figmaHelp.title": "如何下载 .fig 文件",
@@ -140,22 +140,22 @@ export const zhCN: Dict = {
   "plugins.actions.openSource": "打开源码",
   "plugins.actions.openHomepage": "打开项目主页",
   "plugins.actions.openMarketplace": "在插件市场打开",
-  "app.brand": "Design For AIR",
+  "app.brand": "design for air",
   "app.brandPill": "研究预览版",
   "app.brandSubtitle": "由 Nexu Labs 出品",
   "app.welcomeLoading": "正在加载工作区…",
   "settings.welcomeKicker": "",
-  "settings.welcomeTitle": "欢迎使用 Design For AIR",
+  "settings.welcomeTitle": "欢迎使用 design for air",
   "settings.welcomeSubtitle": "",
   "settings.onboardingCreateTitle": "从一句需求开始",
   "settings.onboardingCreateBody":
-    "描述你想做的网站、应用、Deck、图片或视频，Design For AIR 会创建项目，并保留可继续编辑的产物。",
+    "描述你想做的网站、应用、Deck、图片或视频，design for air 会创建项目，并保留可继续编辑的产物。",
   "settings.onboardingMemoryTitle": "保存工作上下文",
   "settings.onboardingMemoryBody":
     "把偏好、项目事实和长期规则写入 Memory，后续对话会自动带上正确背景。",
   "settings.onboardingMemoryCalloutTitle": "已保存到你的记忆",
   "settings.onboardingMemoryCalloutBody":
-    "这些回答会构成你的记忆画像。Design For AIR 会在每个任务中复用它，并在你工作时持续学习。",
+    "这些回答会构成你的记忆画像。design for air 会在每个任务中复用它，并在你工作时持续学习。",
   "settings.onboardingMemoryBenefitIntent": "从一句简短需求就能理解你的意图",
   "settings.onboardingMemoryBenefitFewerQuestions": "跳过重复的设置提问",
   "settings.onboardingMemoryBenefitPersonalized":
@@ -186,10 +186,10 @@ export const zhCN: Dict = {
     "留下邮箱，接收产品更新、新模板、设计系统资源和社区活动。",
   "settings.onboardingConnectTitle": "选择运行方式",
   "settings.onboardingConnectBody": "",
-  "settings.onboardingCloudTitle": "登录 Design For AIR",
+  "settings.onboardingCloudTitle": "登录 design for air",
   "settings.onboardingCloudBody":
     "登录后可直接用云端 AI 开始设计，无需任何复杂配置。",
-  "settings.onboardingCloudSignIn": "登录 Design For AIR 云端",
+  "settings.onboardingCloudSignIn": "登录 design for air 云端",
   "settings.onboardingCloudContinue": "继续（已登录）",
   "settings.onboardingCloudAlternative": "使用本地 CLI 或自己的 API Key",
   'settings.onboardingCloudRights': 'All rights reserved.',
@@ -197,7 +197,7 @@ export const zhCN: Dict = {
   "settings.onboardingGateTooltipNoRuntime":
     "后续流程由 AI 运行，请先选择一种运行方式。",
   "settings.onboardingGateTooltipAmr":
-    "后续流程由 AI 运行，请先登录 Design For AIR AMR。",
+    "后续流程由 AI 运行，请先登录 design for air AMR。",
   "settings.onboardingGateTooltipLocal":
     "后续流程由 AI 运行，请先选择一个可用的本地 CLI。",
   "settings.onboardingGateTooltipByok":
@@ -323,11 +323,11 @@ export const zhCN: Dict = {
   "settings.agentInstall.install": "安装",
   "settings.agentInstall.docs": "文档",
   "settings.agentInstall.pathHint":
-    "如果你通过 npm 或 Homebrew 安装了 CLI，但仍显示为未安装，请确认该工具的 bin 目录已加入 Design For AIR daemon 继承的 PATH（在 macOS 上，Terminal 与 GUI 应用的 PATH 可能不同）。请参阅 QUICKSTART.md（“Local agent CLI and PATH” 章节）。",
+    "如果你通过 npm 或 Homebrew 安装了 CLI，但仍显示为未安装，请确认该工具的 bin 目录已加入 design for air daemon 继承的 PATH（在 macOS 上，Terminal 与 GUI 应用的 PATH 可能不同）。请参阅 QUICKSTART.md（“Local agent CLI and PATH” 章节）。",
   "settings.agentInstall.stepOpenLinks":
     "在目标代理卡片上打开“安装”或“文档”链接。",
   "settings.agentInstall.stepAuth":
-    "返回 Design For AIR 之前，请先在对应 CLI 中完成认证（登录或添加 API 凭据）。",
+    "返回 design for air 之前，请先在对应 CLI 中完成认证（登录或添加 API 凭据）。",
   "settings.agentInstall.stepRescan": "在此区域点击“重新扫描”。",
   "settings.agentInstall.stepSelect": "当代理显示为已安装后，选择该代理卡片。",
   "settings.noAgentsDetected":
@@ -336,7 +336,7 @@ export const zhCN: Dict = {
   "settings.agentInstallGroup": "可安装（{count}）",
   "settings.agentAuthRequired": "需要认证",
   "settings.agentAuthUnknown": "认证状态未知",
-  "settings.amrCloud": "Design For AIR AMR",
+  "settings.amrCloud": "design for air AMR",
   "settings.amrAuthorize": "授权",
   "settings.amrBenefitOfficial": "官方推荐",
   "settings.amrBenefitLowerPrice": "免部署即用",
@@ -472,7 +472,7 @@ export const zhCN: Dict = {
     "图片、视频、音频生成的 API key。存于本机并同步到本地守护进程。",
   "settings.mcpServerTitle": "MCP 服务器",
   "settings.mcpServerHint":
-    "将 Design For AIR 作为 MCP 服务器暴露给你的编码代理。",
+    "将 design for air 作为 MCP 服务器暴露给你的编码代理。",
   "settings.externalMcpTitle": "外部 MCP",
   "settings.externalMcpHint":
     "接入外部服务的 MCP 工具（Higgsfield、GitHub 等）。",
@@ -495,10 +495,10 @@ export const zhCN: Dict = {
   "settings.mediaProviderComingSoonHint":
     "我们在路线图中跟踪这些提供方；守护进程尚未提供客户端，因此暂无可配置项。",
   "settings.privacy": "隐私",
-  "settings.privacyHint": "与 Design For AIR 团队共享哪些数据",
-  "settings.privacyConsentKicker": "帮助我们改进 Design For AIR",
+  "settings.privacyHint": "与 design for air 团队共享哪些数据",
+  "settings.privacyConsentKicker": "帮助我们改进 design for air",
   "settings.privacyConsentLead":
-    "Design For AIR 可以将使用数据共享给我们的团队以协助改进。包括:",
+    "design for air 可以将使用数据共享给我们的团队以协助改进。包括:",
   "settings.privacyConsentFooter": "你可以随时在 设置 → 隐私 中修改这些选项。",
   "settings.privacyConsentShare": "分享使用数据",
   "settings.privacyConsentDecline": "不分享",
@@ -531,9 +531,9 @@ export const zhCN: Dict = {
   "settings.alreadyLatest": "当前为最新版本",
   "settings.mcpTitle": "MCP 服务器",
   "settings.mcpHint":
-    "让其他仓库中的编码助手（Claude Code、Cursor、VS Code、Antigravity、Zed、Windsurf）读取你的 Design For AIR 项目。无需先导出 zip，即可将设计拉取到你的应用中。",
+    "让其他仓库中的编码助手（Claude Code、Cursor、VS Code、Antigravity、Zed、Windsurf）读取你的 design for air 项目。无需先导出 zip，即可将设计拉取到你的应用中。",
   "settings.mcpDaemonError":
-    "无法连接到本地守护进程以解析安装路径（{error}）。请确保 Design For AIR 正在运行，然后重新打开此面板。",
+    "无法连接到本地守护进程以解析安装路径（{error}）。请确保 design for air 正在运行，然后重新打开此面板。",
   "settings.mcpBuildDaemon": "请先构建守护进程。",
   "settings.mcpNodeMissing": "Node 二进制文件缺失。",
   "settings.mcpBuildHint":
@@ -579,9 +579,9 @@ export const zhCN: Dict = {
   "settings.mcpCapabilityPull":
     "一次调用拉取设计包：入口文件及其引用的所有 CSS 变量、组件和字体。",
   "settings.mcpCapabilityDefault":
-    '默认使用你在 Design For AIR 中打开的项目和文件，因此你可以直接说"在我的应用中构建这个"，无需重复说明是哪个设计。',
+    '默认使用你在 design for air 中打开的项目和文件，因此你可以直接说"在我的应用中构建这个"，无需重复说明是哪个设计。',
   "settings.mcpRunningNote":
-    "Design For AIR 必须处于运行状态，MCP 工具调用才能成功。如果你在打开 Design For AIR 之前启动了编码助手，请重启助手以便它能连接到正在运行的守护进程。",
+    "design for air 必须处于运行状态，MCP 工具调用才能成功。如果你在打开 design for air 之前启动了编码助手，请重启助手以便它能连接到正在运行的守护进程。",
   "entry.tabDesigns": "我的设计",
   "entry.tabTemplates": "模板",
   "entry.tabDesignSystems": "设计体系",
@@ -589,15 +589,15 @@ export const zhCN: Dict = {
   "entry.openSettingsTitle": "设置",
   "entry.openSettingsAria": "打开设置",
   "entry.discordLabel": "加入 Discord",
-  "entry.discordAria": "加入 Design For AIR Discord",
-  "entry.discordAriaWithOnline": "加入 Design For AIR Discord - {online}",
+  "entry.discordAria": "加入 design for air Discord",
+  "entry.discordAriaWithOnline": "加入 design for air Discord - {online}",
   "entry.discordOnlineLabel": "{count} 在线",
   "entry.followXLabel": "在 X 上关注 @OpenDesignHQ",
-  "entry.followThreadsLabel": "Follow Design For AIR on Threads",
+  "entry.followThreadsLabel": "Follow design for air on Threads",
   "entry.followInstagramLabel": "在 Instagram 上关注 @opendesign.ai",
-  "entry.followLinkedinLabel": "在 LinkedIn 上关注 Design For AIR",
-  "entry.followXiaohongshuLabel": "在小红书上关注 Design For AIR",
-  "entry.youtubeLabel": "Design For AIR on YouTube",
+  "entry.followLinkedinLabel": "在 LinkedIn 上关注 design for air",
+  "entry.followXiaohongshuLabel": "在小红书上关注 design for air",
+  "entry.youtubeLabel": "design for air on YouTube",
   "entry.resizeAria": "调整侧边栏宽度",
   "entry.loadingWorkspace": "正在加载工作区…",
   "entry.useEverywhereTitle": "随处使用",
@@ -708,7 +708,7 @@ export const zhCN: Dict = {
   "homeHero.chip.createBrandKitHint":
     "从网站提取一个设计系统，然后在任意对话中应用它。",
   "homeHero.chip.createPluginHint":
-    "创作可复用的 Design For AIR 插件，并添加到我的插件。",
+    "创作可复用的 design for air 插件，并添加到我的插件。",
   "homeHero.chip.figmaHint": "将 Figma 画框迁移到当前设计体系。",
   "homeHero.chip.folderHint": "导入本地文件夹并继续编辑。",
   "homeHero.chip.templateHint": "从内置模板开始。",
@@ -788,7 +788,7 @@ export const zhCN: Dict = {
   "handoff.copied": "已复制",
   "handoff.projectPathUnavailable": "还没有拿到项目本地路径，请稍后再试。",
   "handoff.copyFailed": "浏览器拒绝写入剪贴板，请稍后再试。",
-  "handoff.promptIntro": "请基于这个 Design For AIR 项目的本地文件夹继续实现：",
+  "handoff.promptIntro": "请基于这个 design for air 项目的本地文件夹继续实现：",
   "handoff.promptTarget": "目标",
   "handoff.promptCli": "CLI",
   "handoff.promptStepsLead": "你现在是在 {cli} 中接手，请：",
@@ -826,12 +826,12 @@ export const zhCN: Dict = {
   "recentProjects.empty": "还没有项目 — 输入 Prompt 即可开始。",
   "pluginsHome.title": "Community",
   "pluginsHome.subtitle":
-    "当前运行环境内置的 Design For AIR 工作流。选择一个加载 starter prompt，或浏览插件市场查看更多。",
+    "当前运行环境内置的 design for air 工作流。选择一个加载 starter prompt，或浏览插件市场查看更多。",
   "pluginsHome.browseRegistry": "浏览插件市场",
   "pluginsHome.count": "{filtered} / {total}",
   "pluginsHome.loadingCatalog": "正在加载目录…",
   "pluginsHome.emptyCatalog":
-    "目录为空。Design For AIR 会随附内置插件，如果这里一直为空，请尝试重启 daemon。",
+    "目录为空。design for air 会随附内置插件，如果这里一直为空，请尝试重启 daemon。",
   "pluginsHome.emptyFiltered": "没有插件匹配当前筛选条件。",
   "pluginsHome.clearFilters": "清除筛选",
   "pluginsHome.modeAria": "插件模式",
@@ -957,14 +957,14 @@ export const zhCN: Dict = {
   "pluginCard.shareAria": "分享 {title}",
   "pluginCard.publishAria": "将 {title} 发布为 GitHub 仓库",
   "pluginCard.publishTitle": "将插件发布为 GitHub 仓库",
-  "pluginCard.contributeAria": "将 {title} 贡献到 Design For AIR",
-  "pluginCard.contributeTitle": "通过 pull request 将插件贡献到 Design For AIR",
+  "pluginCard.contributeAria": "将 {title} 贡献到 design for air",
+  "pluginCard.contributeTitle": "通过 pull request 将插件贡献到 design for air",
   "skillPluginCandidate.createForMe": "",
   "skillPluginCandidate.contributeToMain": "",
   "skillPluginCandidate.repoDescription": "这个仓库看起来可以做成插件。",
   "integrations.kicker": "集成",
   "integrations.lede":
-    "连接外部系统，把 MCP 工具带入智能体循环，并在其它 IDE、脚本和自动化中使用 Design For AIR。",
+    "连接外部系统，把 MCP 工具带入智能体循环，并在其它 IDE、脚本和自动化中使用 design for air。",
   "integrations.agentReady": "智能体就绪",
   "integrations.areasAria": "集成区域",
   "integrations.tabLabel.mcp": "MCP 服务器",
@@ -984,12 +984,12 @@ export const zhCN: Dict = {
   "mcpClient.saveChanges": "保存更改",
   "mcpClient.storedAt": "存储于",
   "mcpClient.daemonError":
-    "无法连接本地 daemon。请确认 Design For AIR 正在运行，然后重新打开此面板。",
+    "无法连接本地 daemon。请确认 design for air 正在运行，然后重新打开此面板。",
   "mcpClient.saveFailed": "保存失败。请检查 daemon 是否正在运行后重试。",
-  "useEverywhere.modalAria": "随处使用 Design For AIR",
-  "useEverywhere.modalTitle": "随处使用 Design For AIR",
+  "useEverywhere.modalAria": "随处使用 design for air",
+  "useEverywhere.modalTitle": "随处使用 design for air",
   "useEverywhere.modalSubtitle":
-    "把 Design For AIR 接入任何 IDE、智能体或脚本：CLI、HTTP、MCP 和 Skills。使用“复制智能体指南”，粘贴到 Claude Code、Codex、Cursor、openclaw 或 hermes 中即可完成配置。",
+    "把 design for air 接入任何 IDE、智能体或脚本：CLI、HTTP、MCP 和 Skills。使用“复制智能体指南”，粘贴到 Claude Code、Codex、Cursor、openclaw 或 hermes 中即可完成配置。",
   "useEverywhere.closeAria": "关闭随处使用",
   "useEverywhere.closeTitle": "关闭 (Esc)",
   "useEverywhere.tabsAria": "集成入口",
@@ -1004,17 +1004,17 @@ export const zhCN: Dict = {
   "useEverywhere.copySnippetAria": "复制代码片段：{label}",
   "useEverywhere.section.overview.tab": "概览",
   "useEverywhere.section.overview.heading":
-    "Design For AIR 可在智能体工作的任何地方运行",
+    "design for air 可在智能体工作的任何地方运行",
   "useEverywhere.section.overview.intro":
-    "Design For AIR 不只是一个窗口；它包含本地特权 daemon（`od`），以及 Skills + Design Systems + Atoms registry。它在你的机器上运行后，任何代码智能体（Claude Code、Codex、Cursor、OpenCode/openclaw、Hermes 或你自己的脚本）都可以通过四种可互换入口驱动生成、检查项目并产出设计制品。",
+    "design for air 不只是一个窗口；它包含本地特权 daemon（`od`），以及 Skills + Design Systems + Atoms registry。它在你的机器上运行后，任何代码智能体（Claude Code、Codex、Cursor、OpenCode/openclaw、Hermes 或你自己的脚本）都可以通过四种可互换入口驱动生成、检查项目并产出设计制品。",
   "useEverywhere.section.overview.bullet1":
     "CLI — 使用 `od <command>` 支持无头脚本、CI 和 shell 自动化。",
   "useEverywhere.section.overview.bullet2":
-    "MCP 服务器 — 将 Design For AIR 作为 Model Context Protocol 服务器接入，使任何支持 MCP 的智能体都能列出技能、运行场景并读取制品。",
+    "MCP 服务器 — 将 design for air 作为 Model Context Protocol 服务器接入，使任何支持 MCP 的智能体都能列出技能、运行场景并读取制品。",
   "useEverywhere.section.overview.bullet3":
     "HTTP API — `http://127.0.0.1:7456/api/*` REST + SSE 端点；与 Web UI 使用同一套接口。",
   "useEverywhere.section.overview.bullet4":
-    "Skills — 可直接放入的 `SKILL.md` 包（兼容 Claude），任何已在 PATH 中的智能体都能调用，甚至不需要打开 Design For AIR。",
+    "Skills — 可直接放入的 `SKILL.md` 包（兼容 Claude），任何已在 PATH 中的智能体都能调用，甚至不需要打开 design for air。",
   "useEverywhere.section.overview.bullet5":
     "标准制品 — 在 daemon 启动前，从 Skills、内置默认插件和社区插件示例中种子生成真实 HTML 项目。",
   "useEverywhere.section.overview.snippet1": "本地启动 daemon（和 Web UI）",
@@ -1023,7 +1023,7 @@ export const zhCN: Dict = {
   "useEverywhere.section.overview.footer":
     "daemon 默认写入项目本地的 `./.od/`。设置 `OD_DATA_DIR=~/.open-design` 可在多个项目间共享数据。",
   "useEverywhere.section.cli.tab": "CLI · od",
-  "useEverywhere.section.cli.heading": "从任意 shell 驱动 Design For AIR",
+  "useEverywhere.section.cli.heading": "从任意 shell 驱动 design for air",
   "useEverywhere.section.cli.intro":
     "`od` 命令随 daemon 一起发布，也是 Claude Code / Codex 运行生成时使用的同一个二进制。多数子命令都是向本地 daemon 发送 POST 的轻量客户端，因此无论你通过 `pnpm tools-dev` 启动，还是通过打包应用启动，行为都一致。",
   "useEverywhere.section.cli.bullet1":
@@ -1050,9 +1050,9 @@ export const zhCN: Dict = {
     "所有子命令都支持 `--daemon-url http://127.0.0.1:<port>`，用于指定某个运行中的 daemon；在测试中运行第二个隔离实例时很有用。",
   "useEverywhere.section.mcp.tab": "MCP 服务器",
   "useEverywhere.section.mcp.heading":
-    "把 Design For AIR 暴露为任意代码智能体可用的 MCP 服务器",
+    "把 design for air 暴露为任意代码智能体可用的 MCP 服务器",
   "useEverywhere.section.mcp.intro":
-    "Design For AIR 内置 Model Context Protocol 服务器（`od mcp`），让任何支持 MCP 的客户端（Cursor、Claude Code、Antigravity、VS Code Copilot Chat、openclaw、hermes）都能发现 Design For AIR 工具（列出技能、渲染预览、生成媒体、运行插件），无需手动 shell 调用。daemon 会通过 `GET /api/mcp/install-info` 为主流客户端发布可直接粘贴的安装片段。",
+    "design for air 内置 Model Context Protocol 服务器（`od mcp`），让任何支持 MCP 的客户端（Cursor、Claude Code、Antigravity、VS Code Copilot Chat、openclaw、hermes）都能发现 design for air 工具（列出技能、渲染预览、生成媒体、运行插件），无需手动 shell 调用。daemon 会通过 `GET /api/mcp/install-info` 为主流客户端发布可直接粘贴的安装片段。",
   "useEverywhere.section.mcp.bullet1":
     "Stdio 传输 — 无需额外端口，客户端直接启动 `od mcp`。",
   "useEverywhere.section.mcp.bullet2":
@@ -1067,7 +1067,7 @@ export const zhCN: Dict = {
     "或者：让 daemon 返回与你安装方式匹配的片段",
   "useEverywhere.section.mcp.snippet3": "实时看板 MCP 变体（读取并刷新仪表盘）",
   "useEverywhere.section.mcp.footer":
-    "在 Design For AIR 应用中，打开“设置 → 集成”即可复制特定客户端的安装命令（Cursor、Claude Code、Antigravity、VS Code），无需手写 JSON。",
+    "在 design for air 应用中，打开“设置 → 集成”即可复制特定客户端的安装命令（Cursor、Claude Code、Antigravity、VS Code），无需手写 JSON。",
   "useEverywhere.section.http.tab": "HTTP API",
   "useEverywhere.section.http.heading": "与 Web UI 相同的 REST + SSE 接口",
   "useEverywhere.section.http.intro":
@@ -1092,9 +1092,9 @@ export const zhCN: Dict = {
     "每个请求 / 响应的纯 TypeScript 类型都在 `@nn-design/contracts` 中；脚本中导入即可获得完整自动补全，无需接入生成器。",
   "useEverywhere.section.skills.tab": "Skills 和无头模式",
   "useEverywhere.section.skills.heading":
-    "任意智能体可直接使用的 Skills，即使 Design For AIR 未运行",
+    "任意智能体可直接使用的 Skills，即使 design for air 未运行",
   "useEverywhere.section.skills.intro":
-    "Skill 是一个包含 Claude 兼容 `SKILL.md`（YAML front matter + 正文）的目录。Design For AIR 通过 `od:` 命名空间（`mode`、`preview`、`design_system`、`inputs` 等）扩展该格式，使同一个制品既能在 Design For AIR 内使用，也能被 Claude Code、Codex、openclaw 或 hermes 这类普通智能体使用。发现逻辑遵循优先级链，因此项目可以覆盖自己的 skills。",
+    "Skill 是一个包含 Claude 兼容 `SKILL.md`（YAML front matter + 正文）的目录。design for air 通过 `od:` 命名空间（`mode`、`preview`、`design_system`、`inputs` 等）扩展该格式，使同一个制品既能在 design for air 内使用，也能被 Claude Code、Codex、openclaw 或 hermes 这类普通智能体使用。发现逻辑遵循优先级链，因此项目可以覆盖自己的 skills。",
   "useEverywhere.section.skills.bullet1":
     "发现顺序：`./.claude/skills/` → `./skills/` → `~/.claude/skills/`（项目优先）。",
   "useEverywhere.section.skills.bullet2":
@@ -1106,7 +1106,7 @@ export const zhCN: Dict = {
   "useEverywhere.section.skills.bullet5":
     "`pnpm seed:test-projects` 会用默认插件示例和社区插件示例演练同一制品形态，并把生成的 `index.html` 项目保存为可复用测试数据。",
   "useEverywhere.section.skills.snippet1":
-    "最小 SKILL.md（Claude 兼容 front matter + Design For AIR 扩展）",
+    "最小 SKILL.md（Claude 兼容 front matter + design for air 扩展）",
   "useEverywhere.section.skills.snippet2":
     "把共享 skill 符号链接到项目中（cc-switch 风格）",
   "useEverywhere.section.skills.snippet3":
@@ -1319,7 +1319,7 @@ export const zhCN: Dict = {
   "entry.helpDownloadDesktop": "下载桌面端",
   "entry.githubStarLabel": "Star",
   "entry.githubStarTitle": "为我们在 GitHub 点亮 Star",
-  "entry.githubStarAria": "在 GitHub 上为 Design For AIR 点亮 Star",
+  "entry.githubStarAria": "在 GitHub 上为 design for air 点亮 Star",
   "entry.tabImageTemplates": "图片模板",
   "entry.tabVideoTemplates": "视频模板",
   "promptTemplates.searchPlaceholder": "搜索模板…",
@@ -1502,7 +1502,7 @@ export const zhCN: Dict = {
   "newproj.filePlural": "个文件",
   "newproj.create": "创建",
   "newproj.locationLabel": "保存到",
-  "newproj.locationDefault": "Design For AIR 项目",
+  "newproj.locationDefault": "design for air 项目",
   "newproj.locationExternalBase": "外部基目录",
   "newproj.createLiveArtifact": "创建实时看板",
   "newproj.createFromTemplate": "基于模板创建",
@@ -1710,19 +1710,19 @@ export const zhCN: Dict = {
   "avatar.modelLabel": "模型",
   "avatar.reasoningLabel": "推理",
   "avatar.customSuffix": "（自定义）",
-  "socialShare.openDesignSection": "分享 Design For AIR",
-  "socialShare.openDesignTitle": "GitHub 上的 Design For AIR",
+  "socialShare.openDesignSection": "分享 design for air",
+  "socialShare.openDesignTitle": "GitHub 上的 design for air",
   "socialShare.openDesignText":
-    "Design For AIR 是开源的设计智能工作区，可以生成、编辑、部署并交付设计产物。",
+    "design for air 是开源的设计智能工作区，可以生成、编辑、部署并交付设计产物。",
   "socialShare.openDesignCopyText": "{text}\n{url}",
   "socialShare.projectSection": "社媒分享",
   "socialShare.publishPageTitle": "发布分享页",
   "socialShare.publishPageSubtitle": "发布当前预览，以便分享到社媒平台。",
-  "socialShare.projectTitle": "{title} · Design For AIR",
+  "socialShare.projectTitle": "{title} · design for air",
   "socialShare.projectText":
-    "我用 Design For AIR 做了 {title}。查看已部署产物，也推荐收藏仓库：{repo}",
+    "我用 design for air 做了 {title}。查看已部署产物，也推荐收藏仓库：{repo}",
   "socialShare.projectCopyText":
-    "我用 Design For AIR 做了 {title}\n{url}\nDesign For AIR 仓库：{repo}",
+    "我用 design for air 做了 {title}\n{url}\ndesign for air 仓库：{repo}",
   "socialShare.deployFirst": "先部署，再分享到社媒…",
   "socialShare.copied": "已复制",
   "socialShare.platform.x": "X",
@@ -1841,14 +1841,14 @@ export const zhCN: Dict = {
   "chat.startTitle": "开始一个对话",
   "chat.startHint": "描述你想生成的内容，或从下面的示例开始：",
   "chat.brandBrowserAssistDesktopOnly":
-    "浏览器辅助需要桌面应用，Design For AIR 才能读取实时浏览器页面。",
+    "浏览器辅助需要桌面应用，design for air 才能读取实时浏览器页面。",
   "chat.brandBrowserAssistReadFailed":
     "无法读取浏览器页面。请确认品牌网站已打开并完全加载。",
   "chat.brandBrowserAssistMessage":
-    "Design For AIR 需要浏览器辅助才能完成这次品牌提取。请先在 Browser 标签页清除页面拦截，然后在下方确认。",
+    "design for air 需要浏览器辅助才能完成这次品牌提取。请先在 Browser 标签页清除页面拦截，然后在下方确认。",
   "brandEnrichment.title": "AI 优化",
   "brandEnrichment.body":
-    "Design For AIR 会在后台运行更深度的抽取，自动带上合适的设计系统 skills，并原地更新这个系统。通常需要 10-20 分钟，你可以继续做别的事。",
+    "design for air 会在后台运行更深度的抽取，自动带上合适的设计系统 skills，并原地更新这个系统。通常需要 10-20 分钟，你可以继续做别的事。",
   "brandEnrichment.cta": "AI 优化",
   "brandEnrichment.busy": "正在启动 AI 优化...",
   "brandExtractionTranscript.sourceDesignMd": "粘贴的 DESIGN.md",
@@ -1872,7 +1872,7 @@ export const zhCN: Dict = {
   "chat.inspect.commentHint": "在预览中选择文本或区域进行评论。",
   "chat.composerPlaceholder": "描述你想生成的内容…",
   "chat.activeFileEditingLabel": "编辑中",
-  "chat.activeFilePlaceholder": "让 Design For AIR 修改 {file}...",
+  "chat.activeFilePlaceholder": "让 design for air 修改 {file}...",
   "chat.designArtifactsShowMore": "再显示 {count} 个设计文件",
   "chat.mode.chat.label": "提问",
   "chat.mode.chat.title": "Ask 模式",
@@ -1897,7 +1897,7 @@ export const zhCN: Dict = {
   "chat.mode.design.summary":
     "适合创建或修改具体设计产物，比如网页、原型、实时看板、幻灯片、图片、视频、HyperFrames、音频、数据看板和项目文件。",
   "chat.mode.design.solves":
-    "当你希望 Design For AIR 生成文件、更新工作区，或把需求变成多模态可交付结果时使用。",
+    "当你希望 design for air 生成文件、更新工作区，或把需求变成多模态可交付结果时使用。",
   "chat.mode.design.query1":
     "根据这段需求做一个产品发布落地页和 HyperFrames 原型。",
   "chat.mode.design.query2": "做一份 10 页投资人 Deck，并附上讲稿备注。",
@@ -2023,7 +2023,7 @@ export const zhCN: Dict = {
   "designBrowser.inspect.saving": "正在保存...",
   "designBrowser.inspect.saveHtml": "保存 HTML",
   "designBrowser.inspect.liveOnly": "仅实时预览",
-  "designBrowser.reference.kicker": "Design For AIR 浏览器",
+  "designBrowser.reference.kicker": "design for air 浏览器",
   "designBrowser.reference.title": "参考看板",
   "designBrowser.reference.subtitle": "精选灵感、真实产品 UI、动效、色彩、字体、素材和设计系统参考。打开任意站点即可边浏览边收集下一个产物所需的设计语言。",
   "designBrowser.reference.categoryAria": "参考分类",
@@ -2473,7 +2473,7 @@ export const zhCN: Dict = {
   "preview.shareExportGroup": "导出文件",
   "preview.shareCopied": "已复制",
   "preview.shareCopyFailed": "复制失败",
-  "preview.shareTextDefault": "Design For AIR 模板：{title}",
+  "preview.shareTextDefault": "design for air 模板：{title}",
   "preview.openInNewTab": "在新标签页中打开",
   "preview.exit": "⤓ 退出",
   "preview.fullscreen": "⤢ 全屏",
@@ -2481,7 +2481,7 @@ export const zhCN: Dict = {
   "preview.loading": "正在加载{label}…",
   "preview.errorTitle": "无法加载此示例。",
   "preview.errorBody":
-    "示例 HTML 加载失败。请确认 Design For AIR 正在运行后重试。",
+    "示例 HTML 加载失败。请确认 design for air 正在运行后重试。",
   "preview.retry": "重试",
   "preview.unavailableTitle": "{noun}暂未附带预览样例。",
   "preview.unavailableBody": "请在对话中运行此 Prompt 来生成 {kind} 产物。",
@@ -2557,12 +2557,12 @@ export const zhCN: Dict = {
   "designFiles.documentTemplate.titleFallback": "文档",
   "designFiles.documentTemplate.goalHeading": "目标",
   "designFiles.documentTemplate.goalBody":
-    "说明希望 Design For AIR 基于这份文档生成、修改或判断什么。",
+    "说明希望 design for air 基于这份文档生成、修改或判断什么。",
   "designFiles.documentTemplate.capabilitiesHeading": "如何使用这份文档",
   "designFiles.documentTemplate.capabilityMarkdown":
     "可以自由使用 Markdown：标题、表格、清单、链接、引用、代码块和图片。",
   "designFiles.documentTemplate.capabilityAgent":
-    "Design For AIR agent 可以读取、编辑这份文件，并把它作为项目上下文。",
+    "design for air agent 可以读取、编辑这份文件，并把它作为项目上下文。",
   "designFiles.documentTemplate.capabilityImages":
     "可以粘贴图片，或把图片拖到编辑器里；上传后的图片会插入到当前光标位置。",
   "designFiles.documentTemplate.scenarioHeading": "场景说明",
@@ -2592,7 +2592,7 @@ export const zhCN: Dict = {
     "描述受众、交付物、必需内容、参考、约束，以及什么状态算完成。",
   "designFiles.documentTemplate.nextHeading": "下一步",
   "designFiles.documentTemplate.nextBody":
-    "检查并编辑这份文档，然后让 Design For AIR 基于它生成、修改或执行操作。",
+    "检查并编辑这份文档，然后让 design for air 基于它生成、修改或执行操作。",
   "designFiles.previewOpen": "打开",
   "designFiles.previewClose": "关闭预览",
   "designFiles.modified": "修改于 {time} · {size}",
@@ -2686,11 +2686,11 @@ export const zhCN: Dict = {
   "designFiles.usefulInfoTip17":
     "在 Instagram 上关注 @opendesign.ai，获取设计灵感。",
   "designFiles.usefulInfoTip18":
-    "在 YouTube 上订阅 Design For AIR，观看教程和演示。",
+    "在 YouTube 上订阅 design for air，观看教程和演示。",
   "designFiles.usefulInfoTip19":
-    "在 LinkedIn 上关注 Design For AIR，了解产品动态。",
+    "在 LinkedIn 上关注 design for air，了解产品动态。",
   "designFiles.usefulInfoTip20":
-    "在小红书上关注 Design For AIR，获取技巧和灵感。",
+    "在小红书上关注 design for air，获取技巧和灵感。",
   "quickSwitcher.placeholder": "打开标签页或文件…",
   "quickSwitcher.empty": "此项目中没有文件",
   "quickSwitcher.noMatches": "无匹配项",
@@ -3126,7 +3126,7 @@ export const zhCN: Dict = {
   "assistant.copyMarkdown": "复制回复 Markdown",
   "assistant.forkConversation": "从这里分叉",
   "assistant.forkingConversation": "正在分叉…",
-  "assistant.shareToOpenDesign": "分享到 Design For AIR",
+  "assistant.shareToOpenDesign": "分享到 design for air",
   "assistant.shareToOpenDesignBusy": "正在准备投稿…",
   "assistant.feedbackPrompt": "反馈",
   "assistant.feedbackPositive": "有帮助",
@@ -3304,7 +3304,7 @@ export const zhCN: Dict = {
   "pet.navTitle": "宠物",
   "pet.navHint": "领养与自定义",
   "pet.tabBuiltIn": "内置",
-  "pet.tabBuiltInHint": "Design For AIR 内置的精选宠物 — 一键领养。",
+  "pet.tabBuiltInHint": "design for air 内置的精选宠物 — 一键领养。",
   "pet.builtInEmpty":
     "暂时无法加载内置宠物。等本地服务恢复后,刷新「社区」页签再试。",
   "pet.tabCustom": "自定义",
@@ -3432,7 +3432,7 @@ export const zhCN: Dict = {
   "pet.communitySyncDone": "已同步 {wrote} 个新宠物（共 {total} 个）。",
   "pet.communitySyncFailed": "同步失败：{error}",
   "pet.codexBundled": "内置",
-  "pet.codexBundledTitle": "Design For AIR 内置宠物，无需下载。",
+  "pet.codexBundledTitle": "design for air 内置宠物，无需下载。",
   "settings.notifications": "通知",
   "settings.notificationsHint": "任务完成时的声音和桌面通知",
   "settings.notifyCompletionSound": "完成提示音",
@@ -3504,7 +3504,7 @@ export const zhCN: Dict = {
   "settings.projectLocations": "项目位置",
   "settings.projectLocationsHint": "工作区存储根目录",
   "settings.projectLocationsDescription":
-    "添加可包含多个 Design For AIR 项目文件夹的工作基目录。新项目会作为所选基目录内的一个文件夹保存。",
+    "添加可包含多个 design for air 项目文件夹的工作基目录。新项目会作为所选基目录内的一个文件夹保存。",
   "settings.projectLocationsSaveError":
     "无法保存项目位置。请检查每个路径都是可访问的文件夹。",
   "settings.projectLocationsSaved": "项目位置已保存。",
@@ -3603,7 +3603,7 @@ export const zhCN: Dict = {
     "- 主题：默认深色\n- 正文字号：≥ 18px\n- 信息密度：留白多一些，一屏不要塞太多东西\n\n为什么：长时间使用眼睛不容易累。\n何时适用：让你画 UI、网页、PPT 时都按这个走。",
   "settings.memoryStarterProjectName": "当前项目",
   "settings.memoryStarterProjectDesc":
-    "Design For AIR v0.5 — 聊天驱动的设计编辑器",
+    "design for air v0.5 — 聊天驱动的设计编辑器",
   "settings.memoryStarterProjectBody":
     "- 目标：本季度交付聊天驱动的编辑体验\n- 优先级：流式渲染、本地多模态、离线优先\n- 技术栈：Next.js 16、Express daemon、SQLite\n\n何时适用：与本项目相关的所有对话。",
   "settings.memorySaveHint": "不会自动保存 — 点击「创建」/「保存」才生效。",
@@ -3696,7 +3696,7 @@ export const zhCN: Dict = {
   "artifact.odCardBrandAssistDone": "已确认浏览器辅助",
   "artifact.odCardBrandAssistKicker": "需要浏览器辅助：{reason}",
   "artifact.odCardBrandAssistBody":
-    "在浏览器中打开品牌网站，让 Design For AIR 继续提取此设计体系。",
+    "在浏览器中打开品牌网站，让 design for air 继续提取此设计体系。",
   "artifact.odCardBrandAssistError": "无法启动浏览器辅助，请重试。",
   "artifact.odCardBrandAssistWorking": "正在启动...",
   "artifact.odCardBrandAssistConfirm": "打开浏览器辅助",
@@ -3752,7 +3752,7 @@ export const zhCN: Dict = {
   "notify.failureBody": "本轮任务出错，请查看错误信息。",
   "updater.available": "有可用更新",
   "updater.availableBody":
-    "Design For AIR {version} 可用。下载安装完成后即可打开安装器。",
+    "design for air {version} 可用。下载安装完成后即可打开安装器。",
   "updater.checking": "正在检查更新",
   "updater.download": "下载更新",
   "updater.downloading": "正在下载更新",
@@ -3760,7 +3760,7 @@ export const zhCN: Dict = {
   "updater.done": "完成",
   "updater.failed": "更新失败",
   "updater.installerOpenBody":
-    "安装器已打开。Design For AIR 正在退出，以便你完成更新。",
+    "安装器已打开。design for air 正在退出，以便你完成更新。",
   "updater.installerOpened": "安装器已打开",
   "updater.later": "稍后",
   "updater.openFailedFallback": "无法打开安装器。",
@@ -3769,18 +3769,18 @@ export const zhCN: Dict = {
   "updater.openInstaller": "安装更新",
   "updater.opening": "正在打开安装器…",
   "updater.payloadReadyGeneric":
-    "Design For AIR 更新已就绪。Design For AIR 会关闭并自动重启。",
+    "design for air 更新已就绪。design for air 会关闭并自动重启。",
   "updater.payloadReadyVersion":
-    "Design For AIR {version} 已就绪。Design For AIR 会关闭并自动重启。",
-  "updater.quitButton": "退出 Design For AIR",
+    "design for air {version} 已就绪。design for air 会关闭并自动重启。",
+  "updater.quitButton": "退出 design for air",
   "updater.quitFailedBody":
-    "安装器已打开，但 Design For AIR 无法退出。替换应用前请先退出 Design For AIR。",
+    "安装器已打开，但 design for air 无法退出。替换应用前请先退出 design for air。",
   "updater.quitFailedTitle": "无法退出",
   "updater.quitting": "正在退出…",
   "updater.ready": "更新已就绪",
-  "updater.readyGeneric": "新版本已就绪。Design For AIR 会关闭并打开安装器。",
+  "updater.readyGeneric": "新版本已就绪。design for air 会关闭并打开安装器。",
   "updater.readyVersion":
-    "Design For AIR {version} 已就绪。Design For AIR 会关闭并打开安装器。",
+    "design for air {version} 已就绪。design for air 会关闭并打开安装器。",
   "updater.upToDate": "您已经是最新版本啦",
 
   'designBrowser.copyScreenshot': '复制截图',
@@ -3811,7 +3811,7 @@ export const zhCN: Dict = {
   'settings.updateRetry': '重试',
   'settings.updateViewReleases': '查看发布记录',
   'settings.updateActionFailed': '无法完成更新操作。',
-  'settings.updateQuitFailed': '安装程序已打开，但 Design For AIR 未能自动退出。',
+  'settings.updateQuitFailed': '安装程序已打开，但 design for air 未能自动退出。',
   'settings.updateStatusNotChecked': '未检查更新',
   'settings.updateStatusDevelopment': '开发环境不支持应用内更新。',
   'settings.updateStatusUnsupported': '当前环境不支持应用内更新。',
@@ -4112,7 +4112,7 @@ export const zhCN: Dict = {
   "dsManager.filterDraft": "草稿",
   "dsManager.createTitle": "新建设计体系",
   "dsManager.createBody":
-    "把你的品牌、产品、代码、素材和设计参考教给 Design For AIR。",
+    "把你的品牌、产品、代码、素材和设计参考教给 design for air。",
   "dsManager.createAction": "创建",
   "dsManager.emptyMine":
     "还没有设计体系。从真实的产品上下文创建一个，审阅草稿后再发布，供以后的项目使用。",
@@ -4147,7 +4147,7 @@ export const zhCN: Dict = {
   "settings.instructionsSubtitle": "助手应始终遵循的固定行为",
   "settings.instructionsNavSub": "固定的助手行为",
   "settings.customInstructionsDesc":
-    "Design For AIR 在每次对话中都会遵循的固定指令。它们不是保存的记忆；事实、偏好和项目上下文请使用「记忆」。",
+    "design for air 在每次对话中都会遵循的固定指令。它们不是保存的记忆；事实、偏好和项目上下文请使用「记忆」。",
   "mcpClient.forwardedToLabel": "已转发给：",
   "mcpClient.notForwardedToLabel": "未转发给：",
   "mcpClient.forwardedAcpNote":
@@ -4158,7 +4158,7 @@ export const zhCN: Dict = {
   // Design systems library + extraction
   "brand.libraryTitle": "设计系统",
   "brand.librarySubtitle":
-    "把你的设计系统教给 Design For AIR——从网站提取一个设计系统，然后在任意对话中应用它。",
+    "把你的设计系统教给 design for air——从网站提取一个设计系统，然后在任意对话中应用它。",
   "brand.newBrand": "新建设计系统",
   "brand.searchPlaceholder": "搜索你的设计系统…",
   "brand.empty": "还没有设计系统。从一个网站提取一个设计系统即可开始。",
@@ -4225,7 +4225,7 @@ export const zhCN: Dict = {
   "onboarding.brandDone": "设计系统已提取",
   "onboarding.buildTitle": "一次创建,处处复用",
   "onboarding.buildBody":
-    "Design For AIR 把你的品牌沉淀为可复用的设计系统,让你之后构建的一切都保持品牌一致。",
+    "design for air 把你的品牌沉淀为可复用的设计系统,让你之后构建的一切都保持品牌一致。",
   "onboarding.buildBenefitMemoryTitle": "一份品牌记忆",
   "onboarding.buildBenefitMemoryBody":
     "颜色、字体、间距、组件和语气会沉淀成可复用的 DESIGN.md。",
@@ -4253,7 +4253,7 @@ export const zhCN: Dict = {
   "dsCreate.embeddedBody": "先添加网站或品牌参考，再补充你已有的源文件。",
   "dsCreate.sourceSectionTitle": "从 GitHub、网站或源素材提取",
   "dsCreate.sourceSectionBody":
-    "从 GitHub 仓库、网站、DESIGN.md 或能体现风格的文件开始。Design For AIR 会先快速创建一套可用系统，然后 AI 可在项目中继续细化。",
+    "从 GitHub 仓库、网站、DESIGN.md 或能体现风格的文件开始。design for air 会先快速创建一套可用系统，然后 AI 可在项目中继续细化。",
   "dsCreate.githubWebsiteLabel": "GitHub 或网站",
   "dsCreate.add": "添加",
   "dsCreate.startFromBrand": "从品牌开始",
@@ -4399,7 +4399,7 @@ export const zhCN: Dict = {
   "ds.publish": "发布",
   "ds.extractionRunningTitle": "正在提取设计体系",
   "ds.extractionCompleteTitle": "提取完成",
-  "ds.extractionRunningBody": "Design For AIR 正在就地更新此体系。",
+  "ds.extractionRunningBody": "design for air 正在就地更新此体系。",
   "ds.extractionCompleteBody": "已提取的模块如下所示；空段落会保持为空。",
   "ds.publishCardPublished": "团队的新项目默认可以使用此设计体系作为上下文。",
   "ds.publishCardDraft":
@@ -4452,7 +4452,7 @@ export const zhCN: Dict = {
   "ds.sectionActivityReadFiles": "已读取 {files}",
   "ds.sectionActivityPhaseFiles": "{phase}：{files}",
   "ds.sectionRunningReadingContext":
-    "Design For AIR 正在读取 {title} 的段落上下文。",
+    "design for air 正在读取 {title} 的段落上下文。",
   "ds.sectionRunningNow": "{phase}中。",
   "ds.reviewLastReviewed": "上次审阅 {time}",
   "ds.agentFeedbackQueued": "反馈已保存。当前运行结束后，agent 会继续处理。",
@@ -4469,7 +4469,7 @@ export const zhCN: Dict = {
   "ds.repoConnectedBody": "重新导入此仓库，把文件拉入你的设计体系。",
   "ds.repoImportButton": "导入仓库",
   "ds.repoConnectBannerBody":
-    "连接 GitHub 后，Design For AIR 可以读取你的仓库，并把颜色、字体和组件提取到此设计体系中。",
+    "连接 GitHub 后，design for air 可以读取你的仓库，并把颜色、字体和组件提取到此设计体系中。",
   "ds.repoConnectCardBody": "从仓库中提取颜色、字体和组件到此设计体系。",
   "ds.repoConnectButton": "连接 GitHub",
 };

@@ -48,7 +48,7 @@ export interface ChatRequest {
   context?: RunContextSelection;
   appliedPluginSnapshotId?: string | null;
   /**
-   * Run-scoped media execution policy. Omitted means current Design For AIR
+   * Run-scoped media execution policy. Omitted means current design for air
    * behavior: media generation is enabled and OD may execute its configured
    * local providers.
    */

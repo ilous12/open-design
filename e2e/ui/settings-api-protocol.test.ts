@@ -12,13 +12,13 @@ const MODEL_POPOVER_SELECTOR = '.model-select-searchable__popover';
 test.describe.configure({ timeout: T.xlong });
 
 async function waitForLoadingToClear(page: Page) {
-  await expect(page.getByText('Loading Design For AIR…')).toHaveCount(0, { timeout: T.long });
+  await expect(page.getByText('Loading design for air…')).toHaveCount(0, { timeout: T.long });
 }
 
 async function gotoEntryHome(page: Page) {
   await page.goto('/', { waitUntil: 'domcontentloaded' });
   await waitForLoadingToClear(page);
-  const privacyDialog = page.getByRole('dialog').filter({ hasText: 'Help us improve Design For AIR' });
+  const privacyDialog = page.getByRole('dialog').filter({ hasText: 'Help us improve design for air' });
   if (await privacyDialog.isVisible()) {
     await privacyDialog.getByRole('button', { name: /I get it|not now|got it|don't share/i }).click();
   }

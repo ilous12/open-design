@@ -27,7 +27,7 @@ describe('memory tree helpers', () => {
       dataDir,
       {
         name: 'Design agent goal',
-        description: 'Design For AIR should evolve from accepted work',
+        description: 'design for air should evolve from accepted work',
         type: 'project',
         body: '- Keep design-system extraction in the loop',
       },

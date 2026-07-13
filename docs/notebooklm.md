@@ -1,6 +1,6 @@
-# NotebookLM: export issues/PRs from Design For AIR
+# NotebookLM: export issues/PRs from design for air
 
-Design For AIR gets a lot of feedback via GitHub Issues + PRs. If you want NotebookLM to help with:
+design for air gets a lot of feedback via GitHub Issues + PRs. If you want NotebookLM to help with:
 
 - support answers (with citations)
 - clustering + taxonomy of user scenarios

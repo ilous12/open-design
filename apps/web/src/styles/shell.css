@@ -1146,7 +1146,7 @@
   color: var(--accent-strong);
 }
 
-/* Design For AIR agent row carries account info + actions inline. */
+/* design for air agent row carries account info + actions inline. */
 .avatar-amr-row {
   gap: 8px;
 }

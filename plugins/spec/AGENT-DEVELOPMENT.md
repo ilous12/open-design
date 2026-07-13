@@ -2,16 +2,16 @@
 
 Language: English | [简体中文](AGENT-DEVELOPMENT.zh-CN.md)
 
-Give this file to a coding agent when you want it to create or improve an Design For AIR plugin.
+Give this file to a coding agent when you want it to create or improve an design for air plugin.
 
 ## Mission
 
-Create a portable Design For AIR plugin that can:
+Create a portable design for air plugin that can:
 
 1. Run as a normal Agent Skill through `SKILL.md`.
-2. Install into Design For AIR through `open-design.json`.
+2. Install into design for air through `open-design.json`.
 3. Be validated locally.
-4. Be published as an independent open source repo or submitted as a PR to Design For AIR.
+4. Be published as an independent open source repo or submitted as a PR to design for air.
 
 ## Required Reading
 
@@ -20,7 +20,7 @@ Read these files before editing:
 - `plugins/spec/SPEC.md`
 - `docs/schemas/open-design.plugin.v1.json`
 - `docs/plugins-spec.md` when you need deeper product semantics
-- `plugins/spec/PUBLISHING-REGISTRIES.md` when the user asks to publish outside Design For AIR
+- `plugins/spec/PUBLISHING-REGISTRIES.md` when the user asks to publish outside design for air
 - A nearby example under `plugins/spec/examples/`
 
 ## Build Procedure
@@ -35,7 +35,7 @@ Read these files before editing:
   README.md
 ```
 
-3. Keep the `SKILL.md` portable. It may mention Design For AIR behavior, but the core workflow must still make sense in any Agent Skills compatible agent.
+3. Keep the `SKILL.md` portable. It may mention design for air behavior, but the core workflow must still make sense in any Agent Skills compatible agent.
 4. Put OD-specific display, `specVersion`, plugin `version`, inputs, preview, pipeline, atoms, connectors, and capabilities in `open-design.json`.
 5. Add `examples/`, `preview/`, `assets/`, or `references/` only when they materially help the agent produce better results.
 6. Add `evals/evals.json` when the plugin has enough behavior to regress.

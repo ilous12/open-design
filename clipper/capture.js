@@ -1,4 +1,4 @@
-// Design For AIR web clipper page-capture runtime.
+// design for air web clipper page-capture runtime.
 //
 // Injected on demand by the service worker via
 // `chrome.scripting.executeScript({ files: ['capture.js'] })`. It runs in the

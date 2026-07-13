@@ -9,7 +9,7 @@ const distEntry = resolve(entryDir, "../dist/cli.js");
 
 if (!existsSync(distEntry)) {
   throw new Error(
-    `Design For AIR daemon dist entry not found at ${distEntry}. Run "pnpm --filter @nn-design/daemon build" first.`,
+    `design for air daemon dist entry not found at ${distEntry}. Run "pnpm --filter @nn-design/daemon build" first.`,
   );
 }
 

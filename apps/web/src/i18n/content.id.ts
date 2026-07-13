@@ -21,7 +21,7 @@ export const ID_SKILL_COPY: Record<string, { description?: string; examplePrompt
   },
   'agent-browser': {
     description:
-      'CLI otomasi browser untuk AI agent. Gunakan saat pengguna perlu memeriksa,\nmenguji, atau mengotomatiskan perilaku browser: menavigasi halaman, mengisi formulir,\nmengeklik tombol, mengambil tangkapan layar, mengekstrak data halaman, membaca konteks tab browser\nDesign For AIR yang dipilih, menguji aplikasi web, dogfooding pratinjau\nDesign For AIR, QA, perburuan bug, atau meninjau kualitas aplikasi. Utamakan URL pratinjau\nDesign For AIR lokal kecuali pengguna secara eksplisit meminta penjelajahan eksternal.',
+      'CLI otomasi browser untuk AI agent. Gunakan saat pengguna perlu memeriksa,\nmenguji, atau mengotomatiskan perilaku browser: menavigasi halaman, mengisi formulir,\nmengeklik tombol, mengambil tangkapan layar, mengekstrak data halaman, membaca konteks tab browser\ndesign for air yang dipilih, menguji aplikasi web, dogfooding pratinjau\ndesign for air, QA, perburuan bug, atau meninjau kualitas aplikasi. Utamakan URL pratinjau\ndesign for air lokal kecuali pengguna secara eksplisit meminta penjelajahan eksternal.',
     examplePrompt:
       'CLI otomasi browser untuk AI agent.',
   },
@@ -849,7 +849,7 @@ export const ID_SKILL_COPY: Record<string, { description?: string; examplePrompt
   },
   'ui-ux-pro-max': {
     description:
-      'Entri UI/UX Pro Max khusus katalog. Template, data, dan alur kerja pencarian upstream lengkap tidak disertakan dalam Design For AIR.',
+      'Entri UI/UX Pro Max khusus katalog. Template, data, dan alur kerja pencarian upstream lengkap tidak disertakan dalam design for air.',
     examplePrompt:
       'Entri UI/UX Pro Max khusus katalog.',
   },

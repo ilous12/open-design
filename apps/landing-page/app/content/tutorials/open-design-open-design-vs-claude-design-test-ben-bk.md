@@ -1,7 +1,7 @@
 ---
-title: 'Design For AIR : j''ai testé l''alternative open-source à Claude Design'
+title: 'design for air : j''ai testé l''alternative open-source à Claude Design'
 youtubeId: a4IiWxtjyUY
-summary: 'Test complet d''Design For AIR, l''alternative open-source à Claude Design, avec installation, import de projets, création de slides et export PPTX.'
+summary: 'Test complet d''design for air, l''alternative open-source à Claude Design, avec installation, import de projets, création de slides et export PPTX.'
 date: 2026-05-02
 category: Review
 durationSeconds: 637

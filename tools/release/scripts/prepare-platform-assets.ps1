@@ -79,7 +79,7 @@ $versionPrefix = if ([string]::IsNullOrWhiteSpace($ReleaseVersionPrefix)) {
 $installerUrl = "$publicOrigin/$versionPrefix/$versionedInstaller"
 $releaseDate = [DateTime]::UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ")
 $notes = if ([string]::IsNullOrWhiteSpace($ReleaseNotes)) {
-  "Design For AIR $ReleaseVersion$ReleaseAssetSuffix"
+  "design for air $ReleaseVersion$ReleaseAssetSuffix"
 } else {
   $ReleaseNotes
 }

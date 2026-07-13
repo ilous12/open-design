@@ -1706,7 +1706,7 @@ process.stdin.on("end", () => {
           {
         artifacts: {
           dmg: {
-            url: "https://releases.open-design.ai/betas/versions/1.2.3-beta.3.unsigned/Design For AIR Beta.dmg",
+            url: "https://releases.open-design.ai/betas/versions/1.2.3-beta.3.unsigned/design for air Beta.dmg",
           },
         },
         channel: "beta",
@@ -1790,7 +1790,7 @@ process.stdin.on("end", () => {
           {
         artifacts: {
           dmg: {
-            url: "https://releases.open-design.ai/betas/versions/1.2.3-beta.4.unsigned/Design For AIR Beta.dmg",
+            url: "https://releases.open-design.ai/betas/versions/1.2.3-beta.4.unsigned/design for air Beta.dmg",
           },
         },
         channel: "beta",
@@ -1874,7 +1874,7 @@ process.stdin.on("end", () => {
           {
         artifacts: {
           dmg: {
-            url: "https://releases.open-design.ai/betas/versions/1.2.3-beta.4.unsigned/Design For AIR Beta.dmg",
+            url: "https://releases.open-design.ai/betas/versions/1.2.3-beta.4.unsigned/design for air Beta.dmg",
           },
         },
         channel: "beta",
@@ -2352,8 +2352,8 @@ function stablePrereleaseMetadataFixture(baseVersion: string, prereleaseVersion:
       mac: {
         arch: "arm64",
         artifacts: {
-          dmg: artifact("Design For AIR.dmg"),
-          zip: artifact("Design For AIR-mac-arm64.zip"),
+          dmg: artifact("design for air.dmg"),
+          zip: artifact("design for air-mac-arm64.zip"),
         },
         enabled: true,
         signed: true,
@@ -2361,8 +2361,8 @@ function stablePrereleaseMetadataFixture(baseVersion: string, prereleaseVersion:
       macIntel: {
         arch: "x64",
         artifacts: {
-          dmg: artifact("Design For AIR Intel.dmg"),
-          zip: artifact("Design For AIR-mac-x64.zip"),
+          dmg: artifact("design for air Intel.dmg"),
+          zip: artifact("design for air-mac-x64.zip"),
         },
         enabled: true,
         signed: true,
@@ -2370,7 +2370,7 @@ function stablePrereleaseMetadataFixture(baseVersion: string, prereleaseVersion:
       win: {
         arch: "x64",
         artifacts: {
-          installer: artifact("Design For AIR Setup.exe"),
+          installer: artifact("design for air Setup.exe"),
         },
         enabled: true,
       },

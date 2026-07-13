@@ -208,7 +208,7 @@ in
     };
 
     meta = with lib; {
-      description = "Design For AIR daemon — local agent orchestrator + API (`od` CLI)";
+      description = "design for air daemon — local agent orchestrator + API (`od` CLI)";
       homepage = "https://github.com/nexu-io/open-design";
       license = licenses.asl20;
       mainProgram = "od";

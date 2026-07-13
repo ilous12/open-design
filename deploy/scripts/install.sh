@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Design For AIR — One-Click Installer
+# design for air — One-Click Installer
 # Docker Compose wrapper for Linux and macOS
 #
 # Usage:
@@ -121,7 +121,7 @@ done
 printf "\n"
 printf "${BOLD}  ┌──────────────────────────────────────┐${RESET}\n"
 printf "${BOLD}  │${RESET}                                      ${BOLD}│${RESET}\n"
-printf "${BOLD}  │${RESET}   ${CYAN}◈${RESET}  ${BOLD}Design For AIR${RESET}                     ${BOLD}│${RESET}\n"
+printf "${BOLD}  │${RESET}   ${CYAN}◈${RESET}  ${BOLD}design for air${RESET}                     ${BOLD}│${RESET}\n"
 printf "${BOLD}  │${RESET}      ${DIM}One-Click Installer${RESET}             ${BOLD}│${RESET}\n"
 printf "${BOLD}  │${RESET}                                      ${BOLD}│${RESET}\n"
 printf "${BOLD}  └──────────────────────────────────────┘${RESET}\n"
@@ -322,14 +322,14 @@ step "Runtime: ${CONTAINER_RUNTIME} ${RUNTIME_VERSION}"
 step "Compose: ${COMPOSE_VERSION}"
 
 # ---------------------------------------------------------------------------
-# 2b. Check if Design For AIR is already running
+# 2b. Check if design for air is already running
 # ---------------------------------------------------------------------------
 if $CONTAINER_CMD ps --filter "name=open-design" --format '{{.Names}}' 2>/dev/null | grep -q 'open-design'; then
   STATUS="$($CONTAINER_CMD inspect --format '{{.State.Status}}' open-design 2>/dev/null || echo 'unknown')"
   IMAGE="$($CONTAINER_CMD inspect --format '{{.Config.Image}}' open-design 2>/dev/null || echo 'unknown')"
   PORTS="$($CONTAINER_CMD port open-design 2>/dev/null || echo 'unknown')"
 
-  error "Design For AIR is already running."
+  error "design for air is already running."
   printf "\n"
   printf "  Container:  open-design\n"
   printf "  Status:     %s\n" "$STATUS"
@@ -428,7 +428,7 @@ ok "Written ${ENV_FILE}"
 step "Pulling image: ${IMAGE}"
 $COMPOSE_CMD "${COMPOSE_FILES[@]}" pull
 
-step "Starting Design For AIR..."
+step "Starting design for air..."
 $COMPOSE_CMD "${COMPOSE_FILES[@]}" up -d --no-build
 
 # ---------------------------------------------------------------------------
@@ -479,7 +479,7 @@ if [ "$OS" = "Linux" ] && [ "$OPT_NO_SYSTEMD" = "0" ]; then
 
     {
       echo "[Unit]"
-      echo "Description=Design For AIR daemon (${CONTAINER_RUNTIME} Compose)"
+      echo "Description=design for air daemon (${CONTAINER_RUNTIME} Compose)"
       if [ "$CONTAINER_RUNTIME" = "docker" ]; then
         echo "After=${CONTAINER_RUNTIME}.service"
         echo "Requires=${CONTAINER_RUNTIME}.service"

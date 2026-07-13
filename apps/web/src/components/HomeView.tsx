@@ -210,9 +210,9 @@ interface PendingPluginUseHandoff {
 }
 
 const AUTHORING_DEFAULT_SCENARIO_INPUTS = {
-  artifactKind: 'Design For AIR plugin',
-  audience: 'Design For AIR plugin authors',
-  topic: 'packaging a reusable workflow as an Design For AIR plugin',
+  artifactKind: 'design for air plugin',
+  audience: 'design for air plugin authors',
+  topic: 'packaging a reusable workflow as an design for air plugin',
 };
 
 
@@ -1348,7 +1348,7 @@ export function HomeView({
       // auth gate and surface as a confusing late create-time failure.
       // Surface the host error instead and keep the existing working dir.
       setError(
-        `Couldn't open the folder picker (${'reason' in result ? result.reason : 'host unavailable'}). Please update Design For AIR and try again.`,
+        `Couldn't open the folder picker (${'reason' in result ? result.reason : 'host unavailable'}). Please update design for air and try again.`,
       );
       return null;
     }
@@ -1373,7 +1373,7 @@ export function HomeView({
       }
       if ('canceled' in result && result.canceled) return null;
       setError(
-        `Couldn't open the folder picker (${'reason' in result ? result.reason : 'host unavailable'}). Please update Design For AIR and try again.`,
+        `Couldn't open the folder picker (${'reason' in result ? result.reason : 'host unavailable'}). Please update design for air and try again.`,
       );
       return null;
     }

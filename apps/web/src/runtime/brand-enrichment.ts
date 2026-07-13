@@ -29,7 +29,7 @@ const AI_OPTIMIZE_QUALITY_BAR = [
 ].join('\n');
 
 const FALLBACK_BRAND_ENRICHMENT_PROMPT = [
-  'AI optimize this Design For AIR design system in place.',
+  'AI optimize this design for air design system in place.',
   '',
   'A fast programmatic extraction already produced a usable design system, but it may be thin or approximate. Run a deeper asynchronous extraction pass now and turn it into a production-usable design-system package.',
   '',

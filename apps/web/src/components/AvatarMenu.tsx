@@ -49,7 +49,7 @@ interface Props {
 }
 
 function displayAgentName(agent: Pick<AgentInfo, 'id' | 'name'>): string {
-  return agent.id === 'amr' ? 'Design For AIR' : agent.name;
+  return agent.id === 'amr' ? 'design for air' : agent.name;
 }
 
 /**
@@ -178,7 +178,7 @@ export function AvatarMenu({
   const amrProfile = config.agentCliEnv?.amr?.OPEN_DESIGN_AMR_PROFILE;
 
   // Fetch the live account (plan tier + wallet balance) when the popover opens,
-  // whenever the Design For AIR runtime is installed — so the Design For AIR agent row
+  // whenever the design for air runtime is installed — so the design for air agent row
   // can show the real plan/balance even when another agent is currently active.
   const [amrAccount, setAmrAccount] = useState<VelaLoginStatus | null>(null);
   const [amrWalletSnapshot, setAmrWalletSnapshot] =
@@ -416,7 +416,7 @@ export function AvatarMenu({
               <div className="avatar-section-label">{t('avatar.codeAgent')}</div>
               {installedAgents.map((a) => {
                 const selected = config.agentId === a.id;
-                // Design For AIR row carries the account (balance + plan) inline,
+                // design for air row carries the account (balance + plan) inline,
                 // plus Upgrade and Console actions, so it is a container rather
                 // than a single select button (which can't nest buttons/links).
                 if (a.id === 'amr') {

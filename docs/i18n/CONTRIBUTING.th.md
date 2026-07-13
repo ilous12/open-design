@@ -1,4 +1,4 @@
-# การ contribute ให้ Design For AIR
+# การ contribute ให้ design for air
 
 ขอบคุณที่คิดจะ contribute. OD ตั้งใจให้เล็ก — คุณค่าส่วนใหญ่อยู่ใน **ไฟล์** (skills, design systems, prompt fragments) มากกว่า framework code. นั่นแปลว่า contribution ที่คุ้มที่สุดมักเป็น folder เดียว, Markdown file เดียว หรือ adapter ขนาดพอดี PR เดียว.
 
@@ -40,7 +40,7 @@ pnpm --filter @nn-design/web build  # web package build when needed
 
 ## Docker Setup
 
-รัน Design For AIR โดยไม่ต้องติดตั้ง Node.js หรือ pnpm.
+รัน design for air โดยไม่ต้องติดตั้ง Node.js หรือ pnpm.
 
 ### Prerequisites
 
@@ -50,7 +50,7 @@ pnpm --filter @nn-design/web build  # web package build when needed
 docker compose version
 ```
 
-### Start Design For AIR
+### Start design for air
 
 ```bash
 cd deploy

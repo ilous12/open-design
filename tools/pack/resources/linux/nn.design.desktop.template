@@ -1,12 +1,12 @@
 [Desktop Entry]
 Type=Application
-Name=Design For AIR (@@NAMESPACE@@)
-GenericName=Design For AIR
-Comment=Design For AIR packaged build (@@NAMESPACE@@)
+Name=design for air (@@NAMESPACE@@)
+GenericName=design for air
+Comment=design for air packaged build (@@NAMESPACE@@)
 Exec=env OD_PACKAGED_NAMESPACE=@@NAMESPACE@@ @@EXEC_PATH@@ --appimage-extract-and-run %U
 Icon=@@ICON_PATH@@
 Categories=Development;Utility;
-StartupWMClass=Design For AIR
+StartupWMClass=design for air
 StartupNotify=true
 Terminal=false
 MimeType=x-scheme-handler/nd;

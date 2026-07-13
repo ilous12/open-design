@@ -646,14 +646,14 @@ const CATALOGUE: CuratedSkill[] = [
   {
     id: 'ui-ux-pro-max',
     description:
-      'Catalog-only UI/UX Pro Max entry. The full upstream templates, data, and search workflow are not bundled in Design For AIR.',
+      'Catalog-only UI/UX Pro Max entry. The full upstream templates, data, and search workflow are not bundled in design for air.',
     triggers: ['ui ux patterns', 'design patterns', 'ux heuristics', 'usability'],
     mode: 'design-system',
     category: 'design-systems',
     upstream: 'https://github.com/nextlevelbuilder/ui-ux-pro-max-skill',
     attribution: 'Curated from @nextlevelbuilder.',
     catalogueOnlyNote:
-      'Design For AIR ships this entry as discovery metadata only. The upstream UI/UX Pro Max data CSVs, scripts/search.py helper, templates, references, and related skill instructions are not bundled here; if those files are absent, disclose the limitation before falling back to Design For AIR defaults.',
+      'design for air ships this entry as discovery metadata only. The upstream UI/UX Pro Max data CSVs, scripts/search.py helper, templates, references, and related skill instructions are not bundled here; if those files are absent, disclose the limitation before falling back to design for air defaults.',
   },
   {
     id: 'taste-skill',
@@ -1072,7 +1072,7 @@ function buildBody(s: CuratedSkill): string {
   lines.push(s.description);
   lines.push('');
   if (s.catalogueOnlyNote) {
-    lines.push('## Current Design For AIR scope');
+    lines.push('## Current design for air scope');
     lines.push('');
     lines.push(s.catalogueOnlyNote);
     lines.push('');
@@ -1085,7 +1085,7 @@ function buildBody(s: CuratedSkill): string {
   lines.push('## How to use');
   lines.push('');
   lines.push(
-    'This catalogue entry advertises the skill in Design For AIR so the agent',
+    'This catalogue entry advertises the skill in design for air so the agent',
   );
   lines.push(
     'discovers it during planning. To run the full upstream workflow with',

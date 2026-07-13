@@ -23,8 +23,8 @@ interface ParsedOptions {
 const USAGE = `Usage:
   nd artifacts create --name <path> --input <file> [--project <id-or-name>] [--manifest artifact.json] [--encoding utf8|base64] [--daemon-url <url>]
 
-Creates one normal Design For AIR project artifact entry file through the local daemon.
-When --project is omitted, the active Design For AIR project is used.
+Creates one normal design for air project artifact entry file through the local daemon.
+When --project is omitted, the active design for air project is used.
 Existing target paths are rejected.
 `;
 

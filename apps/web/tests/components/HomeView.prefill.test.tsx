@@ -43,7 +43,7 @@ const AUTHORING_PLUGIN = {
     od: {
       kind: 'scenario',
       taskKind: 'new-generation',
-      useCase: { query: 'Create an Design For AIR plugin for {{pluginGoal}}.' },
+      useCase: { query: 'Create an design for air plugin for {{pluginGoal}}.' },
       inputs: [
         {
           name: 'pluginGoal',
@@ -264,14 +264,14 @@ const LIVE_ARTIFACT_PLUGIN = {
     ...DEFAULT_PLUGIN.manifest,
     name: 'example-live-artifact',
     title: 'Live Artifact',
-    description: 'Create refreshable, auditable Design For AIR artifacts.',
+    description: 'Create refreshable, auditable design for air artifacts.',
     od: {
       kind: 'scenario',
       taskKind: 'new-generation',
       mode: 'prototype',
       scenario: 'live',
       useCase: {
-        query: 'Create refreshable, auditable Design For AIR artifacts backed by connector or local data.',
+        query: 'Create refreshable, auditable design for air artifacts backed by connector or local data.',
       },
       context: {
         skills: [{ path: './SKILL.md' }],
@@ -306,9 +306,9 @@ const LIVE_ARTIFACT_IMAGE_TEMPLATE_PLUGIN = {
 };
 
 const AUTHORING_DEFAULT_SCENARIO_INPUTS = {
-  artifactKind: 'Design For AIR plugin',
-  audience: 'Design For AIR plugin authors',
-  topic: 'packaging a reusable workflow as an Design For AIR plugin',
+  artifactKind: 'design for air plugin',
+  audience: 'design for air plugin authors',
+  topic: 'packaging a reusable workflow as an design for air plugin',
 };
 
 const REFLY_DESIGN_SYSTEM = {
@@ -780,9 +780,9 @@ describe('HomeView prompt handoff', () => {
     ));
     expect(JSON.parse(String((applyCall?.[1] as RequestInit).body))).toMatchObject({
       inputs: {
-        artifactKind: 'Design For AIR plugin',
-        audience: 'Design For AIR plugin authors',
-        topic: 'packaging a reusable workflow as an Design For AIR plugin',
+        artifactKind: 'design for air plugin',
+        audience: 'design for air plugin authors',
+        topic: 'packaging a reusable workflow as an design for air plugin',
       },
     });
     await waitFor(() => {
@@ -797,9 +797,9 @@ describe('HomeView prompt handoff', () => {
       pluginId: 'od-new-generation',
       appliedPluginSnapshotId: 'snap-default',
       pluginInputs: {
-        artifactKind: 'Design For AIR plugin',
-        audience: 'Design For AIR plugin authors',
-        topic: 'packaging a reusable workflow as an Design For AIR plugin',
+        artifactKind: 'design for air plugin',
+        audience: 'design for air plugin authors',
+        topic: 'packaging a reusable workflow as an design for air plugin',
       },
       projectKind: 'other',
     }));

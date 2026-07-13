@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-# Design For AIR MCP installer wrapper.
+# design for air MCP installer wrapper.
 #
 # This file is served verbatim by the static landing page at:
 #   https://open-design.ai/install.sh
@@ -16,7 +16,7 @@ set -eu
 
 usage() {
   cat <<'EOF'
-Design For AIR MCP installer
+design for air MCP installer
 
 Usage:
   curl -fsSL https://open-design.ai/install.sh | sh -s <agent> [options]
@@ -39,17 +39,17 @@ if [ "${1:-}" = "--help" ] || [ "${1:-}" = "-h" ]; then
 fi
 
 if [ "$#" -eq 0 ]; then
-  printf '%s\n\n' "Design For AIR install.sh: missing required <agent> argument." >&2
+  printf '%s\n\n' "design for air install.sh: missing required <agent> argument." >&2
   usage >&2
   exit 2
 fi
 
 if ! command -v od >/dev/null 2>&1; then
   cat >&2 <<'EOF'
-Design For AIR install.sh: `od` was not found on PATH.
+design for air install.sh: `od` was not found on PATH.
 
-Install and open the Design For AIR desktop app, or run the daemon from a source
-checkout so the Design For AIR CLI is available, then re-run this command.
+Install and open the design for air desktop app, or run the daemon from a source
+checkout so the design for air CLI is available, then re-run this command.
 EOF
   exit 1
 fi
@@ -58,10 +58,10 @@ od_probe="$(od mcp install --open-design-cli-probe 2>/dev/null || true)"
 if [ "${od_probe}" != "open-design-cli:mcp-install:v1" ]; then
   od_path="$(command -v od || true)"
   cat >&2 <<EOF
-Design For AIR install.sh: '${od_path}' does not look like the Design For AIR CLI.
+design for air install.sh: '${od_path}' does not look like the design for air CLI.
 
 On Linux and WSL2, /usr/bin/od is usually the coreutils octal-dump command and
-can shadow Design For AIR's CLI. Put the Design For AIR CLI earlier on PATH, then
+can shadow design for air's CLI. Put the design for air CLI earlier on PATH, then
 re-run this command.
 EOF
   exit 1

@@ -1,15 +1,15 @@
-# Design For AIR Plugins
+# design for air Plugins
 
 Language: English | [简体中文](README.zh-CN.md)
 
 This directory has two different jobs:
 
-- `_official/` - first-party plugins bundled with Design For AIR. The daemon scans this tree at startup and registers these plugins as official.
+- `_official/` - first-party plugins bundled with design for air. The daemon scans this tree at startup and registers these plugins as official.
 - `community/` - community plugin source folders. These are installable plugins, but they are not preinstalled unless a registry entry points at them and the user installs one.
 - `registry/` - default registry source manifests (`open-design-marketplace.json`) for official and community catalogs. These feed the Plugins Available/Sources UI.
-- `spec/` - the portable plugin specification, templates, examples, and agent handoff kit for building, testing, publishing, or opening a PR back to Design For AIR.
+- `spec/` - the portable plugin specification, templates, examples, and agent handoff kit for building, testing, publishing, or opening a PR back to design for air.
 
-The common contract is the same everywhere: a plugin is a portable agent skill folder with a `SKILL.md`, plus an optional versioned `open-design.json` sidecar that gives Design For AIR marketplace metadata, inputs, previews, pipelines, and trust/capability hints.
+The common contract is the same everywhere: a plugin is a portable agent skill folder with a `SKILL.md`, plus an optional versioned `open-design.json` sidecar that gives design for air marketplace metadata, inputs, previews, pipelines, and trust/capability hints.
 
 Start here:
 

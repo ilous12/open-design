@@ -729,7 +729,7 @@ async function createProjectViaApi(page: Page, name: string): Promise<string> {
 async function gotoEntryHome(page: Page) {
   await page.goto('/', { waitUntil: 'domcontentloaded' });
   await waitForLoadingToClear(page);
-  const privacyDialog = page.getByRole('dialog').filter({ hasText: 'Help us improve Design For AIR' });
+  const privacyDialog = page.getByRole('dialog').filter({ hasText: 'Help us improve design for air' });
   if (await privacyDialog.isVisible()) {
     await privacyDialog.getByRole('button', { name: /I get it|not now|got it|don't share/i }).click();
     await expect(privacyDialog).toHaveCount(0);
@@ -959,7 +959,7 @@ async function openDesignFile(page: Page, fileName: string) {
 }
 
 async function waitForLoadingToClear(page: Page) {
-  await page.getByText('Loading Design For AIR…').waitFor({ state: 'hidden', timeout: T.long });
+  await page.getByText('Loading design for air…').waitFor({ state: 'hidden', timeout: T.long });
 }
 
 async function expectFileSource(page: Page, projectId: string, fileName: string, snippets: string[]) {

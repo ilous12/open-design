@@ -2,11 +2,11 @@
 
 ## Purpose
 
-This document defines the architectural boundaries for the local Design For AIR app. These boundaries are architectural constraints; some enforcement details can be implemented later through the relevant roadmap workstreams.
+This document defines the architectural boundaries for the local design for air app. These boundaries are architectural constraints; some enforcement details can be implemented later through the relevant roadmap workstreams.
 
 ## Product Shape
 
-Design For AIR is a local-first application. The near-term Electron version is a shell around the same `apps/web` and `apps/daemon` architecture.
+design for air is a local-first application. The near-term Electron version is a shell around the same `apps/web` and `apps/daemon` architecture.
 
 Electron does not introduce a separate privileged application layer. The web layer and daemon keep the same responsibilities in browser and Electron modes.
 

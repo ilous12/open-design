@@ -1,7 +1,7 @@
 ---
 name: ui-ux-pro-max
 description: |
-  Catalog-only UI/UX Pro Max entry. The full upstream templates, data, and search workflow are not bundled in Design For AIR.
+  Catalog-only UI/UX Pro Max entry. The full upstream templates, data, and search workflow are not bundled in design for air.
 triggers:
   - "ui ux patterns"
   - "design patterns"
@@ -19,11 +19,11 @@ od:
 
 ## What it does
 
-Catalog-only UI/UX Pro Max entry. The full upstream templates, data, and search workflow are not bundled in Design For AIR.
+Catalog-only UI/UX Pro Max entry. The full upstream templates, data, and search workflow are not bundled in design for air.
 
-## Current Design For AIR scope
+## Current design for air scope
 
-Design For AIR currently ships this entry as discovery metadata only. If this `SKILL.md`
+design for air currently ships this entry as discovery metadata only. If this `SKILL.md`
 is the only file under `skills/ui-ux-pro-max/`, the upstream UI/UX Pro Max
 workflow is not available locally.
 
@@ -39,7 +39,7 @@ the full UI/UX Pro Max pattern library or template search is active.
 
 ## How to use
 
-This catalogue entry advertises the skill in Design For AIR so the agent
+This catalogue entry advertises the skill in design for air so the agent
 discovers it during planning. To run the full upstream workflow with
 its original assets, scripts, and references, install the upstream
 bundle into your active agent's skills directory:
@@ -52,6 +52,6 @@ open https://github.com/nextlevelbuilder/ui-ux-pro-max-skill
 Then ask the agent to invoke this skill by name (`ui-ux-pro-max`) or with
 one of the trigger phrases listed in this skill's frontmatter.
 
-If those upstream files are not installed, explain that Design For AIR only has the
-catalog entry for this skill and ask whether to continue with Design For AIR's
+If those upstream files are not installed, explain that design for air only has the
+catalog entry for this skill and ask whether to continue with design for air's
 default design-system guidance instead.

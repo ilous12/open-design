@@ -2,7 +2,7 @@
 
 **Parent:** [`spec.md`](spec.md) · **Siblings:** [`self-hosting.md`](self-hosting.md) · [`network-security.md`](network-security.md)
 
-Deploy Design For AIR on Linux or macOS with a single command. The installer wraps the existing Docker Compose stack — no build step required.
+Deploy design for air on Linux or macOS with a single command. The installer wraps the existing Docker Compose stack — no build step required.
 
 ## Quick reference
 
@@ -48,7 +48,7 @@ Allowed origins (CORS, comma-separated, or empty) []:
 Memory limit [384m]:
 
 [open-design] Pulling image: ghcr.io/nexu-io/od:latest
-[open-design] Starting Design For AIR...
+[open-design] Starting design for air...
 [open-design] Waiting for health check (up to 60s)...
 [open-design] Daemon is healthy (200 OK)
 ```

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Design For AIR — Uninstaller
+# design for air — Uninstaller
 # Stops and removes the Docker Compose deployment
 #
 # Usage: ./uninstall.sh [--keep-data] [--non-interactive]
@@ -95,7 +95,7 @@ done
 printf "\n"
 printf "${BOLD}  ┌──────────────────────────────────────┐${RESET}\n"
 printf "${BOLD}  │${RESET}                                      ${BOLD}│${RESET}\n"
-printf "${BOLD}  │${RESET}   ${CYAN}◈${RESET}  ${BOLD}Design For AIR${RESET}                     ${BOLD}│${RESET}\n"
+printf "${BOLD}  │${RESET}   ${CYAN}◈${RESET}  ${BOLD}design for air${RESET}                     ${BOLD}│${RESET}\n"
 printf "${BOLD}  │${RESET}      ${DIM}Uninstaller${RESET}                     ${BOLD}│${RESET}\n"
 printf "${BOLD}  │${RESET}                                      ${BOLD}│${RESET}\n"
 printf "${BOLD}  └──────────────────────────────────────┘${RESET}\n"

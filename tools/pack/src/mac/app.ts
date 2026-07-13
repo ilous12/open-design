@@ -299,7 +299,7 @@ export async function writeAssembledApp(
     `${JSON.stringify(
       {
         dependencies,
-        description: "Design For AIR packaged runtime",
+        description: "design for air packaged runtime",
         main: "./main.cjs",
         name: "nn.design-packaged-app",
         private: true,

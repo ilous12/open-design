@@ -234,7 +234,7 @@ interface Props {
   ) => Promise<{ message?: string; url?: string } | void> | { message?: string; url?: string } | void;
   activePluginActionPaths?: Set<string>;
   hiddenPluginActionPaths?: Set<string>;
-  // Click handler for the post-completion "Share to Design For AIR" submission
+  // Click handler for the post-completion "Share to design for air" submission
   // action. ProjectView wires this to handleSend with the bundled
   // `od-share-to-community` trigger prompt.
   onShareToOpenDesign?: () => void;
@@ -2165,7 +2165,7 @@ function PluginActionPanel({
                   <span>
                     {actionBusy && busyKey === `contribute:${folder.path}`
                       ? "Sending..."
-                      : "Design For AIR PR"}
+                      : "design for air PR"}
                   </span>
                 </button>
                 {onRequestOpenFile ? (
@@ -2261,7 +2261,7 @@ function pathMatchesFolderFileBasename(
 }
 
 function hasPluginFinalActionHint(content: string): boolean {
-  return /\b(Add to My plugins|Design For AIR PR|Publish repo|plugin publish|ready to publish|ready to add)\b/i.test(
+  return /\b(Add to My plugins|design for air PR|Publish repo|plugin publish|ready to publish|ready to add)\b/i.test(
     content,
   );
 }

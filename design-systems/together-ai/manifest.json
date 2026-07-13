@@ -3,10 +3,10 @@
   "id": "together-ai",
   "name": "Together AI",
   "category": "AI & LLM",
-  "description": "Bundled Design For AIR package for Together AI, derived from curated DESIGN.md, tokens.css, and components.html fixtures.",
+  "description": "Bundled design for air package for Together AI, derived from curated DESIGN.md, tokens.css, and components.html fixtures.",
   "source": {
     "type": "bundled",
-    "origin": "Design For AIR curated bundled fixture"
+    "origin": "design for air curated bundled fixture"
   },
   "files": {
     "design": "DESIGN.md",

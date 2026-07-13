@@ -1,6 +1,6 @@
-# Self-hosting An Design For AIR Registry
+# Self-hosting An design for air Registry
 
-An Design For AIR registry is a source of `open-design-marketplace.json` plus the
+An design for air registry is a source of `open-design-marketplace.json` plus the
 review process that produces it. In v1 this can be a static GitHub repository,
 GitHub Enterprise, S3/R2, or any HTTPS host.
 

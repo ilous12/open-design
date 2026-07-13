@@ -526,7 +526,7 @@ function installDesktopMenu(
 
 const REGISTER_DESKTOP_AUTH_RETRY_DELAYS_MS = [120, 240, 480, 960, 1500];
 const REGISTER_DESKTOP_AUTH_TIMEOUT_MS = 800;
-const DESKTOP_APP_NAME = "Design For AIR";
+const DESKTOP_APP_NAME = "design for air";
 
 function summarizeDesktopIpcInput(input: unknown): Record<string, unknown> | null {
   if (input == null || typeof input !== "object") return null;

@@ -69,7 +69,7 @@ export const SIDECAR_DEFAULTS = Object.freeze({
   windowsPipePrefix: "nn.design",
 } as const);
 
-export const OPEN_DESIGN_PRODUCT_NAME = "Design For AIR";
+export const OPEN_DESIGN_PRODUCT_NAME = "design for air";
 
 export function resolveWindowsReleaseNamespaceToken(value: string): string {
   return value.replace(/[^A-Za-z0-9._-]+/g, "-");

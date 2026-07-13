@@ -4,7 +4,7 @@
   "name": "open-design-community",
   "version": "0.2.1",
   "owner": {
-    "name": "Design For AIR Community",
+    "name": "design for air Community",
     "url": "https://github.com/ilous12/nn.design/tree/main/plugins/community"
   },
   "metadata": {
@@ -91,7 +91,7 @@
       "tags": [
         "community"
       ],
-      "description": "A packaged Design For AIR UI kit for HiCatcat G2 AR glasses HUD prototypes. Includes index.html, local token CSS, and modular React components for regular 640 and compact 320 display modes."
+      "description": "A packaged design for air UI kit for HiCatcat G2 AR glasses HUD prototypes. Includes index.html, local token CSS, and modular React components for regular 640 and compact 320 display modes."
     },
     {
       "name": "community/hallmark",

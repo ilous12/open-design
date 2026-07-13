@@ -1,17 +1,17 @@
-# Design For AIR 插件规范包
+# design for air 插件规范包
 
 语言：[English](README.md) | 简体中文
 
-这个文件夹是给 Design For AIR 插件作者使用的可共享规范包。它既适合人直接阅读，也适合交给 Claude Code、Codex、Cursor、OpenClaw、Hermes Agent 或其他兼容 Agent Skills 的编码 agent 使用。
+这个文件夹是给 design for air 插件作者使用的可共享规范包。它既适合人直接阅读，也适合交给 Claude Code、Codex、Cursor、OpenClaw、Hermes Agent 或其他兼容 Agent Skills 的编码 agent 使用。
 
-Design For AIR 插件遵循和 Agent Skills 兼容的可移植形态：一个包含 `SKILL.md` 的文件夹，可选添加 assets、references、scripts 和 examples。Design For AIR 额外使用 `open-design.json` 作为 sidecar，让同一个文件夹可以出现在 OD 插件库里、填充首页输入框、声明 inputs 和 GenUI surfaces、运行 OD atom pipeline，并参与发布或 PR 流程。
+design for air 插件遵循和 Agent Skills 兼容的可移植形态：一个包含 `SKILL.md` 的文件夹，可选添加 assets、references、scripts 和 examples。design for air 额外使用 `open-design.json` 作为 sidecar，让同一个文件夹可以出现在 OD 插件库里、填充首页输入框、声明 inputs 和 GenUI surfaces、运行 OD atom pipeline，并参与发布或 PR 流程。
 
 ## 文件夹地图
 
 - [`SPEC.zh-CN.md`](SPEC.zh-CN.md) - 可移植插件规范与分类。
 - [`AGENT-DEVELOPMENT.zh-CN.md`](AGENT-DEVELOPMENT.zh-CN.md) - 可以直接复制给外部 agent 的开发说明。
 - [`CONTRIBUTING.zh-CN.md`](CONTRIBUTING.zh-CN.md) - 遵循此规范的插件 PR 标准。
-- [`PUBLISHING-REGISTRIES.zh-CN.md`](PUBLISHING-REGISTRIES.zh-CN.md) - 发布到 skills.sh、ClawHub、GitHub 和 Design For AIR 的策略。
+- [`PUBLISHING-REGISTRIES.zh-CN.md`](PUBLISHING-REGISTRIES.zh-CN.md) - 发布到 skills.sh、ClawHub、GitHub 和 design for air 的策略。
 - [`templates/`](templates/) - 空白 starter 文件。
 - [`examples/`](examples/) - 完整示例插件文件夹和示例 marketplace index。
 
@@ -59,10 +59,10 @@ od plugin apply <plugin-id> --input key=value
 
 ## 兼容性承诺
 
-包含 `SKILL.md` 的文件夹可以作为普通 skill 被兼容 Agent Skills 的客户端使用。添加 `open-design.json` 不应该降低可移植性；它只增加 Design For AIR 产品行为。
+包含 `SKILL.md` 的文件夹可以作为普通 skill 被兼容 Agent Skills 的客户端使用。添加 `open-design.json` 不应该降低可移植性；它只增加 design for air 产品行为。
 
 参考：
 
 - Agent Skills overview: https://agentskills.io/home
 - Agent Skills specification: https://agentskills.io/specification
-- Design For AIR 插件完整 spec: ../../docs/plugins-spec.zh-CN.md
+- design for air 插件完整 spec: ../../docs/plugins-spec.zh-CN.md

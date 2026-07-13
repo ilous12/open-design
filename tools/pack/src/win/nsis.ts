@@ -33,19 +33,19 @@ LangString OD_REMOVE_LOCAL_DATA_TITLE 1046 "Remover dados locais"
 LangString OD_REMOVE_LOCAL_DATA_TITLE 1049 "Удалить локальные данные"
 LangString OD_REMOVE_LOCAL_DATA_TITLE 1065 "حذف داده‌های محلی"
 
-LangString OD_REMOVE_LOCAL_DATA_HINT 1033 "Choose whether the uninstaller should remove Design For AIR data stored on this computer."
-LangString OD_REMOVE_LOCAL_DATA_HINT 2052 "请选择卸载程序是否删除此电脑上保存的 Design For AIR 数据。"
-LangString OD_REMOVE_LOCAL_DATA_HINT 1028 "請選擇解除安裝程式是否刪除此電腦上儲存的 Design For AIR 資料。"
-LangString OD_REMOVE_LOCAL_DATA_HINT 1046 "Escolha se o desinstalador deve remover os dados do Design For AIR armazenados neste computador."
-LangString OD_REMOVE_LOCAL_DATA_HINT 1049 "Выберите, должен ли деинсталлятор удалить данные Design For AIR, сохраненные на этом компьютере."
-LangString OD_REMOVE_LOCAL_DATA_HINT 1065 "انتخاب کنید که حذف‌کننده داده‌های Design For AIR ذخیره‌شده در این رایانه را حذف کند یا نه."
+LangString OD_REMOVE_LOCAL_DATA_HINT 1033 "Choose whether the uninstaller should remove design for air data stored on this computer."
+LangString OD_REMOVE_LOCAL_DATA_HINT 2052 "请选择卸载程序是否删除此电脑上保存的 design for air 数据。"
+LangString OD_REMOVE_LOCAL_DATA_HINT 1028 "請選擇解除安裝程式是否刪除此電腦上儲存的 design for air 資料。"
+LangString OD_REMOVE_LOCAL_DATA_HINT 1046 "Escolha se o desinstalador deve remover os dados do design for air armazenados neste computador."
+LangString OD_REMOVE_LOCAL_DATA_HINT 1049 "Выберите, должен ли деинсталлятор удалить данные design for air, сохраненные на этом компьютере."
+LangString OD_REMOVE_LOCAL_DATA_HINT 1065 "انتخاب کنید که حذف‌کننده داده‌های design for air ذخیره‌شده در این رایانه را حذف کند یا نه."
 
-LangString OD_REMOVE_LOCAL_DATA_CHECKBOX 1033 "Remove local Design For AIR data:"
-LangString OD_REMOVE_LOCAL_DATA_CHECKBOX 2052 "删除本地 Design For AIR 数据："
-LangString OD_REMOVE_LOCAL_DATA_CHECKBOX 1028 "刪除本機 Design For AIR 資料："
-LangString OD_REMOVE_LOCAL_DATA_CHECKBOX 1046 "Remover dados locais do Design For AIR:"
-LangString OD_REMOVE_LOCAL_DATA_CHECKBOX 1049 "Удалить локальные данные Design For AIR:"
-LangString OD_REMOVE_LOCAL_DATA_CHECKBOX 1065 "حذف داده‌های محلی Design For AIR:"
+LangString OD_REMOVE_LOCAL_DATA_CHECKBOX 1033 "Remove local design for air data:"
+LangString OD_REMOVE_LOCAL_DATA_CHECKBOX 2052 "删除本地 design for air 数据："
+LangString OD_REMOVE_LOCAL_DATA_CHECKBOX 1028 "刪除本機 design for air 資料："
+LangString OD_REMOVE_LOCAL_DATA_CHECKBOX 1046 "Remover dados locais do design for air:"
+LangString OD_REMOVE_LOCAL_DATA_CHECKBOX 1049 "Удалить локальные данные design for air:"
+LangString OD_REMOVE_LOCAL_DATA_CHECKBOX 1065 "حذف داده‌های محلی design for air:"
 
 !macro customUnWelcomePage
   !insertmacro MUI_UNPAGE_WELCOME
@@ -83,7 +83,7 @@ FunctionEnd
     StrCpy $odLocalDataRoot "${localDataRoot}"
   \${EndIf}
   \${If} $odRemoveLocalData != "0"
-    DetailPrint "Removing local Design For AIR data: $odLocalDataRoot"
+    DetailPrint "Removing local design for air data: $odLocalDataRoot"
     RMDir /r "$odLocalDataRoot"
   \${EndIf}
 !macroend

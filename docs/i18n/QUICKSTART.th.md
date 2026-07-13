@@ -13,7 +13,7 @@
 
 ### Local agent CLI และ PATH
 
-Daemon จะ scan **`PATH`** ของคุณ (รวมถึง directory toolchain ของ user ที่พบบ่อย). ถ้าคุณติดตั้ง CLI ด้วย **`npm install -g`** หรือ **Homebrew** แล้ว Design For AIR ยังแสดงว่า *not installed*, GUI อาจเริ่มด้วย `PATH` แบบ minimal ที่ไม่มี global npm หรือ Homebrew `bin` directory (พบบ่อยบน macOS เมื่อไม่ได้ launch แอปจาก full login shell). ตรวจให้แน่ใจว่า directory ของ executable อยู่ใน `PATH` สำหรับ process ที่รัน daemon แล้วใช้ **Rescan** ใน **Settings → Execution mode**.
+Daemon จะ scan **`PATH`** ของคุณ (รวมถึง directory toolchain ของ user ที่พบบ่อย). ถ้าคุณติดตั้ง CLI ด้วย **`npm install -g`** หรือ **Homebrew** แล้ว design for air ยังแสดงว่า *not installed*, GUI อาจเริ่มด้วย `PATH` แบบ minimal ที่ไม่มี global npm หรือ Homebrew `bin` directory (พบบ่อยบน macOS เมื่อไม่ได้ launch แอปจาก full login shell). ตรวจให้แน่ใจว่า directory ของ executable อยู่ใน `PATH` สำหรับ process ที่รัน daemon แล้วใช้ **Rescan** ใน **Settings → Execution mode**.
 
 [`nvm`](https://github.com/nvm-sh/nvm) / [`fnm`](https://github.com/Schniz/fnm) เป็น convenience tools แบบ optional ไม่ใช่สิ่งจำเป็นในการ setup project. ถ้าคุณใช้ตัวใดตัวหนึ่ง ให้ติดตั้ง/เลือก Node 24 ก่อนรัน pnpm:
 
@@ -36,7 +36,7 @@ corepack pnpm --version   # should print 10.33.2
 
 ## Docker Setup
 
-รัน Design For AIR ใน environment ที่ containerized เต็มรูปแบบโดยไม่ต้องติดตั้ง Node.js หรือ pnpm ในเครื่อง.
+รัน design for air ใน environment ที่ containerized เต็มรูปแบบโดยไม่ต้องติดตั้ง Node.js หรือ pnpm ในเครื่อง.
 
 ### Requirements
 
@@ -51,7 +51,7 @@ docker compose version
 
 ---
 
-## เริ่ม Design For AIR
+## เริ่ม design for air
 
 จาก repository root:
 
@@ -153,7 +153,7 @@ OD_API_TOKEN=
 
 ## Persistent Storage
 
-Design For AIR เก็บ projects และ SQLite data ไว้ใน Docker volume:
+design for air เก็บ projects และ SQLite data ไว้ใน Docker volume:
 
 ```text
 open_design_data
@@ -248,7 +248,7 @@ ls -la apps/daemon/dist/cli.js
 curl -s http://127.0.0.1:7457/api/health
 ```
 
-จากนั้นเปิด project จาก Design For AIR app อีกครั้งแทนการ resume terminal agent session เก่า. Agent ที่ spawn จาก daemon ควรเห็นค่าเช่น:
+จากนั้นเปิด project จาก design for air app อีกครั้งแทนการ resume terminal agent session เก่า. Agent ที่ spawn จาก daemon ควรเห็นค่าเช่น:
 
 ```bash
 echo "OD_BIN=$OD_BIN"
@@ -332,7 +332,7 @@ open-design/
 │   └── desktop/               # Electron runtime, launched/inspected by tools-dev
 ├── packages/
 │   ├── contracts/             # shared web/daemon app contracts
-│   ├── sidecar-proto/         # Design For AIR sidecar protocol contract
+│   ├── sidecar-proto/         # design for air sidecar protocol contract
 │   ├── sidecar/               # generic sidecar runtime primitives
 │   └── platform/              # generic process/platform primitives
 ├── tools/dev/                 # `pnpm tools-dev` lifecycle and inspect CLI
@@ -369,16 +369,16 @@ open-design/
 
 - **`better-sqlite3` fails to load / ABI mismatch after a Node.js version change** — `pnpm install` จะ re-run `postinstall` อัตโนมัติและ rebuild native addon สำหรับ Node.js ปัจจุบัน. ถ้าต้องการ rebuild เองหรือตรวจ fix: `pnpm --filter @nn-design/daemon rebuild better-sqlite3` แล้ว `pnpm --filter @nn-design/daemon exec node -e "require('better-sqlite3')"`. ต้องมี build tools: `python3`, `make`, `g++` (หรือ `clang++`). ถ้าคุณมี `ignore-scripts=true` ใน `.npmrc`, ให้รัน `node scripts/postinstall.mjs` หลัง `pnpm install`.
 - **"no agents found on PATH"** — ติดตั้งหนึ่งในนี้: `claude`, `codex`, `devin`, `gemini`, `opencode`, `cursor-agent`, `qwen`, `qodercli`, `copilot`. หรือสลับเป็น API mode ใน Settings แล้ว paste provider key.
-- **Claude Code exits with code 1** — Design For AIR start `claude` ได้แล้ว แต่ spawned non-interactive run fail ก่อน produce response. จาก shell หรือ app environment เดียวกับที่ start Design For AIR ให้เช็ค:
+- **Claude Code exits with code 1** — design for air start `claude` ได้แล้ว แต่ spawned non-interactive run fail ก่อน produce response. จาก shell หรือ app environment เดียวกับที่ start design for air ให้เช็ค:
   ```bash
   claude --version
   claude auth status --text
   printf 'hello' | claude -p --output-format stream-json --verbose --permission-mode bypassPermissions
   ```
-  ถ้า smoke test รายงาน `401`, `apiKeySource: "none"` หรือ auth error อื่นโดยไม่มี custom endpoint ให้รัน `claude`, ใช้ `/login`, exit Claude แล้วลอง Design For AIR ใหม่. ถ้าคุณใช้หลาย Claude profiles ให้ตั้ง **Settings -> Execution mode -> Claude Code config directory** ไปที่ profile path เช่น `~/.claude-2`. ถ้าตั้ง `ANTHROPIC_BASE_URL` หรือ proxy ไว้ ให้เช็ค endpoint URL, proxy credentials, endpoint auth environment และ model access; ลบ custom endpoint เฉพาะเมื่ออยาก retry ด้วย standard Claude Code auth. บน Windows, native PowerShell และ WSL ใช้ Claude installs และ credential stores แยกกัน; ให้ re-authenticate ใน environment เดียวกับที่ Design For AIR ใช้ และเช็ค Windows Credential Manager ถ้า `/login` ไม่ซ่อม native Windows credentials.
+  ถ้า smoke test รายงาน `401`, `apiKeySource: "none"` หรือ auth error อื่นโดยไม่มี custom endpoint ให้รัน `claude`, ใช้ `/login`, exit Claude แล้วลอง design for air ใหม่. ถ้าคุณใช้หลาย Claude profiles ให้ตั้ง **Settings -> Execution mode -> Claude Code config directory** ไปที่ profile path เช่น `~/.claude-2`. ถ้าตั้ง `ANTHROPIC_BASE_URL` หรือ proxy ไว้ ให้เช็ค endpoint URL, proxy credentials, endpoint auth environment และ model access; ลบ custom endpoint เฉพาะเมื่ออยาก retry ด้วย standard Claude Code auth. บน Windows, native PowerShell และ WSL ใช้ Claude installs และ credential stores แยกกัน; ให้ re-authenticate ใน environment เดียวกับที่ design for air ใช้ และเช็ค Windows Credential Manager ถ้า `/login` ไม่ซ่อม native Windows credentials.
 - **daemon 500 on /api/chat** — ดู stderr tail ใน daemon terminal; โดยมาก CLI reject args. CLI แต่ละตัวใช้ argv shapes ต่างกัน; ดู `apps/daemon/src/agents.ts` `buildArgs` ถ้าต้องปรับ.
-- **media generation says `OD_BIN` is missing or daemon URL is `:0`** — รัน media dispatcher checks ด้านบน. อย่า resume CLI session เก่า; เปิด project จาก Design For AIR app ใหม่เพื่อให้ daemon inject variables `OD_*` ชุดใหม่.
-- **Codex loads too much plugin context** — start Design For AIR ด้วย `OD_CODEX_DISABLE_PLUGINS=1 pnpm tools-dev` เพื่อให้ daemon-spawned Codex processes รันด้วย `--disable plugins`.
+- **media generation says `OD_BIN` is missing or daemon URL is `:0`** — รัน media dispatcher checks ด้านบน. อย่า resume CLI session เก่า; เปิด project จาก design for air app ใหม่เพื่อให้ daemon inject variables `OD_*` ชุดใหม่.
+- **Codex loads too much plugin context** — start design for air ด้วย `OD_CODEX_DISABLE_PLUGINS=1 pnpm tools-dev` เพื่อให้ daemon-spawned Codex processes รันด้วย `--disable plugins`.
 - **artifact never renders** — model produce text โดยไม่ได้ wrap ใน `<artifact>`. ยืนยันว่า system prompt ถูกส่งผ่าน (เช็ค daemon log) และพิจารณาสลับไป model ที่เก่งขึ้นหรือ skill ที่เข้มกว่า.
 - **`Authorization: Bearer <OD_API_TOKEN>` required on macOS** — Docker Desktop bridge networking ทำให้ daemon มอง request เป็น non-loopback. เปิด host networking ใน Docker Desktop และใช้ `network_mode: host`. ดู [`deploy/README.md` — Docker Desktop on macOS](../../deploy/README.md#docker-desktop-on-macos).
 

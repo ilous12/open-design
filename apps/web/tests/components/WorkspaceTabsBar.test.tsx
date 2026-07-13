@@ -19,7 +19,7 @@ vi.mock('../../src/i18n', () => ({
   }),
   useT: () => (key: string) => {
     const labels: Record<string, string> = {
-      'app.brand': 'Design For AIR',
+      'app.brand': 'design for air',
       'common.close': 'Close',
       'common.untitled': 'Untitled',
       'entry.navDesignSystems': 'Design systems',

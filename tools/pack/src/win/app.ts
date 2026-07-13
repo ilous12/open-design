@@ -257,7 +257,7 @@ async function writeAssembledAppEntrypoints(
     `${JSON.stringify(
       {
         dependencies: options.dependencies ?? createAssembledAppDependencies(config, paths, packedTarballs),
-        description: "Design For AIR packaged runtime",
+        description: "design for air packaged runtime",
         main: "./main.cjs",
         name: "nn.design-packaged-app",
         private: true,

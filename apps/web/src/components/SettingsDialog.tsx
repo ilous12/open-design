@@ -800,7 +800,7 @@ function cleanAgentVersionLabel(
 }
 
 function displayAgentName(agent: Pick<AgentInfo, 'id' | 'name'>): string {
-  return agent.id === 'amr' ? 'Design For AIR' : agent.name;
+  return agent.id === 'amr' ? 'design for air' : agent.name;
 }
 
 const AGENT_CLI_ENV_FIELDS = [
@@ -6735,7 +6735,7 @@ function MediaProvidersSection({
 // Important: every snippet uses absolute paths to the daemon's current
 // Node-compatible runtime and built cli.js, fetched at runtime. macOS
 // and Linux ship a system /usr/bin/od (octal-dump) that shadows any
-// `od` we might add to PATH, and most Design For AIR users run from
+// `od` we might add to PATH, and most design for air users run from
 // source where `od` is not installed globally. The installer panel
 // must NOT reference bare `od`.
 type McpClientId =

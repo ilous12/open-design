@@ -1,7 +1,7 @@
 /* ─────────────────────────────────────────────────────────────────────────
  * design-systems/_schema/manifest.schema.ts
  *
- * Canonical contract for an Design For AIR Design System Project.
+ * Canonical contract for an design for air Design System Project.
  *
  * `DESIGN.md` remains the prose source that agents read. The project
  * manifest is the stable discovery layer around it: picker / daemon /

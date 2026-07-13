@@ -46,10 +46,10 @@ describe("resolveMacInstallIdentity", () => {
   it("keeps stable builds on the canonical mac identity", () => {
     expect(resolveMacInstallIdentity(makeConfig("/work", "release-stable"))).toMatchObject({
       appId: "com.skt.nn.design.desktop",
-      installerTitle: "Design For AIR",
-      productName: "Design For AIR",
-      publicAppBundleName: "Design For AIR.app",
-      systemAppBundleName: "Design For AIR.app",
+      installerTitle: "design for air",
+      productName: "design for air",
+      publicAppBundleName: "design for air.app",
+      systemAppBundleName: "design for air.app",
     });
   });
 
@@ -58,13 +58,13 @@ describe("resolveMacInstallIdentity", () => {
 
     expect(resolveMacInstallIdentity(config)).toEqual({
       appId: "com.skt.nn.design.desktop.beta",
-      executableName: "Design For AIR Beta",
-      installerTitle: "Design For AIR Beta",
-      productName: "Design For AIR Beta",
-      publicAppBundleName: "Design For AIR Beta.app",
-      systemAppBundleName: "Design For AIR Beta.app",
+      executableName: "design for air Beta",
+      installerTitle: "design for air Beta",
+      productName: "design for air Beta",
+      publicAppBundleName: "design for air Beta.app",
+      systemAppBundleName: "design for air Beta.app",
     });
-    expect(resolveMacPaths(config).appPath).toMatch(/Design For AIR Beta\.app$/);
+    expect(resolveMacPaths(config).appPath).toMatch(/design for air Beta\.app$/);
   });
 
   it("uses first-class preview app identity for preview release namespaces", () => {
@@ -72,13 +72,13 @@ describe("resolveMacInstallIdentity", () => {
 
     expect(resolveMacInstallIdentity(config)).toEqual({
       appId: "com.skt.nn.design.desktop.preview",
-      executableName: "Design For AIR Preview",
-      installerTitle: "Design For AIR Preview",
-      productName: "Design For AIR Preview",
-      publicAppBundleName: "Design For AIR Preview.app",
-      systemAppBundleName: "Design For AIR Preview.app",
+      executableName: "design for air Preview",
+      installerTitle: "design for air Preview",
+      productName: "design for air Preview",
+      publicAppBundleName: "design for air Preview.app",
+      systemAppBundleName: "design for air Preview.app",
     });
-    expect(resolveMacPaths(config).appPath).toMatch(/Design For AIR Preview\.app$/);
+    expect(resolveMacPaths(config).appPath).toMatch(/design for air Preview\.app$/);
   });
 
   it("uses first-class prerelease app identity for prerelease release versions and namespaces", () => {
@@ -90,16 +90,16 @@ describe("resolveMacInstallIdentity", () => {
 
     expect(resolveMacInstallIdentity(prereleaseVersionConfig)).toEqual({
       appId: "com.skt.nn.design.desktop.prerelease",
-      executableName: "Design For AIR Prerelease",
-      installerTitle: "Design For AIR Prerelease",
-      productName: "Design For AIR Prerelease",
-      publicAppBundleName: "Design For AIR Prerelease.app",
-      systemAppBundleName: "Design For AIR Prerelease.app",
+      executableName: "design for air Prerelease",
+      installerTitle: "design for air Prerelease",
+      productName: "design for air Prerelease",
+      publicAppBundleName: "design for air Prerelease.app",
+      systemAppBundleName: "design for air Prerelease.app",
     });
-    expect(resolveMacPaths(prereleaseVersionConfig).appPath).toMatch(/Design For AIR Prerelease\.app$/);
+    expect(resolveMacPaths(prereleaseVersionConfig).appPath).toMatch(/design for air Prerelease\.app$/);
     expect(resolveMacInstallIdentity(prereleaseNamespaceConfig)).toMatchObject({
-      productName: "Design For AIR Prerelease",
-      publicAppBundleName: "Design For AIR Prerelease.app",
+      productName: "design for air Prerelease",
+      publicAppBundleName: "design for air Prerelease.app",
     });
   });
 });

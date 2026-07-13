@@ -7,9 +7,9 @@ export async function buildBlogRss(context: { site: URL }) {
   );
 
   return rss({
-    title: 'Design For AIR Blog',
+    title: 'design for air Blog',
     description:
-      'Editorial notes on Design For AIR, agent-native design workflows, BYOK, skills, systems, and community.',
+      'Editorial notes on design for air, agent-native design workflows, BYOK, skills, systems, and community.',
     site: context.site,
     items: posts.map((post) => ({
       title: post.data.title,

@@ -21,7 +21,7 @@ export const HU_SKILL_COPY: Record<string, { description?: string; examplePrompt
   },
   'agent-browser': {
     description:
-      'Böngészőautomatizálási CLI AI-ügynököknek. Akkor használd, ha a felhasználónak böngészőviselkedést kell\nvizsgálnia, tesztelnie vagy automatizálnia: oldalak navigálása, űrlapok kitöltése,\ngombok kattintása, képernyőképek készítése, oldaladatok kinyerése, a kiválasztott\nDesign For AIR böngészőfül-kontextus olvasása, webalkalmazások tesztelése, Design For AIR\nelőnézetek dogfoodingja, QA, hibavadászat vagy alkalmazásminőség áttekintése. Részesítsd előnyben a helyi Design For AIR\nelőnézeti URL-eket, hacsak a felhasználó kifejezetten nem kér külső böngészést.',
+      'Böngészőautomatizálási CLI AI-ügynököknek. Akkor használd, ha a felhasználónak böngészőviselkedést kell\nvizsgálnia, tesztelnie vagy automatizálnia: oldalak navigálása, űrlapok kitöltése,\ngombok kattintása, képernyőképek készítése, oldaladatok kinyerése, a kiválasztott\ndesign for air böngészőfül-kontextus olvasása, webalkalmazások tesztelése, design for air\nelőnézetek dogfoodingja, QA, hibavadászat vagy alkalmazásminőség áttekintése. Részesítsd előnyben a helyi design for air\nelőnézeti URL-eket, hacsak a felhasználó kifejezetten nem kér külső böngészést.',
     examplePrompt:
       'Böngészőautomatizálási CLI AI-ügynököknek.',
   },
@@ -849,7 +849,7 @@ export const HU_SKILL_COPY: Record<string, { description?: string; examplePrompt
   },
   'ui-ux-pro-max': {
     description:
-      'Csak katalógusos UI/UX Pro Max bejegyzés. A teljes upstream sablonok, adatok és keresési munkafolyamat nincs csomagolva az Design For AIRba.',
+      'Csak katalógusos UI/UX Pro Max bejegyzés. A teljes upstream sablonok, adatok és keresési munkafolyamat nincs csomagolva az design for airba.',
     examplePrompt:
       'Csak katalógusos UI/UX Pro Max bejegyzés.',
   },

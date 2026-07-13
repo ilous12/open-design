@@ -44,7 +44,7 @@ function formatWritablePathError(options: {
   const message = error instanceof Error ? error.message : String(error);
   const parentPath = dirname(attemptedPath);
   const diagLines = [
-    `Design For AIR could not create or write to:`,
+    `design for air could not create or write to:`,
     attemptedPath,
     "",
     `Current user: ${currentUser}`,

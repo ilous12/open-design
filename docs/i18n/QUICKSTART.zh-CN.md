@@ -79,7 +79,7 @@ pnpm typecheck                 # 对整个 workspace 执行 typecheck
 
 ## Docker 部署
 
-在一个完全容器化的环境中运行 Design For AIR，无需安装 Node.js 或 pnpm。
+在一个完全容器化的环境中运行 design for air，无需安装 Node.js 或 pnpm。
 
 ### 环境要求
 
@@ -94,7 +94,7 @@ docker compose version
 
 ---
 
-## 启动 Design For AIR
+## 启动 design for air
 
 从仓库根目录开始：
 
@@ -228,7 +228,7 @@ ls -la apps/daemon/dist/cli.js
 curl -s http://127.0.0.1:7457/api/health
 ```
 
-随后，在 Design For AIR 应用中**重新打开**该 project，不要复用之前 terminal 中的 agent 会话。由 daemon 启动的 agent 应当能够看到类似如下的值：
+随后，在 design for air 应用中**重新打开**该 project，不要复用之前 terminal 中的 agent 会话。由 daemon 启动的 agent 应当能够看到类似如下的值：
 
 ```bash
 echo "OD_BIN=$OD_BIN"
@@ -312,7 +312,7 @@ open-design/
 │   └── desktop/               # Electron runtime，由 tools-dev 启动 / 检查
 ├── packages/
 │   ├── contracts/             # 共享的 web/daemon 应用契约
-│   ├── sidecar-proto/         # Design For AIR sidecar 协议契约
+│   ├── sidecar-proto/         # design for air sidecar 协议契约
 │   ├── sidecar/               # 通用 sidecar runtime 原语
 │   └── platform/              # 通用 process/platform 原语
 ├── tools/dev/                 # `pnpm tools-dev` 生命周期与 inspect CLI
@@ -345,8 +345,8 @@ open-design/
 
 - **"no agents found on PATH"** —— 安装以下 CLI 之一：`claude`、`codex`、`devin`、`gemini`、`opencode`、`cursor-agent`、`qwen`、`qodercli`、`copilot`。或者在 Settings 中切换至 API mode，填入 provider key。
 - **daemon 在 /api/chat 上返回 500** —— 查看 daemon 终端的 stderr 尾部；通常是 CLI 拒绝了传入的参数。不同 CLI 的 argv 结构各异；如需调整，请参阅 `apps/daemon/src/agents.ts` 中的 `buildArgs`。
-- **媒体生成报错 `OD_BIN` 缺失、或 daemon URL 为 `:0`** —— 运行上述媒体 dispatcher 排查步骤。请勿复用已有的 CLI 会话；从 Design For AIR 应用中重新打开 project，daemon 才会注入新的 `OD_*` 变量。
-- **Codex 加载的插件上下文过多** —— 使用 `OD_CODEX_DISABLE_PLUGINS=1 pnpm tools-dev` 启动 Design For AIR，daemon 启动 Codex 时会传入 `--disable plugins`。
+- **媒体生成报错 `OD_BIN` 缺失、或 daemon URL 为 `:0`** —— 运行上述媒体 dispatcher 排查步骤。请勿复用已有的 CLI 会话；从 design for air 应用中重新打开 project，daemon 才会注入新的 `OD_*` 变量。
+- **Codex 加载的插件上下文过多** —— 使用 `OD_CODEX_DISABLE_PLUGINS=1 pnpm tools-dev` 启动 design for air，daemon 启动 Codex 时会传入 `--disable plugins`。
 - **artifact 始终不渲染** —— 模型输出了文本但未使用 `<artifact>` 包裹。请确认 system prompt 已正确传递（查看 daemon 日志），然后考虑更换能力更强的模型或更严格的 skill。
 
 ## 回到产品愿景

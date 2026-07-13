@@ -172,7 +172,7 @@ describe('InlineModelSwitcher AMR row', () => {
     renderSwitcher({}, [amrAgent, codexAgent]);
 
     const chip = screen.getByRole('button', {
-      name: /Design For AIR/i,
+      name: /design for air/i,
     });
     expect(chip).toBe(screen.getByTestId('inline-model-switcher-chip'));
     expect(chip.getAttribute('aria-label')).toMatch(/·/u);
@@ -213,7 +213,7 @@ describe('InlineModelSwitcher AMR row', () => {
     renderSwitcher();
 
     expect(screen.getByTestId('inline-model-switcher-chip').textContent).toContain(
-      'Design For AIR',
+      'design for air',
     );
     expect(screen.getByTestId('inline-model-switcher-chip').textContent).not.toContain('AMR');
 
@@ -223,12 +223,12 @@ describe('InlineModelSwitcher AMR row', () => {
     expect(within(popover).getByTestId('inline-model-switcher-open-settings')).toBeTruthy();
     expect(within(popover).getByRole('button', { name: /settings/i })).toBeTruthy();
     const amrButton = await within(popover).findByRole('radio', {
-      name: /^Design For AIR\s+Sign in$/i,
+      name: /^design for air\s+Sign in$/i,
     });
     expect(amrButton.querySelector('.inline-switcher__agent-status-icon')).toBeNull();
     expect(
       amrButton.querySelector('.inline-switcher__account-name')?.textContent,
-    ).toBe('Design For AIR');
+    ).toBe('design for air');
     expect(within(popover).queryByText(/AMR \(vela\)/i)).toBeNull();
     expect(within(popover).queryByText(/vela/i)).toBeNull();
     expect(within(popover).queryByText(/Not signed in/i)).toBeNull();
@@ -309,13 +309,13 @@ describe('InlineModelSwitcher AMR row', () => {
 
     const popover = screen.getByTestId('inline-model-switcher-popover');
     const amrButton = await within(popover).findByRole('radio', {
-      name: /^Design For AIR\s+Signed in$/i,
+      name: /^design for air\s+Signed in$/i,
     });
     expect(within(popover).queryByText(/manual-amr@example\.local/i)).toBeNull();
     expect(within(popover).queryByRole('button', { name: 'Sign out' })).toBeNull();
   });
 
-  it('shows wallet balance in the Design For AIR account row when signed-in status has no account summary', async () => {
+  it('shows wallet balance in the design for air account row when signed-in status has no account summary', async () => {
     const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
       const url = input.toString();
       if (url === '/api/integrations/vela/status') {
@@ -358,7 +358,7 @@ describe('InlineModelSwitcher AMR row', () => {
 
     const popover = screen.getByTestId('inline-model-switcher-popover');
     await within(popover).findByRole('radio', {
-      name: /^Design For AIR\s+Signed in$/i,
+      name: /^design for air\s+Signed in$/i,
     });
     await waitFor(() => {
       expect(within(popover).getByText('Balance')).toBeTruthy();
@@ -758,7 +758,7 @@ describe('InlineModelSwitcher AMR row', () => {
 
     const popover = screen.getByTestId('inline-model-switcher-popover');
     const amrButton = await within(popover).findByRole('radio', {
-      name: /^Design For AIR\s+Signed in$/i,
+      name: /^design for air\s+Signed in$/i,
     });
     expect(within(popover).queryByText(/@/i)).toBeNull();
     expect(within(popover).queryByRole('button', { name: 'Sign out' })).toBeNull();
@@ -788,7 +788,7 @@ describe('InlineModelSwitcher AMR row', () => {
 
     const popover = screen.getByTestId('inline-model-switcher-popover');
     const amrButton = await within(popover).findByRole('radio', {
-      name: /^Design For AIR\s+Signing in/i,
+      name: /^design for air\s+Signing in/i,
     });
     expect(
       within(popover)
@@ -839,7 +839,7 @@ describe('InlineModelSwitcher AMR row', () => {
 
     const popover = screen.getByTestId('inline-model-switcher-popover');
     const amrButton = await within(popover).findByRole('radio', {
-      name: /^Design For AIR\s+Signed in$/i,
+      name: /^design for air\s+Signed in$/i,
     });
     fireEvent.click(amrButton);
 
@@ -850,7 +850,7 @@ describe('InlineModelSwitcher AMR row', () => {
     });
     expectVelaLoginWithAttribution(fetchMock, 'inline_model_switcher_amr_row');
     expect(
-      within(popover).getByRole('radio', { name: /^Design For AIR\s+Signing in/i }),
+      within(popover).getByRole('radio', { name: /^design for air\s+Signing in/i }),
     ).toBeTruthy();
   });
 
@@ -885,20 +885,20 @@ describe('InlineModelSwitcher AMR row', () => {
 
     const popover = screen.getByTestId('inline-model-switcher-popover');
     const amrButton = await within(popover).findByRole('radio', {
-      name: /^Design For AIR\s+Sign in$/i,
+      name: /^design for air\s+Sign in$/i,
     });
     fireEvent.click(amrButton);
 
     await waitFor(() => {
       expect(
         within(popover).getByRole('radio', {
-          name: /^Design For AIR\s+profile "prod" api URL: is not configured/i,
+          name: /^design for air\s+profile "prod" api URL: is not configured/i,
         }),
       ).toBeTruthy();
     });
     expect(
       within(popover).queryByRole('radio', {
-        name: /^Design For AIR\s+Sign-in failed\./i,
+        name: /^design for air\s+Sign-in failed\./i,
       }),
     ).toBeNull();
     expect(
@@ -946,7 +946,7 @@ describe('InlineModelSwitcher AMR row', () => {
 
     const popover = screen.getByTestId('inline-model-switcher-popover');
     const amrButton = await within(popover).findByRole('radio', {
-      name: /^Design For AIR\s+Sign in$/i,
+      name: /^design for air\s+Sign in$/i,
     });
     vi.useFakeTimers();
     fireEvent.click(amrButton);
@@ -958,7 +958,7 @@ describe('InlineModelSwitcher AMR row', () => {
     });
     expectVelaLoginWithAttribution(fetchMock, 'inline_model_switcher_amr_row');
     expect(
-      within(popover).getByRole('radio', { name: /^Design For AIR\s+Signing in/i }),
+      within(popover).getByRole('radio', { name: /^design for air\s+Signing in/i }),
     ).toBeTruthy();
 
     await act(async () => {
@@ -966,7 +966,7 @@ describe('InlineModelSwitcher AMR row', () => {
     });
     expect(fetchMock).toHaveBeenCalledWith('/api/integrations/vela/login/cancel', { method: 'POST' });
     expect(
-      within(popover).getByRole('radio', { name: /^Design For AIR\s+Sign-in failed\./i }),
+      within(popover).getByRole('radio', { name: /^design for air\s+Sign-in failed\./i }),
     ).toBeTruthy();
     expect(
       popover.querySelector('.inline-switcher__account-status.is-error'),
@@ -1013,7 +1013,7 @@ describe('InlineModelSwitcher AMR row', () => {
 
     const popover = screen.getByTestId('inline-model-switcher-popover');
     let amrButton = await within(popover).findByRole('radio', {
-      name: /^Design For AIR\s+Sign in$/i,
+      name: /^design for air\s+Sign in$/i,
     });
     vi.useFakeTimers();
     fireEvent.click(amrButton);
@@ -1024,7 +1024,7 @@ describe('InlineModelSwitcher AMR row', () => {
       await Promise.resolve();
     });
     amrButton = within(popover).getByRole('radio', {
-      name: /^Design For AIR\s+Signing in/i,
+      name: /^design for air\s+Signing in/i,
     });
     expect(
       within(popover)
@@ -1041,7 +1041,7 @@ describe('InlineModelSwitcher AMR row', () => {
     });
     expect(fetchMock).toHaveBeenCalledWith('/api/integrations/vela/login/cancel', { method: 'POST' });
     expect(
-      within(popover).getByRole('radio', { name: /^Design For AIR\s+Sign in$/i }),
+      within(popover).getByRole('radio', { name: /^design for air\s+Sign in$/i }),
     ).toBeTruthy();
   });
 
@@ -1078,15 +1078,15 @@ describe('InlineModelSwitcher AMR row', () => {
 
     fireEvent.click(screen.getByTestId('inline-model-switcher-chip'));
     let popover = screen.getByTestId('inline-model-switcher-popover');
-    await within(popover).findByRole('radio', { name: /^Design For AIR\s+Signed in$/i });
+    await within(popover).findByRole('radio', { name: /^design for air\s+Signed in$/i });
 
     fireEvent.click(screen.getByTestId('inline-model-switcher-chip'));
     expect(screen.queryByTestId('inline-model-switcher-popover')).toBeNull();
 
     fireEvent.click(screen.getByTestId('inline-model-switcher-chip'));
     popover = screen.getByTestId('inline-model-switcher-popover');
-    await within(popover).findByRole('radio', { name: /^Design For AIR\s+Sign in$/i });
-    expect(within(popover).queryByRole('radio', { name: /^Design For AIR\s+Signed in$/i })).toBeNull();
+    await within(popover).findByRole('radio', { name: /^design for air\s+Sign in$/i });
+    expect(within(popover).queryByRole('radio', { name: /^design for air\s+Signed in$/i })).toBeNull();
   });
 
   it('starts AMR re-login only after the user explicitly clicks the signed-out AMR row', async () => {
@@ -1132,14 +1132,14 @@ describe('InlineModelSwitcher AMR row', () => {
 
     fireEvent.click(screen.getByTestId('inline-model-switcher-chip'));
     const popover = screen.getByTestId('inline-model-switcher-popover');
-    await within(popover).findByRole('radio', { name: /^Design For AIR\s+Sign in$/i });
+    await within(popover).findByRole('radio', { name: /^design for air\s+Sign in$/i });
     expect(loginCalls).toBe(0);
 
     fireEvent.click(screen.getByTestId('inline-model-switcher-chip'));
     fireEvent.click(screen.getByTestId('inline-model-switcher-chip'));
     const reopenedPopover = screen.getByTestId('inline-model-switcher-popover');
     const reopenedAmrButton = await within(reopenedPopover).findByRole('radio', {
-      name: /^Design For AIR\s+Sign in$/i,
+      name: /^design for air\s+Sign in$/i,
     });
     expect(loginCalls).toBe(0);
 

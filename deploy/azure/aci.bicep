@@ -1,10 +1,10 @@
-// Design For AIR on Azure Container Instances (ACI) — evaluation deployment.
+// design for air on Azure Container Instances (ACI) — evaluation deployment.
 //
 // Single serverless container group with a public FQDN. State lives on the
 // container's local disk, which is EPHEMERAL — it is reset whenever the group
 // is restarted or recreated. This lane is for evaluation and demos.
 //
-// Why no persistent volume: Design For AIR stores SQLite under OD_DATA_DIR, and
+// Why no persistent volume: design for air stores SQLite under OD_DATA_DIR, and
 // SQLite needs real file locking. ACI's only persistent volume type is Azure
 // Files (SMB), where SQLite WAL/locking is unsupported and corrupts. So we
 // keep the data dir on the container's local filesystem.

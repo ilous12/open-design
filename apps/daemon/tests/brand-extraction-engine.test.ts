@@ -204,7 +204,7 @@ describe('agent-driven brand extraction engine', () => {
   it('keeps the generated default theme light even when the source canvas is dark', () => {
     const darkCanvasBrand: Brand = {
       ...VALID_BRAND,
-      name: 'Design For AIR',
+      name: 'design for air',
       colors: [
         { role: 'background', hex: '#050505', oklch: 'oklch(14% 0 0)', name: 'Black', usage: 'source hero background' },
         { role: 'surface', hex: '#0a0a0a', oklch: 'oklch(17% 0 0)', name: 'Panel', usage: 'source cards' },
@@ -275,9 +275,9 @@ describe('agent-driven brand extraction engine', () => {
     const brand = brandFromMaterial({
       url: 'https://open-design.ai/',
       finalUrl: 'https://open-design.ai/',
-      siteName: 'Design For AIR',
-      title: 'Design For AIR',
-      description: 'Design For AIR design system.',
+      siteName: 'design for air',
+      title: 'design for air',
+      description: 'design for air design system.',
       colors: [
         { hex: '#262626', count: 19, sources: ['css-var:--ink'] },
         { hex: '#15140f', count: 15, sources: ['css-var:--shadow-ink'] },
@@ -293,8 +293,8 @@ describe('agent-driven brand extraction engine', () => {
       googleFontsUrls: [],
       fontFiles: [],
       logos: [],
-      headings: ['Design For AIR The Open-source Claude Design alternative'],
-      paragraphs: ['Design For AIR is a local-first design platform.'],
+      headings: ['design for air The Open-source Claude Design alternative'],
+      paragraphs: ['design for air is a local-first design platform.'],
       navLabels: [],
       extraPages: [],
       screenshot: null,

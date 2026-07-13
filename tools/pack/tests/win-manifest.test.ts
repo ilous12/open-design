@@ -80,7 +80,7 @@ describe("readBuiltAppManifest", () => {
         appBuilderOutputRoot: join(root, "builder"),
         cacheEntryPath: null,
         configPath: join(root, "config.json"),
-        executablePath: join(root, "Design For AIR.exe"),
+        executablePath: join(root, "design for air.exe"),
         source: "namespace",
         unpackedRoot: join(root, "unpacked"),
         version: 1,

@@ -8,7 +8,7 @@ Implementation branch: `codex/manual-edit-mode`.
 
 ## Goal
 
-Migrate the accepted manual edit-mode prototype into the production Design For AIR web app.
+Migrate the accepted manual edit-mode prototype into the production design for air web app.
 
 The product boundary is fixed:
 

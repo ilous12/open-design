@@ -1,7 +1,7 @@
-# Design For AIR Web Clipper (MV3 — Chrome · Edge · Firefox)
+# design for air Web Clipper (MV3 — Chrome · Edge · Firefox)
 
-The **Design For AIR Web Clipper**: a browser extension that captures images,
-screenshots, and page content from any site straight into your Design For AIR
+The **design for air Web Clipper**: a browser extension that captures images,
+screenshots, and page content from any site straight into your design for air
 **Library** (the global asset registry).
 
 This is a **standalone subproject** — it is intentionally *not* part of the pnpm
@@ -10,7 +10,7 @@ extension. The daemon/web TypeScript boundaries are unaffected.
 
 ## Load it
 
-1. Start Design For AIR locally (`pnpm tools-dev`) so the daemon is listening on
+1. Start design for air locally (`pnpm tools-dev`) so the daemon is listening on
    `http://127.0.0.1:7456` (the default; change it under **Advanced** in the
    popup if you used a different `--daemon-port`).
 2. Open `chrome://extensions`, enable **Developer mode**, click **Load unpacked**,
@@ -20,7 +20,7 @@ extension. The daemon/web TypeScript boundaries are unaffected.
      pick `manifest.json` (or run `npx web-ext run --source-dir clipper`).
 
 That's it — **no pairing, no codes, no tokens**. The popup shows
-**● Connected** as soon as it detects Design For AIR running, and you can capture
+**● Connected** as soon as it detects design for air running, and you can capture
 right away.
 
 > The manifest carries a cross-browser background block
@@ -68,7 +68,7 @@ nothing to misconfigure.
   page — its position is remembered across reloads. The launcher is automatically
   pulled out of frame while a capture is taken, so it never ends up inside the
   snapshot.
-- **Right-click an image** → *Save image to Design For AIR Library*.
+- **Right-click an image** → *Save image to design for air Library*.
 
 ### Page → design system
 

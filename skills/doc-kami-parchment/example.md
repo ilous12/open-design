@@ -1,4 +1,4 @@
-# Design For AIR Studio — Issue №26
+# design for air Studio — Issue №26
 
 > An open-source design studio for editorial documents and slide decks — typeset by your own coding agent.
 

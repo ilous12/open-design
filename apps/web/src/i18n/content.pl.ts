@@ -21,7 +21,7 @@ export const PL_SKILL_COPY: Record<string, { description?: string; examplePrompt
   },
   'agent-browser': {
     description:
-      'CLI do automatyzacji przeglądarki dla agentów AI. Użyj, gdy użytkownik potrzebuje sprawdzić,\nprzetestować lub zautomatyzować zachowanie przeglądarki: nawigację po stronach, wypełnianie formularzy,\nklikanie przycisków, robienie zrzutów ekranu, wyodrębnianie danych ze strony, odczytywanie wybranego\nkontekstu karty przeglądarki w Design For AIR, testowanie aplikacji webowych, dogfooding podglądów Design For AIR,\nQA, polowanie na błędy lub przegląd jakości aplikacji. Preferuj lokalne adresy URL podglądu Design For AIR,\nchyba że użytkownik wyraźnie poprosi o przeglądanie zewnętrzne.',
+      'CLI do automatyzacji przeglądarki dla agentów AI. Użyj, gdy użytkownik potrzebuje sprawdzić,\nprzetestować lub zautomatyzować zachowanie przeglądarki: nawigację po stronach, wypełnianie formularzy,\nklikanie przycisków, robienie zrzutów ekranu, wyodrębnianie danych ze strony, odczytywanie wybranego\nkontekstu karty przeglądarki w design for air, testowanie aplikacji webowych, dogfooding podglądów design for air,\nQA, polowanie na błędy lub przegląd jakości aplikacji. Preferuj lokalne adresy URL podglądu design for air,\nchyba że użytkownik wyraźnie poprosi o przeglądanie zewnętrzne.',
     examplePrompt:
       'CLI do automatyzacji przeglądarki dla agentów AI.',
   },
@@ -849,7 +849,7 @@ export const PL_SKILL_COPY: Record<string, { description?: string; examplePrompt
   },
   'ui-ux-pro-max': {
     description:
-      'Wpis UI/UX Pro Max wyłącznie w katalogu. Pełne szablony źródłowe, dane i przepływ wyszukiwania nie są dołączone do Design For AIR.',
+      'Wpis UI/UX Pro Max wyłącznie w katalogu. Pełne szablony źródłowe, dane i przepływ wyszukiwania nie są dołączone do design for air.',
     examplePrompt:
       'Wpis UI/UX Pro Max wyłącznie w katalogu.',
   },

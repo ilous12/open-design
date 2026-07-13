@@ -736,7 +736,7 @@ describe('connectConnector', () => {
       await expect(connectConnector('github')).resolves.toEqual({
         connector: { id: 'github', name: 'GitHub', status: 'available', tools: [] },
         auth: { kind: 'redirect_required', redirectUrl: 'https://example.com/oauth' },
-        error: 'Popup blocked. Allow popups for Design For AIR and try again.',
+        error: 'Popup blocked. Allow popups for design for air and try again.',
       });
     } finally {
       restoreHost();

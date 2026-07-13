@@ -121,14 +121,14 @@ const jsonLd = [
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Design For AIR', item: absUrl('/') },
+      { '@type': 'ListItem', position: 1, name: 'design for air', item: absUrl('/') },
       { '@type': 'ListItem', position: 2, name: page.breadcrumb, item: absUrl('/download/') },
     ],
   },
   {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    name: 'Design For AIR',
+    name: 'design for air',
     applicationCategory: 'DesignApplication',
     operatingSystem: 'macOS, Windows, Linux',
     softwareVersion: release.version,
@@ -142,7 +142,7 @@ const jsonLd = [
 
 <Layout title={title} description={description} active="download" jsonLd={jsonLd}>
   <nav class="breadcrumb" aria-label={common.breadcrumbAria}>
-    <a href={href('/')}>Design For AIR</a>
+    <a href={href('/')}>design for air</a>
     <span>/</span>
     <span aria-current="page">{page.breadcrumb}</span>
   </nav>
@@ -247,7 +247,7 @@ const jsonLd = [
       </ul>
     </section>
 
-    <section class="info-cta" aria-label="Design For AIR call to action">
+    <section class="info-cta" aria-label="design for air call to action">
       <div>
         <h2>{page.ctaTitle}</h2>
         <p>{page.ctaBody}</p>

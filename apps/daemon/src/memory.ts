@@ -9,7 +9,7 @@
 // Frontmatter format (matches Claude Code's auto-memory pattern):
 //   ---
 //   name: User role
-//   description: User is a senior FE engineer working on Design For AIR.
+//   description: User is a senior FE engineer working on design for air.
 //   type: user
 //   ---
 //

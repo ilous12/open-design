@@ -1,6 +1,6 @@
 ---
 name: od-default
-description: Hidden fallback scenario for free-form Home prompts. Ask the task type first, then continue through the matching Design For AIR flow.
+description: Hidden fallback scenario for free-form Home prompts. Ask the task type first, then continue through the matching design for air flow.
 od:
   scenario: default-router
   mode: scenario
@@ -21,7 +21,7 @@ answers.
 ```html
 <question-form id="task-type" title="Choose the task type">
 {
-  "description": "I will route the free-form prompt through the right Design For AIR workflow.",
+  "description": "I will route the free-form prompt through the right design for air workflow.",
   "questions": [
     {
       "id": "taskType",
@@ -68,7 +68,7 @@ task type as authoritative and continue:
 - `Audio`: plan voice/music/SFX intent, then use the OD media generation
   CLI for audio output.
 - `Other`: ask only the minimum follow-up needed, then choose the closest
-  Design For AIR workflow and continue.
+  design for air workflow and continue.
 
 Keep the rest of the run plugin-driven: use the discovery, planning,
 generation, and critique stages declared by this plugin. Do not tell the

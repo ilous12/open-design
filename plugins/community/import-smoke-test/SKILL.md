@@ -1,11 +1,11 @@
 ---
 name: community-import-smoke-test
-description: A portable community plugin for validating Design For AIR plugin import flows.
+description: A portable community plugin for validating design for air plugin import flows.
 ---
 
 # Community Import Smoke Test
 
-Use this plugin when validating that Design For AIR can import community plugins
+Use this plugin when validating that design for air can import community plugins
 from a local folder, a zip archive, a GitHub subpath, or a marketplace entry.
 
 When this plugin is applied:

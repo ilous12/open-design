@@ -83,22 +83,22 @@ const PLUGIN_SHARE_DETAILS: Record<PluginShareAction, {
     eyebrow: 'GitHub repository',
     fallbackTitle: 'Publish Plugin to GitHub',
     fallbackDescription:
-      'Creates a public GitHub repository for this local Design For AIR plugin.',
+      'Creates a public GitHub repository for this local design for air plugin.',
     confirmLabel: 'Start publishing',
     steps: [
-      'Create a new Design For AIR project for the publish workflow.',
+      'Create a new design for air project for the publish workflow.',
       'Copy this plugin into that project as isolated source context.',
       'Run the official publish action plugin against the local daemon.',
     ],
   },
   'contribute-open-design': {
-    eyebrow: 'Design For AIR pull request',
-    fallbackTitle: 'Contribute Plugin to Design For AIR',
+    eyebrow: 'design for air pull request',
+    fallbackTitle: 'Contribute Plugin to design for air',
     fallbackDescription:
-      'Opens a pull request that adds this plugin to the Design For AIR community catalog.',
+      'Opens a pull request that adds this plugin to the design for air community catalog.',
     confirmLabel: 'Start contribution',
     steps: [
-      'Create a new Design For AIR project for the contribution workflow.',
+      'Create a new design for air project for the contribution workflow.',
       'Copy this plugin into that project as isolated source context.',
       'Run the official contribution action plugin against the local daemon.',
     ],
@@ -1170,7 +1170,7 @@ function AvailablePluginDetailsModal({
                 </h3>
               </div>
               <p className="plugin-details-modal__section-hint">
-                This official catalog entry is bundled with Design For AIR and is ready to use.
+                This official catalog entry is bundled with design for air and is ready to use.
               </p>
             </section>
           ) : (

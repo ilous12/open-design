@@ -1,6 +1,6 @@
 # Plugin Directory Guide
 
-This directory owns Design For AIR plugin content and plugin authoring material.
+This directory owns design for air plugin content and plugin authoring material.
 
 ## Boundaries
 

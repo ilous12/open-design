@@ -1,13 +1,13 @@
-<h1 align="center">Design For AIR: la alternativa de código abierto a Claude Design</h1>
+<h1 align="center">design for air: la alternativa de código abierto a Claude Design</h1>
 
-> 🔥 **Design For AIR 0.10.0 ya está aquí: el espacio de trabajo de diseño Agentic todo en uno.** Todo el oficio vive ahora en una sola ventana — pasa de una idea difusa a descubrir referencias, reunir material, editar de forma interactiva, encolar comentarios, pulir las animaciones y entregar el resultado a un editor o a un Code Agent — sin salir de la app. Con sesiones en paralelo, deja de sentirse como un asistente y empieza a sentirse como un equipo de diseño local trabajando para ti. [Descargar 0.10.0](https://github.com/nexu-io/open-design/releases) · [Únete a la conversación](https://github.com/nexu-io/open-design/discussions/4153)
+> 🔥 **design for air 0.10.0 ya está aquí: el espacio de trabajo de diseño Agentic todo en uno.** Todo el oficio vive ahora en una sola ventana — pasa de una idea difusa a descubrir referencias, reunir material, editar de forma interactiva, encolar comentarios, pulir las animaciones y entregar el resultado a un editor o a un Code Agent — sin salir de la app. Con sesiones en paralelo, deja de sentirse como un asistente y empieza a sentirse como un equipo de diseño local trabajando para ti. [Descargar 0.10.0](https://github.com/nexu-io/open-design/releases) · [Únete a la conversación](https://github.com/nexu-io/open-design/discussions/4153)
 >
-> ⚡ **Design For AIR AMR (Agentic Model Router) — el servicio de modelos oficial.** Una sola recarga para usar GPT, Claude, Gemini y DeepSeek dentro de Design For AIR: más de 20 modelos insignia, cero configuración, facturación por uso real de tokens. [Probar AMR](https://open-design.ai/amr/)
+> ⚡ **design for air AMR (Agentic Model Router) — el servicio de modelos oficial.** Una sola recarga para usar GPT, Claude, Gemini y DeepSeek dentro de design for air: más de 20 modelos insignia, cero configuración, facturación por uso real de tokens. [Probar AMR](https://open-design.ai/amr/)
 >
-> 🏅 **El programa Design For AIR Fellow ya está abierto.** Si tú también crees que el diseño debe ser abierto, conviértete en Design For AIR Fellow, da forma al producto junto al equipo principal y ayuda a que más personas participen en definir el futuro del diseño. Detalles → [`MAINTAINERS.md`](../../MAINTAINERS.md) y [Discord](https://discord.gg/mHAjSMV6gz).
+> 🏅 **El programa design for air Fellow ya está abierto.** Si tú también crees que el diseño debe ser abierto, conviértete en design for air Fellow, da forma al producto junto al equipo principal y ayuda a que más personas participen en definir el futuro del diseño. Detalles → [`MAINTAINERS.md`](../../MAINTAINERS.md) y [Discord](https://discord.gg/mHAjSMV6gz).
 
 <p align="center">
-  <img src="https://repo-assets.open-design.ai/resources/images/hero.png" alt="Design For AIR — la alternativa de código abierto a Claude Design · 150 sistemas de diseño · 261 plugins · 21 agentes de codificación · 14 proveedores de medios" width="100%" />
+  <img src="https://repo-assets.open-design.ai/resources/images/hero.png" alt="design for air — la alternativa de código abierto a Claude Design · 150 sistemas de diseño · 261 plugins · 21 agentes de codificación · 14 proveedores de medios" width="100%" />
 </p>
 
 <p align="center">
@@ -29,11 +29,11 @@
 
 ---
 
-## Qué es Design For AIR
+## Qué es design for air
 
 🎨 **La alternativa de código abierto y local-first a [Claude Design][cd].** &nbsp;🖥️ **App de escritorio nativa para macOS y Windows.** &nbsp;⚡ **Más de 100 skills** · ✨ **150 sistemas `DESIGN.md` de calidad de marca** · 📦 **261 plugins listos para usar.** &nbsp;🖼️ Genera **prototipos web · escritorio · móvil**, **dashboards / artefactos en vivo**, **presentaciones**, **imágenes**, **video**, además de gráficos en movimiento con **HyperFrames**. 🔒 Vista previa en iframe en entorno aislado · exportación a HTML / PDF / PPTX / MP4. &nbsp;🤖 **Funciona sobre Claude Code · OpenClaw · Codex · Cursor · OpenCode · Qwen · Copilot · Hermes · Kimi · Antigravity y 21 CLIs locales**, o cualquier endpoint compatible con OpenAI mediante BYOK.
 
-Design For AIR es lo que obtienes cuando el bucle **agent-native** que Anthropic lanzó con Claude Design —descubrir el brief, fijar la dirección, transmitir el artefacto, criticar, entregar— deja de estar cerrado y se convierte en un **sistema de archivos de skills, sistemas de diseño y plugins** que los agentes de codificación que ya tienes en tu laptop pueden leer, escribir y remezclar. Tu CLI se convierte en el motor de diseño, tu laptop se convierte en el estudio y el `DESIGN.md` de tu equipo se convierte en el contrato de marca.
+design for air es lo que obtienes cuando el bucle **agent-native** que Anthropic lanzó con Claude Design —descubrir el brief, fijar la dirección, transmitir el artefacto, criticar, entregar— deja de estar cerrado y se convierte en un **sistema de archivos de skills, sistemas de diseño y plugins** que los agentes de codificación que ya tienes en tu laptop pueden leer, escribir y remezclar. Tu CLI se convierte en el motor de diseño, tu laptop se convierte en el estudio y el `DESIGN.md` de tu equipo se convierte en el contrato de marca.
 
 También es la **alternativa a Figma para la era de los agentes**: en lugar de empujar píxeles en un lienzo, entrega artefactos de una sola página en CSS real, fuentes reales, componentes reales, exportados directamente a HTML / PDF / PPTX / MP4 — ya moldeados por tu sistema de diseño, ya ejecutables dentro del agente que usas cada día.
 
@@ -43,7 +43,7 @@ También es la **alternativa a Figma para la era de los agentes**: en lugar de e
 
 ## Recorrido por el producto
 
-Un vistazo rápido a qué es Design For AIR y qué hace. Comienza en **Home**, orquesta flujos de trabajo recurrentes con **Automation**, destila un contrato de marca en **Design System** y amplía con **Plugins** e **integraciones**; dentro del **Studio** de cualquier proyecto, el mismo sistema de diseño produce prototipos, artefactos en vivo, HyperFrames, presentaciones e imágenes.
+Un vistazo rápido a qué es design for air y qué hace. Comienza en **Home**, orquesta flujos de trabajo recurrentes con **Automation**, destila un contrato de marca en **Design System** y amplía con **Plugins** e **integraciones**; dentro del **Studio** de cualquier proyecto, el mismo sistema de diseño produce prototipos, artefactos en vivo, HyperFrames, presentaciones e imágenes.
 
 ### Páginas principales
 
@@ -74,7 +74,7 @@ Un vistazo rápido a qué es Design For AIR y qué hace. Comienza en **Home**, o
 </td>
 <td width="50%" valign="top">
 <img src="https://repo-assets.open-design.ai/resources/images/product/integrations.png" alt="Página de integraciones" /><br/>
-<sub><b>Integrations</b> — conecta sistemas externos y herramientas MCP, y usa Design For AIR desde cualquier IDE, script o automatización.</sub>
+<sub><b>Integrations</b> — conecta sistemas externos y herramientas MCP, y usa design for air desde cualquier IDE, script o automatización.</sub>
 </td>
 </tr>
 </table>
@@ -110,7 +110,7 @@ Dentro del Studio de un proyecto, el mismo sistema de diseño produce múltiples
 
 ## Compatibilidad de plataformas
 
-> Design For AIR se distribuye como **skills, una CLI y un servidor MCP** que los agentes de codificación más populares consumen de forma nativa. Una vez instalado OD, un único `od mcp install <agent>` conecta el servidor MCP a la configuración de ese agente, y llamas a las mismas herramientas desde dentro de cualquier agente.
+> design for air se distribuye como **skills, una CLI y un servidor MCP** que los agentes de codificación más populares consumen de forma nativa. Una vez instalado OD, un único `od mcp install <agent>` conecta el servidor MCP a la configuración de ese agente, y llamas a las mismas herramientas desde dentro de cualquier agente.
 
 | Agente de codificación / plataforma &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Estado &nbsp;&nbsp; | Instalación del servidor MCP en una línea &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
 |---|:---:|---|
@@ -133,7 +133,7 @@ Dentro del Studio de un proyecto, el mismo sistema de diseño produce múltiples
 `od mcp install <agent> --print` para una vista previa en seco · `--uninstall` para eliminar · lista completa con `od mcp install --help`.
 
 <p align="center">
-  <img src="https://repo-assets.open-design.ai/resources/images/coding-agents.png" alt="Las 21 CLIs de agentes de codificación que admite Design For AIR — Claude Code · Codex · OpenCode · Hermes · Antigravity · Gemini · Grok Build · Kimi · Cursor Agent · Qwen · Qoder · GitHub Copilot · Pi · Kiro · Kilo · Mistral Vibe · DeepSeek · Reasonix · Aider · Devin · Trae" width="100%" />
+  <img src="https://repo-assets.open-design.ai/resources/images/coding-agents.png" alt="Las 21 CLIs de agentes de codificación que admite design for air — Claude Code · Codex · OpenCode · Hermes · Antigravity · Gemini · Grok Build · Kimi · Cursor Agent · Qwen · Qoder · GitHub Copilot · Pi · Kiro · Kilo · Mistral Vibe · DeepSeek · Reasonix · Aider · Devin · Trae" width="100%" />
 </p>
 
 **¿No tienes una CLI instalada?** El proxy BYOK en `POST /api/proxy/{anthropic,openai,azure,google,ollama,senseaudio}/stream` te da el mismo bucle (sin crear procesos): pega `baseUrl` + `apiKey` + `model`, con soporte para OpenAI, Anthropic, Azure OpenAI, Google Gemini, Ollama, LM Studio, vLLM o cualquier endpoint compatible con OpenAI. La protección SSRF por destino bloquea IPs internas / link-local / CGNAT en el borde del daemon.
@@ -233,7 +233,7 @@ Cada presentación se exporta a **HTML** (un solo archivo, recursos incorporados
 
 ### 5 · Video y HyperFrames — gráficos en movimiento agent-native
 
-**[HyperFrames][hyperframes]** es el framework de video de código abierto y agent-native de HeyGen, integrado como ciudadano de primera clase en Design For AIR. El agente escribe HTML + CSS + GSAP, y HyperFrames lo renderiza a un MP4 determinista mediante Chrome headless + FFmpeg. Combínalo con **Seedance 2.0** para t2v / i2v cinematográfico, **Veo 3 / Sora 2 / Kling 2** para variantes de modelo enrutadas, y **Suno v5 / Lyria 2** para la capa de audio.
+**[HyperFrames][hyperframes]** es el framework de video de código abierto y agent-native de HeyGen, integrado como ciudadano de primera clase en design for air. El agente escribe HTML + CSS + GSAP, y HyperFrames lo renderiza a un MP4 determinista mediante Chrome headless + FFmpeg. Combínalo con **Seedance 2.0** para t2v / i2v cinematográfico, **Veo 3 / Sora 2 / Kling 2** para variantes de modelo enrutadas, y **Suno v5 / Lyria 2** para la capa de audio.
 
 <table>
 <tr>
@@ -256,11 +256,11 @@ Cada presentación se exporta a **HTML** (un solo archivo, recursos incorporados
 
 ---
 
-## Por qué Design For AIR
+## Por qué design for air
 
 > **En abril de 2026, Anthropic lanzó [Claude Design][cd] — la primera vez que un LLM dejó de escribir prosa y empezó a entregar artefactos de diseño directamente.** Se volvió viral. Pero permaneció de código cerrado, solo de pago, solo en la nube, atado al modelo de Anthropic, a los skills de Anthropic, a la superficie de Anthropic. Sin checkout, sin self-host, sin despliegue en Vercel, sin posibilidad de cambiar a tu propio agente.
 
-Design For AIR (OD) es la alternativa de código abierto. El mismo bucle, el mismo modelo mental centrado en el artefacto, sin nada del lock-in:
+design for air (OD) es la alternativa de código abierto. El mismo bucle, el mismo modelo mental centrado en el artefacto, sin nada del lock-in:
 
 - 🤖 **Agent-native, agnóstico al modelo.** No distribuimos un agente. Los `claude` / `codex` / `cursor-agent` / `copilot` / `hermes` / `kimi` que ya están en tu `PATH` son el motor de diseño. Cámbialos con un clic.
 - 🧠 **Calidad de marca por defecto.** Cada render lee el `DESIGN.md` activo — un esquema de 9 secciones que cubre paleta, tipografía, espaciado, movimiento, voz y antipatrones. 150 sistemas se incluyen en el repo (Linear, Stripe, Vercel, Airbnb, Apple, Tesla, Notion, Anthropic, Cursor, Supabase, Figma…). Suelta una carpeta y el selector la encuentra.
@@ -271,7 +271,7 @@ Design For AIR (OD) es la alternativa de código abierto. El mismo bucle, el mis
 
 ### Comparación
 
-| | [Claude Design][cd] | Figma | Lovable / v0 / Bolt | **Design For AIR** |
+| | [Claude Design][cd] | Figma | Lovable / v0 / Bolt | **design for air** |
 |---|---|---|---|---|
 | Código abierto | ❌ | ❌ | ❌ | **✅ Apache-2.0** |
 | Self-host / escritorio | ❌ | ❌ | ❌ | **✅ macOS + Windows + Vercel** |
@@ -288,7 +288,7 @@ Design For AIR (OD) es la alternativa de código abierto. El mismo bucle, el mis
 
 ### 🖥️ Descarga la app de escritorio (recomendado — cero configuración)
 
-La forma más rápida de usar Design For AIR. Sin Node, sin pnpm, sin clonar.
+La forma más rápida de usar design for air. Sin Node, sin pnpm, sin clonar.
 
 - **macOS** (Apple Silicon · Intel x64) → [**open-design.ai**](https://open-design.ai/) o [GitHub Releases](https://github.com/nexu-io/open-design/releases)
 - **Windows** (x64) → [**open-design.ai**](https://open-design.ai/) o [GitHub Releases](https://github.com/nexu-io/open-design/releases)
@@ -298,7 +298,7 @@ Tras la instalación: la app detecta automáticamente cada CLI de agente de codi
 
 ### 🤖 Instálalo en tu agente de codificación (sin UI)
 
-Puedes usar Design For AIR sin abrir nunca la GUI — llámalo como skill, plugin o servidor MCP dentro de Claude Code, Codex, Cursor, Copilot, OpenClaw, Antigravity, Hermes, Kimi y más.
+Puedes usar design for air sin abrir nunca la GUI — llámalo como skill, plugin o servidor MCP dentro de Claude Code, Codex, Cursor, Copilot, OpenClaw, Antigravity, Hermes, Kimi y más.
 
 ```bash
 # One-line install into the agent you're using:
@@ -330,7 +330,7 @@ docker compose up -d
 
 [![Deploy on Sealos](https://sealos.io/Deploy-on-Sealos.svg)](https://sealos.io/products/app-store/open-design/)
 
-La plantilla de Sealos App Store ejecuta la imagen Docker publicada de Design For AIR con almacenamiento persistente para el espacio de trabajo y Basic Auth en el proxy público. Para despliegues Docker públicos o compartidos personalizados, sigue la guía de proxy inverso y `OPEN_DESIGN_ALLOWED_ORIGINS` en [`deploy/README.md`](../../deploy/README.md#local-compose).
+La plantilla de Sealos App Store ejecuta la imagen Docker publicada de design for air con almacenamiento persistente para el espacio de trabajo y Basic Auth en el proxy público. Para despliegues Docker públicos o compartidos personalizados, sigue la guía de proxy inverso y `OPEN_DESIGN_ALLOWED_ORIGINS` en [`deploy/README.md`](../../deploy/README.md#local-compose).
 
 ### 🧑‍💻 Ejecútalo desde el código fuente
 
@@ -351,13 +351,13 @@ Node `~24`, pnpm `10.33.x`. Usuarios de Windows, consulten [`docs/windows-troubl
 2. **Un diseñador (o el agente) fija la dirección.** ¿Sin marca? Elige entre 5 direcciones curadas. ¿Tienes una marca? Suelta una captura / URL → el agente conecta con GitHub, importa de Figma y codifica un `DESIGN.md` reutilizable.
 3. **El agente emite el primer `<artifact>`.** Plugin + skill + `DESIGN.md` quedan vinculados. Se transmite a un iframe en entorno aislado, editable en el sitio — no "regenerar desde cero".
 4. **Entrega a ingeniería.** El artefacto es HTML/CSS real — suéltalo en Cursor, Codex o Claude Code para seguir construyendo como código. O exporta PPTX / PDF / MP4 directamente a marketing.
-5. **Design For AIR se vuelve más inteligente conforme lo usas.** Tus capturas, fuentes, paletas y artefactos confirmados se acumulan como valores por defecto para la próxima sesión. Menos retrabajo, menos deriva.
+5. **design for air se vuelve más inteligente conforme lo usas.** Tus capturas, fuentes, paletas y artefactos confirmados se acumulan como valores por defecto para la próxima sesión. Menos retrabajo, menos deriva.
 
 ---
 
-## Usa Design For AIR desde tu agente de codificación
+## Usa design for air desde tu agente de codificación
 
-Design For AIR distribuye un **servidor MCP por stdio** y **scripts de instalación** por agente. Cualquier agente compatible con MCP en otro repo puede leer archivos de tus proyectos locales de Design For AIR directamente — tokens CSS, componentes JSX, HTML de entrada — como una API estructurada consultable por nombre. El agente siempre ve el archivo en vivo, no una exportación obsoleta.
+design for air distribuye un **servidor MCP por stdio** y **scripts de instalación** por agente. Cualquier agente compatible con MCP en otro repo puede leer archivos de tus proyectos locales de design for air directamente — tokens CSS, componentes JSX, HTML de entrada — como una API estructurada consultable por nombre. El agente siempre ve el archivo en vivo, no una exportación obsoleta.
 
 ```bash
 # One-line install (16+ CLIs supported):
@@ -447,7 +447,7 @@ Vuelve a importar la biblioteca con [`scripts/sync-design-systems.ts`](../../scr
 
 ## Plugins
 
-**261 plugins oficiales** viven en [`plugins/_official/`](../../plugins/_official/). Cada plugin es una **carpeta portátil de agent-skill** — un `SKILL.md` (legible por cualquier agente que admita Agent Skills), más un manifiesto opcional `open-design.json` que le da a Design For AIR metadatos de marketplace, entradas, vistas previas, pipelines y declaraciones de capacidades. Salta directamente a una categoría:
+**261 plugins oficiales** viven en [`plugins/_official/`](../../plugins/_official/). Cada plugin es una **carpeta portátil de agent-skill** — un `SKILL.md` (legible por cualquier agente que admita Agent Skills), más un manifiesto opcional `open-design.json` que le da a design for air metadatos de marketplace, entradas, vistas previas, pipelines y declaraciones de capacidades. Salta directamente a una categoría:
 
 | Categoría | Cantidad | Contenido |
 |---|---|---|
@@ -489,7 +489,7 @@ Cada comando admite `--json`, así que puedes canalizarlo a través de `jq` / `x
 
 ### Construir un plugin
 
-Un plugin **necesita como mínimo solo un `SKILL.md`**; para listarlo en el marketplace de Design For AIR, añade un `open-design.json`:
+Un plugin **necesita como mínimo solo un `SKILL.md`**; para listarlo en el marketplace de design for air, añade un `open-design.json`:
 
 ```
 my-plugin/
@@ -514,7 +514,7 @@ Conjunto completo de campos y contrato de runtime → [`plugins/spec/SPEC.md`](.
 
 ### Contribuir un plugin
 
-1. Suelta la carpeta del plugin en [`plugins/community/`](../../plugins/community/) (plugins de terceros), o — para distribuirlo empaquetado con Design For AIR — en el nivel correspondiente de [`plugins/_official/`](../../plugins/_official/).
+1. Suelta la carpeta del plugin en [`plugins/community/`](../../plugins/community/) (plugins de terceros), o — para distribuirlo empaquetado con design for air — en el nivel correspondiente de [`plugins/_official/`](../../plugins/_official/).
 2. Pasa la validación: `od plugin validate`, `pnpm guard`, `pnpm --filter @nn-design/plugin-runtime typecheck`.
 3. Completa el PR usando la plantilla en [`plugins/spec/CONTRIBUTING.md`](../../plugins/spec/CONTRIBUTING.md) (ID, versión, vía, modo, capacidades, ejemplos de disparadores; adjunta una captura / vista previa para plugins visuales).
 4. Para publicar en un registro externo (skills.sh / ClawHub / GitHub independiente) → [`plugins/spec/PUBLISHING-REGISTRIES.md`](../../plugins/spec/PUBLISHING-REGISTRIES.md).
@@ -577,7 +577,7 @@ Arquitectura completa → [`docs/architecture.md`](../../docs/architecture.md). 
 - [x] Protocolo de sidecar + escritorio Electron + automatización IPC
 - [x] API de lint de artefactos + barrera de autocrítica de 5 dimensiones previa a la emisión
 - [x] **0.8.0** — infraestructura del marketplace de plugins (261 plugins oficiales, especificación de manifiesto, scripts de instalación por agente)
-- [x] **0.9.0** — Design For AIR AMR (Model Router oficial integrado en la app: cero configuración, inicio de sesión de un clic)
+- [x] **0.9.0** — design for air AMR (Model Router oficial integrado en la app: cero configuración, inicio de sesión de un clic)
 - [x] Compilaciones empaquetadas de Electron — macOS (Apple Silicon + Intel) + Windows (x64) + Linux AppImage (vía opcional)
 - [ ] Ediciones quirúrgicas en modo comentario — parcialmente lanzado; aplicación de parches dirigida y fiable en progreso
 - [ ] UX del panel de ajustes emitido por IA — aún no implementado
@@ -605,7 +605,7 @@ Las etiquetas [`good-first-issue`](https://github.com/nexu-io/open-design/issues
 
 ## Contribuir
 
-Design For AIR sigue avanzando porque los colaboradores — diseñadores, ingenieros, autores de prompts — siguen apareciendo. Muchos de los skills, sistemas de diseño y plugins más usados fueron escritos por personas ajenas al equipo principal.
+design for air sigue avanzando porque los colaboradores — diseñadores, ingenieros, autores de prompts — siguen apareciendo. Muchos de los skills, sistemas de diseño y plugins más usados fueron escritos por personas ajenas al equipo principal.
 
 ### 🎯 Por dónde empezar (máximo impacto, mínimo cambio)
 
@@ -642,9 +642,9 @@ gh pr create --fill
 
 Flujo de contribución completo y amigable para agentes, estilo de código y nivel exigido para el PR → [`CONTRIBUTING.md`](../../CONTRIBUTING.md) ([Deutsch](CONTRIBUTING.de.md) · [Français](CONTRIBUTING.fr.md) · [简体中文](CONTRIBUTING.zh-CN.md) · [日本語](CONTRIBUTING.ja-JP.md) · [Português](CONTRIBUTING.pt-BR.md)).
 
-### 🏅 Programa Design For AIR Fellow
+### 🏅 Programa design for air Fellow
 
-Estamos reclutando **Design For AIR Fellows** en todo el mundo — los Fellows dan forma al producto junto al equipo principal, representan oficialmente a Design For AIR en su región y hacen crecer la comunidad localmente, respaldados por apoyo financiado ($1,000 / MR), créditos LLM gratuitos y una vía de revisión directa. Detalles → [`MAINTAINERS.md`](../../MAINTAINERS.md) y el anuncio en [Discord](https://discord.gg/mHAjSMV6gz).
+Estamos reclutando **design for air Fellows** en todo el mundo — los Fellows dan forma al producto junto al equipo principal, representan oficialmente a design for air en su región y hacen crecer la comunidad localmente, respaldados por apoyo financiado ($1,000 / MR), créditos LLM gratuitos y una vía de revisión directa. Detalles → [`MAINTAINERS.md`](../../MAINTAINERS.md) y el anuncio en [Discord](https://discord.gg/mHAjSMV6gz).
 
 ---
 
@@ -678,7 +678,7 @@ Reglas de los mantenedores, criterios de promoción y el protocolo de salida →
 Gracias a todos los que han participado — código, documentación, comentarios, una incidencia certera, un nuevo skill, un nuevo sistema de diseño.
 
 <a href="https://github.com/nexu-io/open-design/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=nexu-io/open-design&max=500&columns=20&anon=1&cache_bust=2026-06-29" alt="Design For AIR contributors" />
+  <img src="https://contrib.rocks/image?repo=nexu-io/open-design&max=500&columns=20&anon=1&cache_bust=2026-06-29" alt="design for air contributors" />
 </a>
 
 ---
@@ -686,7 +686,7 @@ Gracias a todos los que han participado — código, documentación, comentarios
 ## Actividad del repositorio
 
 <picture>
-  <img alt="Design For AIR — métricas del repositorio" src="https://repo-assets.open-design.ai/resources/images/github-metrics.svg" />
+  <img alt="design for air — métricas del repositorio" src="https://repo-assets.open-design.ai/resources/images/github-metrics.svg" />
 </picture>
 
 El SVG de arriba se regenera diariamente mediante [`.github/workflows/metrics.yml`](../../.github/workflows/metrics.yml) usando [`lowlighter/metrics`](https://github.com/lowlighter/metrics).
@@ -696,7 +696,7 @@ El SVG de arriba se regenera diariamente mediante [`.github/workflows/metrics.ym
 ## Danos una estrella
 
 <p align="center">
-  <a href="https://github.com/nexu-io/open-design"><img src="https://repo-assets.open-design.ai/resources/images/star-us.png" alt="Dale una estrella a Design For AIR en GitHub — github.com/nexu-io/open-design" width="100%" /></a>
+  <a href="https://github.com/nexu-io/open-design"><img src="https://repo-assets.open-design.ai/resources/images/star-us.png" alt="Dale una estrella a design for air en GitHub — github.com/nexu-io/open-design" width="100%" /></a>
 </p>
 
 Si esto te ahorró treinta minutos, dale una ★. Las estrellas no pagan el alquiler — pero le dicen al siguiente diseñador, agente y colaborador que este experimento merece su atención. Un clic, tres segundos, una señal real.
@@ -705,7 +705,7 @@ Si esto te ahorró treinta minutos, dale una ★. Las estrellas no pagan el alqu
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=nexu-io/open-design&type=Date&theme=dark&cache_bust=2026-06-29" />
     <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=nexu-io/open-design&type=Date&cache_bust=2026-06-29" />
-    <img alt="Design For AIR star history" src="https://api.star-history.com/svg?repos=nexu-io/open-design&type=Date&cache_bust=2026-06-29" />
+    <img alt="design for air star history" src="https://api.star-history.com/svg?repos=nexu-io/open-design&type=Date&cache_bust=2026-06-29" />
   </picture>
 </a>
 
@@ -723,7 +723,7 @@ Si esto te ahorró treinta minutos, dale una ★. Las estrellas no pagan el alqu
 | [`multica-ai/multica`](https://github.com/multica-ai/multica) | La arquitectura de daemon + adaptador — detección de agentes por escaneo del PATH, daemon local como único proceso privilegiado. |
 | [`VoltAgent/awesome-design-md`](https://github.com/VoltAgent/awesome-design-md) | Origen del esquema `DESIGN.md` de 9 secciones y 70 sistemas de producto. |
 | [`bergside/awesome-design-skills`](https://github.com/bergside/awesome-design-skills) | Origen de los 57 skills de diseño añadidos bajo `design-systems/`. |
-| [`heygen-com/hyperframes`](https://github.com/heygen-com/hyperframes) | El framework de gráficos en movimiento HTML→MP4, integrado como el `hyperframes-html` de primera clase en Design For AIR. |
+| [`heygen-com/hyperframes`](https://github.com/heygen-com/hyperframes) | El framework de gráficos en movimiento HTML→MP4, integrado como el `hyperframes-html` de primera clase en design for air. |
 | [Claude Code skills][skill] | La convención `SKILL.md` que adoptamos textualmente. |
 
 Procedencia detallada → [`docs/references.md`](../../docs/references.md).

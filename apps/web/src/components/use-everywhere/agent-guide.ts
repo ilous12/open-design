@@ -2,7 +2,7 @@
 //
 // The blob is the headline payoff of the Use Everywhere modal: paste it
 // into Claude Code, Codex, Cursor, openclaw, or hermes and the agent has
-// everything it needs to install Design For AIR, expose it as MCP, and
+// everything it needs to install design for air, expose it as MCP, and
 // drive it from CLI / HTTP without further hand-holding.
 //
 // Kept side-effect-free so the unit test can assert the shape (sections
@@ -26,7 +26,7 @@ export interface AgentGuideOptions {
    * spawn the packaged binary.
    */
   cliHint?: string;
-  /** Optional Design For AIR version/channel; surfaced in the header for support tickets. */
+  /** Optional design for air version/channel; surfaced in the header for support tickets. */
   versionHint?: string;
 }
 
@@ -48,11 +48,11 @@ export function buildAgentGuideMarkdown(options: AgentGuideOptions = {}): string
   const installInfo = normalizeMcpInstallInfo(options.mcpInstallInfo);
   const lines: string[] = [];
 
-  lines.push('# Design For AIR — agent setup guide');
+  lines.push('# design for air — agent setup guide');
   lines.push('');
   lines.push(
     'You are a coding agent (Claude Code, Codex, Cursor, openclaw, hermes, or similar). ' +
-      'The user wants Design For AIR wired into your workflow. Design For AIR is a local ' +
+      'The user wants design for air wired into your workflow. design for air is a local ' +
       'privileged daemon (`od`) plus a Skills + Design-Systems registry that exposes ' +
       'four interchangeable surfaces: CLI, HTTP API, MCP, and Skills.',
   );
@@ -60,7 +60,7 @@ export function buildAgentGuideMarkdown(options: AgentGuideOptions = {}): string
   lines.push('Follow the setup checklist, then keep the reference sections handy.');
   if (options.versionHint) {
     lines.push('');
-    lines.push(`> Reported Design For AIR version: \`${options.versionHint}\``);
+    lines.push(`> Reported design for air version: \`${options.versionHint}\``);
   }
   lines.push('');
 
@@ -72,7 +72,7 @@ export function buildAgentGuideMarkdown(options: AgentGuideOptions = {}): string
   lines.push(`   curl -s ${daemonUrl}/api/health | jq`);
   lines.push('   ```');
   lines.push('');
-  lines.push('   If it 404s or times out, ask the user to run `pnpm tools-dev` (dev) or open the Design For AIR app (packaged).');
+  lines.push('   If it 404s or times out, ask the user to run `pnpm tools-dev` (dev) or open the design for air app (packaged).');
   lines.push('');
   if (installInfo) {
     lines.push('2. Use this daemon-reported MCP server config. Do not replace it with a bare `od` command:');

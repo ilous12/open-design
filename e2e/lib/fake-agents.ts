@@ -165,7 +165,7 @@ async function emitRun(promptText) {
     return;
   }
   if (
-    promptText.includes('Create an Design For AIR plugin for:') &&
+    promptText.includes('Create an design for air plugin for:') &&
     promptText.includes('produce a folder named generated-plugin')
   ) {
     await emitPluginAuthoringRun();

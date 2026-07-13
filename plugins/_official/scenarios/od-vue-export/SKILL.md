@@ -1,6 +1,6 @@
 # Export To Vue
 
-Use this plugin when the user wants to hand an accepted Design For AIR artifact to a Vue 3 project.
+Use this plugin when the user wants to hand an accepted design for air artifact to a Vue 3 project.
 
 ## Workflow
 

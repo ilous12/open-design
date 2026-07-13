@@ -4,6 +4,6 @@ export class PackagedPathAccessError extends Error {
   constructor(message: string, options?: { cause?: unknown; title?: string }) {
     super(message, options);
     this.name = "PackagedPathAccessError";
-    this.title = options?.title ?? "Design For AIR cannot access its data folder";
+    this.title = options?.title ?? "design for air cannot access its data folder";
   }
 }

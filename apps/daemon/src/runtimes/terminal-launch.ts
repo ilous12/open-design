@@ -87,7 +87,7 @@ async function launchOnLinux(command: string): Promise<TerminalLaunchResult> {
 }
 
 // Windows: `cmd /c start "<title>" cmd /k "<command>"` — the outer
-// `start` opens a new console window (the first quoted "Design For AIR"
+// `start` opens a new console window (the first quoted "design for air"
 // is the window title, required by `start`'s positional-arg parser
 // when the next token is also quoted), and the inner `cmd /k` keeps
 // the window open after the command finishes so the user can see
@@ -96,7 +96,7 @@ async function launchOnWindows(command: string): Promise<TerminalLaunchResult> {
   try {
     await execFileAsync(
       'cmd.exe',
-      ['/c', 'start', 'Design For AIR', 'cmd.exe', '/k', command],
+      ['/c', 'start', 'design for air', 'cmd.exe', '/k', command],
       { timeout: 5_000 },
     );
     return { ok: true, platform: 'win32', via: 'cmd /c start' };

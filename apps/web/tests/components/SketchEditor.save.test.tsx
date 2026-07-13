@@ -167,7 +167,7 @@ function saveButton(): HTMLButtonElement {
 }
 
 describe('SketchEditor save', () => {
-  it('renders Excalidraw with the current Design For AIR locale', () => {
+  it('renders Excalidraw with the current design for air locale', () => {
     renderEditor({ dirty: true });
     expect(document.querySelector('[data-testid="excalidraw"]')?.getAttribute('data-lang')).toBe('zh-CN');
   });

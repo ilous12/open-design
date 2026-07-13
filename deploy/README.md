@@ -1,6 +1,6 @@
 # Docker deployment
 
-This deployment ships Design For AIR as a single Alpine-based runtime image. The
+This deployment ships design for air as a single Alpine-based runtime image. The
 daemon serves both the API and the built Next.js static export, so there is no
 separate nginx container.
 

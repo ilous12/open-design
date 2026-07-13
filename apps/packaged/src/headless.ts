@@ -152,7 +152,7 @@ async function main(): Promise<void> {
   }
 
   const shutdown = async (): Promise<void> => {
-    process.stdout.write("\n Shutting down Design For AIR...\n");
+    process.stdout.write("\n Shutting down design for air...\n");
     await ipcServer.close().catch(() => undefined);
     await sidecars.close().catch(() => undefined);
     await identity.close().catch(() => undefined);
@@ -182,7 +182,7 @@ async function main(): Promise<void> {
   });
   await confirmPackagedLauncherRuntime(launcherRuntime);
 
-  process.stdout.write(`\n Design For AIR is running\n\n`);
+  process.stdout.write(`\n design for air is running\n\n`);
   process.stdout.write(` ➜ ${colorize(webUrl)}\n\n`);
   process.stdout.write(` Press Ctrl+C to stop\n\n`);
 

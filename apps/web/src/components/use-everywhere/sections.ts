@@ -1,4 +1,4 @@
-// Content fixtures for the "Use Design For AIR everywhere" guide modal.
+// Content fixtures for the "Use design for air everywhere" guide modal.
 //
 // Kept as a plain data module (no React imports) so the same source
 // feeds both the modal UI and the agent-handoff markdown blob in
@@ -40,9 +40,9 @@ export const GUIDE_SECTIONS: GuideSection[] = [
   {
     id: 'overview',
     tabLabel: 'Overview',
-    heading: 'Design For AIR works wherever your agent works',
+    heading: 'design for air works wherever your agent works',
     intro:
-      'Design For AIR is more than a window — it is a local privileged daemon ' +
+      'design for air is more than a window — it is a local privileged daemon ' +
       "(`od`) plus a Skills + Design-Systems + Atoms registry. Once it's " +
       'running on your machine, any code agent (Claude Code, Codex, Cursor, ' +
       'OpenCode/openclaw, Hermes, your own script) can drive generations, ' +
@@ -50,9 +50,9 @@ export const GUIDE_SECTIONS: GuideSection[] = [
       'interchangeable surfaces.',
     bullets: [
       'CLI — `od <command>` for headless scripts, CI, and shell automation.',
-      'MCP server — wires Design For AIR as a Model Context Protocol server so any MCP-capable agent can list skills, run scenarios, and read artifacts.',
+      'MCP server — wires design for air as a Model Context Protocol server so any MCP-capable agent can list skills, run scenarios, and read artifacts.',
       'HTTP API — `http://127.0.0.1:7456/api/*` REST + SSE endpoints; the same surface the web UI uses.',
-      'Skills — drop-in `SKILL.md` packs (Claude-compatible) that any agent already on your PATH can invoke without Design For AIR at all.',
+      'Skills — drop-in `SKILL.md` packs (Claude-compatible) that any agent already on your PATH can invoke without design for air at all.',
       'Standard artifacts — seed real HTML projects from Skills, bundled default plugins, and community plugin examples before the daemon starts.',
     ],
     snippets: [
@@ -72,7 +72,7 @@ export const GUIDE_SECTIONS: GuideSection[] = [
         body:
           'pnpm seed:test-projects --offline --data-dir ./.od \\\n' +
           '  --decks 2 --webs 2 --default-plugins 3 --community-plugins 3\n' +
-          '# Then start Design For AIR in the shell you normally use for dev:\n' +
+          '# Then start design for air in the shell you normally use for dev:\n' +
           'pnpm tools-dev',
       },
     ],
@@ -83,7 +83,7 @@ export const GUIDE_SECTIONS: GuideSection[] = [
   {
     id: 'cli',
     tabLabel: 'CLI · od',
-    heading: 'Drive Design For AIR from any shell',
+    heading: 'Drive design for air from any shell',
     intro:
       'The `od` bin ships with the daemon and is the same binary used by ' +
       'Claude Code / Codex when they run a generation. Most subcommands are ' +
@@ -195,11 +195,11 @@ export const GUIDE_SECTIONS: GuideSection[] = [
   {
     id: 'mcp',
     tabLabel: 'MCP server',
-    heading: 'Expose Design For AIR as an MCP server to any coding agent',
+    heading: 'Expose design for air as an MCP server to any coding agent',
     intro:
-      'Design For AIR ships with a Model Context Protocol server (`od mcp`) ' +
+      'design for air ships with a Model Context Protocol server (`od mcp`) ' +
       'that lets any MCP-capable client — Cursor, Claude Code, Antigravity, ' +
-      'VS Code Copilot Chat, openclaw, hermes — discover Design For AIR tools ' +
+      'VS Code Copilot Chat, openclaw, hermes — discover design for air tools ' +
       '(list skills, render previews, generate media, run plugins) without ' +
       'shelling out manually. The daemon publishes a ready-to-paste install ' +
       'snippet via `GET /api/mcp/install-info` for each major client.',
@@ -236,7 +236,7 @@ export const GUIDE_SECTIONS: GuideSection[] = [
       },
     ],
     footer:
-      'In the Design For AIR app, open Settings → Integrations to copy a ' +
+      'In the design for air app, open Settings → Integrations to copy a ' +
       'client-specific install command (Cursor, Claude Code, Antigravity, ' +
       'VS Code) instead of editing JSON by hand.',
   },
@@ -293,12 +293,12 @@ export const GUIDE_SECTIONS: GuideSection[] = [
   {
     id: 'skills',
     tabLabel: 'Skills & headless',
-    heading: 'Drop-in Skills for any agent — even without Design For AIR running',
+    heading: 'Drop-in Skills for any agent — even without design for air running',
     intro:
       'A Skill is a directory with a Claude-compatible `SKILL.md` ' +
-      '(YAML front-matter + body). Design For AIR extends the format with the ' +
+      '(YAML front-matter + body). design for air extends the format with the ' +
       '`od:` namespace (`mode`, `preview`, `design_system`, `inputs`, …) so ' +
-      'the same artifact can be used both inside Design For AIR and by a vanilla ' +
+      'the same artifact can be used both inside design for air and by a vanilla ' +
       'agent like Claude Code, Codex, openclaw, or hermes. Discovery follows ' +
       'a precedence chain so projects can override their own skills.',
     bullets: [
@@ -310,7 +310,7 @@ export const GUIDE_SECTIONS: GuideSection[] = [
     ],
     snippets: [
       {
-        label: 'Minimal SKILL.md (Claude-compatible front matter + Design For AIR extras)',
+        label: 'Minimal SKILL.md (Claude-compatible front matter + design for air extras)',
         language: 'yaml',
         body:
           '---\n' +
@@ -350,7 +350,7 @@ export const GUIDE_SECTIONS: GuideSection[] = [
           'pnpm seed:test-projects --offline --data-dir ./.od \\\n' +
           '  --decks 2 --webs 2 \\\n' +
           '  --default-plugins 3 --community-plugins 3\n' +
-          '# Shell 1: start Design For AIR after ingesting.\n' +
+          '# Shell 1: start design for air after ingesting.\n' +
           'pnpm tools-dev\n' +
           '# Shell 2: inspect the produced projects.\n' +
           'od project list --json --daemon-url http://127.0.0.1:7456',

@@ -1,7 +1,7 @@
 // Per-agent MCP registration planner.
 //
 // `od mcp install <agent>` (and the hosted `install.sh | sh -s <agent>`
-// bootstrap that calls it) wires Design For AIR's stdio MCP server into a
+// bootstrap that calls it) wires design for air's stdio MCP server into a
 // coding agent's own configuration. Each agent stores MCP servers
 // differently, so this module maps a single resolved launch spec
 // (command/args/env — the same shape buildMcpInstallPayload produces and

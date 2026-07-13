@@ -79,7 +79,7 @@ describe('resolveDaemonResourceRoot', () => {
       'versions',
       '0.10.0-beta.15',
       'payload',
-      'Design For AIR Beta.app',
+      'design for air Beta.app',
       'Contents',
       'Resources',
       'open-design',
@@ -102,8 +102,8 @@ describe('resolveDaemonPluginPreviewsDir', () => {
   it('resolves under the resource root in the packaged layout', () => {
     // Packaged: the prebundled daemon's PROJECT_ROOT is Resources/app (no data/),
     // but the bundled manifest lives under OD_RESOURCE_ROOT (Resources/nn.design).
-    const resourceRoot = '/Applications/Design For AIR.app/Contents/Resources/nn.design';
-    const projectRoot = '/Applications/Design For AIR.app/Contents/Resources/app';
+    const resourceRoot = '/Applications/design for air.app/Contents/Resources/nn.design';
+    const projectRoot = '/Applications/design for air.app/Contents/Resources/app';
 
     expect(
       resolveDaemonPluginPreviewsDir({ env: {}, resourceRoot, projectRoot }),

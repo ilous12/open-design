@@ -1,4 +1,4 @@
-# Contribuer à Design For AIR
+# Contribuer à design for air
 
 Merci d'envisager de contribuer. OD reste volontairement petit : l'essentiel
 de la valeur vit dans des **fichiers** (Skills, Design Systems, morceaux de

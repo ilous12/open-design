@@ -1,5 +1,5 @@
 {{- /*
-Design For AIR Helm chart helpers. Spec §15.5.
+design for air Helm chart helpers. Spec §15.5.
 
 Names:
   open-design.name        chart-name (`open-design`)

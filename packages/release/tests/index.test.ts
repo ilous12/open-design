@@ -51,12 +51,12 @@ describe("@nn-design/release", () => {
   });
 
   it("centralizes release identity and namespace derivation", () => {
-    expect(releaseChannelDescriptor("prerelease").productName).toBe("Design For AIR Prerelease");
-    expect(releaseChannelDescriptor("betas").productName).toBe("Design For AIR Betas");
+    expect(releaseChannelDescriptor("prerelease").productName).toBe("design for air Prerelease");
+    expect(releaseChannelDescriptor("betas").productName).toBe("design for air Betas");
     expect(releaseInstallIdentity("prerelease")).toEqual({
       appId: "com.skt.nn.design.desktop.prerelease",
-      executableName: "Design For AIR Prerelease",
-      productName: "Design For AIR Prerelease",
+      executableName: "design for air Prerelease",
+      productName: "design for air Prerelease",
     });
     expect(releaseNamespace("prerelease")).toBe("release-prerelease");
     expect(releaseNamespace("prerelease", "win")).toBe("release-prerelease-win");

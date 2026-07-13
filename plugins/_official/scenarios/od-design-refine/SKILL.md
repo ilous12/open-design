@@ -1,6 +1,6 @@
 # Design Refine
 
-Use this plugin when the user wants to improve an existing Design For AIR artifact rather than create a new one.
+Use this plugin when the user wants to improve an existing design for air artifact rather than create a new one.
 
 ## Workflow
 

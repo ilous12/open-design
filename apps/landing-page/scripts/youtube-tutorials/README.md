@@ -1,7 +1,7 @@
 # youtube-tutorials
 
 Keeps `app/content/tutorials/*.md` in sync with the latest community YouTube
-tutorials about Design For AIR, with a human in the loop.
+tutorials about design for air, with a human in the loop.
 
 ## Flow
 

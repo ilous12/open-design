@@ -81,7 +81,7 @@ export function resolveToolPackLauncherPayloadLayout(
   const archivePath = join(
     config.roots.output.namespaceRoot,
     "payload",
-    `Design For AIR-${namespaceToken}-payload.${payloadArchiveExtension(config.platform)}`,
+    `design for air-${namespaceToken}-payload.${payloadArchiveExtension(config.platform)}`,
   );
   return {
     archivePath,

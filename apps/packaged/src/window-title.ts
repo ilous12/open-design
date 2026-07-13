@@ -4,7 +4,7 @@ import {
   releaseInstallIdentity,
 } from "@nn-design/release";
 
-const DEFAULT_WINDOW_TITLE = "Design For AIR";
+const DEFAULT_WINDOW_TITLE = "design for air";
 
 export function resolvePackagedWindowTitle(config: { appVersion: string | null; namespace: string }): string {
   const channel =

@@ -9,7 +9,7 @@ created: '2026-06-08'
 
 ### Problem Statement
 
-Packaged Design For AIR needs a hidden desktop Develop menu for AMR testing.
+Packaged design for air needs a hidden desktop Develop menu for AMR testing.
 Testers should be able to switch the packaged runtime's AMR Environment
 Profile among `local`, `test`, and `prod` while reusing the same bundled Vela
 / AMR CLI binary.
@@ -26,7 +26,7 @@ Profile among `local`, `test`, and `prod` while reusing the same bundled Vela
 ### Non-Goals
 
 - Do not change the AMR CLI binary selection model.
-- Do not redefine Design For AIR release channels as AMR environments.
+- Do not redefine design for air release channels as AMR environments.
 - Do not change AMR account login semantics.
 - Do not add mock or placeholder profile behavior.
 

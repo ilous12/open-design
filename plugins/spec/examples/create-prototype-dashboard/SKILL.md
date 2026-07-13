@@ -3,7 +3,7 @@ name: create-prototype-dashboard
 description: Create a polished operations dashboard prototype with dense KPIs, status tables, and a focused command-center layout.
 license: MIT
 metadata:
-  author: Design For AIR Spec Examples
+  author: design for air Spec Examples
   version: "0.1.0"
 ---
 

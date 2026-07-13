@@ -3,7 +3,7 @@
   "version": "0.12.1",
   "private": true,
   "type": "module",
-  "description": "Shared pure TypeScript contracts for the Design For AIR web/daemon boundary.",
+  "description": "Shared pure TypeScript contracts for the design for air web/daemon boundary.",
   "main": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [

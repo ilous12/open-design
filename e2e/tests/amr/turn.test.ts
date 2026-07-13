@@ -43,7 +43,7 @@ type ProjectResponse = {
   project: { id: string; metadata?: { kind?: string }; name: string };
 };
 
-// Inline fake `vela` binary. Handles the two argv shapes Design For AIR's
+// Inline fake `vela` binary. Handles the two argv shapes design for air's
 // daemon ever spawns:
 //
 //   `vela models`                       — legacy catalog probe compatibility.

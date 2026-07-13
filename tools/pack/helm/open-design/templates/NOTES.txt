@@ -1,4 +1,4 @@
-Design For AIR has been deployed.
+design for air has been deployed.
 
   Image:    {{ .Values.image.repository }}:{{ .Values.image.tag }}
   Replicas: {{ .Values.replicaCount }}

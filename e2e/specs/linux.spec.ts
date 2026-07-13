@@ -167,7 +167,7 @@ linuxHeadlessDescribe('packaged linux headless runtime smoke', () => {
         throw new Error('expected desktop log entry');
       }
       expectPathInside(desktopLog.logPath, join(runtimeNamespaceRoot, 'logs', 'desktop'));
-      expect(desktopLog.lines.join('\n')).toContain('Design For AIR is running');
+      expect(desktopLog.lines.join('\n')).toContain('design for air is running');
 
       const stop = await runToolsPackJson<LinuxStopResult>('stop', ['--headless']);
       started = false;

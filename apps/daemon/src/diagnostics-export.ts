@@ -84,7 +84,7 @@ export interface DiagnosticsHandlerOptions {
   projectRoot: string;
   /** Directory containing per-run event logs at <runsDir>/<runId>/events.jsonl. */
   runsDir?: string | null;
-  /** Design For AIR data dir (OD_DATA_DIR), used to locate the AMR OpenCode home. */
+  /** design for air data dir (OD_DATA_DIR), used to locate the AMR OpenCode home. */
   dataDir?: string | null;
 }
 
@@ -204,11 +204,11 @@ export function createDiagnosticsExportHandler(options: DiagnosticsHandlerOption
         sources,
         redaction: { username },
         crashReports: {
-          // Restrict to Design For AIR's own process names. A generic "Electron"
+          // Restrict to design for air's own process names. A generic "Electron"
           // substring would sweep up crash reports from any other Electron
           // app on the host (VS Code, Slack, …) and leak unrelated user data
           // into the support bundle.
-          matchSubstrings: ['Design For AIR', 'open-design'],
+          matchSubstrings: ['design for air', 'open-design'],
           withinDays: 7,
           maxReports: 10,
           homeDir: home,

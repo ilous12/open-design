@@ -907,7 +907,7 @@ export interface ConnectorActionResult {
 }
 
 function popupBlockedMessage(): string {
-  return 'Popup blocked. Allow popups for Design For AIR and try again.';
+  return 'Popup blocked. Allow popups for design for air and try again.';
 }
 
 export async function openExternalUrl(url: string): Promise<boolean> {

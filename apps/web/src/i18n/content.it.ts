@@ -21,7 +21,7 @@ export const IT_SKILL_COPY: Record<string, { description?: string; examplePrompt
   },
   'agent-browser': {
     description:
-      'CLI di automazione del browser per agenti AI. Da usare quando l\'utente ha bisogno di ispezionare,\ntestare o automatizzare il comportamento del browser: navigare tra le pagine, compilare moduli,\ncliccare pulsanti, acquisire screenshot, estrarre dati dalle pagine, leggere il contesto selezionato\ndella scheda del browser di Design For AIR, testare app web, fare dogfooding delle anteprime di Design For AIR,\nQA, ricerca di bug o revisione della qualità dell\'app. Preferisci gli URL di anteprima locali di Design For AIR\na meno che l\'utente non richieda esplicitamente la navigazione esterna.',
+      'CLI di automazione del browser per agenti AI. Da usare quando l\'utente ha bisogno di ispezionare,\ntestare o automatizzare il comportamento del browser: navigare tra le pagine, compilare moduli,\ncliccare pulsanti, acquisire screenshot, estrarre dati dalle pagine, leggere il contesto selezionato\ndella scheda del browser di design for air, testare app web, fare dogfooding delle anteprime di design for air,\nQA, ricerca di bug o revisione della qualità dell\'app. Preferisci gli URL di anteprima locali di design for air\na meno che l\'utente non richieda esplicitamente la navigazione esterna.',
     examplePrompt:
       'CLI di automazione del browser per agenti AI.',
   },
@@ -849,7 +849,7 @@ export const IT_SKILL_COPY: Record<string, { description?: string; examplePrompt
   },
   'ui-ux-pro-max': {
     description:
-      'Voce UI/UX Pro Max solo a catalogo. I template upstream completi, i dati e il flusso di ricerca non sono inclusi in Design For AIR.',
+      'Voce UI/UX Pro Max solo a catalogo. I template upstream completi, i dati e il flusso di ricerca non sono inclusi in design for air.',
     examplePrompt:
       'Voce UI/UX Pro Max solo a catalogo.',
   },

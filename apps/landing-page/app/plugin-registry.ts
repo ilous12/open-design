@@ -396,7 +396,7 @@ const entryFromMarketplace = (
     explicitLocalizedString(
       rawEntry.description as Parameters<typeof explicitLocalizedString>[0],
       locale,
-    ) ?? 'Agent-native Design For AIR workflow packaged as a portable plugin.';
+    ) ?? 'Agent-native design for air workflow packaged as a portable plugin.';
   const localized = localizePluginText({
     id,
     title: rawTitle,
@@ -545,7 +545,7 @@ const officialEntryFromManifest = (
     explicitLocalizedString(
       manifest?.description as Parameters<typeof explicitLocalizedString>[0],
       locale,
-    ) ?? 'First-party Design For AIR workflow packaged as a portable plugin.';
+    ) ?? 'First-party design for air workflow packaged as a portable plugin.';
   const localized = localizePluginText({
     id,
     title: rawTitle,

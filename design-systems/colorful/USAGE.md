@@ -1,6 +1,6 @@
 # Colorful Usage
 
-Design System 2.0 package guide for Design For AIR agents and reviewers.
+Design System 2.0 package guide for design for air agents and reviewers.
 
 ## Read Order
 

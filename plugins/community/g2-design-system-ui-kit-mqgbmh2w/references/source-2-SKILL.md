@@ -1,6 +1,6 @@
 ---
 name: g2-design-system-ui-kit
-description: Use this skill when generating Design For AIR artifacts that should follow the HiCatcat G2 AR glasses HUD design system.
+description: Use this skill when generating design for air artifacts that should follow the HiCatcat G2 AR glasses HUD design system.
 user-invocable: true
 ---
 

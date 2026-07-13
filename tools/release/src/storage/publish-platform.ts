@@ -176,7 +176,7 @@ function targetConfig(): TargetConfig {
     const arch = target === "mac_arm64" ? "arm64" : "x64";
     const dmg = `open-design-${releaseVersion}${assetSuffix}-mac-${arch}.dmg`;
     const zip = `open-design-${releaseVersion}${assetSuffix}-mac-${arch}.zip`;
-    const artifactMode = optional("RELEASE_ARTIFACT_MODE", target === "mac_arm64" ? "dmg-only" : "dmg-and-zip");
+    const artifactMode = optional("RELEASE_ARTIFACT_MODE", "dmg-and-payload");
     const artifacts: Record<string, AssetEntry> = { dmg: assetEntry(dmg) };
     const assetNames = [dmg, `${dmg}.sha256`];
     let feed = null;

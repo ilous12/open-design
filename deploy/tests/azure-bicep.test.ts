@@ -4,7 +4,7 @@ import { execFile } from 'node:child_process';
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
-// Guards the Azure Bicep templates against drifting from the Design For AIR
+// Guards the Azure Bicep templates against drifting from the design for air
 // runtime contract. Source-level checks run without the Azure CLI; the extra
 // `bicep build` pass runs only when the bicep binary is on PATH.
 

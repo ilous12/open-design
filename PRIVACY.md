@@ -1,6 +1,6 @@
 # 개인정보 및 데이터 처리 안내
 
-이 문서는 Design For AIR 데스크톱/웹 앱이 어떤 데이터를 다루는지 설명합니다.  
+이 문서는 design for air 데스크톱/웹 앱이 어떤 데이터를 다루는지 설명합니다.  
 기본 원칙은 단순합니다.
 
 - 프로젝트와 산출물은 로컬 우선
@@ -9,7 +9,7 @@
 
 ## 1. 로컬 우선 원칙
 
-Design For AIR는 로컬 우선 제품입니다.
+design for air는 로컬 우선 제품입니다.
 
 - 프로젝트 파일
 - 생성된 HTML/이미지 등 산출물
@@ -43,7 +43,7 @@ Design For AIR는 로컬 우선 제품입니다.
 
 ## 4. 로컬 CLI와 API Key
 
-Design For AIR는 현재 아래 3개의 로컬 CLI를 지원합니다.
+design for air는 현재 아래 3개의 로컬 CLI를 지원합니다.
 
 - Codex CLI
 - Antigravity CLI

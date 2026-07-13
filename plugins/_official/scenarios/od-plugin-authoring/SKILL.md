@@ -1,6 +1,6 @@
 ---
 name: od-plugin-authoring
-description: Guided scenario for creating an Design For AIR plugin folder that can be installed into My plugins.
+description: Guided scenario for creating an design for air plugin folder that can be installed into My plugins.
 od:
   scenario: plugin-authoring
   mode: scenario
@@ -8,7 +8,7 @@ od:
 
 # od-plugin-authoring (scenario)
 
-Use this scenario when the user wants to create their own Design For AIR plugin.
+Use this scenario when the user wants to create their own design for air plugin.
 
 ## Required outcome
 
@@ -23,14 +23,14 @@ Add `examples/`, `assets/`, or other supporting files only when they help the pl
 ## Authoring rules
 
 - Follow `docs/plugins-spec.md` and the schema at `docs/schemas/open-design.plugin.v1.json`.
-- Treat `SKILL.md` as the canonical behavior description. `open-design.json` should describe how Design For AIR installs, applies, and presents that behavior.
+- Treat `SKILL.md` as the canonical behavior description. `open-design.json` should describe how design for air installs, applies, and presents that behavior.
 - Keep the generated plugin local-user friendly: it should not require marketplace publishing, enterprise trust setup, or private team catalog configuration.
 - Choose a stable plugin id from the user's requested workflow. Use lowercase letters, numbers, dashes, underscores, or dots.
 - Include a short readiness summary when finished:
   - Files created.
   - Whether the folder is ready to add to My plugins.
   - Any validation or follow-up needed before install.
-  - A direct next-action prompt that offers: Add to My plugins, Publish repo, or Design For AIR PR.
+  - A direct next-action prompt that offers: Add to My plugins, Publish repo, or design for air PR.
 
 ## Suggested folder shape
 

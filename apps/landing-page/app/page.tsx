@@ -1,5 +1,5 @@
 /*
- * Design For AIR — Atelier Zero landing page.
+ * design for air — Atelier Zero landing page.
  *
  * Mirrors `design-templates/open-design-landing/example.html` 1:1. When the canonical
  * example.html changes, mirror the diff here and into `app/globals.css`.
@@ -453,7 +453,7 @@ export default function Page({
                 <span className='hero-title-corner bl' aria-hidden='true' />
                 <span className='hero-title-corner br' aria-hidden='true' />
                 <span className='hero-title-brand'>
-                  <BlurText text='Design For AIR' by='words' start={0} />
+                  <BlurText text='design for air' by='words' start={0} />
                 </span>
                 <span className='hero-title-sub'>
                   <BlurText text={t.heroTitleSub} by={cjk ? 'letters' : 'words'} start={2} />
@@ -500,7 +500,7 @@ export default function Page({
                   sizes='(max-width: 768px) 100vw, 60vw'
                   width={2508}
                   height={1450}
-                  alt='Design For AIR desktop — design files & index.html preview'
+                  alt='design for air desktop — design files & index.html preview'
                   decoding='async'
                   fetchPriority='low'
                   className='hero-shot-img'
@@ -516,7 +516,7 @@ export default function Page({
             <div className='about-grid'>
               <div className='about-copy' data-reveal>
                 <p className='about-kicker'>
-                  {locale === 'zh' ? '为什么选择 Design For AIR？' : 'Why Design For AIR?'}
+                  {locale === 'zh' ? '为什么选择 design for air？' : 'Why design for air?'}
                 </p>
                 {/*
                   Text Scroll Reveal (Magic UI / Inspira port): a tall track
@@ -726,7 +726,7 @@ export default function Page({
               <div data-reveal>
                 <h2 className='display'>
                   {t.labsPre}
-                  <em>Design For AIR</em>
+                  <em>design for air</em>
                   {t.labsPost}
                 </h2>
               </div>
@@ -877,7 +877,7 @@ export default function Page({
               </div>
               <div className='testimonial-globe' data-reveal='right' data-testimonial-globe>
                 <canvas
-                  aria-label='Design For AIR global contributor map'
+                  aria-label='design for air global contributor map'
                   className='testimonial-globe-canvas'
                   height={720}
                   width={720}
@@ -953,7 +953,7 @@ export default function Page({
         <section className='cta' id='contact' data-od-id='cta'>
           <div className='container'>
             <div className='cta-dance' data-precise-bg>
-              {/* Design For AIR Home window floating over the mural — sits above the
+              {/* design for air Home window floating over the mural — sits above the
                   painting (::before) but below the CTA copy. Bottom is clipped by
                   the block's overflow:hidden, matching the reference comp.
                   `data-reveal` slides it up from below when the module enters view
@@ -961,7 +961,7 @@ export default function Page({
               <img
                 className='cta-window'
                 src='/cta-window.webp'
-                alt='Design For AIR 桌面端首页'
+                alt='design for air 桌面端首页'
                 width={2996}
                 height={1870}
                 decoding='async'
@@ -1071,7 +1071,7 @@ export default function Page({
               <div className='sub-footer-col'>
                 <h5>{menu.product}</h5>
                 <ul>
-                  <li><a href={href('/')}>Design For AIR</a></li>
+                  <li><a href={href('/')}>design for air</a></li>
                   <li><a href={href('/html-anything/')}>{ui.footer.htmlAnything}</a></li>
                   <li><a href={href('/html-video/')}>{ui.footer.htmlVideo}</a></li>
                 </ul>

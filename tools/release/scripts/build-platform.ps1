@@ -192,9 +192,9 @@ function Validate-WinLauncherPayloadArchive([string]$PayloadPath, [string]$Expec
     Test-JsonString $manifest.platform "platform" "win32"
     Test-JsonString $manifest.payloadRoot "payloadRoot" "payload"
     Test-JsonString $manifest.entry.cwd "entry.cwd" "payload"
-    Test-JsonString $manifest.entry.executable "entry.executable" "payload/Design For AIR.exe"
+    Test-JsonString $manifest.entry.executable "entry.executable" "payload/design for air.exe"
 
-    $entryPath = Join-Path $extractRoot (Convert-ArchiveRelativePath "payload/Design For AIR.exe")
+    $entryPath = Join-Path $extractRoot (Convert-ArchiveRelativePath "payload/design for air.exe")
     if (-not (Test-Path -LiteralPath $entryPath)) {
       throw "launcher payload entry executable not found after extraction: $entryPath"
     }

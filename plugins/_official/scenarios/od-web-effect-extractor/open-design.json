@@ -8,14 +8,14 @@
     "zh-CN": "网页特效提取"
   },
   "version": "0.1.0",
-  "description": "Extract visual effects, Canvas/WebGL/Shader behavior, and interaction details from a reference website, then rebuild them as an editable Design For AIR artifact.",
+  "description": "Extract visual effects, Canvas/WebGL/Shader behavior, and interaction details from a reference website, then rebuild them as an editable design for air artifact.",
   "description_i18n": {
-    "en": "Extract visual effects, Canvas/WebGL/Shader behavior, and interaction details from a reference website, then rebuild them as an editable Design For AIR artifact.",
-    "zh-CN": "从参考网站提取视觉特效、Canvas/WebGL/Shader 行为与交互细节，并复刻为可编辑的 Design For AIR 产物。"
+    "en": "Extract visual effects, Canvas/WebGL/Shader behavior, and interaction details from a reference website, then rebuild them as an editable design for air artifact.",
+    "zh-CN": "从参考网站提取视觉特效、Canvas/WebGL/Shader 行为与交互细节，并复刻为可编辑的 design for air 产物。"
   },
   "license": "MIT",
   "author": {
-    "name": "Design For AIR",
+    "name": "design for air",
     "url": "https://github.com/nexu-io"
   },
   "homepage": "https://github.com/nexu-io/open-design/tree/main/plugins/_official/scenarios/od-web-effect-extractor",
@@ -82,8 +82,8 @@
     ],
     "useCase": {
       "query": {
-        "en": "Extract the visual effect from {{url}} and rebuild it as an editable Design For AIR web artifact. Focus on {{effectFocus}}.",
-        "zh-CN": "从 {{url}} 提取网页视觉特效，并复刻为可编辑的 Design For AIR 网页产物。重点关注 {{effectFocus}}。"
+        "en": "Extract the visual effect from {{url}} and rebuild it as an editable design for air web artifact. Focus on {{effectFocus}}.",
+        "zh-CN": "从 {{url}} 提取网页视觉特效，并复刻为可编辑的 design for air 网页产物。重点关注 {{effectFocus}}。"
       },
       "exampleOutputs": []
     },

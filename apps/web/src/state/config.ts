@@ -619,7 +619,7 @@ export function loadConfig(): AppConfig {
         );
         merged.apiProviderBaseUrl = knownProvider?.baseUrl ?? null;
       }
-      // Migration v2: Design For AIR moved the built-in appearance accent from
+      // Migration v2: design for air moved the built-in appearance accent from
       // the legacy warm orange to AIR Blue. Preserve custom colors but upgrade
       // the old default so existing installs match the refreshed brand.
       if (normalizedAccentColor === LEGACY_DEFAULT_ACCENT_COLOR) {

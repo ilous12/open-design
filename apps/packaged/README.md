@@ -1,6 +1,6 @@
 # apps/packaged
 
-Thin packaged Electron runtime entry for Design For AIR.
+Thin packaged Electron runtime entry for design for air.
 
 This package starts the packaged daemon and web sidecars, registers the `nd://`
 entry protocol, and then delegates to `@nn-design/desktop/main` for the host

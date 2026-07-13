@@ -27,7 +27,7 @@ test('landing page serves install.sh as a shell script, not the HTML app fallbac
   assert.doesNotMatch(body, /<html/i);
 });
 
-test('install.sh delegates to the Design For AIR CLI installer with the requested agent', () => {
+test('install.sh delegates to the design for air CLI installer with the requested agent', () => {
   const tmp = mkdtempSync(join(tmpdir(), 'od-install-sh-'));
   const argvOut = join(tmp, 'argv.txt');
   const fakeOd = join(tmp, 'od');
@@ -84,7 +84,7 @@ exit 0
     const result = runInstall(['cursor'], tmp);
 
     assert.equal(result.status, 1);
-    assert.match(result.stderr, /does not look like the Design For AIR CLI/);
+    assert.match(result.stderr, /does not look like the design for air CLI/);
     assert.throws(() => readFileSync(argvOut, 'utf8'), /ENOENT/);
   } finally {
     rmSync(tmp, { recursive: true, force: true });
@@ -107,7 +107,7 @@ exit 1
     const result = runInstall(['cursor'], tmp);
 
     assert.equal(result.status, 1);
-    assert.match(result.stderr, /does not look like the Design For AIR CLI/);
+    assert.match(result.stderr, /does not look like the design for air CLI/);
   } finally {
     rmSync(tmp, { recursive: true, force: true });
   }

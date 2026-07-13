@@ -3,7 +3,7 @@
   "version": "0.12.1",
   "private": true,
   "type": "module",
-  "description": "Design For AIR release domain primitives.",
+  "description": "design for air release domain primitives.",
   "main": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [

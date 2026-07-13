@@ -4,12 +4,12 @@
   "name": "open-design-official",
   "version": "0.1.0",
   "owner": {
-    "name": "Design For AIR",
+    "name": "design for air",
     "url": "https://open-design.ai"
   },
   "trust": "official",
   "metadata": {
-    "description": "Official Design For AIR plugin registry seed. The generated public catalog is served from open-design.ai/marketplace.",
+    "description": "Official design for air plugin registry seed. The generated public catalog is served from open-design.ai/marketplace.",
     "version": "0.1.0",
     "generatedFrom": "plugins/_official",
     "bundledPreinstallCount": 176
@@ -3980,7 +3980,7 @@
         "fs:read",
         "fs:write"
       ],
-      "description": "Baseline Refine plugin for improving an existing Design For AIR artifact with a focused critique, small patch, and handoff summary.",
+      "description": "Baseline Refine plugin for improving an existing design for air artifact with a focused critique, small patch, and handoff summary.",
       "tags": [
         "scenario",
         "first-party",
@@ -4058,7 +4058,7 @@
         "fs:read",
         "fs:write"
       ],
-      "description": "Starter downstream export plugin for turning an accepted Design For AIR artifact into a Next.js App Router handoff.",
+      "description": "Starter downstream export plugin for turning an accepted design for air artifact into a Next.js App Router handoff.",
       "tags": [
         "scenario",
         "first-party",
@@ -4086,7 +4086,7 @@
       "capabilitiesSummary": [
         "prompt:inject"
       ],
-      "description": "Guided scenario for creating a local Design For AIR plugin folder that can be added to My plugins.",
+      "description": "Guided scenario for creating a local design for air plugin folder that can be added to My plugins.",
       "tags": [
         "scenario",
         "first-party",
@@ -4112,7 +4112,7 @@
         "fs:read",
         "fs:write"
       ],
-      "description": "Starter downstream export plugin for turning an accepted Design For AIR artifact into a React component handoff.",
+      "description": "Starter downstream export plugin for turning an accepted design for air artifact into a React component handoff.",
       "tags": [
         "scenario",
         "first-party",
@@ -4166,7 +4166,7 @@
         "fs:read",
         "fs:write"
       ],
-      "description": "Starter downstream export plugin for turning an accepted Design For AIR artifact into a Vue 3 single-file component handoff.",
+      "description": "Starter downstream export plugin for turning an accepted design for air artifact into a Vue 3 single-file component handoff.",
       "tags": [
         "scenario",
         "first-party",
@@ -4197,7 +4197,7 @@
         "fs:write",
         "subprocess"
       ],
-      "description": "Extract visual effects, Canvas/WebGL/Shader behavior, and interaction details from a reference website, then rebuild them as an editable Design For AIR artifact.",
+      "description": "Extract visual effects, Canvas/WebGL/Shader behavior, and interaction details from a reference website, then rebuild them as an editable design for air artifact.",
       "tags": [
         "scenario",
         "first-party",

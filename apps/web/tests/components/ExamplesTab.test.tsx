@@ -165,7 +165,7 @@ describe('ExamplesTab', () => {
           }),
           skill({
             id: 'open-design-landing',
-            name: 'Design For AIR landing',
+            name: 'design for air landing',
             examplePrompt: 'Unique prompt',
           }),
         ]}

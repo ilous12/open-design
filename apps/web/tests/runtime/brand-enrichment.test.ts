@@ -20,7 +20,7 @@ describe('brand enrichment runtime helpers', () => {
   it('builds a complete fallback prompt when no seeded prompt is available', () => {
     const prompt = buildBrandEnrichmentPrompt('');
 
-    expect(prompt).toContain('AI optimize this Design For AIR design system in place.');
+    expect(prompt).toContain('AI optimize this design for air design system in place.');
     expect(prompt).toContain('Do not create a duplicate system.');
     expect(prompt).toContain('10-20');
     expect(prompt).toContain('anti-bot verification page');
@@ -48,7 +48,7 @@ describe('brand enrichment runtime helpers', () => {
         importedFrom: 'brand-extraction',
       },
       designSystemId: 'user:open-design-6',
-      designSystemTitle: 'Design For AIR',
+      designSystemTitle: 'design for air',
       projectFiles: [
         {
           name: 'system/variables.css',
@@ -66,7 +66,7 @@ describe('brand enrichment runtime helpers', () => {
     });
 
     expect(prompt).toContain('Current programmatic extraction context:');
-    expect(prompt).toContain('Existing registered design system: Design For AIR (user:open-design-6)');
+    expect(prompt).toContain('Existing registered design system: design for air (user:open-design-6)');
     expect(prompt).toContain('Source to re-check: https://open-design.ai/');
     expect(prompt).toContain('system/variables.css');
     expect(prompt).toContain('fonts/Inter.woff2');

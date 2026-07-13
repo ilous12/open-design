@@ -2,7 +2,7 @@
 //
 // Ported from the branding-agent schema, retargeted onto the '@nn-design/
 // contracts' Brand type and BRAND_COLOR_ROLES. The SeedToken / seed-override
-// path from the source is dropped — Design For AIR brands carry no Ant seed.
+// path from the source is dropped — design for air brands carry no Ant seed.
 
 import {
   BRAND_COLOR_ROLES,

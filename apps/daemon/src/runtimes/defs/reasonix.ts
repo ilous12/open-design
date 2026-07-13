@@ -4,12 +4,12 @@ import { detectAcpModels, DEFAULT_MODEL_OPTION } from './shared.js';
 import type { RuntimeAgentDef } from '../types.js';
 
 // Design instructions injected into Reasonix's ACP system prompt via
-// REASONIX_ACP_SYSTEM_APPEND. This ensures the model follows Design For AIR's
+// REASONIX_ACP_SYSTEM_APPEND. This ensures the model follows design for air's
 // design workflow (artifact output, design system, skill instructions)
 // instead of treating every request as a pure coding task.
-const DESIGN_INSTRUCTIONS = `# Design For AIR integration — MUST follow
+const DESIGN_INSTRUCTIONS = `# design for air integration — MUST follow
 
-You are running inside Design For AIR, a design tool. The user message contains
+You are running inside design for air, a design tool. The user message contains
 design context (system prompt, skill instructions, design system tokens).
 Follow these rules:
 

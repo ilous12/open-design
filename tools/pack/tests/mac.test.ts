@@ -338,7 +338,7 @@ describe("writeLaunchPackagedConfig", () => {
     const root = await mkdtemp(join(tmpdir(), "open-design-tools-pack-mac-"));
     try {
       const config = makeConfig(root, { namespace: "release-beta", portable: true });
-      const appPath = join(root, "Design For AIR.app");
+      const appPath = join(root, "design for air.app");
       const embeddedConfigPath = join(appPath, "Contents", "Resources", "nn.design-config.json");
       await mkdir(dirname(embeddedConfigPath), { recursive: true });
       await writeFile(

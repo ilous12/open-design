@@ -1,6 +1,6 @@
 /* ============================================================
-   Design For AIR — Web Clipper popup
-   Brand-aligned with the Design For AIR product design system
+   design for air — Web Clipper popup
+   Brand-aligned with the design for air product design system
    (warm neutral surfaces, ember accent, near-black brand ink).
    ============================================================ */
 :root {
@@ -20,11 +20,11 @@
   --text-muted: #74716b;
   --text-soft: #989590;
 
-  /* Brand ink — the Design For AIR mark. */
+  /* Brand ink — the design for air mark. */
   --brand-ink: #202020;
   --on-brand: #ffffff;
 
-  /* Ember accent — Design For AIR primary action color. */
+  /* Ember accent — design for air primary action color. */
   --accent: #c96442;
   --accent-strong: #b45a3b;
   --on-accent: #ffffff;

@@ -685,7 +685,7 @@ test('[P1] home starters can jump into plugin creation through the registry brow
   await expect(page.locator('h1').filter({ hasText: 'Plugins' })).toBeVisible();
   await page.getByTestId('plugins-create-button').click();
 
-  await expect(page.getByTestId('home-hero-input')).toHaveText(/Create an Design For AIR plugin/i);
+  await expect(page.getByTestId('home-hero-input')).toHaveText(/Create an design for air plugin/i);
 });
 
 test('[P2] home starters search can enter a no-results state and recover with clear', async ({ page }) => {
@@ -960,7 +960,7 @@ test('[P2] home starters html details modal shows metadata links and supports co
     inputs: [{ name: 'topic', type: 'string', default: 'editorial systems' }],
     previewEntry: './example.html',
     tags: ['deck', 'marketing'],
-    authorName: 'Design For AIR',
+    authorName: 'design for air',
     authorUrl: 'https://github.com/nexu-io/open-design',
     homepage: 'https://example.com/html-metadata-plugin',
     context: {
@@ -1013,7 +1013,7 @@ test('[P2] home starters html details modal shows metadata links and supports co
   // preview-edge handle before inspecting the manifest metadata.
   await dialog.locator('.ds-modal-stage-handle.is-expand').click();
   await expect(dialog.locator('.ds-modal-sidebar')).toBeVisible();
-  await expect(page.getByTestId('plugin-details-author')).toContainText('Design For AIR');
+  await expect(page.getByTestId('plugin-details-author')).toContainText('design for air');
   await expect(page.getByTestId('plugin-details-author-profile')).toHaveAttribute(
     'href',
     'https://github.com/nexu-io/open-design',
@@ -1705,8 +1705,8 @@ test('[P1] rail can be collapsed again on coarse-pointer / non-hover devices', a
 
 async function gotoEntryHome(page: Page) {
   await page.goto('/', { waitUntil: 'domcontentloaded' });
-  await page.getByText('Loading Design For AIR…').waitFor({ state: 'hidden', timeout: T.long });
-  const privacyDialog = page.getByRole('dialog').filter({ hasText: 'Help us improve Design For AIR' });
+  await page.getByText('Loading design for air…').waitFor({ state: 'hidden', timeout: T.long });
+  const privacyDialog = page.getByRole('dialog').filter({ hasText: 'Help us improve design for air' });
   if (await privacyDialog.isVisible()) {
     await privacyDialog.getByRole('button', { name: /I get it|not now|got it|don't share/i }).click();
     await expect(privacyDialog).toHaveCount(0);

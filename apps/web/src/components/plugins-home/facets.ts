@@ -106,7 +106,7 @@ const PRIMARY_CATEGORIES: readonly CategoryDef[] = [
   {
     slug: 'prototype',
     label: 'Prototype',
-    starterPrompt: 'Create an Design For AIR plugin that generates an interactive prototype from a product brief.',
+    starterPrompt: 'Create an design for air plugin that generates an interactive prototype from a product brief.',
     test: byMode('prototype'),
   },
 ];

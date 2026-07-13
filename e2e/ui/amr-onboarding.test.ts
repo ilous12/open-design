@@ -40,12 +40,12 @@ test('[P0] @critical onboarding lets AMR Cloud sign in and complete setup after 
 
   await gotoOnboarding(page);
 
-  // Signed-out cloud landing: the primary button reads "Sign in to Design For AIR
+  // Signed-out cloud landing: the primary button reads "Sign in to design for air
   // Cloud" and IS the AMR sign-in trigger (it replaced the old "Sign in to
   // continue" AMR-card CTA).
   const primary = cloudPrimaryButton(page);
   await expect(primary).toBeVisible();
-  await expect(primary).toHaveText(/Sign in to Design For AIR|登录 Design For AIR/i);
+  await expect(primary).toHaveText(/Sign in to design for air|登录 design for air/i);
   const statusCallsBeforeLogin = await page.evaluate(() => window.__amrOnboardingStatusCalls ?? 0);
   await clickCloudPrimary(page);
 
@@ -82,7 +82,7 @@ test('[P0] onboarding signed-out AMR authorization cannot be skipped or bypassed
 
   const primary = cloudPrimaryButton(page);
   await expect(primary).toBeVisible();
-  await expect(primary).toHaveText(/Sign in to Design For AIR|登录 Design For AIR/i);
+  await expect(primary).toHaveText(/Sign in to design for air|登录 design for air/i);
   await expect(page.getByText(/Optional details for better defaults/i)).toHaveCount(0);
 
   // Trigger sign-in: it stays pending (login never completes), so we remain on
@@ -261,7 +261,7 @@ test('[P0] onboarding signed-in AMR status failure stays gated instead of bypass
   await expect(page.getByRole('button', { name: /About you|了解你/i })).toHaveCount(0);
   const primary = cloudPrimaryButton(page);
   await expect(primary).toBeVisible();
-  await expect(primary).toHaveText(/Sign in to Design For AIR|登录 Design For AIR/i);
+  await expect(primary).toHaveText(/Sign in to design for air|登录 design for air/i);
   await expect(page.getByText(/Optional details for better defaults/i)).toHaveCount(0);
 
   await page.goto('/', { waitUntil: 'domcontentloaded' });
@@ -291,7 +291,7 @@ test('[P0] onboarding lets the user cancel an incomplete AMR sign-in and retry',
   await expect(cancelSignIn).toBeVisible();
   await cancelSignIn.click();
 
-  await expect(primary).toHaveText(/Sign in to Design For AIR|登录 Design For AIR/i);
+  await expect(primary).toHaveText(/Sign in to design for air|登录 design for air/i);
   await expect(page.getByRole('button', { name: /Cancel sign-in/i })).toHaveCount(0);
   await expect.poll(() => page.evaluate(() => window.__amrOnboardingCancelCalls ?? 0)).toBe(1);
   await expect.poll(() => page.evaluate(() => window.__amrOnboardingLoginCalls ?? 0)).toBe(1);
@@ -327,7 +327,7 @@ test('[P0] onboarding cancel during a slow AMR status check does not start login
   await cancelSignIn.click();
 
   const primary = cloudPrimaryButton(page);
-  await expect(primary).toHaveText(/Sign in to Design For AIR|登录 Design For AIR/i);
+  await expect(primary).toHaveText(/Sign in to design for air|登录 design for air/i);
   await expect.poll(() => page.evaluate(() => window.__amrOnboardingCancelCalls ?? 0)).toBe(1);
   await expect
     .poll(() => page.evaluate(() => window.__amrOnboardingSlowStatusResolved ?? false))
@@ -1214,10 +1214,10 @@ async function gotoOnboarding(page: Page) {
   await waitForLoadingToClear(page);
   await dismissPrivacyDialog(page);
   // The runtime-picker "Choose a runtime" heading was removed. The Connect
-  // step now opens on a centered Design For AIR Cloud sign-in landing whose
+  // step now opens on a centered design for air Cloud sign-in landing whose
   // heading is the stable marker that onboarding has rendered.
   await expect(
-    page.getByRole('heading', { name: /Sign in to Design For AIR|登录 Design For AIR/i }),
+    page.getByRole('heading', { name: /Sign in to design for air|登录 design for air/i }),
   ).toBeVisible();
 }
 
@@ -1238,7 +1238,7 @@ async function clickCloudPrimary(page: Page) {
 // The connect landing heading — the stable "we're still on the cloud sign-in
 // landing" marker that replaced the old "Choose a runtime" heading.
 function connectLandingHeading(page: Page): Locator {
-  return page.getByRole('heading', { name: /Sign in to Design For AIR|登录 Design For AIR/i });
+  return page.getByRole('heading', { name: /Sign in to design for air|登录 design for air/i });
 }
 
 async function seedOnboardingConfig(page: Page, config: OnboardingConfig) {

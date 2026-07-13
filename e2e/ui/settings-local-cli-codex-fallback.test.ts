@@ -65,13 +65,13 @@ function baseConfig(overrides: Partial<AppConfigSeed> = {}): AppConfigSeed {
 }
 
 async function waitForLoadingToClear(page: Page) {
-  await page.getByText('Loading Design For AIR…').waitFor({ state: 'hidden', timeout: 15_000 }).catch(() => {});
+  await page.getByText('Loading design for air…').waitFor({ state: 'hidden', timeout: 15_000 }).catch(() => {});
 }
 
 async function gotoEntryHome(page: Page) {
   await page.goto('/', { waitUntil: 'domcontentloaded' });
   await waitForLoadingToClear(page);
-  const privacyDialog = page.getByRole('dialog').filter({ hasText: 'Help us improve Design For AIR' });
+  const privacyDialog = page.getByRole('dialog').filter({ hasText: 'Help us improve design for air' });
   if (await privacyDialog.isVisible()) {
     await privacyDialog.getByRole('button', { name: /I get it|not now|got it|don't share/i }).click();
   }

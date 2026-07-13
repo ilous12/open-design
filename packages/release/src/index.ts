@@ -51,7 +51,7 @@ export const RELEASE_PLATFORM_NAMESPACE_SUFFIXES = Object.freeze({
   win: "win",
 } as const satisfies Record<ReleasePlatform, string>);
 
-const PRODUCT_NAME = "Design For AIR";
+const PRODUCT_NAME = "design for air";
 const DEFAULT_NAMESPACE = "nn.design";
 
 const descriptors: Record<ReleaseChannel, ReleaseChannelDescriptor> = {

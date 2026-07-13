@@ -227,16 +227,16 @@ describe('resolvePackagedElectronNodeCommand', () => {
   it('uses the hidden Electron helper as the macOS Electron-as-Node command when available', async () => {
     const root = mkdtempSync(join(tmpdir(), 'od-packaged-electron-helper-'));
     try {
-      const appPath = posix.join(root.replaceAll('\\', '/'), 'Design For AIR.app');
-      const execPath = posix.join(appPath, 'Contents', 'MacOS', 'Design For AIR');
+      const appPath = posix.join(root.replaceAll('\\', '/'), 'design for air.app');
+      const execPath = posix.join(appPath, 'Contents', 'MacOS', 'design for air');
       const helperPath = posix.join(
         appPath,
         'Contents',
         'Frameworks',
-        'Design For AIR Helper.app',
+        'design for air Helper.app',
         'Contents',
         'MacOS',
-        'Design For AIR Helper',
+        'design for air Helper',
       );
 
       mkdirSync(posix.join(appPath, 'Contents', 'MacOS'), { recursive: true });
@@ -255,7 +255,7 @@ describe('resolvePackagedElectronNodeCommand', () => {
   it('falls back to the main executable when the macOS helper is unavailable', async () => {
     const root = mkdtempSync(join(tmpdir(), 'od-packaged-no-electron-helper-'));
     try {
-      const execPath = join(root, 'Design For AIR.app', 'Contents', 'MacOS', 'Design For AIR');
+      const execPath = join(root, 'design for air.app', 'Contents', 'MacOS', 'design for air');
       mkdirSync(dirname(execPath), { recursive: true });
       writeFileSync(execPath, '#!/bin/sh\n', 'utf8');
 
@@ -266,7 +266,7 @@ describe('resolvePackagedElectronNodeCommand', () => {
   });
 
   it('keeps the main executable on non-macOS platforms', async () => {
-    const execPath = '/opt/Design For AIR/open-design';
+    const execPath = '/opt/design for air/open-design';
 
     await expect(resolvePackagedElectronNodeCommand(execPath, 'linux')).resolves.toBe(execPath);
   });

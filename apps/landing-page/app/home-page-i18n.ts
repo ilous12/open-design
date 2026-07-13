@@ -205,9 +205,9 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
   Record<LandingLocaleCode, DeepPartial<HomePageCopy>>
 > = {
   fr: homeFallbackCopy({
-    railRight: 'Design For AIR — vol. 01 · no 26 · Apache-2.0',
+    railRight: 'design for air — vol. 01 · no 26 · Apache-2.0',
     railLeft: 'Skills · systèmes · agents · BYOK · local d’abord',
-    discordAria: 'Rejoindre le Discord Design For AIR',
+    discordAria: 'Rejoindre le Discord design for air',
     joinDiscord: 'Rejoindre Discord',
     heroLabel: 'Studio de design open source',
     heroIssue: 'Cas Nº 01 · local / ouvert / Terre',
@@ -216,7 +216,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     heroTitleMiddle: 'sur',
     heroTitleSecondEmphasis: 'votre propre agent',
     heroLead: (skills, systems) =>
-      `Design For AIR est l’alternative officielle, local-first, à Claude Design. Votre agent de code — Claude Code, Codex, Cursor, Gemini, OpenCode ou Qwen — devient un moteur de design avec ${skills} skills composables et ${systems} systèmes DESIGN.md portables.`,
+      `design for air est l’alternative officielle, local-first, à Claude Design. Votre agent de code — Claude Code, Codex, Cursor, Gemini, OpenCode ou Qwen — devient un moteur de design avec ${skills} skills composables et ${systems} systèmes DESIGN.md portables.`,
     star: 'Mettre une Star sur GitHub',
     download: 'Télécharger le desktop',
     plate: 'Planche no 08',
@@ -228,7 +228,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     ],
     heroFoot: 'pnpm tools-dev · démarrage en 3 commandes',
     heroIndex: ['Détecter', 'Découvrir', 'Diriger', 'Livrer'],
-    officialAria: 'Source officielle Design For AIR',
+    officialAria: 'Source officielle design for air',
     officialLabel: 'Source officielle',
     officialItems: [
       { label: 'Site officiel', value: 'open-design.ai' },
@@ -240,7 +240,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     ],
     about: {
       rule: 'À propos / manifeste',
-      volume: 'Design For AIR / vol. 01',
+      volume: 'design for air / vol. 01',
       label: 'À propos du studio',
       titlePrefix: 'Nous traitons',
       titleAgent: 'votre agent',
@@ -254,7 +254,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
       stampTop: 'Pratique studio',
       stampBottom: 'Depuis MMXXVI',
       sideNote: ['Du comportement', 'du modèle au goût', 'visuel, nous prototypons', 'toute la pile', 'des systèmes créatifs.'],
-      caption: 'Études de forme · perception · imagination machinique. (Design For AIR, MMXXVI)',
+      caption: 'Études de forme · perception · imagination machinique. (design for air, MMXXVI)',
     },
     capabilities: {
       rule: 'Capacités · skills · systèmes',
@@ -312,7 +312,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     },
     work: {
       rule: 'Travaux choisis · catalogue 2026',
-      editedBy: 'Édité par Design For AIR',
+      editedBy: 'Édité par design for air',
       label: 'Travaux choisis',
       titlePrefix: 'Des skills qui transforment les briefs en',
       titleEmphasisA: 'artifacts mémorables',
@@ -329,7 +329,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
       rule: 'Collaborateurs / lignée',
       shoulders: 'Bâtir sur des épaules solides',
       label: 'Collaborateurs',
-      quote: '« Design For AIR a transformé des idées IA floues en un système visuel net, crédible et réellement nouveau. »',
+      quote: '« design for air a transformé des idées IA floues en un système visuel net, crédible et réellement nouveau. »',
       authorTitle: 'Directrice créative · North Form',
       partnersText: 'Nous nous appuyons sur les équipes qui ont déjà livré une culture design open source.',
       partnerLabels: ['Pensée', 'Decks', 'UX', 'Terminal', 'Frames'],
@@ -338,7 +338,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     faqSection: {
       rule: 'Questions fréquentes',
       answers: 'Réponses officielles, sans slogan',
-      label: 'FAQ Design For AIR',
+      label: 'FAQ design for air',
       titlePrefix: 'Questions sur',
       titleMiddle: 'et',
       titleSuffix: 'l’alternative open source à Claude Design',
@@ -360,9 +360,9 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     },
   }),
   ru: homeFallbackCopy({
-    railRight: 'Design For AIR — том 01 · выпуск № 26 · Apache-2.0',
+    railRight: 'design for air — том 01 · выпуск № 26 · Apache-2.0',
     railLeft: 'Skills · системы · агенты · BYOK · local-first',
-    discordAria: 'Присоединиться к Discord Design For AIR',
+    discordAria: 'Присоединиться к Discord design for air',
     joinDiscord: 'Войти в Discord',
     heroLabel: 'Дизайн-студия с открытым исходным кодом',
     heroIssue: 'Кейс № 01 · локально / открыто / Земля',
@@ -371,7 +371,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     heroTitleMiddle: 'на вашем',
     heroTitleSecondEmphasis: 'собственном агенте',
     heroLead: (skills, systems) =>
-      `Design For AIR — официальная local-first альтернатива Claude Design. Ваш coding agent — Claude Code, Codex, Cursor, Gemini, OpenCode или Qwen — становится дизайн-движком с ${skills} составными skills и ${systems} переносимыми DESIGN.md-системами.`,
+      `design for air — официальная local-first альтернатива Claude Design. Ваш coding agent — Claude Code, Codex, Cursor, Gemini, OpenCode или Qwen — становится дизайн-движком с ${skills} составными skills и ${systems} переносимыми DESIGN.md-системами.`,
     star: 'Поставить Star на GitHub',
     download: 'Скачать desktop',
     plate: 'Таблица № 08',
@@ -383,7 +383,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     ],
     heroFoot: 'pnpm tools-dev · старт в 3 команды',
     heroIndex: ['Обнаружить', 'Исследовать', 'Направить', 'Доставить'],
-    officialAria: 'Официальный источник Design For AIR',
+    officialAria: 'Официальный источник design for air',
     officialLabel: 'Официальный источник',
     officialItems: [
       { label: 'Официальный сайт', value: 'open-design.ai' },
@@ -395,7 +395,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     ],
     about: {
       rule: 'О студии / манифест',
-      volume: 'Design For AIR / том 01',
+      volume: 'design for air / том 01',
       label: 'О студии',
       titlePrefix: 'Мы относимся к',
       titleAgent: 'вашему агенту',
@@ -409,7 +409,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
       stampTop: 'Практика студии',
       stampBottom: 'Осн. MMXXVI',
       sideNote: ['От поведения модели', 'до визуального вкуса', 'мы прототипируем', 'весь стек', 'креативных систем.'],
-      caption: 'Исследования формы · восприятия · машинного воображения. (Design For AIR, MMXXVI)',
+      caption: 'Исследования формы · восприятия · машинного воображения. (design for air, MMXXVI)',
     },
     capabilities: {
       rule: 'Возможности · skills · системы',
@@ -467,7 +467,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     },
     work: {
       rule: 'Избранные работы · каталог 2026',
-      editedBy: 'Редакция Design For AIR',
+      editedBy: 'Редакция design for air',
       label: 'Избранные работы',
       titlePrefix: 'Skills превращают briefs в',
       titleEmphasisA: 'запоминающиеся',
@@ -484,7 +484,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
       rule: 'Соавторы / происхождение',
       shoulders: 'Стоять на плечах сильных работ',
       label: 'Соавторы',
-      quote: '«Design For AIR помог превратить расплывчатые AI-идеи в четкую, надежную и действительно новую визуальную систему.»',
+      quote: '«design for air помог превратить расплывчатые AI-идеи в четкую, надежную и действительно новую визуальную систему.»',
       authorTitle: 'Креативный директор · North Form',
       partnersText: 'Мы строим на опыте команд, которые уже выпускали open-source дизайн-культуру.',
       partnerLabels: ['Мысль', 'Decks', 'UX', 'Terminal', 'Frames'],
@@ -493,7 +493,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     faqSection: {
       rule: 'Частые вопросы',
       answers: 'Официальные ответы без маркетингового шума',
-      label: 'Вопросы об Design For AIR',
+      label: 'Вопросы об design for air',
       titlePrefix: 'Вопросы про',
       titleMiddle: 'и',
       titleSuffix: 'открытую альтернативу Claude Design',
@@ -515,9 +515,9 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     },
   }),
   es: homeFallbackCopy({
-    railRight: 'Design For AIR — vol. 01 · número 26 · Apache-2.0',
+    railRight: 'design for air — vol. 01 · número 26 · Apache-2.0',
     railLeft: 'Skills · sistemas · agentes · BYOK · local-first',
-    discordAria: 'Unirse al Discord de Design For AIR',
+    discordAria: 'Unirse al Discord de design for air',
     joinDiscord: 'Unirse a Discord',
     heroLabel: 'Estudio de diseño open source',
     heroIssue: 'Caso Nº 01 · local / abierto / Tierra',
@@ -526,7 +526,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     heroTitleMiddle: 'sobre',
     heroTitleSecondEmphasis: 'tu propio agente',
     heroLead: (skills, systems) =>
-      `Design For AIR es la alternativa oficial, local-first, a Claude Design. Tu agente de código — Claude Code, Codex, Cursor, Gemini, OpenCode o Qwen — se convierte en un motor de diseño con ${skills} skills componibles y ${systems} sistemas DESIGN.md portables.`,
+      `design for air es la alternativa oficial, local-first, a Claude Design. Tu agente de código — Claude Code, Codex, Cursor, Gemini, OpenCode o Qwen — se convierte en un motor de diseño con ${skills} skills componibles y ${systems} sistemas DESIGN.md portables.`,
     star: 'Dar Star en GitHub',
     download: 'Descargar desktop',
     plate: 'Lámina Nº 08',
@@ -538,7 +538,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     ],
     heroFoot: 'pnpm tools-dev · arranca en 3 comandos',
     heroIndex: ['Detectar', 'Descubrir', 'Dirigir', 'Entregar'],
-    officialAria: 'Fuente oficial de Design For AIR',
+    officialAria: 'Fuente oficial de design for air',
     officialLabel: 'Fuente oficial',
     officialItems: [
       { label: 'Sitio oficial', value: 'open-design.ai' },
@@ -550,7 +550,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     ],
     about: {
       rule: 'Acerca de / manifiesto',
-      volume: 'Design For AIR / vol. 01',
+      volume: 'design for air / vol. 01',
       label: 'Sobre el estudio',
       titlePrefix: 'Tratamos a',
       titleAgent: 'tu agente',
@@ -564,7 +564,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
       stampTop: 'Práctica de estudio',
       stampBottom: 'Desde MMXXVI',
       sideNote: ['Del comportamiento', 'del modelo al gusto', 'visual, prototipamos', 'toda la pila', 'de sistemas creativos.'],
-      caption: 'Estudios de forma · percepción · imaginación maquínica. (Design For AIR, MMXXVI)',
+      caption: 'Estudios de forma · percepción · imaginación maquínica. (design for air, MMXXVI)',
     },
     capabilities: {
       rule: 'Capacidades · skills · sistemas',
@@ -622,7 +622,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     },
     work: {
       rule: 'Trabajos seleccionados · catálogo 2026',
-      editedBy: 'Editado por Design For AIR',
+      editedBy: 'Editado por design for air',
       label: 'Trabajos seleccionados',
       titlePrefix: 'Skills que convierten briefs en',
       titleEmphasisA: 'artifacts memorables',
@@ -639,7 +639,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
       rule: 'Colaboradores / linaje',
       shoulders: 'Construir sobre hombros fuertes',
       label: 'Colaboradores',
-      quote: '«Design For AIR convirtió ideas de IA borrosas en un sistema visual nítido, creíble y realmente nuevo.»',
+      quote: '«design for air convirtió ideas de IA borrosas en un sistema visual nítido, creíble y realmente nuevo.»',
       authorTitle: 'Directora creativa · North Form',
       partnersText: 'Nos apoyamos en equipos que ya han entregado cultura de diseño open source.',
       partnerLabels: ['Pensamiento', 'Decks', 'UX', 'Terminal', 'Frames'],
@@ -648,7 +648,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     faqSection: {
       rule: 'Preguntas frecuentes',
       answers: 'Respuestas oficiales, sin marketing',
-      label: 'FAQ de Design For AIR',
+      label: 'FAQ de design for air',
       titlePrefix: 'Preguntas sobre',
       titleMiddle: 'y',
       titleSuffix: 'la alternativa open source a Claude Design',
@@ -670,9 +670,9 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     },
   }),
   'pt-br': homeFallbackCopy({
-    railRight: 'Design For AIR — vol. 01 · edição nº 26 · Apache-2.0',
+    railRight: 'design for air — vol. 01 · edição nº 26 · Apache-2.0',
     railLeft: 'Skills · sistemas · agentes · BYOK · local-first',
-    discordAria: 'Entrar no Discord do Design For AIR',
+    discordAria: 'Entrar no Discord do design for air',
     joinDiscord: 'Entrar no Discord',
     heroLabel: 'Estúdio de design open source',
     heroIssue: 'Caso Nº 01 · local / aberto / Terra',
@@ -681,7 +681,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     heroTitleMiddle: 'no',
     heroTitleSecondEmphasis: 'seu próprio agente',
     heroLead: (skills, systems) =>
-      `Design For AIR é a alternativa oficial, local-first, ao Claude Design. Seu agente de código — Claude Code, Codex, Cursor, Gemini, OpenCode ou Qwen — vira um motor de design com ${skills} skills componíveis e ${systems} sistemas DESIGN.md portáteis.`,
+      `design for air é a alternativa oficial, local-first, ao Claude Design. Seu agente de código — Claude Code, Codex, Cursor, Gemini, OpenCode ou Qwen — vira um motor de design com ${skills} skills componíveis e ${systems} sistemas DESIGN.md portáteis.`,
     star: 'Dar Star no GitHub',
     download: 'Baixar desktop',
     plate: 'Prancha Nº 08',
@@ -693,7 +693,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     ],
     heroFoot: 'pnpm tools-dev · começa em 3 comandos',
     heroIndex: ['Detectar', 'Descobrir', 'Direcionar', 'Entregar'],
-    officialAria: 'Fonte oficial do Design For AIR',
+    officialAria: 'Fonte oficial do design for air',
     officialLabel: 'Fonte oficial',
     officialItems: [
       { label: 'Site oficial', value: 'open-design.ai' },
@@ -705,7 +705,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     ],
     about: {
       rule: 'Sobre / manifesto',
-      volume: 'Design For AIR / vol. 01',
+      volume: 'design for air / vol. 01',
       label: 'Sobre o estúdio',
       titlePrefix: 'Tratamos',
       titleAgent: 'seu agente',
@@ -719,7 +719,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
       stampTop: 'Prática de estúdio',
       stampBottom: 'Desde MMXXVI',
       sideNote: ['Do comportamento', 'do modelo ao gosto', 'visual, prototipamos', 'toda a pilha', 'de sistemas criativos.'],
-      caption: 'Estudos de forma · percepção · imaginação maquínica. (Design For AIR, MMXXVI)',
+      caption: 'Estudos de forma · percepção · imaginação maquínica. (design for air, MMXXVI)',
     },
     capabilities: {
       rule: 'Capacidades · skills · sistemas',
@@ -777,7 +777,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     },
     work: {
       rule: 'Trabalhos selecionados · catálogo 2026',
-      editedBy: 'Edição Design For AIR',
+      editedBy: 'Edição design for air',
       label: 'Trabalhos selecionados',
       titlePrefix: 'Skills transformam briefs em',
       titleEmphasisA: 'artifacts memoráveis',
@@ -794,7 +794,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
       rule: 'Colaboradores / linhagem',
       shoulders: 'Construir sobre ombros fortes',
       label: 'Colaboradores',
-      quote: '“Design For AIR transformou ideias vagas de IA em um sistema visual nítido, confiável e realmente novo.”',
+      quote: '“design for air transformou ideias vagas de IA em um sistema visual nítido, confiável e realmente novo.”',
       authorTitle: 'Diretora criativa · North Form',
       partnersText: 'Nos apoiamos em equipes que já entregaram cultura de design open source.',
       partnerLabels: ['Pensamento', 'Decks', 'UX', 'Terminal', 'Frames'],
@@ -803,7 +803,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     faqSection: {
       rule: 'Perguntas frequentes',
       answers: 'Respostas oficiais, sem marketing',
-      label: 'FAQ do Design For AIR',
+      label: 'FAQ do design for air',
       titlePrefix: 'Perguntas sobre',
       titleMiddle: 'e',
       titleSuffix: 'a alternativa open source ao Claude Design',
@@ -825,9 +825,9 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     },
   }),
   it: homeFallbackCopy({
-    railRight: 'Design For AIR — vol. 01 · numero 26 · Apache-2.0',
+    railRight: 'design for air — vol. 01 · numero 26 · Apache-2.0',
     railLeft: 'Skill · sistemi · agenti · BYOK · local-first',
-    discordAria: 'Entra nel Discord di Design For AIR',
+    discordAria: 'Entra nel Discord di design for air',
     joinDiscord: 'Entra in Discord',
     heroLabel: 'Studio di design open source',
     heroIssue: 'Caso Nº 01 · locale / aperto / Terra',
@@ -836,7 +836,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     heroTitleMiddle: 'sul',
     heroTitleSecondEmphasis: 'tuo agente',
     heroLead: (skills, systems) =>
-      `Design For AIR è l’alternativa ufficiale, local-first, a Claude Design. Il tuo agente di codice — Claude Code, Codex, Cursor, Gemini, OpenCode o Qwen — diventa un motore di design con ${skills} skill componibili e ${systems} sistemi DESIGN.md portabili.`,
+      `design for air è l’alternativa ufficiale, local-first, a Claude Design. Il tuo agente di codice — Claude Code, Codex, Cursor, Gemini, OpenCode o Qwen — diventa un motore di design con ${skills} skill componibili e ${systems} sistemi DESIGN.md portabili.`,
     star: 'Metti Star su GitHub',
     download: 'Scarica desktop',
     plate: 'Tavola Nº 08',
@@ -848,7 +848,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     ],
     heroFoot: 'pnpm tools-dev · avvio in 3 comandi',
     heroIndex: ['Rilevare', 'Scoprire', 'Guidare', 'Consegnare'],
-    officialAria: 'Fonte ufficiale Design For AIR',
+    officialAria: 'Fonte ufficiale design for air',
     officialLabel: 'Fonte ufficiale',
     officialItems: [
       { label: 'Sito ufficiale', value: 'open-design.ai' },
@@ -860,7 +860,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     ],
     about: {
       rule: 'Informazioni / manifesto',
-      volume: 'Design For AIR / vol. 01',
+      volume: 'design for air / vol. 01',
       label: 'Lo studio',
       titlePrefix: 'Trattiamo',
       titleAgent: 'il tuo agente',
@@ -874,7 +874,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
       stampTop: 'Pratica di studio',
       stampBottom: 'Dal MMXXVI',
       sideNote: ['Dal comportamento', 'del modello al gusto', 'visivo, prototipiamo', 'l’intero stack', 'dei sistemi creativi.'],
-      caption: 'Studi di forma · percezione · immaginazione macchinica. (Design For AIR, MMXXVI)',
+      caption: 'Studi di forma · percezione · immaginazione macchinica. (design for air, MMXXVI)',
     },
     capabilities: {
       rule: 'Capacità · skill · sistemi',
@@ -932,7 +932,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     },
     work: {
       rule: 'Lavori selezionati · catalogo 2026',
-      editedBy: 'Redazione Design For AIR',
+      editedBy: 'Redazione design for air',
       label: 'Lavori selezionati',
       titlePrefix: 'Skill che trasformano brief in',
       titleEmphasisA: 'artifact memorabili',
@@ -949,7 +949,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
       rule: 'Collaboratori / genealogia',
       shoulders: 'Costruire su spalle solide',
       label: 'Collaboratori',
-      quote: '“Design For AIR ha trasformato idee AI vaghe in un sistema visivo nitido, credibile e davvero nuovo.”',
+      quote: '“design for air ha trasformato idee AI vaghe in un sistema visivo nitido, credibile e davvero nuovo.”',
       authorTitle: 'Direttrice creativa · North Form',
       partnersText: 'Costruiamo sul lavoro di team che hanno già consegnato cultura design open source.',
       partnerLabels: ['Pensiero', 'Deck', 'UX', 'Terminal', 'Frames'],
@@ -958,7 +958,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     faqSection: {
       rule: 'Domande frequenti',
       answers: 'Risposte ufficiali, niente marketing',
-      label: 'FAQ di Design For AIR',
+      label: 'FAQ di design for air',
       titlePrefix: 'Domande su',
       titleMiddle: 'e',
       titleSuffix: 'l’alternativa open source a Claude Design',
@@ -980,9 +980,9 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     },
   }),
   vi: homeFallbackCopy({
-    railRight: 'Design For AIR — tập 01 · số 26 · Apache-2.0',
+    railRight: 'design for air — tập 01 · số 26 · Apache-2.0',
     railLeft: 'Skill · hệ thống · agent · BYOK · ưu tiên local',
-    discordAria: 'Tham gia Discord Design For AIR',
+    discordAria: 'Tham gia Discord design for air',
     joinDiscord: 'Tham gia Discord',
     heroLabel: 'Studio thiết kế mã nguồn mở',
     heroIssue: 'Hồ sơ Nº 01 · local / mở / Trái Đất',
@@ -991,7 +991,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     heroTitleMiddle: 'trên',
     heroTitleSecondEmphasis: 'agent của bạn',
     heroLead: (skills, systems) =>
-      `Design For AIR là lựa chọn chính thức, ưu tiên local, thay Claude Design. Agent viết code bạn đang dùng — Claude Code, Codex, Cursor, Gemini, OpenCode hoặc Qwen — trở thành engine thiết kế với ${skills} skill có thể ghép và ${systems} hệ DESIGN.md di động.`,
+      `design for air là lựa chọn chính thức, ưu tiên local, thay Claude Design. Agent viết code bạn đang dùng — Claude Code, Codex, Cursor, Gemini, OpenCode hoặc Qwen — trở thành engine thiết kế với ${skills} skill có thể ghép và ${systems} hệ DESIGN.md di động.`,
     star: 'Star trên GitHub',
     download: 'Tải desktop',
     plate: 'Bản Nº 08',
@@ -1003,7 +1003,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     ],
     heroFoot: 'pnpm tools-dev · bắt đầu với 3 lệnh',
     heroIndex: ['Phát hiện', 'Khám phá', 'Định hướng', 'Giao hàng'],
-    officialAria: 'Nguồn chính thức của Design For AIR',
+    officialAria: 'Nguồn chính thức của design for air',
     officialLabel: 'Nguồn chính thức',
     officialItems: [
       { label: 'Trang chính thức', value: 'open-design.ai' },
@@ -1015,7 +1015,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     ],
     about: {
       rule: 'Giới thiệu / tuyên ngôn',
-      volume: 'Design For AIR / tập 01',
+      volume: 'design for air / tập 01',
       label: 'Về studio',
       titlePrefix: 'Chúng tôi xem',
       titleAgent: 'agent của bạn',
@@ -1029,7 +1029,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
       stampTop: 'Thực hành studio',
       stampBottom: 'Từ MMXXVI',
       sideNote: ['Từ hành vi', 'của model đến gu', 'thị giác, chúng tôi', 'prototype toàn bộ stack', 'của hệ sáng tạo.'],
-      caption: 'Nghiên cứu hình thái · tri giác · tưởng tượng máy. (Design For AIR, MMXXVI)',
+      caption: 'Nghiên cứu hình thái · tri giác · tưởng tượng máy. (design for air, MMXXVI)',
     },
     capabilities: {
       rule: 'Năng lực · skill · hệ thống',
@@ -1087,7 +1087,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     },
     work: {
       rule: 'Tác phẩm chọn lọc · catalog 2026',
-      editedBy: 'Biên tập bởi Design For AIR',
+      editedBy: 'Biên tập bởi design for air',
       label: 'Tác phẩm chọn lọc',
       titlePrefix: 'Skill biến brief thành',
       titleEmphasisA: 'artifact đáng nhớ',
@@ -1104,7 +1104,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
       rule: 'Cộng tác viên / mạch nguồn',
       shoulders: 'Xây trên nền tảng vững',
       label: 'Cộng tác viên',
-      quote: '“Design For AIR biến ý tưởng AI mơ hồ thành một hệ thị giác sắc nét, đáng tin và thật sự mới.”',
+      quote: '“design for air biến ý tưởng AI mơ hồ thành một hệ thị giác sắc nét, đáng tin và thật sự mới.”',
       authorTitle: 'Giám đốc sáng tạo · North Form',
       partnersText: 'Chúng tôi dựa trên những đội đã thực sự đưa văn hóa thiết kế open source ra đời.',
       partnerLabels: ['Tư duy', 'Deck', 'UX', 'Terminal', 'Frame'],
@@ -1113,7 +1113,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     faqSection: {
       rule: 'Câu hỏi thường gặp',
       answers: 'Câu trả lời chính thức, không khẩu hiệu',
-      label: 'FAQ Design For AIR',
+      label: 'FAQ design for air',
       titlePrefix: 'Câu hỏi về',
       titleMiddle: 'và',
       titleSuffix: 'lựa chọn open source thay Claude Design',
@@ -1135,9 +1135,9 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     },
   }),
   pl: homeFallbackCopy({
-    railRight: 'Design For AIR — tom 01 · wydanie nr 26 · Apache-2.0',
+    railRight: 'design for air — tom 01 · wydanie nr 26 · Apache-2.0',
     railLeft: 'Skills · systemy · agenci · BYOK · lokalnie najpierw',
-    discordAria: 'Dołącz do Discorda Design For AIR',
+    discordAria: 'Dołącz do Discorda design for air',
     joinDiscord: 'Dołącz do Discorda',
     heroLabel: 'Studio designu open source',
     heroIssue: 'Sprawa Nº 01 · lokalnie / otwarte / Ziemia',
@@ -1146,7 +1146,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     heroTitleMiddle: 'na',
     heroTitleSecondEmphasis: 'Twoim agencie',
     heroLead: (skills, systems) =>
-      `Design For AIR to oficjalna, lokalna z założenia alternatywa dla Claude Design. Twój agent do kodu — Claude Code, Codex, Cursor, Gemini, OpenCode albo Qwen — staje się silnikiem designu z ${skills} kompozycyjnymi skills i ${systems} przenośnymi systemami DESIGN.md.`,
+      `design for air to oficjalna, lokalna z założenia alternatywa dla Claude Design. Twój agent do kodu — Claude Code, Codex, Cursor, Gemini, OpenCode albo Qwen — staje się silnikiem designu z ${skills} kompozycyjnymi skills i ${systems} przenośnymi systemami DESIGN.md.`,
     star: 'Daj Star na GitHubie',
     download: 'Pobierz desktop',
     plate: 'Tablica Nº 08',
@@ -1158,7 +1158,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     ],
     heroFoot: 'pnpm tools-dev · start w 3 komendach',
     heroIndex: ['Wykryj', 'Odkryj', 'Pokieruj', 'Dostarcz'],
-    officialAria: 'Oficjalne źródło Design For AIR',
+    officialAria: 'Oficjalne źródło design for air',
     officialLabel: 'Oficjalne źródło',
     officialItems: [
       { label: 'Oficjalna strona', value: 'open-design.ai' },
@@ -1170,7 +1170,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     ],
     about: {
       rule: 'O nas / manifest',
-      volume: 'Design For AIR / tom 01',
+      volume: 'design for air / tom 01',
       label: 'O studiu',
       titlePrefix: 'Traktujemy',
       titleAgent: 'Twojego agenta',
@@ -1184,7 +1184,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
       stampTop: 'Praktyka studia',
       stampBottom: 'Od MMXXVI',
       sideNote: ['Od zachowania', 'modelu po smak', 'wizualny prototypujemy', 'cały stos', 'systemów kreatywnych.'],
-      caption: 'Studia formy · percepcji · wyobraźni maszynowej. (Design For AIR, MMXXVI)',
+      caption: 'Studia formy · percepcji · wyobraźni maszynowej. (design for air, MMXXVI)',
     },
     capabilities: {
       rule: 'Możliwości · skills · systemy',
@@ -1242,7 +1242,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     },
     work: {
       rule: 'Wybrane prace · katalog 2026',
-      editedBy: 'Redakcja Design For AIR',
+      editedBy: 'Redakcja design for air',
       label: 'Wybrane prace',
       titlePrefix: 'Skills zmieniają briefy w',
       titleEmphasisA: 'zapamiętywalne artifacts',
@@ -1259,7 +1259,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
       rule: 'Współpracownicy / rodowód',
       shoulders: 'Budować na mocnych barkach',
       label: 'Współpracownicy',
-      quote: '„Design For AIR zmienił niejasne idee AI w ostry, wiarygodny i naprawdę nowy system wizualny.”',
+      quote: '„design for air zmienił niejasne idee AI w ostry, wiarygodny i naprawdę nowy system wizualny.”',
       authorTitle: 'Dyrektorka kreatywna · North Form',
       partnersText: 'Opieramy się na zespołach, które już dostarczały kulturę designu open source.',
       partnerLabels: ['Myśl', 'Decki', 'UX', 'Terminal', 'Frames'],
@@ -1268,7 +1268,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     faqSection: {
       rule: 'Częste pytania',
       answers: 'Oficjalne odpowiedzi, bez marketingu',
-      label: 'FAQ Design For AIR',
+      label: 'FAQ design for air',
       titlePrefix: 'Pytania o',
       titleMiddle: 'i',
       titleSuffix: 'alternatywę open source dla Claude Design',
@@ -1290,9 +1290,9 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     },
   }),
   id: homeFallbackCopy({
-    railRight: 'Design For AIR — vol. 01 · edisi nº 26 · Apache-2.0',
+    railRight: 'design for air — vol. 01 · edisi nº 26 · Apache-2.0',
     railLeft: 'Skill · sistem · agent · BYOK · local-first',
-    discordAria: 'Bergabung ke Discord Design For AIR',
+    discordAria: 'Bergabung ke Discord design for air',
     joinDiscord: 'Bergabung Discord',
     heroLabel: 'Studio desain open source',
     heroIssue: 'Kasus Nº 01 · lokal / terbuka / Bumi',
@@ -1301,7 +1301,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     heroTitleMiddle: 'di',
     heroTitleSecondEmphasis: 'agent Anda sendiri',
     heroLead: (skills, systems) =>
-      `Design For AIR adalah alternatif resmi, local-first, untuk Claude Design. Agent coding yang sudah Anda pakai — Claude Code, Codex, Cursor, Gemini, OpenCode, atau Qwen — menjadi mesin desain dengan ${skills} skill komposable dan ${systems} sistem DESIGN.md portabel.`,
+      `design for air adalah alternatif resmi, local-first, untuk Claude Design. Agent coding yang sudah Anda pakai — Claude Code, Codex, Cursor, Gemini, OpenCode, atau Qwen — menjadi mesin desain dengan ${skills} skill komposable dan ${systems} sistem DESIGN.md portabel.`,
     star: 'Beri Star di GitHub',
     download: 'Unduh desktop',
     plate: 'Pelat Nº 08',
@@ -1313,7 +1313,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     ],
     heroFoot: 'pnpm tools-dev · mulai dengan 3 perintah',
     heroIndex: ['Deteksi', 'Temukan', 'Arahkan', 'Kirim'],
-    officialAria: 'Sumber resmi Design For AIR',
+    officialAria: 'Sumber resmi design for air',
     officialLabel: 'Sumber resmi',
     officialItems: [
       { label: 'Situs resmi', value: 'open-design.ai' },
@@ -1325,7 +1325,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     ],
     about: {
       rule: 'Tentang / manifesto',
-      volume: 'Design For AIR / vol. 01',
+      volume: 'design for air / vol. 01',
       label: 'Tentang studio',
       titlePrefix: 'Kami memperlakukan',
       titleAgent: 'agent Anda',
@@ -1339,7 +1339,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
       stampTop: 'Praktik studio',
       stampBottom: 'Sejak MMXXVI',
       sideNote: ['Dari perilaku', 'model sampai rasa', 'visual, kami membuat', 'prototype seluruh stack', 'sistem kreatif.'],
-      caption: 'Studi bentuk · persepsi · imajinasi mesin. (Design For AIR, MMXXVI)',
+      caption: 'Studi bentuk · persepsi · imajinasi mesin. (design for air, MMXXVI)',
     },
     capabilities: {
       rule: 'Kapabilitas · skill · sistem',
@@ -1397,7 +1397,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     },
     work: {
       rule: 'Karya pilihan · katalog 2026',
-      editedBy: 'Disunting Design For AIR',
+      editedBy: 'Disunting design for air',
       label: 'Karya pilihan',
       titlePrefix: 'Skill mengubah brief menjadi',
       titleEmphasisA: 'artifact berkesan',
@@ -1414,7 +1414,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
       rule: 'Kolaborator / garis asal',
       shoulders: 'Membangun di atas fondasi kuat',
       label: 'Kolaborator',
-      quote: '“Design For AIR mengubah ide AI yang samar menjadi sistem visual yang tajam, dapat dipercaya, dan benar-benar baru.”',
+      quote: '“design for air mengubah ide AI yang samar menjadi sistem visual yang tajam, dapat dipercaya, dan benar-benar baru.”',
       authorTitle: 'Direktur kreatif · North Form',
       partnersText: 'Kami berdiri di atas tim yang sudah mengirim budaya desain open source.',
       partnerLabels: ['Pikiran', 'Deck', 'UX', 'Terminal', 'Frame'],
@@ -1423,7 +1423,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     faqSection: {
       rule: 'Pertanyaan umum',
       answers: 'Jawaban resmi, tanpa marketing',
-      label: 'FAQ Design For AIR',
+      label: 'FAQ design for air',
       titlePrefix: 'Pertanyaan tentang',
       titleMiddle: 'dan',
       titleSuffix: 'alternatif open source untuk Claude Design',
@@ -1445,9 +1445,9 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     },
   }),
   nl: homeFallbackCopy({
-    railRight: 'Design For AIR — deel 01 · nummer 26 · Apache-2.0',
+    railRight: 'design for air — deel 01 · nummer 26 · Apache-2.0',
     railLeft: 'Skills · systemen · agents · BYOK · local-first',
-    discordAria: 'Word lid van Design For AIR Discord',
+    discordAria: 'Word lid van design for air Discord',
     joinDiscord: 'Word lid van Discord',
     heroLabel: 'Open-source designstudio',
     heroIssue: 'Case Nº 01 · lokaal / open / Aarde',
@@ -1456,7 +1456,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     heroTitleMiddle: 'op',
     heroTitleSecondEmphasis: 'je eigen agent',
     heroLead: (skills, systems) =>
-      `Design For AIR is het officiële local-first alternatief voor Claude Design. Je bestaande code-agent — Claude Code, Codex, Cursor, Gemini, OpenCode of Qwen — wordt een design-engine met ${skills} combineerbare skills en ${systems} draagbare DESIGN.md-systemen.`,
+      `design for air is het officiële local-first alternatief voor Claude Design. Je bestaande code-agent — Claude Code, Codex, Cursor, Gemini, OpenCode of Qwen — wordt een design-engine met ${skills} combineerbare skills en ${systems} draagbare DESIGN.md-systemen.`,
     star: 'Geef een Star op GitHub',
     download: 'Desktop downloaden',
     plate: 'Plaat Nº 08',
@@ -1468,7 +1468,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     ],
     heroFoot: 'pnpm tools-dev · start in 3 commando’s',
     heroIndex: ['Detecteren', 'Ontdekken', 'Sturen', 'Leveren'],
-    officialAria: 'Officiële bron van Design For AIR',
+    officialAria: 'Officiële bron van design for air',
     officialLabel: 'Officiële bron',
     officialItems: [
       { label: 'Officiële site', value: 'open-design.ai' },
@@ -1480,7 +1480,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     ],
     about: {
       rule: 'Over / manifest',
-      volume: 'Design For AIR / deel 01',
+      volume: 'design for air / deel 01',
       label: 'Over de studio',
       titlePrefix: 'Wij behandelen',
       titleAgent: 'je agent',
@@ -1494,7 +1494,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
       stampTop: 'Studiopraktijk',
       stampBottom: 'Sinds MMXXVI',
       sideNote: ['Van modelgedrag', 'tot visuele smaak', 'prototypen we', 'de volledige stack', 'van creatieve systemen.'],
-      caption: 'Studies naar vorm · perceptie · machinale verbeelding. (Design For AIR, MMXXVI)',
+      caption: 'Studies naar vorm · perceptie · machinale verbeelding. (design for air, MMXXVI)',
     },
     capabilities: {
       rule: 'Mogelijkheden · skills · systemen',
@@ -1552,7 +1552,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     },
     work: {
       rule: 'Geselecteerd werk · catalogus 2026',
-      editedBy: 'Design For AIR-redactie',
+      editedBy: 'design for air-redactie',
       label: 'Geselecteerd werk',
       titlePrefix: 'Skills veranderen briefs in',
       titleEmphasisA: 'memorabele artifacts',
@@ -1569,7 +1569,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
       rule: 'Samenwerkers / lijn',
       shoulders: 'Bouwen op sterke schouders',
       label: 'Samenwerkers',
-      quote: '“Design For AIR veranderde vage AI-ideeën in een scherp, geloofwaardig en echt nieuw visueel systeem.”',
+      quote: '“design for air veranderde vage AI-ideeën in een scherp, geloofwaardig en echt nieuw visueel systeem.”',
       authorTitle: 'Creative director · North Form',
       partnersText: 'We bouwen op teams die open-source designcultuur al hebben geleverd.',
       partnerLabels: ['Denken', 'Decks', 'UX', 'Terminal', 'Frames'],
@@ -1578,7 +1578,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     faqSection: {
       rule: 'Veelgestelde vragen',
       answers: 'Officiële antwoorden, geen marketing',
-      label: 'Design For AIR-FAQ',
+      label: 'design for air-FAQ',
       titlePrefix: 'Vragen over',
       titleMiddle: 'en',
       titleSuffix: 'het open-source alternatief voor Claude Design',
@@ -1600,9 +1600,9 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     },
   }),
   ar: homeFallbackCopy({
-    railRight: 'Design For AIR — المجلد 01 · العدد 26 · Apache-2.0',
+    railRight: 'design for air — المجلد 01 · العدد 26 · Apache-2.0',
     railLeft: 'Skills · أنظمة · Agents · BYOK · محلي أولاً',
-    discordAria: 'الانضمام إلى Discord الخاص بـ Design For AIR',
+    discordAria: 'الانضمام إلى Discord الخاص بـ design for air',
     joinDiscord: 'انضم إلى Discord',
     heroLabel: 'استوديو تصميم مفتوح المصدر',
     heroIssue: 'ملف Nº 01 · محلي / مفتوح / الأرض',
@@ -1611,7 +1611,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     heroTitleMiddle: 'على',
     heroTitleSecondEmphasis: 'الـ Agent الخاص بك',
     heroLead: (skills, systems) =>
-      `Design For AIR هو البديل الرسمي المحلي أولاً لـ Claude Design. يتحول agent البرمجة الذي تستخدمه — Claude Code أو Codex أو Cursor أو Gemini أو OpenCode أو Qwen — إلى محرك تصميم يعتمد على ${skills} skills قابلة للتركيب و ${systems} أنظمة DESIGN.md قابلة للنقل.`,
+      `design for air هو البديل الرسمي المحلي أولاً لـ Claude Design. يتحول agent البرمجة الذي تستخدمه — Claude Code أو Codex أو Cursor أو Gemini أو OpenCode أو Qwen — إلى محرك تصميم يعتمد على ${skills} skills قابلة للتركيب و ${systems} أنظمة DESIGN.md قابلة للنقل.`,
     star: 'ضع Star على GitHub',
     download: 'تنزيل desktop',
     plate: 'لوحة Nº 08',
@@ -1623,7 +1623,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     ],
     heroFoot: 'pnpm tools-dev · ابدأ بثلاثة أوامر',
     heroIndex: ['اكتشاف', 'استكشاف', 'توجيه', 'تسليم'],
-    officialAria: 'المصدر الرسمي لـ Design For AIR',
+    officialAria: 'المصدر الرسمي لـ design for air',
     officialLabel: 'المصدر الرسمي',
     officialItems: [
       { label: 'الموقع الرسمي', value: 'open-design.ai' },
@@ -1635,7 +1635,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     ],
     about: {
       rule: 'عن المشروع / البيان',
-      volume: 'Design For AIR / المجلد 01',
+      volume: 'design for air / المجلد 01',
       label: 'عن الاستوديو',
       titlePrefix: 'نتعامل مع',
       titleAgent: 'Agent الخاص بك',
@@ -1649,7 +1649,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
       stampTop: 'ممارسة الاستوديو',
       stampBottom: 'منذ MMXXVI',
       sideNote: ['من سلوك النموذج', 'إلى الذائقة البصرية', 'نصمم نموذجاً أولياً', 'لكامل مكدس', 'الأنظمة الإبداعية.'],
-      caption: 'دراسات في الشكل · الإدراك · الخيال الآلي. (Design For AIR, MMXXVI)',
+      caption: 'دراسات في الشكل · الإدراك · الخيال الآلي. (design for air, MMXXVI)',
     },
     capabilities: {
       rule: 'القدرات · skills · الأنظمة',
@@ -1707,7 +1707,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     },
     work: {
       rule: 'أعمال مختارة · كتالوج 2026',
-      editedBy: 'تحرير Design For AIR',
+      editedBy: 'تحرير design for air',
       label: 'أعمال مختارة',
       titlePrefix: 'Skills تحول brief إلى',
       titleEmphasisA: 'artifacts لا تُنسى',
@@ -1724,7 +1724,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
       rule: 'المتعاونون / السلالة',
       shoulders: 'البناء على أكتاف قوية',
       label: 'المتعاونون',
-      quote: '“حوّل Design For AIR أفكار AI الغامضة إلى نظام بصري حاد وموثوق وجديد فعلاً.”',
+      quote: '“حوّل design for air أفكار AI الغامضة إلى نظام بصري حاد وموثوق وجديد فعلاً.”',
       authorTitle: 'مديرة إبداعية · North Form',
       partnersText: 'نبني على فرق سلّمت ثقافة تصميم مفتوحة المصدر بالفعل.',
       partnerLabels: ['فكر', 'Decks', 'UX', 'Terminal', 'Frames'],
@@ -1733,7 +1733,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     faqSection: {
       rule: 'أسئلة شائعة',
       answers: 'إجابات رسمية بلا تسويق',
-      label: 'أسئلة Design For AIR الشائعة',
+      label: 'أسئلة design for air الشائعة',
       titlePrefix: 'أسئلة حول',
       titleMiddle: 'و',
       titleSuffix: 'البديل مفتوح المصدر لـ Claude Design',
@@ -1755,9 +1755,9 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     },
   }),
   tr: homeFallbackCopy({
-    railRight: 'Design For AIR — cilt 01 · sayı nº 26 · Apache-2.0',
+    railRight: 'design for air — cilt 01 · sayı nº 26 · Apache-2.0',
     railLeft: 'Skill · sistem · agent · BYOK · local-first',
-    discordAria: 'Design For AIR Discord’a katıl',
+    discordAria: 'design for air Discord’a katıl',
     joinDiscord: 'Discord’a katıl',
     heroLabel: 'Açık kaynak tasarım stüdyosu',
     heroIssue: 'Dosya Nº 01 · yerel / açık / Dünya',
@@ -1766,7 +1766,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     heroTitleMiddle: '',
     heroTitleSecondEmphasis: 'kendi Agentında',
     heroLead: (skills, systems) =>
-      `Design For AIR, Claude Design’ın resmi local-first alternatifidir. Kullandığın coding agent — Claude Code, Codex, Cursor, Gemini, OpenCode veya Qwen — ${skills} birleştirilebilir skill ve ${systems} taşınabilir DESIGN.md sistemiyle bir tasarım motoruna dönüşür.`,
+      `design for air, Claude Design’ın resmi local-first alternatifidir. Kullandığın coding agent — Claude Code, Codex, Cursor, Gemini, OpenCode veya Qwen — ${skills} birleştirilebilir skill ve ${systems} taşınabilir DESIGN.md sistemiyle bir tasarım motoruna dönüşür.`,
     star: 'GitHub’da Star ver',
     download: 'Desktop indir',
     plate: 'Levha Nº 08',
@@ -1778,7 +1778,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     ],
     heroFoot: 'pnpm tools-dev · 3 komutla başla',
     heroIndex: ['Algıla', 'Keşfet', 'Yönlendir', 'Teslim et'],
-    officialAria: 'Design For AIR resmi kaynağı',
+    officialAria: 'design for air resmi kaynağı',
     officialLabel: 'Resmi kaynak',
     officialItems: [
       { label: 'Resmi site', value: 'open-design.ai' },
@@ -1790,7 +1790,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     ],
     about: {
       rule: 'Hakkında / manifesto',
-      volume: 'Design For AIR / cilt 01',
+      volume: 'design for air / cilt 01',
       label: 'Stüdyo hakkında',
       titlePrefix: 'Biz',
       titleAgent: 'Agentını',
@@ -1804,7 +1804,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
       stampTop: 'Stüdyo pratiği',
       stampBottom: 'MMXXVI’dan beri',
       sideNote: ['Model davranışından', 'görsel zevke kadar', 'yaratıcı sistemlerin', 'tüm stackini', 'prototipliyoruz.'],
-      caption: 'Form · algı · makine imgelemi çalışmaları. (Design For AIR, MMXXVI)',
+      caption: 'Form · algı · makine imgelemi çalışmaları. (design for air, MMXXVI)',
     },
     capabilities: {
       rule: 'Yetenekler · skill · sistem',
@@ -1862,7 +1862,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     },
     work: {
       rule: 'Seçilmiş işler · 2026 kataloğu',
-      editedBy: 'Design For AIR editörlüğü',
+      editedBy: 'design for air editörlüğü',
       label: 'Seçilmiş işler',
       titlePrefix: 'Briefleri',
       titleEmphasisA: 'akılda kalan',
@@ -1879,7 +1879,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
       rule: 'İşbirlikçiler / çizgi',
       shoulders: 'Güçlü omuzların üstünde inşa etmek',
       label: 'İşbirlikçiler',
-      quote: '“Design For AIR belirsiz AI fikirlerini keskin, güvenilir ve gerçekten yeni bir görsel sisteme dönüştürdü.”',
+      quote: '“design for air belirsiz AI fikirlerini keskin, güvenilir ve gerçekten yeni bir görsel sisteme dönüştürdü.”',
       authorTitle: 'Yaratıcı direktör · North Form',
       partnersText: 'Açık kaynak tasarım kültürünü gerçekten teslim etmiş ekiplerin üzerinde yükseliyoruz.',
       partnerLabels: ['Düşünce', 'Deck', 'UX', 'Terminal', 'Frame'],
@@ -1888,7 +1888,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     faqSection: {
       rule: 'Sık sorulanlar',
       answers: 'Resmi yanıtlar, pazarlama yok',
-      label: 'Design For AIR SSS',
+      label: 'design for air SSS',
       titlePrefix: 'Sorular:',
       titleMiddle: 've',
       titleSuffix: 'Claude Design’ın açık kaynak alternatifi',
@@ -1910,9 +1910,9 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     },
   }),
   uk: homeFallbackCopy({
-    railRight: 'Design For AIR — том 01 · випуск № 26 · Apache-2.0',
+    railRight: 'design for air — том 01 · випуск № 26 · Apache-2.0',
     railLeft: 'Skills · системи · агенти · BYOK · local-first',
-    discordAria: 'Приєднатися до Discord Design For AIR',
+    discordAria: 'Приєднатися до Discord design for air',
     joinDiscord: 'Приєднатися до Discord',
     heroLabel: 'Дизайн-студія з відкритим кодом',
     heroIssue: 'Кейс № 01 · локально / відкрито / Земля',
@@ -1921,7 +1921,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     heroTitleMiddle: 'на вашому',
     heroTitleSecondEmphasis: 'власному агенті',
     heroLead: (skills, systems) =>
-      `Design For AIR — офіційна local-first альтернатива Claude Design. Ваш coding agent — Claude Code, Codex, Cursor, Gemini, OpenCode або Qwen — стає design engine із ${skills} composable skills та ${systems} portable DESIGN.md systems.`,
+      `design for air — офіційна local-first альтернатива Claude Design. Ваш coding agent — Claude Code, Codex, Cursor, Gemini, OpenCode або Qwen — стає design engine із ${skills} composable skills та ${systems} portable DESIGN.md systems.`,
     star: 'Поставити Star на GitHub',
     download: 'Завантажити desktop',
     plate: 'Таблиця № 08',
@@ -1933,7 +1933,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     ],
     heroFoot: 'pnpm tools-dev · старт у 3 команди',
     heroIndex: ['Виявити', 'Дослідити', 'Спрямувати', 'Доставити'],
-    officialAria: 'Офіційне джерело Design For AIR',
+    officialAria: 'Офіційне джерело design for air',
     officialLabel: 'Офіційне джерело',
     officialItems: [
       { label: 'Офіційний сайт', value: 'open-design.ai' },
@@ -1945,7 +1945,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     ],
     about: {
       rule: 'Про студію / маніфест',
-      volume: 'Design For AIR / том 01',
+      volume: 'design for air / том 01',
       label: 'Про студію',
       titlePrefix: 'Ми сприймаємо',
       titleAgent: 'вашого агента',
@@ -1959,7 +1959,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
       stampTop: 'Практика студії',
       stampBottom: 'З MMXXVI',
       sideNote: ['Від поведінки моделі', 'до візуального смаку', 'ми прототипуємо', 'увесь стек', 'креативних систем.'],
-      caption: 'Дослідження форми · сприйняття · машинної уяви. (Design For AIR, MMXXVI)',
+      caption: 'Дослідження форми · сприйняття · машинної уяви. (design for air, MMXXVI)',
     },
     capabilities: {
       rule: 'Можливості · skills · системи',
@@ -2017,7 +2017,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     },
     work: {
       rule: 'Вибрані роботи · каталог 2026',
-      editedBy: 'Редакція Design For AIR',
+      editedBy: 'Редакція design for air',
       label: 'Вибрані роботи',
       titlePrefix: 'Skills перетворюють briefs на',
       titleEmphasisA: 'пам’ятні',
@@ -2034,7 +2034,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
       rule: 'Співтворці / походження',
       shoulders: 'Будувати на сильних плечах',
       label: 'Співтворці',
-      quote: '«Design For AIR допоміг перетворити нечіткі AI-ідеї на гостру, надійну й справді нову візуальну систему.»',
+      quote: '«design for air допоміг перетворити нечіткі AI-ідеї на гостру, надійну й справді нову візуальну систему.»',
       authorTitle: 'Креативна директорка · North Form',
       partnersText: 'Ми спираємося на команди, які вже доставляли open-source дизайн-культуру.',
       partnerLabels: ['Думка', 'Decks', 'UX', 'Terminal', 'Frames'],
@@ -2043,7 +2043,7 @@ export const EXTRA_LOCALIZED_HOME_BODY_COPY: Partial<
     faqSection: {
       rule: 'Часті питання',
       answers: 'Офіційні відповіді без маркетингу',
-      label: 'FAQ Design For AIR',
+      label: 'FAQ design for air',
       titlePrefix: 'Питання про',
       titleMiddle: 'і',
       titleSuffix: 'відкриту альтернативу Claude Design',

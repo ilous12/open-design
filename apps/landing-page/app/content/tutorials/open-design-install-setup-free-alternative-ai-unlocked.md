@@ -1,7 +1,7 @@
 ---
-title: 'Install Design For AIR — FREE AI Design Tool (Claude Design Alternative)'
+title: 'Install design for air — FREE AI Design Tool (Claude Design Alternative)'
 youtubeId: 65jch4jf6pg
-summary: "Based on AI Unlocked's install walkthrough, this guide sets up Design For AIR in four fast steps — download the free desktop app, connect the coding agent CLI you already have as its design engine, keep the default model, and lock down privacy settings. No paid subscription required."
+summary: "Based on AI Unlocked's install walkthrough, this guide sets up design for air in four fast steps — download the free desktop app, connect the coding agent CLI you already have as its design engine, keep the default model, and lock down privacy settings. No paid subscription required."
 date: 2026-06-30
 category: Getting started
 durationSeconds: 155
@@ -9,12 +9,12 @@ author: 'AI Unlocked'
 official: false
 ---
 
-This guide installs Design For AIR without paying for a hosted subscription — it turns the coding agent CLI you already have into the app's design engine. It follows the four-step walkthrough AI Unlocked runs in [their install video](https://www.youtube.com/watch?v=65jch4jf6pg), rewritten here so you can follow along click by click. Watch the video above for the full run, or read on for the written version.
+This guide installs design for air without paying for a hosted subscription — it turns the coding agent CLI you already have into the app's design engine. It follows the four-step walkthrough AI Unlocked runs in [their install video](https://www.youtube.com/watch?v=65jch4jf6pg), rewritten here so you can follow along click by click. Watch the video above for the full run, or read on for the written version.
 
-![Design For AIR's workspace running locally.](/tutorials/open-design-install-setup-free-alternative-ai-unlocked/01-workspace.webp)
-*Design For AIR's workspace once it's installed and connected to a local coding agent — no cloud subscription required.*
+![design for air's workspace running locally.](/tutorials/open-design-install-setup-free-alternative-ai-unlocked/01-workspace.webp)
+*design for air's workspace once it's installed and connected to a local coding agent — no cloud subscription required.*
 
-## What is Design For AIR?
+## What is design for air?
 
 - **Open source, Apache-2.0** — inspect it, self-host it, or just download the packaged app.
 - **Local-first** — the app and your projects run on your own machine.
@@ -23,19 +23,19 @@ This guide installs Design For AIR without paying for a hosted subscription — 
 
 ## Step 1 — Download the app
 
-Head to Design For AIR's GitHub page and open the **Releases** section, or go straight to [open-design.ai](https://open-design.ai/) for a direct download link. Grab the build for your machine — on an Apple silicon Mac that's the **macOS arm64** build. Download the file, open it, and drag the Design For AIR icon into your Applications folder. It installs like any other desktop app; there's no compiling and no terminal required for this path.
+Head to design for air's GitHub page and open the **Releases** section, or go straight to [open-design.ai](https://open-design.ai/) for a direct download link. Grab the build for your machine — on an Apple silicon Mac that's the **macOS arm64** build. Download the file, open it, and drag the design for air icon into your Applications folder. It installs like any other desktop app; there's no compiling and no terminal required for this path.
 
 ## Step 2 — Connect your coding agent
 
-Open the app. On the sign-in screen, skip the paid cloud button and click the smaller link underneath it instead — **local coding agent**. Design For AIR scans your machine for the CLIs you already have installed, such as Claude Code, Codex, or Cursor. Pick the one you want to drive design generation and hit continue. That connects the engine without paying for anything extra — you're reusing the agent access you already have.
+Open the app. On the sign-in screen, skip the paid cloud button and click the smaller link underneath it instead — **local coding agent**. design for air scans your machine for the CLIs you already have installed, such as Claude Code, Codex, or Cursor. Pick the one you want to drive design generation and hit continue. That connects the engine without paying for anything extra — you're reusing the agent access you already have.
 
 ## Step 3 — Pick your model
 
-In the model box, leave the setting on **default CLI config**. That tells Design For AIR to inherit whatever model your connected coding agent is currently configured to use — typically its latest one — instead of picking one of the older models listed in the dropdown, which are just fallback options.
+In the model box, leave the setting on **default CLI config**. That tells design for air to inherit whatever model your connected coding agent is currently configured to use — typically its latest one — instead of picking one of the older models listed in the dropdown, which are just fallback options.
 
 ## Step 4 — Lock down your privacy
 
-Go to **Settings → Privacy**. You'll see two switches turned on by default, and one of them shares your actual project data outside the app. Turn both off, then click **delete my data** to clear anything already collected. Design For AIR keeps working exactly the same after this — the toggles only control what leaves your machine, not what the app can do.
+Go to **Settings → Privacy**. You'll see two switches turned on by default, and one of them shares your actual project data outside the app. Turn both off, then click **delete my data** to clear anything already collected. design for air keeps working exactly the same after this — the toggles only control what leaves your machine, not what the app can do.
 
 ## Explore the workspace
 
@@ -54,20 +54,20 @@ From here, describe what you want to build and let your connected agent generate
 
 ## FAQ
 
-**Is Design For AIR free?**
+**Is design for air free?**
 Yes — it's open source under the Apache-2.0 license and free to run locally. You only pay for the usage of whichever coding agent and model you connect, which you likely already have.
 
 **Do I need to buy Claude Design or another paid design tool to use this?**
-No. Design For AIR runs on top of a coding agent CLI you already have, such as Claude Code, so there's no separate design subscription to buy.
+No. design for air runs on top of a coding agent CLI you already have, such as Claude Code, so there's no separate design subscription to buy.
 
 **Which coding agents can I connect?**
-This walkthrough detects Claude Code, Codex, and Cursor, but Design For AIR supports a much longer list of coding agent CLIs — whichever ones are already installed on your machine will show up.
+This walkthrough detects Claude Code, Codex, and Cursor, but design for air supports a much longer list of coding agent CLIs — whichever ones are already installed on your machine will show up.
 
 **Why does it ask about privacy settings during setup?**
 Two data-sharing toggles are on by default, and one of them sends your actual work outside the app. Turning them off in Settings → Privacy keeps everything local without disabling any features.
 
 **What model should I choose?**
-Leave it on default CLI config so Design For AIR uses whatever model your connected coding agent is already running — that's normally the most capable option available to you.
+Leave it on default CLI config so design for air uses whatever model your connected coding agent is already running — that's normally the most capable option available to you.
 
 ---
 

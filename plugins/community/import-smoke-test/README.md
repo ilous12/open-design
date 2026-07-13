@@ -1,6 +1,6 @@
 # Community Import Smoke Test
 
-A small community plugin for exercising the Design For AIR import UI. It is meant
+A small community plugin for exercising the design for air import UI. It is meant
 to be boring in exactly the useful way: the folder has the portable `SKILL.md`
 floor, the enriched `open-design.json` sidecar, and a minimal Claude-compatible
 plugin manifest.
@@ -14,6 +14,6 @@ plugin manifest.
 
 ## Expected Result
 
-Design For AIR should install the plugin as a user/community plugin, preserve the
+design for air should install the plugin as a user/community plugin, preserve the
 source provenance, and show the plugin with the title `Community Import Smoke
 Test`.

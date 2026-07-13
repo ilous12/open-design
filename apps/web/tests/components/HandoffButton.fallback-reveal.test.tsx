@@ -134,7 +134,7 @@ describe('HandoffButton zero-editors fallback', () => {
       '/api/integrations/vela/analytics-entry',
       expect.objectContaining({ method: 'POST' }),
     );
-    expect(screen.getByTestId('handoff-cli-item-amr').textContent).toContain('Design For AIR');
+    expect(screen.getByTestId('handoff-cli-item-amr').textContent).toContain('design for air');
     expect(screen.getByTestId('handoff-cli-item-amr').textContent).not.toContain('未安装');
     expect(
       screen.getByTestId('handoff-cli-item-amr').compareDocumentPosition(

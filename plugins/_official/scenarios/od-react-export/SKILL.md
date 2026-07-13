@@ -1,6 +1,6 @@
 # Export To React
 
-Use this plugin when the user wants to hand an accepted Design For AIR artifact to a React app.
+Use this plugin when the user wants to hand an accepted design for air artifact to a React app.
 
 ## Workflow
 

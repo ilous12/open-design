@@ -2,9 +2,9 @@ import type { SolutionLocaleCopy } from './types';
 
 export const TR: SolutionLocaleCopy = {
   aiWireframeGenerator: {
-    title: 'AI Tel Kafes Oluşturucu — Design For AIR ile komuttan tel kafese',
+    title: 'AI Tel Kafes Oluşturucu — design for air ile komuttan tel kafese',
     description:
-      'Bir komutu düzenlenebilir, çok ekranlı tel kafeslere dönüştüren — ve onları yayına alınan koda kadar taşıyan ücretsiz, açık kaynaklı bir AI tel kafes oluşturucu. Design For AIR zaten kullandığınız kodlama ajanının içinde çalışır, böylece tel kafes ile gerçek ürün tek bir kaynağı paylaşır.',
+      'Bir komutu düzenlenebilir, çok ekranlı tel kafeslere dönüştüren — ve onları yayına alınan koda kadar taşıyan ücretsiz, açık kaynaklı bir AI tel kafes oluşturucu. design for air zaten kullandığınız kodlama ajanının içinde çalışır, böylece tel kafes ile gerçek ürün tek bir kaynağı paylaşır.',
     breadcrumb: 'AI tel kafes oluşturucu',
     label: 'Araç · AI tel kafes oluşturucu',
     heading: 'Bir komut hızında tel kafes',
@@ -13,12 +13,12 @@ export const TR: SolutionLocaleCopy = {
       'Bir komutun düzenlenebilir bir tel kafese ve ardından bitmiş bir arayüze dönüştüğünü, yeşil bir seçim kutusuyla çerçevelendiğini gösteren editöryel illüstrasyon',
     tldrTitle: 'Tek cümlede',
     tldrBody:
-      'Çoğu AI tel kafes oluşturucu size sonradan yeniden kuracağınız bir resim verir. Design For AIR tel kafesi kodlama ajanınızın içinde üretir ve onu komuttan yayına alınan koda kadar taşır — dışa aktarma adımı yok, teslim boşluğu yok, koltuk başı sayaç yok.',
+      'Çoğu AI tel kafes oluşturucu size sonradan yeniden kuracağınız bir resim verir. design for air tel kafesi kodlama ajanınızın içinde üretir ve onu komuttan yayına alınan koda kadar taşır — dışa aktarma adımı yok, teslim boşluğu yok, koltuk başı sayaç yok.',
     stepsTitle: 'AI tel kafes oluşturucu nasıl çalışır',
     steps: [
       {
         title: 'Ekranı tarif edin',
-        body: 'Ajanınıza neyin tel kafesini çizeceğinizi sade bir dille söyleyin — “bir kenar çubuğu, bir istatistik satırı ve bir son etkinlik tablosu içeren bir pano.” Design For AIR tel kafes becerisini yükler, böylece ajan yalnızca tek bir durağan görsel değil, yapı ve hiyerarşi kurar.',
+        body: 'Ajanınıza neyin tel kafesini çizeceğinizi sade bir dille söyleyin — “bir kenar çubuğu, bir istatistik satırı ve bir son etkinlik tablosu içeren bir pano.” design for air tel kafes becerisini yükler, böylece ajan yalnızca tek bir durağan görsel değil, yapı ve hiyerarşi kurar.',
         imageAlt: 'Sade dildeki bir ekran tarifinin bir terminale yazıldığını gösteren illüstrasyon',
       },
       {
@@ -37,9 +37,9 @@ export const TR: SolutionLocaleCopy = {
         imageAlt: 'Bir tel kafesin yeşil bir seçim çerçevesi içinde tutulan, yayına alınan koda aktığını gösteren illüstrasyon',
       },
     ],
-    tableTitle: 'Design For AIR, tipik AI tel kafes oluşturuculara karşı',
+    tableTitle: 'design for air, tipik AI tel kafes oluşturuculara karşı',
     tableColCapability: 'İhtiyacınız olan',
-    tableColWithOd: 'Design For AIR ile',
+    tableColWithOd: 'design for air ile',
     tableColWithout: 'Tipik AI tel kafes oluşturucular',
     tableRows: [
       {
@@ -101,7 +101,7 @@ export const TR: SolutionLocaleCopy = {
         thumb: 'example-kami-landing',
       },
     ],
-    galleryTitle: 'Design For AIR ile oluşturulan tel kafesler',
+    galleryTitle: 'design for air ile oluşturulan tel kafesler',
     galleryLead:
       'Her biri bir komut olarak başladı ve düzenlenebilir, tıklanabilir bir çıktıya dönüştü. Fikrinize yakın bir şablon seçin, varyasyonunuzu tarif edin, ajan onu uyarlasın — tel kafesten yayına alınan koda.',
     gallery: [
@@ -116,7 +116,7 @@ export const TR: SolutionLocaleCopy = {
     faq: [
       {
         q: 'AI tel kafes oluşturucu ücretsiz mi?',
-        a: 'Evet. Design For AIR açık kaynaktır ve zaten kullandığınız kodlama ajanının içinde kendi sağlayıcı anahtarlarınızla çalışır — tel kafes oluşturucunun kendisinde koltuk başı ya da kredi başı sayaç yoktur.',
+        a: 'Evet. design for air açık kaynaktır ve zaten kullandığınız kodlama ajanının içinde kendi sağlayıcı anahtarlarınızla çalışır — tel kafes oluşturucunun kendisinde koltuk başı ya da kredi başı sayaç yoktur.',
       },
       {
         q: 'Tel kafesler düzenlenebilir mi, yoksa yalnızca resim mi?',
@@ -128,24 +128,24 @@ export const TR: SolutionLocaleCopy = {
       },
       {
         q: 'Hangi ajanlarla çalışır?',
-        a: 'Design For AIR; Claude Code, Codex, Cursor Agent, Gemini CLI ve bir düzine kadar diğer birinci taraf adaptörle çalışır. Kendi sağlayıcı anahtarlarınızı getirirsiniz; sizin için hiçbir şey barındırılmaz.',
+        a: 'design for air; Claude Code, Codex, Cursor Agent, Gemini CLI ve bir düzine kadar diğer birinci taraf adaptörle çalışır. Kendi sağlayıcı anahtarlarınızı getirirsiniz; sizin için hiçbir şey barındırılmaz.',
       },
     ],
     ctaTitle: 'İlk tel kafesinizi bu gece üretin',
     ctaBody:
-      'Depoya yıldız verin, Design For AIR’ı kurun ve bir sonraki ekran fikrinizi düzenlenebilir bir tel kafese — ardından yayına alınan koda — zaten kullandığınız ajanda dönüştürün.',
+      'Depoya yıldız verin, design for air’ı kurun ve bir sonraki ekran fikrinizi düzenlenebilir bir tel kafese — ardından yayına alınan koda — zaten kullandığınız ajanda dönüştürün.',
     relatedTitle: 'İlgili araçlar ve rehberler',
     related: [
       { href: '/solutions/ai-ui-generator/', label: 'AI UI oluşturucu' },
-      { href: '/solutions/design-to-code/', label: 'Design For AIR ile tasarımdan koda' },
+      { href: '/solutions/design-to-code/', label: 'design for air ile tasarımdan koda' },
       { href: '/blog/design-to-code-tools/', label: 'En iyi tasarımdan koda araçları' },
-      { href: '/solutions/prototype/', label: 'Design For AIR ile prototipleme' },
+      { href: '/solutions/prototype/', label: 'design for air ile prototipleme' },
     ],
   },
   aiUiGenerator: {
-    title: 'AI UI Oluşturucu — Design For AIR ile komuttan üretim arayüzüne',
+    title: 'AI UI Oluşturucu — design for air ile komuttan üretim arayüzüne',
     description:
-      'Bir komutu gerçek, bileşen tabanlı bir arayüze dönüştüren — ve onu yayına alınan koda kadar taşıyan ücretsiz, açık kaynaklı bir AI UI oluşturucu. Design For AIR zaten kullandığınız kodlama ajanının içinde çalışır, böylece üretilen arayüz ile üretim kodu aynı çıktıdır.',
+      'Bir komutu gerçek, bileşen tabanlı bir arayüze dönüştüren — ve onu yayına alınan koda kadar taşıyan ücretsiz, açık kaynaklı bir AI UI oluşturucu. design for air zaten kullandığınız kodlama ajanının içinde çalışır, böylece üretilen arayüz ile üretim kodu aynı çıktıdır.',
     breadcrumb: 'AI UI oluşturucu',
     label: 'Araç · AI UI oluşturucu',
     heading: 'Gerçekten yayına alabileceğiniz arayüz üretin',
@@ -154,12 +154,12 @@ export const TR: SolutionLocaleCopy = {
       'Bir komutun bileşen tabanlı bir arayüze ve ardından üretim koduna dönüştüğünü, yeşil bir seçim kutusuyla çerçevelendiğini gösteren editöryel illüstrasyon',
     tldrTitle: 'Tek cümlede',
     tldrBody:
-      'Çoğu AI UI oluşturucu size bir maket ya da kullan-at bir React parçası verir. Design For AIR arayüzü kodlama ajanınızın içinde üretir ve onu komuttan yayına alınan koda kadar taşır — gerçek bileşenler, sizin tasarım sisteminiz, dışa aktarma adımı yok, koltuk başı sayaç yok.',
+      'Çoğu AI UI oluşturucu size bir maket ya da kullan-at bir React parçası verir. design for air arayüzü kodlama ajanınızın içinde üretir ve onu komuttan yayına alınan koda kadar taşır — gerçek bileşenler, sizin tasarım sisteminiz, dışa aktarma adımı yok, koltuk başı sayaç yok.',
     stepsTitle: 'AI UI oluşturucu nasıl çalışır',
     steps: [
       {
         title: 'Arayüzü tarif edin',
-        body: 'Ajanınıza ne kuracağını sade bir dille söyleyin — “bir kenar çubuğu, sekmeli bölümler ve bir kaydetme çubuğu içeren bir ayarlar sayfası.” Design For AIR UI becerisini yükler, böylece ajan tek seferlik bir ekran değil, gerçek bileşenlere ve bir tasarım sistemine başvurur.',
+        body: 'Ajanınıza ne kuracağını sade bir dille söyleyin — “bir kenar çubuğu, sekmeli bölümler ve bir kaydetme çubuğu içeren bir ayarlar sayfası.” design for air UI becerisini yükler, böylece ajan tek seferlik bir ekran değil, gerçek bileşenlere ve bir tasarım sistemine başvurur.',
         imageAlt: 'Sade dildeki bir arayüz tarifinin bir terminale yazıldığını gösteren illüstrasyon',
       },
       {
@@ -178,9 +178,9 @@ export const TR: SolutionLocaleCopy = {
         imageAlt: 'Üretilen bir arayüzün yeşil bir seçim çerçevesi içinde tutulan, yayına alınan koda aktığını gösteren illüstrasyon',
       },
     ],
-    tableTitle: 'Design For AIR, tipik AI UI oluşturuculara karşı',
+    tableTitle: 'design for air, tipik AI UI oluşturuculara karşı',
     tableColCapability: 'İhtiyacınız olan',
-    tableColWithOd: 'Design For AIR ile',
+    tableColWithOd: 'design for air ile',
     tableColWithout: 'Tipik AI UI oluşturucular',
     tableRows: [
       {
@@ -242,7 +242,7 @@ export const TR: SolutionLocaleCopy = {
         thumb: 'example-kami-landing',
       },
     ],
-    galleryTitle: 'Design For AIR ile oluşturulan arayüzler',
+    galleryTitle: 'design for air ile oluşturulan arayüzler',
     galleryLead:
       'Her biri bir komut olarak başladı ve gerçek, bileşen tabanlı bir çıktıya dönüştü. Fikrinize yakın bir şablon seçin, varyasyonunuzu tarif edin, ajan onu uyarlasın — arayüzden yayına alınan koda.',
     gallery: [
@@ -257,7 +257,7 @@ export const TR: SolutionLocaleCopy = {
     faq: [
       {
         q: 'AI UI oluşturucu ücretsiz mi?',
-        a: 'Evet. Design For AIR açık kaynaktır ve zaten kullandığınız kodlama ajanının içinde kendi sağlayıcı anahtarlarınızla çalışır — UI oluşturucunun kendisinde koltuk başı ya da kredi başı sayaç yoktur.',
+        a: 'Evet. design for air açık kaynaktır ve zaten kullandığınız kodlama ajanının içinde kendi sağlayıcı anahtarlarınızla çalışır — UI oluşturucunun kendisinde koltuk başı ya da kredi başı sayaç yoktur.',
       },
       {
         q: 'Gerçek bileşenler mi üretiyor, yoksa yalnızca bir maket mi?',
@@ -269,22 +269,22 @@ export const TR: SolutionLocaleCopy = {
       },
       {
         q: 'Hangi ajanlarla çalışır?',
-        a: 'Design For AIR; Claude Code, Codex, Cursor Agent, Gemini CLI ve bir düzine kadar diğer birinci taraf adaptörle çalışır. Kendi sağlayıcı anahtarlarınızı getirirsiniz; sizin için hiçbir şey barındırılmaz.',
+        a: 'design for air; Claude Code, Codex, Cursor Agent, Gemini CLI ve bir düzine kadar diğer birinci taraf adaptörle çalışır. Kendi sağlayıcı anahtarlarınızı getirirsiniz; sizin için hiçbir şey barındırılmaz.',
       },
     ],
     ctaTitle: 'İlk arayüzünüzü bu gece üretin',
     ctaBody:
-      'Depoya yıldız verin, Design For AIR’ı kurun ve bir sonraki arayüz fikrinizi gerçek, bileşen tabanlı bir arayüze — ardından yayına alınan koda — zaten kullandığınız ajanda dönüştürün.',
+      'Depoya yıldız verin, design for air’ı kurun ve bir sonraki arayüz fikrinizi gerçek, bileşen tabanlı bir arayüze — ardından yayına alınan koda — zaten kullandığınız ajanda dönüştürün.',
     relatedTitle: 'İlgili araçlar ve rehberler',
     related: [
       { href: '/solutions/ai-wireframe-generator/', label: 'AI tel kafes oluşturucu' },
-      { href: '/solutions/design-to-code/', label: 'Design For AIR ile tasarımdan koda' },
+      { href: '/solutions/design-to-code/', label: 'design for air ile tasarımdan koda' },
       { href: '/blog/best-ai-design-tools/', label: 'En iyi AI tasarım araçları' },
-      { href: '/solutions/designer/', label: 'Tasarımcılar için Design For AIR' },
+      { href: '/solutions/designer/', label: 'Tasarımcılar için design for air' },
     ],
   },
   designToCode: {
-    title: 'Tasarımdan Koda — Design For AIR ile bir tasarımı yayına alınan koda dönüştürün',
+    title: 'Tasarımdan Koda — design for air ile bir tasarımı yayına alınan koda dönüştürün',
     description:
       'Bir komutu ya da bir tasarımı gerçek, düzenlenebilir koda dönüştüren — zaten kullandığınız kodlama ajanının içinde — ücretsiz, açık kaynaklı bir tasarımdan koda iş akışı. Dışa aktarma yok, teslim yok: tasarım ile üretim kodu, sahip olduğunuz ve yayına aldığınız tek bir çıktıdır.',
     breadcrumb: 'Tasarımdan koda',
@@ -295,12 +295,12 @@ export const TR: SolutionLocaleCopy = {
       'Bir tasarımın temiz üretim koduna dönüştüğünü, yeşil bir seçim kutusuyla çerçevelendiğini gösteren editöryel illüstrasyon',
     tldrTitle: 'Tek cümlede',
     tldrBody:
-      'Çoğu tasarımdan koda aracı, sonradan başında beklediğiniz tek seferlik bir anlık görüntü dışa aktarır. Design For AIR tasarım ile kodu ajanınızın içinde tek bir canlı çıktı olarak tutar — konuşarak yineleyin, sahip olduğunuz kodu yayına alın, koltuk başı sayaç yok.',
+      'Çoğu tasarımdan koda aracı, sonradan başında beklediğiniz tek seferlik bir anlık görüntü dışa aktarır. design for air tasarım ile kodu ajanınızın içinde tek bir canlı çıktı olarak tutar — konuşarak yineleyin, sahip olduğunuz kodu yayına alın, koltuk başı sayaç yok.',
     stepsTitle: 'Tasarımdan koda nasıl çalışır',
     steps: [
       {
         title: 'Bir komuttan ya da bir tasarımdan başlayın',
-        body: 'Ekranı sade bir dille tarif edin ya da ajanınızı bir tasarım yönüne yönlendirin. Design For AIR doğru beceriyi yükler, böylece ajan kırılgan, tek seferlik bir dönüşüm değil, yapı ve bileşenler kurar.',
+        body: 'Ekranı sade bir dille tarif edin ya da ajanınızı bir tasarım yönüne yönlendirin. design for air doğru beceriyi yükler, böylece ajan kırılgan, tek seferlik bir dönüşüm değil, yapı ve bileşenler kurar.',
         imageAlt: 'Bir tasarım ve bir komutun bir terminale beslendiğini gösteren illüstrasyon',
       },
       {
@@ -319,9 +319,9 @@ export const TR: SolutionLocaleCopy = {
         imageAlt: 'Yeşil bir seçim çerçevesi içinde tutulan, yayına almaya hazır bitmiş kodu gösteren illüstrasyon',
       },
     ],
-    tableTitle: 'Design For AIR, tipik tasarımdan koda araçlarına karşı',
+    tableTitle: 'design for air, tipik tasarımdan koda araçlarına karşı',
     tableColCapability: 'İhtiyacınız olan',
-    tableColWithOd: 'Design For AIR ile',
+    tableColWithOd: 'design for air ile',
     tableColWithout: 'Tipik tasarımdan koda araçları',
     tableRows: [
       {
@@ -383,7 +383,7 @@ export const TR: SolutionLocaleCopy = {
         thumb: 'example-gamified-app',
       },
     ],
-    galleryTitle: 'Design For AIR ile tasarımdan yayına alınanlar',
+    galleryTitle: 'design for air ile tasarımdan yayına alınanlar',
     galleryLead:
       'Her biri bir komut ya da bir tasarım olarak başladı ve yayına alabileceğiniz koda dönüştü. Fikrinize yakın bir şablon seçin, varyasyonunuzu tarif edin, ajan onu dönüştürsün — teslim olmadan tasarımdan koda.',
     gallery: [
@@ -398,7 +398,7 @@ export const TR: SolutionLocaleCopy = {
     faq: [
       {
         q: 'Tasarımdan koda iş akışı ücretsiz mi?',
-        a: 'Evet. Design For AIR açık kaynaktır ve zaten kullandığınız kodlama ajanının içinde kendi sağlayıcı anahtarlarınızla çalışır — tasarımdan koda iş akışının kendisinde koltuk başı ya da kredi başı sayaç yoktur.',
+        a: 'Evet. design for air açık kaynaktır ve zaten kullandığınız kodlama ajanının içinde kendi sağlayıcı anahtarlarınızla çalışır — tasarımdan koda iş akışının kendisinde koltuk başı ya da kredi başı sayaç yoktur.',
       },
       {
         q: 'Ne tür bir kod üretir?',
@@ -410,24 +410,24 @@ export const TR: SolutionLocaleCopy = {
       },
       {
         q: 'Hangi ajanlarla çalışır?',
-        a: 'Design For AIR; Claude Code, Codex, Cursor Agent, Gemini CLI ve bir düzine kadar diğer birinci taraf adaptörle çalışır. Kendi sağlayıcı anahtarlarınızı getirirsiniz; sizin için hiçbir şey barındırılmaz.',
+        a: 'design for air; Claude Code, Codex, Cursor Agent, Gemini CLI ve bir düzine kadar diğer birinci taraf adaptörle çalışır. Kendi sağlayıcı anahtarlarınızı getirirsiniz; sizin için hiçbir şey barındırılmaz.',
       },
     ],
     ctaTitle: 'Bir sonraki tasarımınızı bu gece koda dönüştürün',
     ctaBody:
-      'Depoya yıldız verin, Design For AIR’ı kurun ve bir sonraki ekranınızı — komut, tel kafes ya da tasarım — zaten kullandığınız ajanda temiz, yayına alınabilir koda dönüştürün.',
+      'Depoya yıldız verin, design for air’ı kurun ve bir sonraki ekranınızı — komut, tel kafes ya da tasarım — zaten kullandığınız ajanda temiz, yayına alınabilir koda dönüştürün.',
     relatedTitle: 'İlgili araçlar ve rehberler',
     related: [
       { href: '/solutions/ai-wireframe-generator/', label: 'AI tel kafes oluşturucu' },
       { href: '/solutions/ai-ui-generator/', label: 'AI UI oluşturucu' },
       { href: '/blog/design-to-code-tools/', label: 'En iyi tasarımdan koda araçları' },
-      { href: '/solutions/engineering/', label: 'Mühendislik için Design For AIR' },
+      { href: '/solutions/engineering/', label: 'Mühendislik için design for air' },
     ],
   },
   aiLandingPageGenerator: {
     title: 'AI Açılış Sayfası Oluşturucu — komuttan yayına alabileceğiniz açılış sayfasına',
     description:
-      'Bir komutu gerçek, duyarlı bir açılış sayfasına dönüştüren — ve onu yayına alınan koda kadar taşıyan ücretsiz, açık kaynaklı bir AI açılış sayfası oluşturucu. Design For AIR zaten kullandığınız kodlama ajanının içinde çalışır, böylece üretilen sayfa ile dağıtılan sayfa sahip olduğunuz aynı çıktıdır.',
+      'Bir komutu gerçek, duyarlı bir açılış sayfasına dönüştüren — ve onu yayına alınan koda kadar taşıyan ücretsiz, açık kaynaklı bir AI açılış sayfası oluşturucu. design for air zaten kullandığınız kodlama ajanının içinde çalışır, böylece üretilen sayfa ile dağıtılan sayfa sahip olduğunuz aynı çıktıdır.',
     breadcrumb: 'AI açılış sayfası oluşturucu',
     label: 'Araç · AI açılış sayfası oluşturucu',
     heading: 'Yayına alabileceğiniz bir açılış sayfası üretin',
@@ -436,12 +436,12 @@ export const TR: SolutionLocaleCopy = {
       'Bir komutun duyarlı bir açılış sayfasına ve ardından üretim koduna dönüştüğünü, yeşil bir seçim kutusuyla çerçevelendiğini gösteren editöryel illüstrasyon',
     tldrTitle: 'Tek cümlede',
     tldrBody:
-      'Çoğu AI açılış sayfası oluşturucu sayfanızı kendi düzenleyicilerine kilitler ve koltuk başı ücretlendirir. Design For AIR açılış sayfasını kodlama ajanınızın içinde üretir ve onu komuttan yayına alınan koda taşır — gerçek bölümler, sizin markanız, dışa aktarma adımı yok, koltuk başı sayaç yok.',
+      'Çoğu AI açılış sayfası oluşturucu sayfanızı kendi düzenleyicilerine kilitler ve koltuk başı ücretlendirir. design for air açılış sayfasını kodlama ajanınızın içinde üretir ve onu komuttan yayına alınan koda taşır — gerçek bölümler, sizin markanız, dışa aktarma adımı yok, koltuk başı sayaç yok.',
     stepsTitle: 'AI açılış sayfası oluşturucu nasıl çalışır',
     steps: [
       {
         title: 'Sayfayı tarif edin',
-        body: 'Ajanınıza sade bir dille ne kuracağını söyleyin — “bir not alma uygulaması için bir tanıtım sayfası: hero, üç özellik, fiyatlandırma ve bir bekleme listesi formu.” Design For AIR açılış sayfası becerisini yükler, böylece ajan net bir hiyerarşiyle gerçek bölümler yerleştirir.',
+        body: 'Ajanınıza sade bir dille ne kuracağını söyleyin — “bir not alma uygulaması için bir tanıtım sayfası: hero, üç özellik, fiyatlandırma ve bir bekleme listesi formu.” design for air açılış sayfası becerisini yükler, böylece ajan net bir hiyerarşiyle gerçek bölümler yerleştirir.',
         imageAlt: 'Sade dildeki bir açılış sayfası özetinin bir terminale yazıldığını gösteren illüstrasyon',
       },
       {
@@ -460,9 +460,9 @@ export const TR: SolutionLocaleCopy = {
         imageAlt: 'Bir açılış sayfasının yeşil bir seçim çerçevesi içinde tutulan, yayına alınan koda aktığını gösteren illüstrasyon',
       },
     ],
-    tableTitle: 'Design For AIR, tipik AI açılış sayfası oluşturuculara karşı',
+    tableTitle: 'design for air, tipik AI açılış sayfası oluşturuculara karşı',
     tableColCapability: 'İhtiyacınız olan',
-    tableColWithOd: 'Design For AIR ile',
+    tableColWithOd: 'design for air ile',
     tableColWithout: 'Tipik AI açılış sayfası oluşturucular',
     tableRows: [
       {
@@ -524,7 +524,7 @@ export const TR: SolutionLocaleCopy = {
         thumb: 'example-gamified-app',
       },
     ],
-    galleryTitle: 'Design For AIR ile oluşturulan açılış sayfaları',
+    galleryTitle: 'design for air ile oluşturulan açılış sayfaları',
     galleryLead:
       'Her biri bir komut olarak başladı ve gerçek, duyarlı bir çıktıya dönüştü. Fikrinize yakın bir şablon seçin, varyasyonunuzu tarif edin, ajan onu uyarlasın — açılış sayfasından yayına alınan koda.',
     gallery: [
@@ -539,7 +539,7 @@ export const TR: SolutionLocaleCopy = {
     faq: [
       {
         q: 'AI açılış sayfası oluşturucu ücretsiz mi?',
-        a: 'Evet. Design For AIR açık kaynaktır ve zaten kullandığınız kodlama ajanının içinde kendi sağlayıcı anahtarlarınızla çalışır — açılış sayfası oluşturucunun kendisinde koltuk başı ya da sayfa başı sayaç yoktur.',
+        a: 'Evet. design for air açık kaynaktır ve zaten kullandığınız kodlama ajanının içinde kendi sağlayıcı anahtarlarınızla çalışır — açılış sayfası oluşturucunun kendisinde koltuk başı ya da sayfa başı sayaç yoktur.',
       },
       {
         q: 'Sayfayı her yerde barındırabilir miyim?',
@@ -551,22 +551,22 @@ export const TR: SolutionLocaleCopy = {
       },
       {
         q: 'Hangi ajanlarla çalışır?',
-        a: 'Design For AIR; Claude Code, Codex, Cursor Agent, Gemini CLI ve bir düzine kadar diğer birinci taraf adaptörle çalışır. Kendi sağlayıcı anahtarlarınızı getirirsiniz; sizin için hiçbir şey barındırılmaz.',
+        a: 'design for air; Claude Code, Codex, Cursor Agent, Gemini CLI ve bir düzine kadar diğer birinci taraf adaptörle çalışır. Kendi sağlayıcı anahtarlarınızı getirirsiniz; sizin için hiçbir şey barındırılmaz.',
       },
     ],
     ctaTitle: 'İlk açılış sayfanızı bu gece üretin',
     ctaBody:
-      'Depoya yıldız verin, Design For AIR’ı kurun ve bir sonraki tanıtım fikrinizi gerçek, duyarlı bir açılış sayfasına — ardından yayına alınan koda — zaten kullandığınız ajanda dönüştürün.',
+      'Depoya yıldız verin, design for air’ı kurun ve bir sonraki tanıtım fikrinizi gerçek, duyarlı bir açılış sayfasına — ardından yayına alınan koda — zaten kullandığınız ajanda dönüştürün.',
     relatedTitle: 'İlgili araçlar ve rehberler',
     related: [
       { href: '/solutions/ai-ui-generator/', label: 'AI UI oluşturucu' },
-      { href: '/solutions/design-to-code/', label: 'Design For AIR ile tasarımdan koda' },
-      { href: '/solutions/marketing/', label: 'Pazarlama için Design For AIR' },
+      { href: '/solutions/design-to-code/', label: 'design for air ile tasarımdan koda' },
+      { href: '/solutions/marketing/', label: 'Pazarlama için design for air' },
       { href: '/blog/best-ai-design-tools/', label: 'En iyi AI tasarım araçları' },
     ],
   },
   figmaToCode: {
-    title: 'Figma’dan Koda — Design For AIR ile Figma tasarımlarını yayına alınan koda dönüştürün',
+    title: 'Figma’dan Koda — design for air ile Figma tasarımlarını yayına alınan koda dönüştürün',
     description:
       'Bir Figma tasarımını temiz, bileşen tabanlı koda dönüştüren — zaten kullandığınız kodlama ajanının içinde, Claude Code’dan Codex’e — ücretsiz, açık kaynaklı bir Figma’dan koda iş akışı. Tasarımı Figma MCP üzerinden çekin ve ajan, sahip olduğunuz ve yayına aldığınız gerçek kodu kursun; kilitli dışa aktarma yok.',
     breadcrumb: 'Figma’dan koda',
@@ -577,12 +577,12 @@ export const TR: SolutionLocaleCopy = {
       'Bir Figma tasarımının bir kodlama ajanının içinde temiz üretim koduna dönüştüğünü, yeşil bir seçim kutusuyla çerçevelendiğini gösteren editöryel illüstrasyon',
     tldrTitle: 'Tek cümlede',
     tldrBody:
-      'Çoğu Figma’dan koda eklentisi, sonradan yeniden yazacağınız mutlak konumlu biçimlendirmenin tek seferlik bir anlık görüntüsünü dışa aktarır. Design For AIR tasarımı ve kodu ajanınızın içinde tek bir canlı çıktı olarak tutar — çerçeveleri Figma MCP üzerinden çekin, konuşarak yineleyin, sahip olduğunuz kodu yayına alın.',
+      'Çoğu Figma’dan koda eklentisi, sonradan yeniden yazacağınız mutlak konumlu biçimlendirmenin tek seferlik bir anlık görüntüsünü dışa aktarır. design for air tasarımı ve kodu ajanınızın içinde tek bir canlı çıktı olarak tutar — çerçeveleri Figma MCP üzerinden çekin, konuşarak yineleyin, sahip olduğunuz kodu yayına alın.',
     stepsTitle: 'Figma’dan koda nasıl çalışır',
     steps: [
       {
         title: 'Figma’yı ajanınıza bağlayın',
-        body: 'Figma MCP kurulduğunda, kodlama ajanınız — Claude Code, Codex, Cursor Agent — bir Figma dosyasını ya da seçili bir çerçeveyi doğrudan okuyabilir. Design For AIR doğru beceriyi yükler, böylece ajan kırılgan bir piksel kopyası değil, tasarım niyetini yapıya dönüştürür.',
+        body: 'Figma MCP kurulduğunda, kodlama ajanınız — Claude Code, Codex, Cursor Agent — bir Figma dosyasını ya da seçili bir çerçeveyi doğrudan okuyabilir. design for air doğru beceriyi yükler, böylece ajan kırılgan bir piksel kopyası değil, tasarım niyetini yapıya dönüştürür.',
         imageAlt: 'Bir Figma çerçevesinin bir MCP bağlantısıyla bir terminale bağlandığını gösteren illüstrasyon',
       },
       {
@@ -601,9 +601,9 @@ export const TR: SolutionLocaleCopy = {
         imageAlt: 'Bitmiş kodun yeşil bir seçim çerçevesi içinde tutulan, yayına hazır halini gösteren illüstrasyon',
       },
     ],
-    tableTitle: 'Design For AIR, tipik Figma’dan koda araçlarına karşı',
+    tableTitle: 'design for air, tipik Figma’dan koda araçlarına karşı',
     tableColCapability: 'İhtiyacınız olan',
-    tableColWithOd: 'Design For AIR ile',
+    tableColWithOd: 'design for air ile',
     tableColWithout: 'Tipik Figma’dan koda araçları',
     tableRows: [
       {
@@ -665,7 +665,7 @@ export const TR: SolutionLocaleCopy = {
         thumb: 'example-gamified-app',
       },
     ],
-    galleryTitle: 'Design For AIR ile Figma’dan yayına',
+    galleryTitle: 'design for air ile Figma’dan yayına',
     galleryLead:
       'Her biri bir Figma çerçevesi olarak başladı ve yayına alabileceğiniz koda dönüştü. Tasarımınıza yakın bir şablon seçin, varyasyonunuzu tarif edin, ajan onu dönüştürsün — Figma’dan koda, kilitli dışa aktarma olmadan.',
     gallery: [
@@ -679,7 +679,7 @@ export const TR: SolutionLocaleCopy = {
     faqTitle: 'Figma’dan koda SSS',
     faq: [
       {
-        q: 'Design For AIR Figma’yı nasıl koda dönüştürür?',
+        q: 'design for air Figma’yı nasıl koda dönüştürür?',
         a: 'Figma MCP üzerinden kodlama ajanınız — Claude Code, Codex, Cursor Agent — Figma dosyasını ya da seçili bir çerçeveyi doğrudan okur ve bir eklentiden tek seferlik bir anlık görüntü dışa aktarmak yerine temiz, bileşen tabanlı kod üretir.',
       },
       {
@@ -688,26 +688,26 @@ export const TR: SolutionLocaleCopy = {
       },
       {
         q: 'Ücretsiz mi?',
-        a: 'Evet. Design For AIR açık kaynaktır ve zaten kullandığınız kodlama ajanının içinde kendi sağlayıcı anahtarlarınızla çalışır — Figma’dan koda iş akışının kendisinde koltuk başı ya da dışa aktarma başı sayaç yoktur.',
+        a: 'Evet. design for air açık kaynaktır ve zaten kullandığınız kodlama ajanının içinde kendi sağlayıcı anahtarlarınızla çalışır — Figma’dan koda iş akışının kendisinde koltuk başı ya da dışa aktarma başı sayaç yoktur.',
       },
       {
         q: 'Hangi ajanlarla çalışır?',
-        a: 'Design For AIR; Claude Code, Codex, Cursor Agent, Gemini CLI ve bir düzine kadar diğer birinci taraf adaptörle çalışır. Kendi sağlayıcı anahtarlarınızı ve kendi Figma MCP kurulumunuzu getirirsiniz; sizin için hiçbir şey barındırılmaz.',
+        a: 'design for air; Claude Code, Codex, Cursor Agent, Gemini CLI ve bir düzine kadar diğer birinci taraf adaptörle çalışır. Kendi sağlayıcı anahtarlarınızı ve kendi Figma MCP kurulumunuzu getirirsiniz; sizin için hiçbir şey barındırılmaz.',
       },
     ],
     ctaTitle: 'Bir sonraki Figma çerçevenizi bu gece koda dönüştürün',
     ctaBody:
-      'Depoya yıldız verin, Design For AIR’ı kurun, Figma MCP’yi bağlayın ve bir sonraki Figma tasarımınızı zaten kullandığınız ajanda temiz, yayına alınabilir koda dönüştürün.',
+      'Depoya yıldız verin, design for air’ı kurun, Figma MCP’yi bağlayın ve bir sonraki Figma tasarımınızı zaten kullandığınız ajanda temiz, yayına alınabilir koda dönüştürün.',
     relatedTitle: 'İlgili araçlar ve rehberler',
     related: [
-      { href: '/solutions/design-to-code/', label: 'Design For AIR ile tasarımdan koda' },
+      { href: '/solutions/design-to-code/', label: 'design for air ile tasarımdan koda' },
       { href: '/solutions/ai-ui-generator/', label: 'AI UI oluşturucu' },
-      { href: '/agents/claude-code-design/', label: 'Claude Code için Design For AIR' },
-      { href: '/solutions/engineering/', label: 'Mühendislik için Design For AIR' },
+      { href: '/agents/claude-code-design/', label: 'Claude Code için design for air' },
+      { href: '/solutions/engineering/', label: 'Mühendislik için design for air' },
     ],
   },
   screenshotToCode: {
-    title: 'Screenshot to Code — Design For AIR ile ekran görüntüsünü koda dönüştürün',
+    title: 'Screenshot to Code — design for air ile ekran görüntüsünü koda dönüştürün',
     description:
       'Herhangi bir arayüzün ekran görüntüsünü temiz, bileşen tabanlı koda dönüştüren — zaten kullandığınız kodlama ajanının içinde — ücretsiz, açık kaynaklı bir ekran görüntüsünden koda iş akışı. Bir görsel bırakın, ne istediğinizi anlatın, ajan onu sahip olduğunuz ve yayına aldığınız gerçek kod olarak yeniden kursun; kilitli dışa aktarma yok.',
     breadcrumb: 'Ekran görüntüsünden koda',
@@ -718,12 +718,12 @@ export const TR: SolutionLocaleCopy = {
       'Bir arayüz ekran görüntüsünün bir kodlama ajanının içinde temiz üretim koduna dönüştüğünü, yeşil bir seçim kutusuyla çerçevelendiğini gösteren editöryel illüstrasyon',
     tldrTitle: 'Tek cümlede',
     tldrBody:
-      'Çoğu ekran görüntüsünden koda aracı, sonradan yeniden yazacağınız tek seferlik, mutlak konumlu biçimlendirme üretir. Design For AIR ekran görüntüsünü kodlama ajanınızın içinde temiz, bileşen tabanlı koda yeniden kurar — gerçek yapı, sizin tasarım sisteminiz, dışa aktarma adımı yok, koltuk başı sayaç yok.',
+      'Çoğu ekran görüntüsünden koda aracı, sonradan yeniden yazacağınız tek seferlik, mutlak konumlu biçimlendirme üretir. design for air ekran görüntüsünü kodlama ajanınızın içinde temiz, bileşen tabanlı koda yeniden kurar — gerçek yapı, sizin tasarım sisteminiz, dışa aktarma adımı yok, koltuk başı sayaç yok.',
     stepsTitle: 'Ekran görüntüsünden koda nasıl çalışır',
     steps: [
       {
         title: 'Ekran görüntüsünü bırakın',
-        body: 'Ajanınıza istediğiniz ekranın bir görselini verin — bir uygulamanın, bir web sitesinin ya da bir tasarımın ekran görüntüsü. Design For AIR doğru beceriyi yükler, böylece ajan yalnızca pikselleri değil, düzeni ve niyeti okur.',
+        body: 'Ajanınıza istediğiniz ekranın bir görselini verin — bir uygulamanın, bir web sitesinin ya da bir tasarımın ekran görüntüsü. design for air doğru beceriyi yükler, böylece ajan yalnızca pikselleri değil, düzeni ve niyeti okur.',
         imageAlt: 'Bir arayüz ekran görüntüsünün bir terminale bırakıldığını gösteren illüstrasyon',
       },
       {
@@ -742,9 +742,9 @@ export const TR: SolutionLocaleCopy = {
         imageAlt: 'Bitmiş kodun yeşil bir seçim çerçevesi içinde tutulan, yayına hazır halini gösteren illüstrasyon',
       },
     ],
-    tableTitle: 'Design For AIR, tipik ekran görüntüsünden koda araçlarına karşı',
+    tableTitle: 'design for air, tipik ekran görüntüsünden koda araçlarına karşı',
     tableColCapability: 'İhtiyacınız olan',
-    tableColWithOd: 'Design For AIR ile',
+    tableColWithOd: 'design for air ile',
     tableColWithout: 'Tipik ekran görüntüsünden koda araçları',
     tableRows: [
       {
@@ -806,7 +806,7 @@ export const TR: SolutionLocaleCopy = {
         thumb: 'example-gamified-app',
       },
     ],
-    galleryTitle: 'Design For AIR ile bir ekran görüntüsünden yeniden kuruldu',
+    galleryTitle: 'design for air ile bir ekran görüntüsünden yeniden kuruldu',
     galleryLead:
       'Her biri bir görsel olarak başladı ve yayına alabileceğiniz koda dönüştü. Ekran görüntünüze yakın bir şablon seçin, varyasyonunuzu tarif edin, ajan onu yeniden kursun — ekran görüntüsünden koda, kilitli dışa aktarma olmadan.',
     gallery: [
@@ -820,8 +820,8 @@ export const TR: SolutionLocaleCopy = {
     faqTitle: 'Ekran görüntüsünden koda SSS',
     faq: [
       {
-        q: 'Design For AIR bir ekran görüntüsünü nasıl koda dönüştürür?',
-        a: 'Kodlama ajanınıza ekranın bir görselini verirsiniz ve Design For AIR doğru beceriyi yükler, böylece ajan onu temiz, bileşen tabanlı kod olarak yeniden kurar — yalnızca pikselleri çizmek yerine düzeni ve niyeti okuyarak.',
+        q: 'design for air bir ekran görüntüsünü nasıl koda dönüştürür?',
+        a: 'Kodlama ajanınıza ekranın bir görselini verirsiniz ve design for air doğru beceriyi yükler, böylece ajan onu temiz, bileşen tabanlı kod olarak yeniden kurar — yalnızca pikselleri çizmek yerine düzeni ve niyeti okuyarak.',
       },
       {
         q: 'Ne tür bir kod üretiyor?',
@@ -829,22 +829,22 @@ export const TR: SolutionLocaleCopy = {
       },
       {
         q: 'Ücretsiz mi?',
-        a: 'Evet. Design For AIR açık kaynaktır ve zaten kullandığınız kodlama ajanının içinde kendi sağlayıcı anahtarlarınızla çalışır — ekran görüntüsünden koda iş akışının kendisinde koltuk başı ya da kredi başı sayaç yoktur.',
+        a: 'Evet. design for air açık kaynaktır ve zaten kullandığınız kodlama ajanının içinde kendi sağlayıcı anahtarlarınızla çalışır — ekran görüntüsünden koda iş akışının kendisinde koltuk başı ya da kredi başı sayaç yoktur.',
       },
       {
         q: 'Hangi ajanlarla çalışır?',
-        a: 'Design For AIR; Claude Code, Codex, Cursor Agent, Gemini CLI ve bir düzine kadar diğer birinci taraf adaptörle çalışır. Kendi sağlayıcı anahtarlarınızı getirirsiniz; sizin için hiçbir şey barındırılmaz.',
+        a: 'design for air; Claude Code, Codex, Cursor Agent, Gemini CLI ve bir düzine kadar diğer birinci taraf adaptörle çalışır. Kendi sağlayıcı anahtarlarınızı getirirsiniz; sizin için hiçbir şey barındırılmaz.',
       },
     ],
     ctaTitle: 'Bir sonraki ekran görüntünüzü bu gece koda dönüştürün',
     ctaBody:
-      'Depoya yıldız verin, Design For AIR’ı kurun ve istediğiniz ekranın bir görüntüsünü zaten kullandığınız ajanda temiz, yayına alınabilir koda dönüştürün.',
+      'Depoya yıldız verin, design for air’ı kurun ve istediğiniz ekranın bir görüntüsünü zaten kullandığınız ajanda temiz, yayına alınabilir koda dönüştürün.',
     relatedTitle: 'İlgili araçlar ve rehberler',
     related: [
-      { href: '/solutions/figma-to-code/', label: 'Design For AIR ile Figma’dan koda' },
-      { href: '/solutions/design-to-code/', label: 'Design For AIR ile tasarımdan koda' },
+      { href: '/solutions/figma-to-code/', label: 'design for air ile Figma’dan koda' },
+      { href: '/solutions/design-to-code/', label: 'design for air ile tasarımdan koda' },
       { href: '/solutions/ai-ui-generator/', label: 'AI UI oluşturucu' },
-      { href: '/solutions/engineering/', label: 'Mühendislik için Design For AIR' },
+      { href: '/solutions/engineering/', label: 'Mühendislik için design for air' },
     ],
   },
   aiPrototypeGenerator: {
@@ -854,17 +854,17 @@ export const TR: SolutionLocaleCopy = {
     breadcrumb: 'AI prototip oluşturucu',
     label: 'Araç · AI prototip oluşturucu',
     heading: 'Kodu yayına alan AI prototip oluşturucu',
-    lead: 'Akışı tarif edin, ajanınız gerçek, tıklanabilir bir prototip üretsin — bağlı ekranlar, tutarlı stiller, çalışan etkileşimler. Bir taslakta duran prototip oluşturucuların aksine, Design For AIR aynı ürünü yayına alınan koda taşır; zaten çalıştırdığınız ajanda.',
+    lead: 'Akışı tarif edin, ajanınız gerçek, tıklanabilir bir prototip üretsin — bağlı ekranlar, tutarlı stiller, çalışan etkileşimler. Bir taslakta duran prototip oluşturucuların aksine, design for air aynı ürünü yayına alınan koda taşır; zaten çalıştırdığınız ajanda.',
     heroImageAlt:
       'Bir komutun tıklanabilir, çok ekranlı bir prototipe ve ardından üretim koduna dönüştüğünü, yeşil bir seçim kutusuyla çerçevelendiğini gösteren editöryel illüstrasyon',
     tldrTitle: 'Tek cümlede',
     tldrBody:
-      'Çoğu AI prototip oluşturucu (Figma, Cursor, Penpot), sonradan yeniden kuracağınız tıklanabilir bir taslakta durur. Design For AIR prototipi kodlama ajanınızın içinde üretir ve komuttan yayına alınan koda taşır — dışa aktarma adımı yok, teslim boşluğu yok, koltuk başı sayaç yok.',
+      'Çoğu AI prototip oluşturucu (Figma, Cursor, Penpot), sonradan yeniden kuracağınız tıklanabilir bir taslakta durur. design for air prototipi kodlama ajanınızın içinde üretir ve komuttan yayına alınan koda taşır — dışa aktarma adımı yok, teslim boşluğu yok, koltuk başı sayaç yok.',
     stepsTitle: 'AI prototip oluşturucu nasıl çalışır',
     steps: [
       {
         title: 'Akışı tarif edin',
-        body: 'Ajanınıza yolculuğu sade bir dille anlatın — “bir katılım akışı: kayıt, plan seçici ve bir gösterge paneli.” Design For AIR prototip becerisini yükler, böylece ajan tek bir statik çerçeve değil, bağlı ekranlar düzenler.',
+        body: 'Ajanınıza yolculuğu sade bir dille anlatın — “bir katılım akışı: kayıt, plan seçici ve bir gösterge paneli.” design for air prototip becerisini yükler, böylece ajan tek bir statik çerçeve değil, bağlı ekranlar düzenler.',
         imageAlt: 'Bir terminale yazılan sade dilli bir akış tarifini gösteren illüstrasyon',
       },
       {
@@ -883,9 +883,9 @@ export const TR: SolutionLocaleCopy = {
         imageAlt: 'Bir prototipin yeşil bir seçim çerçevesi içinde tutulan, yayına alınan koda aktığını gösteren illüstrasyon',
       },
     ],
-    tableTitle: 'Design For AIR, tipik AI prototip oluşturuculara karşı',
+    tableTitle: 'design for air, tipik AI prototip oluşturuculara karşı',
     tableColCapability: 'İhtiyacınız olan',
-    tableColWithOd: 'Design For AIR ile',
+    tableColWithOd: 'design for air ile',
     tableColWithout: 'Figma / Cursor / Penpot prototip oluşturucuları',
     tableRows: [
       {
@@ -947,7 +947,7 @@ export const TR: SolutionLocaleCopy = {
         thumb: 'example-kami-landing',
       },
     ],
-    galleryTitle: 'Design For AIR ile kurulan prototipler',
+    galleryTitle: 'design for air ile kurulan prototipler',
     galleryLead:
       'Her biri bir komut olarak başladı ve tıklanabilir, düzenlenebilir bir ürüne işlendi. Fikrinize yakın bir şablon seçin, varyasyonunuzu tarif edin, ajan onu uyarlasın — prototipten yayına alınan koda.',
     gallery: [
@@ -962,11 +962,11 @@ export const TR: SolutionLocaleCopy = {
     faq: [
       {
         q: 'AI prototip oluşturucu ücretsiz mi?',
-        a: 'Evet. Design For AIR açık kaynaktır ve zaten kullandığınız kodlama ajanının içinde kendi sağlayıcı anahtarlarınızla çalışır — prototip oluşturucunun kendisinde koltuk başı ya da kredi başı sayaç yoktur.',
+        a: 'Evet. design for air açık kaynaktır ve zaten kullandığınız kodlama ajanının içinde kendi sağlayıcı anahtarlarınızla çalışır — prototip oluşturucunun kendisinde koltuk başı ya da kredi başı sayaç yoktur.',
       },
       {
         q: 'Figma, Cursor ya da Penpot prototip oluşturucularından farkı ne?',
-        a: 'Onlar kendi uygulamalarının içinde tıklanabilir bir taslakta durur. Design For AIR prototipi kodlama ajanınızda üretir ve aynı ürünü, sahip olduğunuz, yayına alınan koda kadar taşır — dışa aktarma yok, üretim için yeniden kurma yok.',
+        a: 'Onlar kendi uygulamalarının içinde tıklanabilir bir taslakta durur. design for air prototipi kodlama ajanınızda üretir ve aynı ürünü, sahip olduğunuz, yayına alınan koda kadar taşır — dışa aktarma yok, üretim için yeniden kurma yok.',
       },
       {
         q: 'Prototipler tıklanabilir ve çok ekranlı mı?',
@@ -974,24 +974,24 @@ export const TR: SolutionLocaleCopy = {
       },
       {
         q: 'Hangi ajanlarla çalışır?',
-        a: 'Design For AIR; Claude Code, Codex, Cursor Agent, Gemini CLI ve bir düzine kadar diğer birinci taraf adaptörle çalışır. Kendi sağlayıcı anahtarlarınızı getirirsiniz; sizin için hiçbir şey barındırılmaz.',
+        a: 'design for air; Claude Code, Codex, Cursor Agent, Gemini CLI ve bir düzine kadar diğer birinci taraf adaptörle çalışır. Kendi sağlayıcı anahtarlarınızı getirirsiniz; sizin için hiçbir şey barındırılmaz.',
       },
     ],
     ctaTitle: 'İlk prototipinizi bu gece üretin',
     ctaBody:
-      'Depoya yıldız verin, Design For AIR’ı kurun ve bir sonraki akışınızı tıklanabilir bir prototipe — ve ardından yayına alınan koda — zaten kullandığınız ajanda dönüştürün.',
+      'Depoya yıldız verin, design for air’ı kurun ve bir sonraki akışınızı tıklanabilir bir prototipe — ve ardından yayına alınan koda — zaten kullandığınız ajanda dönüştürün.',
     relatedTitle: 'İlgili araçlar ve rehberler',
     related: [
-      { href: '/solutions/prototype/', label: 'Design For AIR ile prototipleme' },
+      { href: '/solutions/prototype/', label: 'design for air ile prototipleme' },
       { href: '/solutions/ai-wireframe-generator/', label: 'AI tel kafes oluşturucu' },
       { href: '/solutions/ai-ui-generator/', label: 'AI UI oluşturucu' },
-      { href: '/solutions/design-to-code/', label: 'Design For AIR ile tasarımdan koda' },
+      { href: '/solutions/design-to-code/', label: 'design for air ile tasarımdan koda' },
     ],
   },
   prototype: {
-    title: 'Design For AIR + Claude Code ile etkileşimli prototipler oluşturun',
+    title: 'design for air + Claude Code ile etkileşimli prototipler oluşturun',
     description:
-      'Bir komutu, terminalden çıkmadan tıklanabilir, çok ekranlı bir prototipe dönüştürün. Design For AIR, kodlama ajanınıza tasarım becerilerini, şablonları ve tasarım sistemini vererek tarayıcıda açabileceğiniz gerçek prototipler üretmesini sağlar.',
+      'Bir komutu, terminalden çıkmadan tıklanabilir, çok ekranlı bir prototipe dönüştürün. design for air, kodlama ajanınıza tasarım becerilerini, şablonları ve tasarım sistemini vererek tarayıcıda açabileceğiniz gerçek prototipler üretmesini sağlar.',
     breadcrumb: 'Prototip',
     label: 'Kullanım örneği · Prototip',
     heading: 'Bir komut hızında prototip oluşturun',
@@ -1000,18 +1000,18 @@ export const TR: SolutionLocaleCopy = {
       'Bir elin çizdiği tel kafesin tıklanabilir, çok ekranlı bir uygulama prototipine dönüştüğünü gösteren editöryel illüstrasyon',
     tldrTitle: 'Tek cümlede',
     tldrBody:
-      'Design For AIR, zaten kullandığınız kodlama ajanının tasarım katmanıdır. Prototipleme için bu, tek bir paragraflık bir fikirden tek bir oturumda gezilebilir, stillendirilmiş bir prototipe geçmek demektir — tasarım aracı yok, dışa aktarma adımı yok, teslim boşluğu yok.',
-    stepsTitle: 'Design For AIR ile prototipleme nasıl çalışır',
+      'design for air, zaten kullandığınız kodlama ajanının tasarım katmanıdır. Prototipleme için bu, tek bir paragraflık bir fikirden tek bir oturumda gezilebilir, stillendirilmiş bir prototipe geçmek demektir — tasarım aracı yok, dışa aktarma adımı yok, teslim boşluğu yok.',
+    stepsTitle: 'design for air ile prototipleme nasıl çalışır',
     steps: [
       {
         title: 'Akışı tarif edin',
-        body: 'Ajanınıza ne kurduğunuzu sade bir dille anlatın — “bir karşılama ekranı, bir plan seçici ve bir onay ekranı içeren bir katılım akışı.” Design For AIR prototip becerisini yükler, böylece ajan tek bir sayfa değil ekranlar üretmesi gerektiğini bilir.',
+        body: 'Ajanınıza ne kurduğunuzu sade bir dille anlatın — “bir karşılama ekranı, bir plan seçici ve bir onay ekranı içeren bir katılım akışı.” design for air prototip becerisini yükler, böylece ajan tek bir sayfa değil ekranlar üretmesi gerektiğini bilir.',
         imageAlt:
           'Bir kişinin terminale bir uygulama akışının sade dildeki tarifini yazdığını gösteren illüstrasyon',
       },
       {
         title: 'Stillendirilmiş ekranlar üretin',
-        body: 'Ajan, Design For AIR’dan bir tasarım sistemi ve prototip şablonları uygular, böylece her ekran taslak gibi görünmek yerine tipografiyi, boşlukları ve bileşenleri paylaşır. Kopuk maketler değil, tutarlı bir ekran kümesi elde edersiniz.',
+        body: 'Ajan, design for air’dan bir tasarım sistemi ve prototip şablonları uygular, böylece her ekran taslak gibi görünmek yerine tipografiyi, boşlukları ve bileşenleri paylaşır. Kopuk maketler değil, tutarlı bir ekran kümesi elde edersiniz.',
         imageAlt:
           'Hepsi tek bir tutarlı görsel stili paylaşan birkaç uygulama ekranının sırayla belirdiğini gösteren illüstrasyon',
       },
@@ -1028,9 +1028,9 @@ export const TR: SolutionLocaleCopy = {
           'Bir prototipin gözden geçirilip bir mühendise aktarıldığını, tasarım ile kodun tek bir dosyada birleştiğini gösteren illüstrasyon',
       },
     ],
-    tableTitle: 'Design For AIR ile prototipleme, eski yönteme karşı',
+    tableTitle: 'design for air ile prototipleme, eski yönteme karşı',
     tableColCapability: 'İhtiyacınız olan',
-    tableColWithOd: 'Design For AIR ile',
+    tableColWithOd: 'design for air ile',
     tableColWithout: 'Geleneksel prototipleme araçları',
     tableRows: [
       {
@@ -1097,7 +1097,7 @@ export const TR: SolutionLocaleCopy = {
         thumb: 'example-gamified-app',
       },
     ],
-    galleryTitle: 'İnsanların Design For AIR ile oluşturduğu prototipler',
+    galleryTitle: 'İnsanların design for air ile oluşturduğu prototipler',
     galleryLead:
       'Bunların her biri bir komut olarak başladı ve tıklanabilir bir çıktıya dönüştü. Fikrinize yakın bir şablon seçin, varyasyonunuzu tarif edin, ajan onu uyarlasın.',
     gallery: [
@@ -1111,8 +1111,8 @@ export const TR: SolutionLocaleCopy = {
     faqTitle: 'Prototipleme SSS',
     faq: [
       {
-        q: 'Design For AIR ile prototip yapmak için Figma gibi bir tasarım aracına ihtiyacım var mı?',
-        a: 'Hayır. Design For AIR kodlama ajanınızın içinde çalışır ve prototipleri HTML olarak işler. Akışı dille tarif edersiniz; ajan ekranları üretir. Öğrenilecek ya da ücreti ödenecek ayrı bir tuval aracı yoktur.',
+        q: 'design for air ile prototip yapmak için Figma gibi bir tasarım aracına ihtiyacım var mı?',
+        a: 'Hayır. design for air kodlama ajanınızın içinde çalışır ve prototipleri HTML olarak işler. Akışı dille tarif edersiniz; ajan ekranları üretir. Öğrenilecek ya da ücreti ödenecek ayrı bir tuval aracı yoktur.',
       },
       {
         q: 'Prototipler etkileşimli mi yoksa yalnızca statik maketler mi?',
@@ -1120,7 +1120,7 @@ export const TR: SolutionLocaleCopy = {
       },
       {
         q: 'Hangi ajanları kullanabilirim?',
-        a: 'Design For AIR; Claude Code, Codex, Cursor Agent, Gemini CLI ve bir düzineden fazla birinci taraf bağdaştırıcıyla çalışır. Kendi sağlayıcı anahtarlarınızı getirirsiniz; hiçbir şey sizin için barındırılmaz.',
+        a: 'design for air; Claude Code, Codex, Cursor Agent, Gemini CLI ve bir düzineden fazla birinci taraf bağdaştırıcıyla çalışır. Kendi sağlayıcı anahtarlarınızı getirirsiniz; hiçbir şey sizin için barındırılmaz.',
       },
       {
         q: 'Bir prototip gerçek ürüne dönüşebilir mi?',
@@ -1129,22 +1129,22 @@ export const TR: SolutionLocaleCopy = {
     ],
     ctaTitle: 'Bir sonraki fikrinizin prototipini bu gece oluşturun',
     ctaBody:
-      'Depoya yıldız verin, Design For AIR’ı kurun ve bir sonraki “ya şöyle olsaydı”yı tıklayabileceğiniz bir şeye dönüştürün — zaten kullandığınız ajanda.',
+      'Depoya yıldız verin, design for air’ı kurun ve bir sonraki “ya şöyle olsaydı”yı tıklayabileceğiniz bir şeye dönüştürün — zaten kullandığınız ajanda.',
   },
   dashboard: {
-    title: 'Design For AIR + Claude Code ile veri panoları oluşturun',
+    title: 'design for air + Claude Code ile veri panoları oluşturun',
     description:
       'İzlediğiniz metrikleri tarif edin, kodlama ajanınız stillendirilmiş, duyarlı bir pano kursun — her yere barındırabileceğiniz HTML olarak işlenen grafikler, KPI kartları ve tablolar. BI aracı koltuğu yok, sürükle bırak oluşturucu yok.',
     breadcrumb: 'Pano',
     label: 'Kullanım örneği · Pano',
     heading: 'Panolar bir tariften gelir, sürükle bırak oluşturucudan değil',
-    lead: 'Ajanınıza neyi göstereceğini ve nasıl hissettirmesi gerektiğini söyleyin. Design For AIR grafik desenlerini, düzen sistemini ve görsel dili sağlar, böylece varsayılan stilli bir bileşen yığını değil, tutarlı ve sunulabilir bir pano elde edersiniz.',
+    lead: 'Ajanınıza neyi göstereceğini ve nasıl hissettirmesi gerektiğini söyleyin. design for air grafik desenlerini, düzen sistemini ve görsel dili sağlar, böylece varsayılan stilli bir bileşen yığını değil, tutarlı ve sunulabilir bir pano elde edersiniz.',
     heroImageAlt:
       'Soldaki ham sayıların sağda temiz bir grafik ve KPI kartı panosuna aktığını gösteren editöryel illüstrasyon',
     tldrTitle: 'Tek cümlede',
     tldrBody:
-      'Design For AIR, metriklerinizin sade dildeki bir tanımını ajanınızın HTML olarak işlediği stillendirilmiş bir panoya dönüştürür — deponuzda sürümlenir, her yere barındırılabilir, koltuk başı BI aboneliği olmadan.',
-    stepsTitle: 'Design For AIR ile panolar nasıl çalışır',
+      'design for air, metriklerinizin sade dildeki bir tanımını ajanınızın HTML olarak işlediği stillendirilmiş bir panoya dönüştürür — deponuzda sürümlenir, her yere barındırılabilir, koltuk başı BI aboneliği olmadan.',
+    stepsTitle: 'design for air ile panolar nasıl çalışır',
     steps: [
       {
         title: 'Metrikleri tarif edin',
@@ -1153,7 +1153,7 @@ export const TR: SolutionLocaleCopy = {
       },
       {
         title: 'Grafik desenlerini seçin',
-        body: 'Design For AIR grafik ve düzen şablonları sunar, böylece trendler çizgi grafiğe, dökümler çubuklara ve oranlar doğru görsele dönüşür — uyumsuz varsayılanlar yerine baştan sona tutarlı tipografi ve boşluk.',
+        body: 'design for air grafik ve düzen şablonları sunar, böylece trendler çizgi grafiğe, dökümler çubuklara ve oranlar doğru görsele dönüşür — uyumsuz varsayılanlar yerine baştan sona tutarlı tipografi ve boşluk.',
         imageAlt: 'Birkaç grafik türünün tutarlı bir ızgaraya dizildiğini gösteren illüstrasyon',
       },
       {
@@ -1167,9 +1167,9 @@ export const TR: SolutionLocaleCopy = {
         imageAlt: 'Bir panonun iyileştirilip dağıtıldığını gösteren illüstrasyon',
       },
     ],
-    tableTitle: 'Design For AIR ile panolar, eski yönteme karşı',
+    tableTitle: 'design for air ile panolar, eski yönteme karşı',
     tableColCapability: 'İhtiyacınız olan',
-    tableColWithOd: 'Design For AIR ile',
+    tableColWithOd: 'design for air ile',
     tableColWithout: 'BI araçları / elle kodlanmış',
     tableRows: [
       { capability: 'Metrik listesinden düzene geçmek', withOd: 'Tek komut; ajan kartları, grafikleri ve tabloları yerleştirir', without: 'Bileşenleri tek tek sürükleyin ya da grafik kodunu sıfırdan yazın' },
@@ -1188,7 +1188,7 @@ export const TR: SolutionLocaleCopy = {
       { title: "Sosyal ve pazarlama", body: "Kanal performansı ve kampanya takibi tek bir görünümde.", thumb: "example-social-media-dashboard" },
       { title: "Alan raporları", body: "Her alan için yapılandırılmış raporlar — klinikten alım satıma.", thumb: "example-clinical-case-report" },
     ],
-    galleryTitle: 'İnsanların Design For AIR ile oluşturduğu panolar',
+    galleryTitle: 'İnsanların design for air ile oluşturduğu panolar',
     galleryLead:
       'Bir komut ve bir veri kaynağından işlenmiş gerçek panolar. Sizinkine yakın olan birinden başlayın ve izlediğiniz metrikleri tarif edin.',
     gallery: [
@@ -1201,38 +1201,38 @@ export const TR: SolutionLocaleCopy = {
     exampleLinkLabel: 'Pano şablonlarına göz atın',
     faqTitle: 'Pano SSS',
     faq: [
-      { q: 'Tableau veya Looker gibi bir BI aracına ihtiyacım var mı?', a: 'Hayır. Design For AIR panoları kodlama ajanınızın içinde HTML olarak işler. Metrikleri tarif eder ve verinize yönlendirirsiniz; lisanslanacak ya da öğrenilecek ayrı bir BI platformu yoktur.' },
+      { q: 'Tableau veya Looker gibi bir BI aracına ihtiyacım var mı?', a: 'Hayır. design for air panoları kodlama ajanınızın içinde HTML olarak işler. Metrikleri tarif eder ve verinize yönlendirirsiniz; lisanslanacak ya da öğrenilecek ayrı bir BI platformu yoktur.' },
       { q: 'Veri nereden gelir?', a: 'Bir CSV’den, bir JSON uç noktasından ya da yapıştırdığınız satırlardan. Pano saf HTML ve JavaScript’tir, böylece nereden okuduğunu tamamen siz denetlersiniz — hiçbir şey barındırılan bir hizmet üzerinden geçmez.' },
       { q: 'Teknik olmayan ekip arkadaşları görüntüleyebilir mi?', a: 'Evet. Çıktı kendi kendine yeten bir web sayfasıdır. Bağlantısı ya da dosyası olan herkes onu bir tarayıcıda açabilir — hesap yok, koltuk yok.' },
       { q: 'Hangi ajanları kullanabilirim?', a: 'Claude Code, Codex, Cursor Agent, Gemini CLI ve bir düzineden fazla birinci taraf bağdaştırıcı. Kendi sağlayıcı anahtarlarınızı getirirsiniz.' },
     ],
     ctaTitle: 'Panonuzu bu gece kurun',
     ctaBody:
-      'Depoya yıldız verin, Design For AIR’ı kurun ve metriklerinizi her yere barındırabileceğiniz bir panoya dönüştürün — zaten kullandığınız ajanda.',
+      'Depoya yıldız verin, design for air’ı kurun ve metriklerinizi her yere barındırabileceğiniz bir panoya dönüştürün — zaten kullandığınız ajanda.',
   },
   slides: {
-    title: 'Design For AIR + Claude Code ile sunum desteleri oluşturun',
+    title: 'design for air + Claude Code ile sunum desteleri oluşturun',
     description:
-      'Bir taslağı, herhangi bir sunum uygulaması açmadan tasarlanmış, markaya uygun bir slayt destesine dönüştürün. Design For AIR kodlama ajanınıza deste şablonları ve bir görsel sistem verir, slaytları sunabileceğiniz, dışa aktarabileceğiniz veya paylaşabileceğiniz HTML olarak işler.',
+      'Bir taslağı, herhangi bir sunum uygulaması açmadan tasarlanmış, markaya uygun bir slayt destesine dönüştürün. design for air kodlama ajanınıza deste şablonları ve bir görsel sistem verir, slaytları sunabileceğiniz, dışa aktarabileceğiniz veya paylaşabileceğiniz HTML olarak işler.',
     breadcrumb: 'Slaytlar',
     label: 'Kullanım örneği · Slaytlar',
     heading: 'Tasarlanmış görünen desteler, bir komutla yazılır',
-    lead: 'Ajanınıza bir taslak ve bir ton verin. Design For AIR bir deste şablonu ve görsel sistem uygular, böylece her slayt yerleştirilir, dizilir ve markaya uygundur — boş bir arka plandaki madde listesi değil.',
+    lead: 'Ajanınıza bir taslak ve bir ton verin. design for air bir deste şablonu ve görsel sistem uygular, böylece her slayt yerleştirilir, dizilir ve markaya uygundur — boş bir arka plandaki madde listesi değil.',
     heroImageAlt:
       'Soldaki bir taslağın sağda bir dizi tasarlanmış sunum slaytına dönüştüğünü gösteren editöryel illüstrasyon',
     tldrTitle: 'Tek cümlede',
     tldrBody:
-      'Design For AIR bir taslağı ajanınızın tek bir oturumda işlediği tasarlanmış bir HTML destesine dönüştürür — tarayıcıda sunun, PDF veya PPTX olarak dışa aktarın ve kaynağı deponuzda tutun.',
-    stepsTitle: 'Design For AIR ile desteler nasıl çalışır',
+      'design for air bir taslağı ajanınızın tek bir oturumda işlediği tasarlanmış bir HTML destesine dönüştürür — tarayıcıda sunun, PDF veya PPTX olarak dışa aktarın ve kaynağı deponuzda tutun.',
+    stepsTitle: 'design for air ile desteler nasıl çalışır',
     steps: [
       { title: 'Taslağı verin', body: 'Konuşma noktalarınızı ya da kaba bir yapıyı yapıştırın. Ajan deste becerisini yükler, böylece uzun tek bir belge değil, yerleştirilmiş bir slayt dizisi üretir.', imageAlt: 'Bir metin taslağının bir ajana verildiğini gösteren illüstrasyon' },
-      { title: 'Bir deste stili seçin', body: 'Design For AIR deste şablonları sunar — editöryel, İsviçre-uluslararası, koyu teknik ve daha fazlası. Ajan birini uygular, böylece tipografi, ızgara ve vurgular her slayt boyunca tutarlı kalır.', imageAlt: 'Birkaç deste stili seçeneğinin yan yana dizildiğini gösteren illüstrasyon' },
+      { title: 'Bir deste stili seçin', body: 'design for air deste şablonları sunar — editöryel, İsviçre-uluslararası, koyu teknik ve daha fazlası. Ajan birini uygular, böylece tipografi, ızgara ve vurgular her slayt boyunca tutarlı kalır.', imageAlt: 'Birkaç deste stili seçeneğinin yan yana dizildiğini gösteren illüstrasyon' },
       { title: 'Slaytları üretin', body: 'Her nokta doğru hiyerarşiye sahip tasarlanmış bir slayda dönüşür — başlıklar, destekleyici görseller, veri vurguları. HTML olarak işlenir, böylece herhangi bir tarayıcıda tam ekran sunulur.', imageAlt: 'Tutarlı stile sahip tamamlanmış bir slayt dizisini gösteren illüstrasyon' },
       { title: 'Sunun, dışa aktarın, yineleyin', body: 'Tarayıcıdan sunun ya da paylaşım için PDF / PPTX olarak dışa aktarın. Ajanla konuşarak iyileştirin — “veri slaydını sıkılaştır, bir kapanış eylem çağrısı ekle.” Deste kaynağı projenizde kalır.', imageAlt: 'Bir destenin sunulup birden çok biçime dışa aktarıldığını gösteren illüstrasyon' },
     ],
-    tableTitle: 'Design For AIR ile desteler, eski yönteme karşı',
+    tableTitle: 'design for air ile desteler, eski yönteme karşı',
     tableColCapability: 'İhtiyacınız olan',
-    tableColWithOd: 'Design For AIR ile',
+    tableColWithOd: 'design for air ile',
     tableColWithout: 'PowerPoint / Keynote / yapay zekâ slayt araçları',
     tableRows: [
       { capability: 'Taslaktan slaytlara geçmek', withOd: 'Tek komut; ajan her slaydı yerleştirir', without: 'Her slaydı elle kurun ya da bir şablonla boğuşun' },
@@ -1251,7 +1251,7 @@ export const TR: SolutionLocaleCopy = {
       { title: "Sunucu modu", body: "Tarayıcıda canlı sunmak için kurulmuş reveal tarzı desteler.", thumb: "example-html-ppt-presenter-mode-reveal" },
       { title: "Teknik planlar", body: "Karmaşık sistemleri haritalayan mimari ve bilgi desteleri.", thumb: "example-html-ppt-knowledge-arch-blueprint" },
     ],
-    galleryTitle: 'İnsanların Design For AIR ile oluşturduğu desteler',
+    galleryTitle: 'İnsanların design for air ile oluşturduğu desteler',
     galleryLead:
       'Bir taslaktan işlenmiş gerçek desteler. Konuşmanıza yakın bir stil seçin ve içeriği tarif edin.',
     gallery: [
@@ -1264,38 +1264,38 @@ export const TR: SolutionLocaleCopy = {
     exampleLinkLabel: 'Deste şablonlarına göz atın',
     faqTitle: 'Slaytlar SSS',
     faq: [
-      { q: 'PowerPoint ya da Keynote’a ihtiyacım var mı?', a: 'Hayır. Design For AIR desteleri kodlama ajanınızın içinde HTML olarak işler ve PDF veya PPTX olarak dışa aktarabilir. Tarayıcıdan sunarsınız ya da bir dosya teslim edersiniz — kurmak için herhangi bir sunum uygulaması gerekmez.' },
+      { q: 'PowerPoint ya da Keynote’a ihtiyacım var mı?', a: 'Hayır. design for air desteleri kodlama ajanınızın içinde HTML olarak işler ve PDF veya PPTX olarak dışa aktarabilir. Tarayıcıdan sunarsınız ya da bir dosya teslim edersiniz — kurmak için herhangi bir sunum uygulaması gerekmez.' },
       { q: 'Bunlar yalnızca yapay zekâ üretimi madde işaretleri mi?', a: 'Hayır. Ajan ızgaraya, yazı ölçeğine ve görsel hiyerarşiye sahip gerçek bir deste şablonu uygular, böylece slaytlar otomatik doldurulmuş değil, tasarlanmış görünür.' },
       { q: 'Bir müşteri için PowerPoint’a dışa aktarabilir miyim?', a: 'Evet. Desteler, sunduğunuz HTML’nin yanı sıra PPTX ve PDF olarak da dışa aktarılır, böylece izleyicinin beklediği biçime uyar.' },
       { q: 'Hangi ajanları kullanabilirim?', a: 'Kendi sağlayıcı anahtarlarınızla Claude Code, Codex, Cursor Agent, Gemini CLI ve daha fazla birinci taraf bağdaştırıcı.' },
     ],
     ctaTitle: 'Bir sonraki destenizi bu gece kurun',
     ctaBody:
-      'Depoya yıldız verin, Design For AIR’ı kurun ve taslağınızı tasarlanmış bir desteye dönüştürün — zaten kullandığınız ajanda.',
+      'Depoya yıldız verin, design for air’ı kurun ve taslağınızı tasarlanmış bir desteye dönüştürün — zaten kullandığınız ajanda.',
   },
   image: {
-    title: 'Design For AIR + Claude Code ile markaya uygun grafikler oluşturun',
+    title: 'design for air + Claude Code ile markaya uygun grafikler oluşturun',
     description:
       'Sosyal kartları, makale kapaklarını ve pazarlama grafiklerini bir komuttan üretin — gerçek tipografi ve marka sisteminizle yerleştirilmiş, PNG’ye dışa aktarabileceğiniz net HTML olarak işlenmiş. Tasarım uygulaması yok, şablon aboneliği yok.',
     breadcrumb: 'Görsel',
     label: 'Kullanım örneği · Görsel',
     heading: 'Markaya uygun grafikler, sizin için üretilir ve yerleştirilir',
-    lead: 'İhtiyacınız olan kartı ya da kapağı tarif edin. Design For AIR onu gerçek yazı, ızgara ve marka renklerinizle düzenler — sonra bir tasarım uygulamasıyla ya da genel bir şablonla boğuşmak yerine, görsel olarak dışa aktarabileceğiniz HTML olarak işler.',
+    lead: 'İhtiyacınız olan kartı ya da kapağı tarif edin. design for air onu gerçek yazı, ızgara ve marka renklerinizle düzenler — sonra bir tasarım uygulamasıyla ya da genel bir şablonla boğuşmak yerine, görsel olarak dışa aktarabileceğiniz HTML olarak işler.',
     heroImageAlt:
       'Bir komutun bir dizi yerleştirilmiş sosyal kart ve makale kapağına dönüştüğünü gösteren editöryel illüstrasyon',
     tldrTitle: 'Tek cümlede',
     tldrBody:
-      'Design For AIR bir komutu, ajanınızın HTML olarak işleyip PNG’ye dışa aktardığı dizilmiş, markaya uygun bir grafiğe dönüştürür — yinelenebilir, sürümlenebilir ve koltuk başı tasarım araçlarından arınmış.',
-    stepsTitle: 'Design For AIR ile grafikler nasıl çalışır',
+      'design for air bir komutu, ajanınızın HTML olarak işleyip PNG’ye dışa aktardığı dizilmiş, markaya uygun bir grafiğe dönüştürür — yinelenebilir, sürümlenebilir ve koltuk başı tasarım araçlarından arınmış.',
+    stepsTitle: 'design for air ile grafikler nasıl çalışır',
     steps: [
       { title: 'Grafiği tarif edin', body: 'Ne olduğunu söyleyin — “başlık ve bir alıntı içeren, lansmanımız için bir Twitter kartı.” Ajan doğru beceriyi yükler, böylece düz bir metin bloğu değil, yerleştirilmiş bir grafik düzenler.', imageAlt: 'Bir kişinin ihtiyaç duyduğu bir sosyal kartı tarif ettiğini gösteren illüstrasyon' },
-      { title: 'Marka sistemini uygulayın', body: 'Design For AIR renklerinizi, yazınızı ve boşluklarınızı yeniden kullanılabilir bir tasarım sisteminden çeker, böylece her kart tek seferlik görünmek yerine markanızın geri kalanıyla eşleşir.', imageAlt: 'Marka renkleri ve yazının bir kart düzenine uygulandığını gösteren illüstrasyon' },
+      { title: 'Marka sistemini uygulayın', body: 'design for air renklerinizi, yazınızı ve boşluklarınızı yeniden kullanılabilir bir tasarım sisteminden çeker, böylece her kart tek seferlik görünmek yerine markanızın geri kalanıyla eşleşir.', imageAlt: 'Marka renkleri ve yazının bir kart düzenine uygulandığını gösteren illüstrasyon' },
       { title: 'İşleyin ve dışa aktarın', body: 'Grafik tam ihtiyacınız olan boyutlarda HTML olarak işlenir — sosyal kart, kapak, afiş — sonra PNG’ye dışa aktarılır. Net metin, gerçek düzen, elle ince ayar yok.', imageAlt: 'Bir grafiğin işlenip bir görsel dosyasına dışa aktarıldığını gösteren illüstrasyon' },
       { title: 'Tarifi yeniden kullanın', body: 'Bir şablon olduğundan, bir sonraki grafik tek bir komut uzaklıkta — başlığı değiştirin, düzeni koruyun. Kart serileri kusursuz biçimde tutarlı kalır.', imageAlt: 'Bir kart şablonunun tutarlı bir grafik serisi ürettiğini gösteren illüstrasyon' },
     ],
-    tableTitle: 'Design For AIR ile grafikler, eski yönteme karşı',
+    tableTitle: 'design for air ile grafikler, eski yönteme karşı',
     tableColCapability: 'İhtiyacınız olan',
-    tableColWithOd: 'Design For AIR ile',
+    tableColWithOd: 'design for air ile',
     tableColWithout: 'Tasarım uygulamaları / genel şablonlar',
     tableRows: [
       { capability: 'Fikirden yerleştirilmiş grafiğe geçmek', withOd: 'Tek komut; ajan yazıyı ve düzeni düzenler', without: 'Bir uygulama açın, her öğeyi elle yerleştirin' },
@@ -1314,7 +1314,7 @@ export const TR: SolutionLocaleCopy = {
       { title: "Karuseller", body: "Kareler boyunca tutarlı kalan çok slaytlı sosyal karuseller.", thumb: "example-social-carousel" },
       { title: "Arayüz maket çerçeveleri", body: "Ürün anlatımı için bildirim ve cihaz çerçeveleri.", thumb: "example-frame-macos-notification" },
     ],
-    galleryTitle: 'İnsanların Design For AIR ile oluşturduğu grafikler',
+    galleryTitle: 'İnsanların design for air ile oluşturduğu grafikler',
     galleryLead:
       'Bir komuttan işlenmiş gerçek kartlar ve kapaklar. İhtiyacınıza yakın olan birini seçin ve metninizi yerleştirin.',
     gallery: [
@@ -1327,38 +1327,38 @@ export const TR: SolutionLocaleCopy = {
     exampleLinkLabel: 'Grafik şablonlarına göz atın',
     faqTitle: 'Görsel SSS',
     faq: [
-      { q: 'Bu, Midjourney gibi bir yapay zekâ görsel üreticisi mi?', a: 'Hayır. Design For AIR grafikleri gerçek düzen ve tipografiyle düzenler — başlığınız, markanız, tam boyutlar — ve PNG olarak dışa aktardığınız HTML olarak işler. Bu, piksel üretimi değil, tasarım düzenlemesidir.' },
+      { q: 'Bu, Midjourney gibi bir yapay zekâ görsel üreticisi mi?', a: 'Hayır. design for air grafikleri gerçek düzen ve tipografiyle düzenler — başlığınız, markanız, tam boyutlar — ve PNG olarak dışa aktardığınız HTML olarak işler. Bu, piksel üretimi değil, tasarım düzenlemesidir.' },
       { q: 'Tutarlı bir kart serisi yapabilir miyim?', a: 'Evet. Her grafik bir şablon olduğundan, düzeni korur ve metni değiştirirsiniz, böylece tüm bir seri kusursuz hizalı ve markaya uygun kalır.' },
       { q: 'Hangi boyutları üretebilir?', a: 'Her boyutu — grafik, belirttiğiniz tam boyutlarda işlenir, kare bir sosyal karttan geniş bir afişe kadar, sonra PNG’ye dışa aktarılır.' },
       { q: 'Hangi ajanları kullanabilirim?', a: 'Kendi sağlayıcı anahtarlarınızla Claude Code, Codex, Cursor Agent, Gemini CLI ve daha fazla birinci taraf bağdaştırıcı.' },
     ],
     ctaTitle: 'Bir sonraki grafiğinizi bu gece yapın',
     ctaBody:
-      'Depoya yıldız verin, Design For AIR’ı kurun ve bir komutu markaya uygun bir grafiğe dönüştürün — zaten kullandığınız ajanda.',
+      'Depoya yıldız verin, design for air’ı kurun ve bir komutu markaya uygun bir grafiğe dönüştürün — zaten kullandığınız ajanda.',
   },
   video: {
-    title: 'Design For AIR + Claude Code ile hareketli grafikler ve kısa video oluşturun',
+    title: 'design for air + Claude Code ile hareketli grafikler ve kısa video oluşturun',
     description:
       'Bir senaryoyu hareketli karelere ve kısa biçimli videoya dönüştürün — marka sisteminizle düzenlenmiş ve HTML’den işlenmiş başlık kartları, hareketli arka planlar ve kapanışlar. Hareketli grafik paketi yok, zaman çizelgesinde sürtme yok.',
     breadcrumb: 'Video',
     label: 'Kullanım örneği · Video',
     heading: 'Hareketli grafikler bir senaryodan gelir, zaman çizelgesinden değil',
-    lead: 'İstediğiniz anı tarif edin — bir başlık açılışı, bir veri animasyonu, bir logo kapanışı. Design For AIR hareketli kareleri marka sisteminizle düzenler ve videoya işler, hareketli grafik paketi gerekmez.',
+    lead: 'İstediğiniz anı tarif edin — bir başlık açılışı, bir veri animasyonu, bir logo kapanışı. design for air hareketli kareleri marka sisteminizle düzenler ve videoya işler, hareketli grafik paketi gerekmez.',
     heroImageAlt:
       'Bir senaryonun bir dizi hareketli video karesine dönüştüğünü gösteren editöryel illüstrasyon',
     tldrTitle: 'Tek cümlede',
     tldrBody:
-      'Design For AIR bir senaryoyu, ajanınızın kısa biçimli videoya işlediği hareketli, markaya uygun karelere dönüştürür — HTML’den düzenlenir, deponuzda sürümlenir, öğrenilecek bir zaman çizelgesi düzenleyicisi olmadan.',
-    stepsTitle: 'Design For AIR ile hareket nasıl çalışır',
+      'design for air bir senaryoyu, ajanınızın kısa biçimli videoya işlediği hareketli, markaya uygun karelere dönüştürür — HTML’den düzenlenir, deponuzda sürümlenir, öğrenilecek bir zaman çizelgesi düzenleyicisi olmadan.',
+    stepsTitle: 'design for air ile hareket nasıl çalışır',
     steps: [
       { title: 'Anı tarif edin', body: 'Ne olması gerektiğini söyleyin — “logomuza çözülen bir glitch başlık, ardından bir kapanış kartı.” Ajan hareket becerisini yükler, böylece statik bir görsel değil, hareketli kareler üretir.', imageAlt: 'Bir kişinin bir hareket dizisini tarif ettiğini gösteren illüstrasyon' },
-      { title: 'Marka ve hareket stilini uygulayın', body: 'Design For AIR kare şablonları sunar — sinematik ışık sızıntıları, glitch başlıklar, logo kapanışları — ve renklerinizi ve yazınızı uygular, böylece hareket kasıtlı ve markaya uygun görünür.', imageAlt: 'Marka stilinin hareketli karelere uygulandığını gösteren illüstrasyon' },
+      { title: 'Marka ve hareket stilini uygulayın', body: 'design for air kare şablonları sunar — sinematik ışık sızıntıları, glitch başlıklar, logo kapanışları — ve renklerinizi ve yazınızı uygular, böylece hareket kasıtlı ve markaya uygun görünür.', imageAlt: 'Marka stilinin hareketli karelere uygulandığını gösteren illüstrasyon' },
       { title: 'Kareleri videoya işleyin', body: 'Kareler HTML’de düzenlenir ve videoya işlenir, böylece zamanlama ve düzen kesin ve yinelenebilirdir — bir zaman çizelgesinde elle anahtar kare yok.', imageAlt: 'HTML karelerinin bir video klibine işlendiğini gösteren illüstrasyon' },
       { title: 'Yineleyin ve dışa aktarın', body: 'Ajanla konuşarak iyileştirin — “başlık açılışını yavaşlat, bir altyazı ekle.” Sosyal ya da ürün için kısa klipler dışa aktarın. Kaynak projenizde kalır.', imageAlt: 'Bir video klibinin iyileştirilip sosyal için dışa aktarıldığını gösteren illüstrasyon' },
     ],
-    tableTitle: 'Design For AIR ile hareket, eski yönteme karşı',
+    tableTitle: 'design for air ile hareket, eski yönteme karşı',
     tableColCapability: 'İhtiyacınız olan',
-    tableColWithOd: 'Design For AIR ile',
+    tableColWithOd: 'design for air ile',
     tableColWithout: 'After Effects / hareket paketleri',
     tableRows: [
       { capability: 'Senaryodan hareketli karelere geçmek', withOd: 'Tek komut; ajan diziyi düzenler', without: 'Her öğeyi bir zaman çizelgesinde elle anahtar kareleyin' },
@@ -1377,7 +1377,7 @@ export const TR: SolutionLocaleCopy = {
       { title: "Glitch başlıklar", body: "Hareket ve dokulu başlık açılışları.", thumb: "example-frame-glitch-title" },
       { title: "Logo kapanışları", body: "Herhangi bir klip için markalı kapanış animasyonları.", thumb: "example-frame-logo-outro" },
     ],
-    galleryTitle: 'İnsanların Design For AIR ile oluşturduğu hareket',
+    galleryTitle: 'İnsanların design for air ile oluşturduğu hareket',
     galleryLead:
       'Bir komuttan işlenmiş gerçek hareketli kareler ve klipler. Fikrinize yakın olan birini seçin ve hareketi tarif edin.',
     gallery: [
@@ -1390,38 +1390,38 @@ export const TR: SolutionLocaleCopy = {
     exampleLinkLabel: 'Hareket şablonlarına göz atın',
     faqTitle: 'Video SSS',
     faq: [
-      { q: 'After Effects ya da bir hareketli grafik paketine ihtiyacım var mı?', a: 'Hayır. Design For AIR hareketli kareleri HTML’de düzenler ve kodlama ajanınızın içinde videoya işler. Öğrenilecek ya da lisanslanacak bir zaman çizelgesi düzenleyicisi yoktur.' },
+      { q: 'After Effects ya da bir hareketli grafik paketine ihtiyacım var mı?', a: 'Hayır. design for air hareketli kareleri HTML’de düzenler ve kodlama ajanınızın içinde videoya işler. Öğrenilecek ya da lisanslanacak bir zaman çizelgesi düzenleyicisi yoktur.' },
       { q: 'Bu ne tür videolar için iyidir?', a: 'Kısa biçimli hareket — başlık kartları, veri animasyonları, logo kapanışları, sosyal klipler. Uzun metrajlı düzenleme için değil, marka ve ürün hareketi için kurulmuştur.' },
       { q: 'Zamanlama yeniden üretilebilir mi?', a: 'Evet. Kareler kodla düzenlenip belirlenimci biçimde işlendiğinden, her seferinde aynı sonucu alırsınız ve bir komutla kesin biçimde ince ayar yapabilirsiniz.' },
       { q: 'Hangi ajanları kullanabilirim?', a: 'Kendi sağlayıcı anahtarlarınızla Claude Code, Codex, Cursor Agent, Gemini CLI ve daha fazla birinci taraf bağdaştırıcı.' },
     ],
     ctaTitle: 'Bir sonraki fikrinizi bu gece hareketlendirin',
     ctaBody:
-      'Depoya yıldız verin, Design For AIR’ı kurun ve bir senaryoyu harekete dönüştürün — zaten kullandığınız ajanda.',
+      'Depoya yıldız verin, design for air’ı kurun ve bir senaryoyu harekete dönüştürün — zaten kullandığınız ajanda.',
   },
   designSystem: {
-    title: 'Design For AIR + Claude Code ile bir tasarım sistemi kurun ve uygulayın',
+    title: 'design for air + Claude Code ile bir tasarım sistemi kurun ve uygulayın',
     description:
       'Markanızı, kodlama ajanınızın her çıktıya uyguladığı yeniden kullanılabilir bir tasarım sistemi olarak yakalayın — renkler, yazı, bileşenler ve ton, tek bir DESIGN.md içinde. Bir kez tanımlayın; her prototip, deste ve pano markaya uygun kalsın.',
     breadcrumb: 'Tasarım Sistemi',
     label: 'Kullanım örneği · Tasarım Sistemi',
     heading: 'Tek bir tasarım sistemi, ajanınızın yaptığı her şeye uygulanır',
-    lead: 'Markanızı bir kez tanımlayın, Design For AIR onu her çıktıya taşısın — prototipler, desteler, panolar, grafikler. Sistem, deponuzda ajanın okuduğu bir DESIGN.md olarak yaşar, böylece tutarlılık elle değil, otomatiktir.',
+    lead: 'Markanızı bir kez tanımlayın, design for air onu her çıktıya taşısın — prototipler, desteler, panolar, grafikler. Sistem, deponuzda ajanın okuduğu bir DESIGN.md olarak yaşar, böylece tutarlılık elle değil, otomatiktir.',
     heroImageAlt:
       'Tek bir tasarım sisteminin markaya uygun birçok çıktıya ışıdığını gösteren editöryel illüstrasyon',
     tldrTitle: 'Tek cümlede',
     tldrBody:
-      'Design For AIR markanızı, ajanınızın her çıktıya uyguladığı taşınabilir bir tasarım sistemi olarak yakalar — deponuzda bir kez tanımlanır, her yerde uygulanır, onu denetleyen merkezi bir tasarım aracı olmadan.',
-    stepsTitle: 'Design For AIR ile tasarım sistemleri nasıl çalışır',
+      'design for air markanızı, ajanınızın her çıktıya uyguladığı taşınabilir bir tasarım sistemi olarak yakalar — deponuzda bir kez tanımlanır, her yerde uygulanır, onu denetleyen merkezi bir tasarım aracı olmadan.',
+    stepsTitle: 'design for air ile tasarım sistemleri nasıl çalışır',
     steps: [
-      { title: 'Sistemi yakalayın', body: 'Markanızı tarif edin — renkler, yazı, boşluk, ses — ya da çıkarması için ajanı mevcut bir siteye yönlendirin. Design For AIR bunu projenizde yaşayan bir DESIGN.md içine yazar.', imageAlt: 'Bir markanın tek bir tasarım sistemi dosyasına yakalandığını gösteren illüstrasyon' },
-      { title: 'Kanıtlanmış bir temelden başlayın', body: 'Design For AIR 140’tan fazla referans tasarım sistemi sunar — Apple ve Linear’dan editöryel ve brütaliste. Boş bir sayfadan başlamak yerine markanıza yakın olan birini çatallayın.', imageAlt: 'Bir referans tasarım sistemleri galerisinin gezildiğini gösteren illüstrasyon' },
+      { title: 'Sistemi yakalayın', body: 'Markanızı tarif edin — renkler, yazı, boşluk, ses — ya da çıkarması için ajanı mevcut bir siteye yönlendirin. design for air bunu projenizde yaşayan bir DESIGN.md içine yazar.', imageAlt: 'Bir markanın tek bir tasarım sistemi dosyasına yakalandığını gösteren illüstrasyon' },
+      { title: 'Kanıtlanmış bir temelden başlayın', body: 'design for air 140’tan fazla referans tasarım sistemi sunar — Apple ve Linear’dan editöryel ve brütaliste. Boş bir sayfadan başlamak yerine markanıza yakın olan birini çatallayın.', imageAlt: 'Bir referans tasarım sistemleri galerisinin gezildiğini gösteren illüstrasyon' },
       { title: 'Her yerde uygulayın', body: 'Diğer her beceri aynı sistemi okur, böylece bir prototip, bir deste ve bir pano tek bir görsel dili paylaşır — onu her seferinde yeniden belirtmeniz gerekmeden.', imageAlt: 'Tek bir sistemin birçok çıktı türüne tutarlı biçimde uygulandığını gösteren illüstrasyon' },
       { title: 'Tek bir yerde geliştirin', body: 'Sistemi değiştirin, bir sonraki işleme bunu her yerde yansıtsın. Deponuzda bir dosya olduğundan, tasarım kararları kod gibi gözden geçirilir ve sürümlenir.', imageAlt: 'Bir tasarım sisteminin güncellenip tüm çıktılara yayıldığını gösteren illüstrasyon' },
     ],
-    tableTitle: 'Design For AIR ile tasarım sistemleri, eski yönteme karşı',
+    tableTitle: 'design for air ile tasarım sistemleri, eski yönteme karşı',
     tableColCapability: 'İhtiyacınız olan',
-    tableColWithOd: 'Design For AIR ile',
+    tableColWithOd: 'design for air ile',
     tableColWithout: 'Tasarım aracı kitaplıkları / stil kılavuzları',
     tableRows: [
       { capability: 'Sistemi tanımlamak', withOd: 'Ajanın okuduğu, 140’tan fazla referanstan çatallanan bir DESIGN.md', without: 'Statik bir stil kılavuzu ya da araca bağlı bir kitaplık' },
@@ -1440,7 +1440,7 @@ export const TR: SolutionLocaleCopy = {
       { title: "OpenAI", body: "Minimal, nötr, araştırma düzeyinde.", thumb: "design-system-openai" },
       { title: "GitHub", body: "Yoğun, teknik, geliştirici yerlisi.", thumb: "design-system-github" },
     ],
-    galleryTitle: 'Design For AIR’daki tasarım sistemleri',
+    galleryTitle: 'design for air’daki tasarım sistemleri',
     galleryLead:
       'Başlangıç noktası olarak çatallayabileceğiniz 140’tan fazla referans sistemden birkaçı. Markanıza yakın olan birini seçin ve uyarlayın.',
     gallery: [
@@ -1453,19 +1453,19 @@ export const TR: SolutionLocaleCopy = {
     exampleLinkLabel: 'Tasarım sistemlerine göz atın',
     faqTitle: 'Tasarım Sistemi SSS',
     faq: [
-      { q: 'Buradaki tasarım sistemi tam olarak nedir?', a: 'Deponuzda renkleri, yazıyı, boşluğu, bileşenleri ve sesi yakalayan bir DESIGN.md dosyası. Her Design For AIR becerisi onu okur, böylece markanız ajanın ürettiği her şeye otomatik olarak uygulanır.' },
-      { q: 'Sıfırdan başlamak zorunda mıyım?', a: 'Hayır. Design For AIR çatallayabileceğiniz 140’tan fazla referans tasarım sistemi sunar — Apple ve Linear’dan editöryel ve brütaliste — sonra markanıza uyarlarsınız.' },
+      { q: 'Buradaki tasarım sistemi tam olarak nedir?', a: 'Deponuzda renkleri, yazıyı, boşluğu, bileşenleri ve sesi yakalayan bir DESIGN.md dosyası. Her design for air becerisi onu okur, böylece markanız ajanın ürettiği her şeye otomatik olarak uygulanır.' },
+      { q: 'Sıfırdan başlamak zorunda mıyım?', a: 'Hayır. design for air çatallayabileceğiniz 140’tan fazla referans tasarım sistemi sunar — Apple ve Linear’dan editöryel ve brütaliste — sonra markanıza uyarlarsınız.' },
       { q: 'Desteler, panolar ve prototipler arasında nasıl tutarlı kalır?', a: 'Çünkü tüm bu beceriler aynı DESIGN.md’yi okur. Sistemi bir kez tanımlayın, tutarlılık elle kovaladığınız bir şey değil, otomatik olsun.' },
       { q: 'Hangi ajanları kullanabilirim?', a: 'Kendi sağlayıcı anahtarlarınızla Claude Code, Codex, Cursor Agent, Gemini CLI ve daha fazla birinci taraf bağdaştırıcı.' },
     ],
     ctaTitle: 'Tasarım sisteminizi bu gece tanımlayın',
     ctaBody:
-      'Depoya yıldız verin, Design For AIR’ı kurun ve ajanınıza her yerde uygulayacağı tek bir marka verin — zaten kullandığınız ajanda.',
+      'Depoya yıldız verin, design for air’ı kurun ve ajanınıza her yerde uygulayacağı tek bir marka verin — zaten kullandığınız ajanda.',
   },
   roleSoloBuilder: {
-    title: 'Tek kişilik geliştiriciler ve bağımsız hackerlar için Design For AIR',
+    title: 'Tek kişilik geliştiriciler ve bağımsız hackerlar için design for air',
     description:
-      'Tek kişilik bir ekip gibi ürün çıkarın. Design For AIR, kodlama agent’ınızı girişiminizin tasarım yarısına dönüştürür — prototipler, açılış sayfaları, panolar ve marka görselleri, hepsi tek bir komutla, hepsi markaya uygun, hepsi deponuzda.',
+      'Tek kişilik bir ekip gibi ürün çıkarın. design for air, kodlama agent’ınızı girişiminizin tasarım yarısına dönüştürür — prototipler, açılış sayfaları, panolar ve marka görselleri, hepsi tek bir komutla, hepsi markaya uygun, hepsi deponuzda.',
     breadcrumb: 'Tek Kişilik Geliştirici',
     label: 'İçin · Tek Kişilik Geliştiriciler',
     heading: 'Tasarım ekibiniz, zaten çalıştırdığınız agent’tır',
@@ -1474,8 +1474,8 @@ export const TR: SolutionLocaleCopy = {
       'Masasında oturan bir kişinin etrafını aynı tutarlı stilde bir açılış sayfası, bir uygulama, bir pano ve sosyal kartların sardığı editöryel illüstrasyon',
     tldrTitle: 'Tek cümlede',
     tldrBody:
-      'Design For AIR, tek kişilik bir kurucunun hiç sahip olmadığı tasarım departmanıdır: ürününüzün ihtiyaç duyduğu her yüzeyde komuttan ürüne, tek bir markayla, sıfır devir teslimle ve ek araç olmadan.',
-    stepsTitle: 'Tek kişilik bir geliştirici Design For AIR’ı nasıl kullanır',
+      'design for air, tek kişilik bir kurucunun hiç sahip olmadığı tasarım departmanıdır: ürününüzün ihtiyaç duyduğu her yüzeyde komuttan ürüne, tek bir markayla, sıfır devir teslimle ve ek araç olmadan.',
+    stepsTitle: 'Tek kişilik bir geliştirici design for air’ı nasıl kullanır',
     steps: [
       {
         title: 'Markanızı bir kez tanımlayın',
@@ -1493,9 +1493,9 @@ export const TR: SolutionLocaleCopy = {
         imageAlt: 'Bir ürünün komuttan doğrudan canlıya geçişinin illüstrasyonu',
       },
     ],
-    tableTitle: 'Design For AIR ile tek başına inşa etmek vs. zor yoldan yapmak',
+    tableTitle: 'design for air ile tek başına inşa etmek vs. zor yoldan yapmak',
     tableColCapability: 'Neye ihtiyacınız var',
-    tableColWithOd: 'Design For AIR ile',
+    tableColWithOd: 'design for air ile',
     tableColWithout: 'Bugün tek başınıza',
     tableRows: [
       { capability: 'Her tasarım yüzeyini kapsayın', withOd: 'Tek agent prototipi, açılışı, panoyu, markayı yapar', without: 'Beş SaaS aracını ve eğitimi bir araya dikmek' },
@@ -1513,7 +1513,7 @@ export const TR: SolutionLocaleCopy = {
       { title: 'Mobil akışlar', body: 'Web’in ötesine geçtiğinizde uygulama ekranları.', thumb: 'example-mobile-app' },
       { title: 'Sosyal kartlar', body: 'Her kanal için lansman ve güncelleme kartları.', thumb: 'example-card-twitter' },
     ],
-    galleryTitle: 'Design For AIR ile tek başına inşa edildi',
+    galleryTitle: 'design for air ile tek başına inşa edildi',
     galleryLead:
       'Tek kişilik bir girişimin ihtiyaç duyduğu her yüzey, tek bir komuttan. Bir sonraki adımınıza yakın olanı seçin ve anlatın.',
     gallery: [
@@ -1533,12 +1533,12 @@ export const TR: SolutionLocaleCopy = {
     ],
     ctaTitle: 'Tüm projenizi bu gece inşa edin',
     ctaBody:
-      'Depoya yıldız verin, Design For AIR’ı kurun ve tek bir agent’ın tasarım ekibiniz olmasına izin verin — zaten kullandığınız agent’ta.',
+      'Depoya yıldız verin, design for air’ı kurun ve tek bir agent’ın tasarım ekibiniz olmasına izin verin — zaten kullandığınız agent’ta.',
   },
   roleDesigner: {
-    title: 'Tasarımcılar için Design For AIR',
+    title: 'Tasarımcılar için design for air',
     description:
-      'Zamanınızı zahmete değil, zevke harcayın. Design For AIR, agent’ınızın tekrar eden üretim işini — varyantlar, durumlar, tam tasarım sistemleri — üstlenmesini sağlar; siz görünümü yönetir ve son sözü söylersiniz.',
+      'Zamanınızı zahmete değil, zevke harcayın. design for air, agent’ınızın tekrar eden üretim işini — varyantlar, durumlar, tam tasarım sistemleri — üstlenmesini sağlar; siz görünümü yönetir ve son sözü söylersiniz.',
     breadcrumb: 'Tasarımcı',
     label: 'İçin · Tasarımcılar',
     heading: 'Tasarımı yönetin — üretimi agent yapsın',
@@ -1547,8 +1547,8 @@ export const TR: SolutionLocaleCopy = {
       'Bir tasarımcının yönlendirdiği, bir agent’ın ise ekranları, varyantları ve bir tasarım sistemini doldurduğu editöryel illüstrasyon',
     tldrTitle: 'Tek cümlede',
     tldrBody:
-      'Design For AIR, hiç yorulmayan üretim asistanıdır: tasarım sistemini siz tanımlar ve zevki siz belirlersiniz; agent gerisini üretir, sisteme uygun, deponuzun içinde.',
-    stepsTitle: 'Bir tasarımcı Design For AIR’ı nasıl kullanır',
+      'design for air, hiç yorulmayan üretim asistanıdır: tasarım sistemini siz tanımlar ve zevki siz belirlersiniz; agent gerisini üretir, sisteme uygun, deponuzun içinde.',
+    stepsTitle: 'Bir tasarımcı design for air’ı nasıl kullanır',
     steps: [
       {
         title: 'Sisteminizi kodlayın',
@@ -1566,9 +1566,9 @@ export const TR: SolutionLocaleCopy = {
         imageAlt: 'Bir tasarımcının yön verdiği ve tasarımın güncellendiği illüstrasyon',
       },
     ],
-    tableTitle: 'Design For AIR ile tasarlamak vs. el yordamı',
+    tableTitle: 'design for air ile tasarlamak vs. el yordamı',
     tableColCapability: 'Neye ihtiyacınız var',
-    tableColWithOd: 'Design For AIR ile',
+    tableColWithOd: 'design for air ile',
     tableColWithout: 'Elle tasarım araçları',
     tableRows: [
       { capability: 'Bir tasarım sistemi kurun', withOd: 'Agent’ın her yere uyguladığı bir DESIGN.md', without: 'Her araçta elle bakımını yaptığınız bir kütüphane' },
@@ -1586,7 +1586,7 @@ export const TR: SolutionLocaleCopy = {
       { title: 'Uygulama ekranları', body: 'Yüksek çözünürlüklü mobil ve web ekranları.', thumb: 'example-mobile-app' },
       { title: 'Panolar', body: 'Sisteminize saygılı veri arayüzü.', thumb: 'example-dashboard' },
     ],
-    galleryTitle: 'Design For AIR ile yönetildi',
+    galleryTitle: 'design for air ile yönetildi',
     galleryLead:
       'Agent’ın yönlendirmeyle ürettiği, sisteme uygun, yüksek çözünürlüklü işler. Stilinize yakın olanı seçin ve rafine edin.',
     gallery: [
@@ -1606,12 +1606,12 @@ export const TR: SolutionLocaleCopy = {
     ],
     ctaTitle: 'Bir sonraki tasarımınızı bu gece yönetin',
     ctaBody:
-      'Depoya yıldız verin, Design For AIR’ı kurun ve siz zevki belirlerken üretimi agent yapsın — zaten kullandığınız agent’ta.',
+      'Depoya yıldız verin, design for air’ı kurun ve siz zevki belirlerken üretimi agent yapsın — zaten kullandığınız agent’ta.',
   },
   roleEngineering: {
-    title: 'Mühendisler için Design For AIR',
+    title: 'Mühendisler için design for air',
     description:
-      'Tasarım devir teslimini atlayın. Design For AIR, bir DESIGN.md’yi kodlama agent’ınızın doğrudan yazdığı gerçek bir ön uca dönüştürür — sisteme uygun arayüz, prototipler ve panolar, depoda, Figma gidiş dönüşü olmadan.',
+      'Tasarım devir teslimini atlayın. design for air, bir DESIGN.md’yi kodlama agent’ınızın doğrudan yazdığı gerçek bir ön uca dönüştürür — sisteme uygun arayüz, prototipler ve panolar, depoda, Figma gidiş dönüşü olmadan.',
     breadcrumb: 'Mühendislik',
     label: 'İçin · Mühendislik',
     heading: 'Spesifikasyondan ön uca, arada devir teslim yok',
@@ -1620,8 +1620,8 @@ export const TR: SolutionLocaleCopy = {
       'Bir DESIGN.md’nin devir teslim adımını atlayarak doğrudan ön uç koduna ve işlenmiş arayüze aktığı editöryel illüstrasyon',
     tldrTitle: 'Tek cümlede',
     tldrBody:
-      'Design For AIR, tasarım sistemini makine tarafından okunabilir kılarak tasarımcı-mühendis boşluğunu kapatır: kodunuzu yazan aynı agent sistemi uygular ve gerçek arayüzü işler.',
-    stepsTitle: 'Bir mühendis Design For AIR’ı nasıl kullanır',
+      'design for air, tasarım sistemini makine tarafından okunabilir kılarak tasarımcı-mühendis boşluğunu kapatır: kodunuzu yazan aynı agent sistemi uygular ve gerçek arayüzü işler.',
+    stepsTitle: 'Bir mühendis design for air’ı nasıl kullanır',
     steps: [
       {
         title: 'İşaretleme değil, sistemi okuyun',
@@ -1639,9 +1639,9 @@ export const TR: SolutionLocaleCopy = {
         imageAlt: 'Üretilen arayüzün gözden geçirilebilir bir PR olarak indiğinin illüstrasyonu',
       },
     ],
-    tableTitle: 'Design For AIR ile ön uç vs. devir teslim yolu',
+    tableTitle: 'design for air ile ön uç vs. devir teslim yolu',
     tableColCapability: 'Neye ihtiyacınız var',
-    tableColWithOd: 'Design For AIR ile',
+    tableColWithOd: 'design for air ile',
     tableColWithout: 'Tasarımdan geliştirmeye devir teslim',
     tableRows: [
       { capability: 'İnşa edilecek bir tasarım edinin', withOd: 'Agent’ınızın doğrudan okuduğu bir DESIGN.md', without: 'Elle yeniden yorumladığınız bir Figma dosyası' },
@@ -1659,7 +1659,7 @@ export const TR: SolutionLocaleCopy = {
       { title: 'Açılış sayfaları', body: 'Tasarımı beklemeden pazarlama sayfaları.', thumb: 'example-saas-landing' },
       { title: 'Kanban / panolar', body: 'Dahili iş akışı arayüzleri.', thumb: 'example-kanban-board' },
     ],
-    galleryTitle: 'Mühendisler tarafından Design For AIR ile inşa edildi',
+    galleryTitle: 'Mühendisler tarafından design for air ile inşa edildi',
     galleryLead:
       'Doğrudan depoda üretilen gerçek, sisteme uygun ön uç. İnşa ettiğinize yakın olanı seçin ve anlatın.',
     gallery: [
@@ -1679,12 +1679,12 @@ export const TR: SolutionLocaleCopy = {
     ],
     ctaTitle: 'Bir sonraki arayüzünüzü bu gece üretin',
     ctaBody:
-      'Depoya yıldız verin, Design For AIR’ı kurun ve bir DESIGN.md’yi ön uca dönüştürün — zaten kullandığınız agent’ta.',
+      'Depoya yıldız verin, design for air’ı kurun ve bir DESIGN.md’yi ön uca dönüştürün — zaten kullandığınız agent’ta.',
   },
   roleProductManagers: {
-    title: 'Ürün yöneticileri için Design For AIR',
+    title: 'Ürün yöneticileri için design for air',
     description:
-      'Bir fikri iletmek için tasarım kapasitesini beklemeyi bırakın. Design For AIR, bir ürün yöneticisinin bir komutu tıklanabilir bir prototipe ya da tel çerçeveye dönüştürmesini sağlar — paydaşları hizalamak ve ekibi bilgilendirmek için, tasarım talebi açmadan.',
+      'Bir fikri iletmek için tasarım kapasitesini beklemeyi bırakın. design for air, bir ürün yöneticisinin bir komutu tıklanabilir bir prototipe ya da tel çerçeveye dönüştürmesini sağlar — paydaşları hizalamak ve ekibi bilgilendirmek için, tasarım talebi açmadan.',
     breadcrumb: 'Ürün Yöneticileri',
     label: 'İçin · Ürün Yöneticileri',
     heading: 'Fikri başlangıç toplantısından önce tıklanabilir kılın',
@@ -1693,8 +1693,8 @@ export const TR: SolutionLocaleCopy = {
       'Bir ürün yöneticisinin yazılı bir fikri paydaşlara gösterilen tıklanabilir bir prototipe dönüştürmesinin editöryel illüstrasyonu',
     tldrTitle: 'Tek cümlede',
     tldrBody:
-      'Design For AIR, bir ürün yöneticisine fikirleri somutlaştırmanın tasarımsız bir yolunu sunar: hizalama ve bilgilendirme için komuttan prototipe, ekibin tasarım bütçesini harcamadan.',
-    stepsTitle: 'Bir ürün yöneticisi Design For AIR’ı nasıl kullanır',
+      'design for air, bir ürün yöneticisine fikirleri somutlaştırmanın tasarımsız bir yolunu sunar: hizalama ve bilgilendirme için komuttan prototipe, ekibin tasarım bütçesini harcamadan.',
+    stepsTitle: 'Bir ürün yöneticisi design for air’ı nasıl kullanır',
     steps: [
       {
         title: 'Akışı anlatın',
@@ -1712,9 +1712,9 @@ export const TR: SolutionLocaleCopy = {
         imageAlt: 'Bir prototipin hizalama için paylaşılıp sonra ekibe verilmesinin illüstrasyonu',
       },
     ],
-    tableTitle: 'Design For AIR ile ürün yöneticiliği vs. tasarımı beklemek',
+    tableTitle: 'design for air ile ürün yöneticiliği vs. tasarımı beklemek',
     tableColCapability: 'Neye ihtiyacınız var',
-    tableColWithOd: 'Design For AIR ile',
+    tableColWithOd: 'design for air ile',
     tableColWithout: 'Bugün onsuz',
     tableRows: [
       { capability: 'Bir fikri somutlaştırın', withOd: 'Komut → tıklanabilir prototipi kendiniz', without: 'Bir tasarım talebi açıp kapasiteyi beklemek' },
@@ -1732,7 +1732,7 @@ export const TR: SolutionLocaleCopy = {
       { title: 'Web prototipleri', body: 'İncelenecek çok ekranlı web akışları.', thumb: 'example-web-prototype' },
       { title: 'Trend görünümleri', body: 'Bağlam için 30 günlük ve trend anlık görüntüleri.', thumb: 'example-last30days' },
     ],
-    galleryTitle: 'Ürün yöneticileri tarafından Design For AIR ile prototiplendi',
+    galleryTitle: 'Ürün yöneticileri tarafından design for air ile prototiplendi',
     galleryLead:
       'Bir açıklamadan işlenmiş, bir paydaş incelemesine hazır tıklanabilir akışlar. Fikrinize yakın olanı seçin ve anlatın.',
     gallery: [
@@ -1752,12 +1752,12 @@ export const TR: SolutionLocaleCopy = {
     ],
     ctaTitle: 'Fikrinizi bu gece tıklanabilir kılın',
     ctaBody:
-      'Depoya yıldız verin, Design For AIR’ı kurun ve bir sonraki spesifikasyonunuzu insanların tıklayabileceği bir şeye dönüştürün — zaten kullandığınız agent’ta.',
+      'Depoya yıldız verin, design for air’ı kurun ve bir sonraki spesifikasyonunuzu insanların tıklayabileceği bir şeye dönüştürün — zaten kullandığınız agent’ta.',
   },
   roleMarketing: {
-    title: 'Pazarlama ekipleri için Design For AIR',
+    title: 'Pazarlama ekipleri için design for air',
     description:
-      'Kampanyaları içerik hızında çıkarın. Design For AIR, agent’ınızın bir komuttan açılış sayfaları, sosyal kartlar ve kampanya görselleri üretmesini sağlar — markaya uygun, talep üzerine, tasarım kuyruğuna girmeden.',
+      'Kampanyaları içerik hızında çıkarın. design for air, agent’ınızın bir komuttan açılış sayfaları, sosyal kartlar ve kampanya görselleri üretmesini sağlar — markaya uygun, talep üzerine, tasarım kuyruğuna girmeden.',
     breadcrumb: 'Pazarlama',
     label: 'İçin · Pazarlama',
     heading: 'Bir komut hızında kampanya görselleri',
@@ -1766,8 +1766,8 @@ export const TR: SolutionLocaleCopy = {
       'Bir pazarlamacının bir brief’i bir açılış sayfasına ve bir dizi markaya uygun sosyal karta dönüştürmesinin editöryel illüstrasyonu',
     tldrTitle: 'Tek cümlede',
     tldrBody:
-      'Design For AIR, pazarlama için her zaman açık tasarım kaynağıdır: açılış sayfaları ve sosyal için komuttan içeriğe, markaya uygun, böylece kampanyalar metin yazdığınız hızda yayına alınır.',
-    stepsTitle: 'Bir pazarlama ekibi Design For AIR’ı nasıl kullanır',
+      'design for air, pazarlama için her zaman açık tasarım kaynağıdır: açılış sayfaları ve sosyal için komuttan içeriğe, markaya uygun, böylece kampanyalar metin yazdığınız hızda yayına alınır.',
+    stepsTitle: 'Bir pazarlama ekibi design for air’ı nasıl kullanır',
     steps: [
       {
         title: 'Markayı sabitleyin',
@@ -1785,9 +1785,9 @@ export const TR: SolutionLocaleCopy = {
         imageAlt: 'Kampanya içeriklerinin hızla yayına alınıp iterasyona girmesinin illüstrasyonu',
       },
     ],
-    tableTitle: 'Design For AIR ile pazarlama vs. her zamanki telaş',
+    tableTitle: 'design for air ile pazarlama vs. her zamanki telaş',
     tableColCapability: 'Neye ihtiyacınız var',
-    tableColWithOd: 'Design For AIR ile',
+    tableColWithOd: 'design for air ile',
     tableColWithout: 'Bugün onsuz',
     tableRows: [
       { capability: 'Bir açılış sayfası yayınlayın', withOd: 'Komut → markaya uygun, dağıtılabilir sayfa', without: 'Tasarıma brief vermek ya da bir site kurucuyla boğuşmak' },
@@ -1805,7 +1805,7 @@ export const TR: SolutionLocaleCopy = {
       { title: 'Makale kapakları', body: 'Blog ve bülten kapakları.', thumb: 'example-article-magazine' },
       { title: 'Web sayfaları', body: 'Mikro siteler ve kampanya sayfaları.', thumb: 'example-web-prototype' },
     ],
-    galleryTitle: 'Pazarlama tarafından Design For AIR ile yayına alındı',
+    galleryTitle: 'Pazarlama tarafından design for air ile yayına alındı',
     galleryLead:
       'Bir komuttan işlenmiş, markaya uygun kampanya içerikleri. Kampanyanıza yakın olanı seçin ve metninizi yerleştirin.',
     gallery: [
@@ -1825,6 +1825,6 @@ export const TR: SolutionLocaleCopy = {
     ],
     ctaTitle: 'Bir sonraki kampanyanızı bu gece yayına alın',
     ctaBody:
-      'Depoya yıldız verin, Design For AIR’ı kurun ve brief’leri markaya uygun içeriklere dönüştürün — zaten kullandığınız agent’ta.',
+      'Depoya yıldız verin, design for air’ı kurun ve brief’leri markaya uygun içeriklere dönüştürün — zaten kullandığınız agent’ta.',
   },
 };

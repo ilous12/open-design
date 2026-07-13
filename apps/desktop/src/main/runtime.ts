@@ -235,7 +235,7 @@ const MIN_SPLASH_MS = 2000;
 // While the splash is up, the real web app loads in a hidden main window. We
 // reveal it only once the web bundle reports it has actually mounted (it sets
 // `data-od-app-mounted="1"` on first paint of the real UI), so the user never
-// sees the web's own "Loading Design For AIR…" shell flash between the splash and
+// sees the web's own "Loading design for air…" shell flash between the splash and
 // the app. Poll cadence + a hard ceiling so a missing mount signal can never
 // strand the user on the splash forever.
 const WEB_MOUNT_POLL_MS = 80;
@@ -819,7 +819,7 @@ function createPendingHtml(): string {
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Design For AIR</title>
+    <title>design for air</title>
     <style>
       :root {
         font-family: "Pretend", "Pretendard", "Pretendard Variable", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -920,9 +920,9 @@ function createPendingHtml(): string {
     </style>
   </head>
   <body>
-    <main class="splash-brand" aria-label="Design For AIR startup">
+    <main class="splash-brand" aria-label="design for air startup">
       <div class="splash-logo" aria-hidden="true">${splashLogoMarkup}</div>
-      <div class="splash-title">Design For AIR</div>
+      <div class="splash-title">design for air</div>
     </main>
     <div class="boot-progress" aria-hidden="true">
       <div class="boot-progress-fill" id="boot-progress-fill" data-pct="${initialPct}" style="width: ${initialPct}%;"></div>
@@ -1010,7 +1010,7 @@ const SPLASH_STAGE_SEQUENCE: readonly SplashBootStage[] = [
 ];
 
 const SPLASH_STAGE_LABELS: Record<SplashBootStage, string> = {
-  starting: "Starting Design For AIR",
+  starting: "Starting design for air",
   engine: "Starting the local engine",
   engineReady: "Local engine ready",
   interface: "Preparing the interface",
@@ -1130,7 +1130,7 @@ export function createSplashWindow(): SplashWindowHandle {
     height: 900,
     resizable: false,
     show: true,
-    title: "Design For AIR",
+    title: "design for air",
     width: 1280,
     webPreferences: {
       contextIsolation: true,
@@ -1807,7 +1807,7 @@ export async function createDesktopRuntime(options: DesktopRuntimeOptions): Prom
 
   const consoleEntries: DesktopConsoleEntry[] = [];
   const petWindow = createDesktopPetWindow(preloadPath, options.osLocale);
-  const windowTitle = options.windowTitle ?? "Design For AIR";
+  const windowTitle = options.windowTitle ?? "design for air";
   const window = new BrowserWindow({
     height: 900,
     ...(process.platform === "darwin" ? {} : { icon: resolveDesktopIconPath() }),
@@ -1820,7 +1820,7 @@ export async function createDesktopRuntime(options: DesktopRuntimeOptions): Prom
     // Starts hidden: the splash window is what the user sees while the real web
     // app loads in here. We reveal this window only once the app has actually
     // mounted (see `revealWhenReady` below), so there is never a flash of the
-    // web's own "Loading Design For AIR…" shell.
+    // web's own "Loading design for air…" shell.
     show: false,
     title: windowTitle,
     autoHideMenuBar: true,
@@ -1921,7 +1921,7 @@ export async function createDesktopRuntime(options: DesktopRuntimeOptions): Prom
   const unsubscribeUpdater = options.updater?.subscribe(() => sendUpdaterStatus()) ?? (() => undefined);
   const requireMainWindowSender = (event: Electron.IpcMainInvokeEvent): void => {
     if (event.sender !== window.webContents) {
-      throw new Error("host IPC is only available to the main Design For AIR window");
+      throw new Error("host IPC is only available to the main design for air window");
     }
   };
   window.webContents.on("will-attach-webview", (event, webPreferences, params) => {
@@ -2201,7 +2201,7 @@ export async function createDesktopRuntime(options: DesktopRuntimeOptions): Prom
 
   // Hold the splash until BOTH (a) the web bundle reports it has mounted — it
   // sets `data-od-app-mounted="1"` on first paint of the real UI — so we never
-  // reveal the web's own dark "Loading Design For AIR…" shell, and (b) the splash
+  // reveal the web's own dark "Loading design for air…" shell, and (b) the splash
   // has been up at least MIN_SPLASH_MS so the brand clip plays through. A hard
   // ceiling guarantees the user is never stranded on the splash if the mount
   // signal never arrives.

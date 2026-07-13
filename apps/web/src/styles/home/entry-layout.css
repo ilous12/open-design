@@ -1508,7 +1508,7 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 6px;
-  /* Design For AIR renders as `.inline-switcher__account`; keep the third-party
+  /* design for air renders as `.inline-switcher__account`; keep the third-party
      CLI grid after that account row even though their source order differs. */
   order: 1;
 }
@@ -1628,7 +1628,7 @@
   transform: translateY(0);
 }
 
-/* Account row: Design For AIR login/plan, lifted out of the agent card so the
+/* Account row: design for air login/plan, lifted out of the agent card so the
    agent name is never truncated. */
 .inline-switcher__account {
   order: 0;
@@ -1643,7 +1643,7 @@
   transition: background-color 120ms var(--ease-out),
     border-color 120ms var(--ease-out);
 }
-/* The Design For AIR entry is also the agent selector now: hovering the clickable
+/* The design for air entry is also the agent selector now: hovering the clickable
    area previews selectability, and the active agent gets the same accent
    highlight the grid rows use. */
 .inline-switcher__account:has(.inline-switcher__account-select:hover):not(.is-active) {
@@ -1706,7 +1706,7 @@
   gap: 7px;
   min-width: 0;
 }
-/* Balance shown as a muted subtitle line under the Design For AIR name. Each
+/* Balance shown as a muted subtitle line under the design for air name. Each
    stat is "label value"; the gap (not a literal separator) keeps them apart. */
 .inline-switcher__account-subtitle {
   display: flex;

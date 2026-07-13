@@ -747,7 +747,7 @@ async function ensureOwnedUpdateRoot(
           ok: false,
           error: createError(
             "update-root-not-owned",
-            `update root is not empty and has no Design For AIR updater ownership marker: ${realRoot}`,
+            `update root is not empty and has no design for air updater ownership marker: ${realRoot}`,
           ),
         };
       }

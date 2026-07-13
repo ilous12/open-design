@@ -24,7 +24,7 @@ export interface ProjectManifest {
 export function builtInProjectLocation(projectsDir: string): ProjectLocation {
   return {
     id: BUILT_IN_PROJECT_LOCATION_ID,
-    name: 'Design For AIR projects',
+    name: 'design for air projects',
     path: projectsDir,
     builtIn: true,
   };

@@ -98,6 +98,6 @@ Wrap the completed HTML in `<artifact>` tags using the artifact slug as the `ide
 </artifact>
 ```
 
-Design For AIR derives the canonical HTML artifact from this identifier. Do not also write another root HTML file for the same generation turn.
+design for air derives the canonical HTML artifact from this identifier. Do not also write another root HTML file for the same generation turn.
 
 One sentence before the artifact. Nothing after.

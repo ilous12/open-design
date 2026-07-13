@@ -3,10 +3,10 @@
   "id": "vodafone",
   "name": "Vodafone",
   "category": "Media & Consumer",
-  "description": "Bundled Design For AIR package for Vodafone, derived from curated DESIGN.md, tokens.css, and components.html fixtures.",
+  "description": "Bundled design for air package for Vodafone, derived from curated DESIGN.md, tokens.css, and components.html fixtures.",
   "source": {
     "type": "bundled",
-    "origin": "Design For AIR curated bundled fixture"
+    "origin": "design for air curated bundled fixture"
   },
   "files": {
     "design": "DESIGN.md",

@@ -728,7 +728,7 @@ export function shapeDesignTemplate(
     ) ||
     firstParagraph(explicitLocalizedString(data.description, DEFAULT_LOCALE)) ||
     extractFirstProseParagraph(body) ||
-    'Design For AIR renderable design template.';
+    'design for air renderable design template.';
   const localizedText = localizeTemplateText({ name, summary, locale });
 
   return {
@@ -775,7 +775,7 @@ export function shapeLiveArtifactTemplate(
     .replace(/\s*[·•]\s*live[\s-]artifact\s+template$/i, '')
     .trim();
 
-  const summary = extractFirstProseParagraph(body) || 'Design For AIR Live Artifact template.';
+  const summary = extractFirstProseParagraph(body) || 'design for air Live Artifact template.';
   const localizedText = localizeTemplateText({
     name: localized?.name ?? (cleanH1 || titleizeSlug(slug)),
     summary: localized?.summary ?? summary,

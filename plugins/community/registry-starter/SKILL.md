@@ -1,6 +1,6 @@
 ---
 name: community-registry-starter
-description: A small community registry starter plugin used to verify Design For AIR marketplace install flows.
+description: A small community registry starter plugin used to verify design for air marketplace install flows.
 ---
 
 # Community Registry Starter

@@ -4,20 +4,20 @@ import { stripRegistryQuotedValue } from "../src/win/registry.js";
 
 describe("stripRegistryQuotedValue", () => {
   it("returns the quoted body when the value is fully quoted", () => {
-    expect(stripRegistryQuotedValue('"C:\\Program Files\\Design For AIR\\Uninstall.exe"')).toBe(
-      "C:\\Program Files\\Design For AIR\\Uninstall.exe",
+    expect(stripRegistryQuotedValue('"C:\\Program Files\\design for air\\Uninstall.exe"')).toBe(
+      "C:\\Program Files\\design for air\\Uninstall.exe",
     );
   });
 
   it("returns the inner segment when the quoted region carries trailing flags", () => {
-    expect(stripRegistryQuotedValue('"C:\\Program Files\\Design For AIR\\Uninstall.exe" /S')).toBe(
-      "C:\\Program Files\\Design For AIR\\Uninstall.exe",
+    expect(stripRegistryQuotedValue('"C:\\Program Files\\design for air\\Uninstall.exe" /S')).toBe(
+      "C:\\Program Files\\design for air\\Uninstall.exe",
     );
   });
 
   it("trims unquoted values and leaves them otherwise unchanged", () => {
-    expect(stripRegistryQuotedValue("  C:\\Design For AIR\\Uninstall.exe  ")).toBe(
-      "C:\\Design For AIR\\Uninstall.exe",
+    expect(stripRegistryQuotedValue("  C:\\design for air\\Uninstall.exe  ")).toBe(
+      "C:\\design for air\\Uninstall.exe",
     );
   });
 
