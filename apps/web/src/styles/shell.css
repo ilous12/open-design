@@ -55,9 +55,9 @@
   height: 38px;
   padding: 0 8px 0 6px;
   gap: 0;
-  background: color-mix(in srgb, var(--bg-panel) 88%, var(--bg-subtle));
+  background: #ffffff;
   border-bottom: 0;
-  box-shadow: 0 1px 0 color-mix(in srgb, var(--bg-panel) 80%, transparent) inset;
+  box-shadow: none;
   user-select: none;
   -webkit-app-region: drag;
   overflow: hidden;
@@ -71,7 +71,7 @@
   right: 0;
   bottom: 0;
   height: 1px;
-  background: color-mix(in srgb, var(--border) 64%, transparent);
+  background: #ffffff;
   transform: scaleY(0.5);
   transform-origin: center bottom;
   pointer-events: none;

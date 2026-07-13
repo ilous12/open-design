@@ -913,7 +913,7 @@
   --entry-topbar-h: 44px;
 }
 .entry-shell[data-entry-view='home'] .entry-main--scroll {
-  background: transparent;
+  background: #ffffff;
 }
 .entry-main__inner {
   width: 100%;
@@ -967,46 +967,15 @@
   background: color-mix(in srgb, #ffffff 78%, transparent);
 }
 .entry-shell[data-entry-view='home'] .entry-main__topbar {
-  background: transparent;
+  background: #ffffff;
   backdrop-filter: none;
 }
 .entry-shell[data-entry-view='home'] .entry-main__topbar::before {
   inset: 0;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.96) 0%,
-      color-mix(in srgb, var(--accent-tint) 16%, rgba(255, 255, 255, 0.9)) 42%,
-      rgba(255, 255, 255, 0.44) 76%,
-      rgba(255, 255, 255, 0) 100%
-    );
+  background: #ffffff;
 }
 .entry-shell[data-entry-view='home'] .entry-main__topbar::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 92px;
-  z-index: -2;
-  pointer-events: none;
-  background:
-    radial-gradient(
-      circle at 16% 0%,
-      color-mix(in srgb, var(--accent-tint) 34%, transparent),
-      transparent 48%
-    ),
-    radial-gradient(
-      circle at 84% 4%,
-      color-mix(in srgb, var(--bg-subtle) 42%, transparent),
-      transparent 42%
-    ),
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--accent-tint) 34%, rgba(255, 255, 255, 0.92)) 0%,
-      rgba(255, 255, 255, 0.56) 58%,
-      rgba(255, 255, 255, 0) 100%
-    );
+  display: none;
 }
 .entry-settings-menu {
   position: relative;

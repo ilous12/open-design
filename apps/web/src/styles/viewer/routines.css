@@ -859,7 +859,7 @@
 }
 .workspace-shell .workspace-tabs-chrome.app-chrome-header {
   --workspace-tabs-chrome-height: 34px;
-  --workspace-tab-bar-bg: color-mix(in srgb, var(--bg-panel) 82%, var(--bg-subtle));
+  --workspace-tab-bar-bg: #ffffff;
   --workspace-active-tab-border: color-mix(in srgb, var(--border-strong) 38%, transparent);
   height: 34px;
   min-height: 34px;
