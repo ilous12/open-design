@@ -49,7 +49,12 @@ async function writeRootWebPackage(resourcesRoot: string): Promise<void> {
 
 async function writeStandaloneFixture(
   workspaceRoot: string,
-  options: { includeHoistedNext: boolean; includeWebNext: boolean; useAbsolutePnpmSymlinks?: boolean },
+  options: {
+    includeHoistedNext: boolean;
+    includeWebNext: boolean;
+    omitReferencedStatic?: boolean;
+    useAbsolutePnpmSymlinks?: boolean;
+  },
 ): Promise<string> {
   const standaloneRoot = join(workspaceRoot, "apps", "web", ".next", "standalone");
   const sourceWebRoot = join(standaloneRoot, "apps", "web");
@@ -77,11 +82,24 @@ async function writeStandaloneFixture(
   }
 
   await mkdir(join(sourceWebRoot, ".next", "static"), { recursive: true });
+  await mkdir(join(sourceWebRoot, ".next", "server", "app"), { recursive: true });
   await writeFile(join(sourceWebRoot, "server.js"), "module.exports = {};\n", "utf8");
   await writeFile(join(sourceWebRoot, ".next", "BUILD_ID"), "fixture\n", "utf8");
+  await writeFile(
+    join(sourceWebRoot, ".next", "build-manifest.json"),
+    `${JSON.stringify({ rootMainFiles: ["static/chunks/client.js"] }, null, 2)}\n`,
+    "utf8",
+  );
+  await writeFile(
+    join(sourceWebRoot, ".next", "server", "app", "index.html"),
+    '<script src="/_next/static/chunks/client.js"></script>\n',
+    "utf8",
+  );
 
-  await mkdir(join(workspaceRoot, "apps", "web", ".next", "static"), { recursive: true });
-  await writeFile(join(workspaceRoot, "apps", "web", ".next", "static", "client.js"), "client();\n", "utf8");
+  await mkdir(join(workspaceRoot, "apps", "web", ".next", "static", "chunks"), { recursive: true });
+  if (options.omitReferencedStatic !== true) {
+    await writeFile(join(workspaceRoot, "apps", "web", ".next", "static", "chunks", "client.js"), "client();\n", "utf8");
+  }
 
   return standaloneRoot;
 }
@@ -94,6 +112,7 @@ async function runFixture(options: {
   omitRootWebPackage?: boolean;
   platformName?: "darwin" | "win32";
   requireRootWebPackageAudit?: boolean;
+  omitReferencedStatic?: boolean;
   useAbsolutePnpmSymlinks?: boolean;
   writeMacCodeBundleFixture?: boolean;
 }): Promise<{
@@ -107,6 +126,7 @@ async function runFixture(options: {
   const standaloneSourceRoot = await writeStandaloneFixture(workspaceRoot, {
     includeHoistedNext: options.includeHoistedNext ?? true,
     includeWebNext: options.includeWebNext,
+    omitReferencedStatic: options.omitReferencedStatic,
     useAbsolutePnpmSymlinks: options.useAbsolutePnpmSymlinks,
   });
   const platformName = options.platformName ?? "win32";
@@ -198,7 +218,11 @@ describe("web standalone afterPack hook", () => {
       expect(await pathExists(join(fixture.destinationRoot, "apps", "web", "node_modules", "next", "package.json"))).toBe(true);
 
       const report = JSON.parse(await readFile(fixture.auditReportPath, "utf8")) as {
-        copiedAudit: { resolvedModules: Record<string, string>; brokenSymlinks: string[] };
+        copiedAudit: {
+          brokenSymlinks: string[];
+          resolvedModules: Record<string, string>;
+          staticReferences: { checkedReferences: number; missingReferences: string[] };
+        };
         copiedNextDedupe: { removedPaths: Array<{ reason: string }>; retainedPath: string };
         copiedNextDedupeAudit: { resolvedNextPackagePath: string; remainingPaths: string[] };
       };
@@ -219,9 +243,19 @@ describe("web standalone afterPack hook", () => {
       expect(report.copiedAudit.resolvedModules["next/package.json"].split(path.sep).join("/")).toMatch(
         /nn.design-web-standalone\/apps\/web\/node_modules\/next\/package\.json$/,
       );
+      expect(report.copiedAudit.staticReferences).toEqual({
+        checkedReferences: 1,
+        missingReferences: [],
+      });
     } finally {
       await rm(fixture.root, { force: true, recursive: true });
     }
+  });
+
+  it("fails when copied standalone HTML references a missing static chunk", async () => {
+    await expect(runFixture({ includeWebNext: true, omitReferencedStatic: true })).rejects.toThrow(
+      /copied standalone static references missing: static\/chunks\/client\.js/,
+    );
   });
 
   it("fails the win32 Next dedupe when no copied Next package exists", async () => {

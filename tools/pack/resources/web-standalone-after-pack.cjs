@@ -666,6 +666,108 @@ async function assertResolvedInside(root, moduleName, resolvedPath) {
   }
 }
 
+function collectStringValues(value, out) {
+  if (typeof value === "string") {
+    out.push(value);
+    return;
+  }
+  if (Array.isArray(value)) {
+    for (const item of value) collectStringValues(item, out);
+    return;
+  }
+  if (isRecord(value)) {
+    for (const item of Object.values(value)) collectStringValues(item, out);
+  }
+}
+
+function normalizeNextStaticReference(value) {
+  const withoutQuery = value.split(/[?#]/, 1)[0].replace(/\\+$/, "");
+  if (withoutQuery.startsWith("/_next/static/")) {
+    return `static/${withoutQuery.slice("/_next/static/".length)}`;
+  }
+  if (withoutQuery.startsWith("_next/static/")) {
+    return `static/${withoutQuery.slice("_next/static/".length)}`;
+  }
+  if (withoutQuery.startsWith("static/")) return withoutQuery;
+  return null;
+}
+
+async function collectFilesByExtension(root, extension) {
+  const out = [];
+  const stack = [root];
+  while (stack.length > 0) {
+    const current = stack.pop();
+    let entries;
+    try {
+      entries = await readdir(current, { withFileTypes: true });
+    } catch {
+      continue;
+    }
+    for (const entry of entries) {
+      const entryPath = path.join(current, entry.name);
+      if (entry.isDirectory()) {
+        stack.push(entryPath);
+      } else if (entry.isFile() && entry.name.endsWith(extension)) {
+        out.push(entryPath);
+      }
+    }
+  }
+  return out;
+}
+
+async function collectManifestStaticReferences(nextRoot) {
+  const refs = new Set();
+  for (const manifestName of ["build-manifest.json", "app-build-manifest.json"]) {
+    const manifestPath = path.join(nextRoot, manifestName);
+    if (!(await pathExists(manifestPath))) continue;
+    const raw = JSON.parse(await readFile(manifestPath, "utf8"));
+    const values = [];
+    collectStringValues(raw, values);
+    for (const value of values) {
+      const normalized = normalizeNextStaticReference(value);
+      if (normalized != null) refs.add(normalized);
+    }
+  }
+  return refs;
+}
+
+async function collectHtmlStaticReferences(nextRoot) {
+  const refs = new Set();
+  const htmlFiles = await collectFilesByExtension(path.join(nextRoot, "server"), ".html");
+  const staticPattern = /\/_next\/static\/([^"'<>\\\s]+)/g;
+  for (const htmlFile of htmlFiles) {
+    const html = await readFile(htmlFile, "utf8");
+    for (const match of html.matchAll(staticPattern)) {
+      const normalized = normalizeNextStaticReference(`/_next/static/${match[1]}`);
+      if (normalized != null) refs.add(normalized);
+    }
+  }
+  return refs;
+}
+
+async function auditCopiedStaticReferences(destinationWebRoot) {
+  const nextRoot = path.join(destinationWebRoot, ".next");
+  const refs = new Set([
+    ...(await collectManifestStaticReferences(nextRoot)),
+    ...(await collectHtmlStaticReferences(nextRoot)),
+  ]);
+  const missing = [];
+  for (const ref of refs) {
+    const target = path.join(nextRoot, ref);
+    if (!isWithin(nextRoot, target) || !(await pathExists(target))) missing.push(ref);
+  }
+  if (missing.length > 0) {
+    throw new Error(
+      `[tools-pack web-standalone] copied standalone static references missing: ${missing.slice(0, 20).join(", ")}` +
+      (missing.length > 20 ? `, ... (${missing.length} total)` : ""),
+    );
+  }
+  return {
+    checkedReferences: refs.size,
+    missingReferences: missing,
+  };
+}
+
 async function auditCopiedStandalone(config, installResult, platformName) {
   const serverPath = path.join(installResult.destinationWebRoot, "server.js");
   const staticRoot = path.join(installResult.destinationWebRoot, ".next", "static");
@@ -710,6 +812,7 @@ async function auditCopiedStandalone(config, installResult, platformName) {
     nodeModulesBytes: await sizePathBytes(nodeModulesRoot),
     resolvedModules,
     serverPath,
+    staticReferences: await auditCopiedStaticReferences(installResult.destinationWebRoot),
     symlinks: closureStats.symlinks,
     webNextBytes: await sizePathBytes(path.join(webNodeModulesRoot, "next")),
     webNodeModulesBytes: await sizePathBytes(webNodeModulesRoot),
