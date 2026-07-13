@@ -22,6 +22,8 @@ passwords. If a secret was committed or shared, rotate it before release.
 
 By default, the script:
 
+- bumps the synchronized workspace package versions by patch only, for example
+  `0.12.1` to `0.12.2`;
 - builds the current Mac architecture with `tools-pack mac build --to all`;
 - signs and notarizes when `SIGN_MODE=notarize`;
 - bakes `OD_UPDATE_METADATA_URL` as
@@ -34,6 +36,19 @@ To export directly to a separate public repo checkout:
 
 ```sh
 RELEASE_PUBLIC_DIR=/path/to/public-release-repo ./build_mac.sh
+```
+
+Major and minor versions are manual decisions. To publish an exact version, pass
+`RELEASE_VERSION` and the script will not auto-bump:
+
+```sh
+RELEASE_VERSION=0.13.0 ./build_mac.sh
+```
+
+To build with the current package version without changing manifests:
+
+```sh
+AUTO_BUMP_PATCH=false ./build_mac.sh
 ```
 
 If `gh` is authenticated and `RELEASE_PUBLIC_ORIGIN` is not set, the script

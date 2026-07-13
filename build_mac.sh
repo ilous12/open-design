@@ -107,7 +107,18 @@ infer_github_release_defaults() {
 }
 
 RELEASE_CHANNEL="${RELEASE_CHANNEL:-stable}"
-RELEASE_VERSION="${RELEASE_VERSION:-$(node -p "require('./package.json').version")}"
+AUTO_BUMP_PATCH="${AUTO_BUMP_PATCH:-true}"
+
+case "$AUTO_BUMP_PATCH" in
+  true | false) ;;
+  *) echo "AUTO_BUMP_PATCH must be one of: true, false" >&2; exit 1 ;;
+esac
+
+if [ -z "${RELEASE_VERSION:-}" ] && [ "$AUTO_BUMP_PATCH" = "true" ]; then
+  RELEASE_VERSION="$(node ./scripts/bump-release-patch.mjs)"
+elif [ -z "${RELEASE_VERSION:-}" ]; then
+  RELEASE_VERSION="$(node -p "require('./package.json').version")"
+fi
 RELEASE_TARGET="${RELEASE_TARGET:-$(default_target)}"
 RELEASE_NAMESPACE="${RELEASE_NAMESPACE:-$(default_namespace)}"
 TOOLS_PACK_DIR="${TOOLS_PACK_DIR:-$ROOT_DIR/.tmp/tools-pack}"
