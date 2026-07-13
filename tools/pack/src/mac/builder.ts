@@ -112,7 +112,7 @@ export async function runElectronBuilder(
       title: identity.installerTitle,
       window: {
         width: 540,
-        height: 380,
+        height: 430,
       },
     },
     electronVersion: config.electronVersion,
