@@ -847,7 +847,7 @@ cat > "$RELEASE_PUBLIC_DIR/index.html" <<EOF
         <div class="nav-inner">
           <a class="brand" href="#">
             <span class="mark"><img class="brand-logo" src="./air.svg" alt="" /></span>
-            <span>design for air</span>
+            <span>design</span>
           </a>
           <div class="nav-links">
           <a href="#features">컨셉</a>
