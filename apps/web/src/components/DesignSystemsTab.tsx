@@ -63,12 +63,6 @@ const CATEGORY_ORDER = [
 type SurfaceFilter = 'all' | Surface;
 type DesignSystemCollection = 'mine' | 'official' | 'enterprise';
 type DesignSystemActionKind = 'edit' | 'publish' | 'default' | 'delete';
-type DesignSystemScopeTab = {
-  value: DesignSystemCollection;
-  label: string;
-  count?: number;
-  comingSoon?: boolean;
-};
 
 const SURFACE_PILLS: { value: SurfaceFilter; labelKey: 'examples.modeAll' | 'ds.surfaceWeb' | 'ds.surfaceImage' | 'ds.surfaceVideo' | 'ds.surfaceAudio' }[] = [
   { value: 'all', labelKey: 'examples.modeAll' },
@@ -163,7 +157,7 @@ export function DesignSystemsTab({
       : t('common.loading');
     notifyAction('loading', message);
   };
-  const [designSystemCollection, setDesignSystemCollection] = useState<DesignSystemCollection>('mine');
+  const designSystemCollection: DesignSystemCollection = 'official';
   const [surfaceFilter, setSurfaceFilter] = useState<SurfaceFilter>('all');
   const [category, setCategory] = useState<string>('All');
   // The master-detail selection — which row renders in the right preview pane.
@@ -255,11 +249,7 @@ export function DesignSystemsTab({
   );
 
   // The list backing the active scope. Design-system scopes carry summaries;
-  const activeSystems = useMemo<DesignSystemSummary[]>(() => {
-    if (designSystemCollection === 'mine') return userSearched;
-    if (designSystemCollection === 'official') return filtered;
-    return [];
-  }, [designSystemCollection, userSearched, filtered]);
+  const activeSystems = useMemo<DesignSystemSummary[]>(() => filtered, [filtered]);
 
   const activeIds = useMemo(() => {
     return activeSystems.map((s) => s.id);
@@ -279,12 +269,10 @@ export function DesignSystemsTab({
   // Apply a pending focus once the requested system is present in the catalog.
   // Runs again whenever `systems` changes, so a focus that arrived before the
   // freshly-finalized brand design system loaded still lands after the refresh.
-  // Brand systems are user systems, so make sure the "mine" scope is active.
   useEffect(() => {
     if (!pendingFocus) return;
     const sys = systems.find((s) => s.id === pendingFocus);
     if (!sys) return; // not in the loaded list yet — wait for the next refresh
-    if (isUserSystem(sys)) setDesignSystemCollection('mine');
     setPreviewId(pendingFocus);
     setPendingFocus(null);
   }, [pendingFocus, systems]);
@@ -495,13 +483,6 @@ export function DesignSystemsTab({
     trackCardClick(system);
   }
 
-  const scopeTabs: DesignSystemScopeTab[] = [
-    { value: 'mine' as const, label: t('dsManager.yourSystems'), count: userSearched.length },
-    { value: 'official' as const, label: t('dsManager.officialPresets'), count: queryScoped.length },
-  ];
-
-  const showPresetFilters = designSystemCollection === 'official';
-
   if (loading) {
     return (
       <div
@@ -611,87 +592,6 @@ export function DesignSystemsTab({
             onChange={(e) => setFilter(e.target.value)}
           />
         </div>
-
-        <div
-          className={styles.scopes}
-          role="tablist"
-          aria-label={t('dsManager.sourceAria')}
-        >
-          {scopeTabs.map((tab) => (
-            <button
-              key={tab.value}
-              type="button"
-              role="tab"
-              aria-selected={designSystemCollection === tab.value}
-              className={`${styles.scopeChip} ${designSystemCollection === tab.value ? styles.scopeChipActive : ''}`}
-              onClick={() => setDesignSystemCollection(tab.value)}
-            >
-              <span>{tab.label}</span>
-              {'count' in tab ? (
-                <span className={styles.scopeCount} aria-hidden>{tab.count}</span>
-              ) : null}
-              {tab.comingSoon ? (
-                <span className={styles.scopeComingSoon} aria-hidden>{t('dsManager.comingSoonBadge')}</span>
-              ) : null}
-            </button>
-          ))}
-        </div>
-
-        {showPresetFilters ? (
-          <div className={styles.presetFilters}>
-            <div className={styles.surfaceRow} role="tablist" aria-label={t('ds.surfaceLabel')}>
-              {/* Hide chips with no items in the active style/search filter, but
-                  always keep "all" and the currently selected surface — otherwise a
-                  transient search could remove the active chip and leave the list
-                  filtered with no chip showing aria-selected. */}
-              {SURFACE_PILLS.filter(
-                (p) => p.value === surfaceFilter || p.value === 'all' || surfaceCounts[p.value] > 0,
-              ).map((p) => (
-                <button
-                  key={p.value}
-                  type="button"
-                  role="tab"
-                  aria-selected={surfaceFilter === p.value}
-                  data-testid={`design-systems-surface-${p.value}`}
-                  className={`${styles.surfacePill} ${surfaceFilter === p.value ? styles.surfacePillActive : ''}`}
-                  onClick={() => {
-                    trackDesignSystemsTopClick(analytics.track, {
-                      page_name: 'design_systems',
-                      area: 'design_systems',
-                      element: 'filter_chip',
-                      filter_name: p.value,
-                    });
-                    setSurfaceFilter(p.value);
-                  }}
-                >
-                  {t(p.labelKey)}
-                  <span className={`filter-pill-count ${styles.surfaceCount}`}>{surfaceCounts[p.value]}</span>
-                </button>
-              ))}
-            </div>
-            <select
-              data-testid="design-systems-category-select"
-              className={styles.categorySelect}
-              value={category}
-              onFocus={() => {
-                if (categoryTrackedRef.current) return;
-                categoryTrackedRef.current = true;
-                trackDesignSystemsTopClick(analytics.track, {
-                  page_name: 'design_systems',
-                  area: 'design_systems',
-                  element: 'search_dropdown',
-                });
-              }}
-              onChange={(e) => setCategory(e.target.value)}
-            >
-              {categories.map((c) => (
-                <option key={c} value={c}>
-                  {renderCategory(c)}
-                </option>
-              ))}
-            </select>
-          </div>
-        ) : null}
 
         <div className={styles.list} data-testid="design-systems-list">
           {renderSidebarList()}

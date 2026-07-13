@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "brandId": "skt-t",
+  "source": {
+    "componentsHtml": "components.html",
+    "tokensCss": "tokens.css"
+  },
+  "fixture": {
+    "title": "SKT-T - reference components",
+    "description": "Reference fixture for SKT-T: telecom-purple actions, account-center layout, mist-gray surfaces, and customer-center-first quick actions.",
+    "styleBlockCount": 1,
+    "selectorCount": 58,
+    "classCount": 32,
+    "elementCount": 26
+  },
+  "tokens": {
+    "declared": [
+      "--bg",
+      "--surface",
+      "--surface-alt",
+      "--surface-hover",
+      "--fg",
+      "--fg-muted",
+      "--border",
+      "--accent",
+      "--accent-hover",
+      "--font-body",
+      "--font-display",
+      "--radius-card"
+    ],
+    "referenced": [
+      "--bg",
+      "--surface",
+      "--surface-alt",
+      "--fg",
+      "--fg-muted",
+      "--border",
+      "--accent",
+      "--accent-hover",
+      "--font-body",
+      "--radius-card"
+    ],
+    "unusedDeclared": [],
+    "undeclaredReferenced": []
+  }
+}

@@ -183,15 +183,6 @@ function validateTelemetry(raw: unknown): TelemetryPrefs | undefined {
 }
 
 const AGENT_CLI_ENV_KEYS: ReadonlyMap<string, ReadonlySet<string>> = new Map([
-  ['amr', new Set([
-    'VELA_BIN',
-    'VELA_API_URL',
-    'VELA_LINK_URL',
-    'VELA_RUNTIME_KEY',
-    'VELA_OPENCODE_BIN',
-    'OPEN_DESIGN_AMR_PROFILE',
-    'OPENCODE_TEST_HOME',
-  ])],
   ['aider', new Set(['AIDER_BIN'])],
   ['claude', new Set(['CLAUDE_CONFIG_DIR', 'CLAUDE_BIN', 'ANTHROPIC_BASE_URL', 'ANTHROPIC_API_KEY', 'ANTHROPIC_AUTH_TOKEN', 'MMD_MODEL_ROUTES_FILE'])],
   ['codex', new Set(['CODEX_HOME', 'CODEX_BIN', 'OPENAI_BASE_URL', 'CODEX_API_KEY', 'OPENAI_API_KEY'])],
@@ -204,7 +195,6 @@ const AGENT_CLI_ENV_KEYS: ReadonlyMap<string, ReadonlySet<string>> = new Map([
   ['kimi', new Set(['KIMI_BIN'])],
   ['kiro', new Set(['KIRO_BIN'])],
   ['kilo', new Set(['KILO_BIN'])],
-  ['opencode', new Set(['OPENCODE_BIN'])],
   ['pi', new Set(['PI_BIN'])],
   ['qoder', new Set(['QODER_BIN'])],
   ['qwen', new Set(['QWEN_BIN'])],

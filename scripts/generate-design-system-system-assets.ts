@@ -367,13 +367,15 @@ async function generateForDir(systemDir: string): Promise<boolean> {
 }
 
 async function main(): Promise<void> {
+  const requestedIds = new Set(process.argv.slice(2).map((value) => path.basename(value)));
   const entries = await readdir(designSystemsRoot, { withFileTypes: true });
   let count = 0;
   for (const entry of entries) {
     if (!entry.isDirectory() || entry.name === "_schema") continue;
+    if (requestedIds.size > 0 && !requestedIds.has(entry.name)) continue;
     if (await generateForDir(path.join(designSystemsRoot, entry.name))) count++;
   }
-  console.log(`Generated system assets for ${count} design systems.`);
+  console.log(`Generated system assets for ${count} design system${count === 1 ? "" : "s"}.`);
 }
 
 await main();

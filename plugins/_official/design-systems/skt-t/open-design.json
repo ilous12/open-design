@@ -1,0 +1,82 @@
+{
+  "$schema": "https://open-design.ai/schemas/plugin.v1.json",
+  "specVersion": "1.0.0",
+  "name": "design-system-skt-t",
+  "title": "SKT-T",
+  "title_i18n": {
+    "en": "SKT-T",
+    "ko": "SKT-T"
+  },
+  "version": "0.1.0",
+  "description": "Korean telecom service-portal design system with trusted purple actions, compact account-center UI, billing-and-usage clarity, and customer-support-first navigation derived from T world.",
+  "description_i18n": {
+    "en": "Korean telecom service-portal design system with trusted purple actions, compact account-center UI, billing-and-usage clarity, and customer-support-first navigation derived from T world.",
+    "ko": "Korean telecom service-portal design system with trusted purple actions, compact account-center UI, billing-and-usage clarity, and customer-support-first navigation derived from T world."
+  },
+  "license": "MIT",
+  "tags": [
+    "design-system",
+    "first-party",
+    "design",
+    "telecom",
+    "portal",
+    "tworld"
+  ],
+  "od": {
+    "kind": "scenario",
+    "taskKind": "new-generation",
+    "mode": "design-system",
+    "scenario": "design",
+    "surface": "web",
+    "useCase": {
+      "query": {
+        "en": "Generate a {{artifactKind}} using the SKT-T design system. Keep telecom-purple emphasis, account-center information hierarchy, compact service cards, clear billing and usage language, and the customer-support-first portal patterns documented in DESIGN.md.",
+        "ko": "Generate a {{artifactKind}} using the SKT-T design system. Keep telecom-purple emphasis, account-center information hierarchy, compact service cards, clear billing and usage language, and the customer-support-first portal patterns documented in DESIGN.md."
+      }
+    },
+    "inputs": [
+      {
+        "name": "artifactKind",
+        "label": "Artifact kind",
+        "type": "select",
+        "options": [
+          "service portal",
+          "dashboard",
+          "support page",
+          "account screen"
+        ],
+        "default": "service portal"
+      },
+      {
+        "name": "brief",
+        "label": "Brief",
+        "type": "text",
+        "placeholder": "What T world-like service experience should this communicate?"
+      }
+    ],
+    "context": {
+      "designSystem": {
+        "ref": "skt-t",
+        "primary": true
+      },
+      "assets": [
+        "./DESIGN.md"
+      ]
+    },
+    "pipeline": {
+      "stages": [
+        {
+          "id": "generate",
+          "atoms": [
+            "file-write",
+            "live-artifact"
+          ]
+        }
+      ]
+    },
+    "capabilities": [
+      "prompt:inject",
+      "fs:write"
+    ]
+  }
+}

@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SKT-T - reference components</title>
+    <meta name="description" content="Reference fixture for SKT-T service-portal UI." />
+    <link rel="stylesheet" href="./tokens.css" />
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--surface-alt); color: var(--fg); font-family: var(--font-body); line-height: var(--leading-body); }
+      .shell { min-height: 100vh; }
+      .topbar, .nav { background: var(--surface); border-bottom: 1px solid var(--border-soft); }
+      .row { max-width: var(--container-max); margin: 0 auto; padding: 0 24px; display: flex; align-items: center; }
+      .topbar .row { height: var(--header-top); justify-content: space-between; }
+      .nav .row { height: var(--header-nav); }
+      .logo { display: flex; align-items: center; gap: 12px; font-weight: 800; color: var(--accent); font-size: 28px; letter-spacing: var(--tracking-tight); }
+      .logo img { height: 32px; width: auto; }
+      .family { display: flex; gap: 18px; font-size: 14px; color: var(--fg-muted); }
+      .family span:first-child { color: var(--accent); font-weight: 700; }
+      .menu { display: flex; gap: 28px; font-size: 18px; font-weight: 700; }
+      .menu .active { color: var(--accent); }
+      .util { margin-left: auto; display: flex; gap: 12px; color: var(--fg-muted); font-size: 14px; }
+      .page { max-width: var(--container-max); margin: 0 auto; padding: 32px 24px 56px; }
+      .hero { display: grid; grid-template-columns: 1.4fr 1fr; gap: 16px; }
+      .panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-card); box-shadow: var(--elev-1); }
+      .hero-main { padding: 32px; }
+      .eyebrow { margin: 0 0 10px; color: var(--accent); font-size: 14px; font-weight: 700; }
+      h1 { margin: 0; font-size: var(--text-3xl); line-height: var(--leading-tight); letter-spacing: var(--tracking-base); }
+      .lead { margin: 14px 0 0; max-width: 640px; color: var(--fg-muted); font-size: var(--text-base); }
+      .actions { display: flex; gap: 10px; margin-top: 24px; }
+      .btn { min-height: 46px; padding: 0 18px; border-radius: var(--radius-sm); border: 1px solid transparent; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
+      .btn-primary { background: var(--accent); color: var(--accent-on); }
+      .btn-secondary { background: var(--surface-alt-strong); color: var(--fg); border-color: var(--border); }
+      .hero-side { padding: 24px; display: grid; gap: 12px; background: linear-gradient(180deg, var(--surface-alt-strong), var(--surface)); }
+      .metric { padding: 18px; border-radius: 16px; background: var(--surface); border: 1px solid var(--border); }
+      .metric .label { font-size: 13px; color: var(--fg-muted); }
+      .metric .value { margin-top: 8px; font-size: 30px; font-weight: 800; letter-spacing: var(--tracking-tight); }
+      .metric .sub { margin-top: 6px; font-size: 13px; color: var(--fg-soft); }
+      .grid { margin-top: 20px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+      .card { padding: 20px; }
+      .card strong { display: block; font-size: 18px; line-height: 1.3; }
+      .card p { margin: 10px 0 0; font-size: 14px; color: var(--fg-muted); }
+      .badge { display: inline-flex; align-items: center; min-height: 22px; padding: 0 8px; border-radius: var(--radius-pill); background: var(--accent-soft); color: var(--accent); font-size: 12px; font-weight: 700; }
+      .section { margin-top: 24px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; }
+      .list { padding: 24px; }
+      .list h2, .support h2 { margin: 0 0 16px; font-size: 20px; }
+      .rows { display: grid; gap: 0; border-top: 1px solid var(--border-strong); }
+      .row-item { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 58px; border-bottom: 1px solid var(--border); }
+      .row-item .left { font-weight: 600; }
+      .row-item .right { color: var(--fg-muted); font-size: 14px; }
+      .support { padding: 24px; background: var(--surface-alt-strong); }
+      .quick-list { display: grid; gap: 10px; }
+      .quick { display: flex; align-items: center; justify-content: space-between; padding: 16px 18px; background: var(--surface); border-radius: 14px; border: 1px solid var(--border); font-weight: 700; }
+      @media (max-width: 980px) { .hero, .section, .grid { grid-template-columns: 1fr; } .menu { display: none; } }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div class="row">
+          <div class="logo"><img src="./assets/logo.png" alt="T world" /><span>T world</span></div>
+          <div class="family"><span>T Universe</span><span>T Roaming</span><span>T Membership</span></div>
+        </div>
+      </header>
+      <nav class="nav">
+        <div class="row">
+          <div class="menu"><span class="active">Products & Services</span><span>Benefits</span><span>My Account</span><span>Support</span></div>
+          <div class="util"><span>My Lines</span><span>Log in</span><span>Search</span></div>
+        </div>
+      </nav>
+
+      <section class="page">
+        <div class="hero">
+          <article class="panel hero-main">
+            <p class="eyebrow">Official online service center</p>
+            <h1>A telecom service portal<br />that shows billing, usage,<br />and line status first</h1>
+            <p class="lead">Handle data gifting, mobile and broadband plan changes, bill review and payment, loss reporting, number changes, roaming, and membership guidance within the same account-centered flow.</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="#">View billing</a>
+              <a class="btn btn-secondary" href="#">Go to support</a>
+            </div>
+          </article>
+          <aside class="panel hero-side">
+            <div class="metric"><div class="label">This month's bill</div><div class="value">KRW 74,200</div><div class="sub">Payment due July 25</div></div>
+            <div class="metric"><div class="label">Data usage</div><div class="value">41.2GB</div><div class="sub">18.8GB remaining</div></div>
+            <div class="metric"><div class="label">Support requests</div><div class="value">2</div><div class="sub">1 in progress · 1 resolved</div></div>
+          </aside>
+        </div>
+
+        <div class="grid">
+          <article class="panel card"><span class="badge">Quick handling</span><strong>Loss report</strong><p>Move quickly through device loss, temporary suspension, and protection-service flows.</p></article>
+          <article class="panel card"><span class="badge">MY</span><strong>Line management</strong><p>Review account details, line status, change history, and currently active services.</p></article>
+          <article class="panel card"><span class="badge">Benefits</span><strong>T Membership</strong><p>Explore partner benefits, point programs, and monthly perks.</p></article>
+          <article class="panel card"><span class="badge">Travel</span><strong>T Roaming</strong><p>Check country-specific rates, roaming passes, and roaming-center guidance.</p></article>
+        </div>
+
+        <div class="section">
+          <article class="panel list">
+            <h2>Frequently used services</h2>
+            <div class="rows">
+              <div class="row-item"><div class="left">Bill review / payment</div><div class="right">KRW 74,200 this month</div></div>
+              <div class="row-item"><div class="left">Plan / add-on change</div><div class="right">Current: 5G Premium</div></div>
+              <div class="row-item"><div class="left">Gift data</div><div class="right">Send instantly</div></div>
+              <div class="row-item"><div class="left">Number change / reissue</div><div class="right">Available now</div></div>
+            </div>
+          </article>
+          <aside class="panel support">
+            <h2>Customer support</h2>
+            <div class="quick-list">
+              <div class="quick"><span>FAQ</span><span>Most searched questions</span></div>
+              <div class="quick"><span>Store finder</span><span>Nearby branch locations</span></div>
+              <div class="quick"><span>Roaming center</span><span>Airport and regional help</span></div>
+              <div class="quick"><span>Service guide</span><span>Maintenance and notices</span></div>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

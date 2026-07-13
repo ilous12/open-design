@@ -206,7 +206,7 @@ export const zhTW: Dict = {
   "settings.onboardingAmrCloudOfficialBadge": "官方",
   "settings.onboardingLocalTitle": "本地 Coding Agent",
   "settings.onboardingLocalBody":
-    "使用已安裝的 CLI，如 Claude Code、Codex、Cursor、Gemini 或 OpenCode。",
+    "使用已安裝的 CLI，如 Claude Code CLI、Codex CLI 或 Antigravity CLI。",
   "settings.onboardingLocalAction": "開啟 CLI 設定",
   "settings.onboardingCliScanHint": "通常 5 到 10 秒內完成掃描。",
   "settings.onboardingByokTitle": "自己的模型 Key",

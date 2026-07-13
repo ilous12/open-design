@@ -1,0 +1,18 @@
+{
+  "id": "skt-t",
+  "name": "SKT-T",
+  "tokens": {
+    "bg": "#ffffff",
+    "surface": "#ffffff",
+    "surfaceAlt": "#f5f5f7",
+    "surfaceAltStrong": "#eeeef4",
+    "surfaceHover": "#f4f3fe",
+    "fg": "#000000",
+    "fgMuted": "#666666",
+    "border": "#e5e5e5",
+    "accent": "#3617ce",
+    "accentHover": "#4130df",
+    "danger": "#ff404e",
+    "info": "#0c8be5"
+  }
+}

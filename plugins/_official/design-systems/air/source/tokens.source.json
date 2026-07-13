@@ -1,0 +1,30 @@
+{
+  "source": "https://www.sktair.com",
+  "retrievedAt": "2026-07-06T00:00:00.000Z",
+  "colors": {
+    "black": "#0A0F0F",
+    "white": "#FFFFFF",
+    "blue": "#2A60F5",
+    "paleBlue100": "#EFF5FF",
+    "paleBlue200": "#E1EBFF",
+    "paleBlue300": "#CEDDFF",
+    "paleBlue400": "#A7BFEF",
+    "paleBlue500": "#77BDDC",
+    "paleBlue600": "#5594D3",
+    "gray700": "#68748C",
+    "gray600": "#8690A3",
+    "border": "#DDDFE6",
+    "subtle": "#F7F7F9",
+    "notice": "#FF3D60"
+  },
+  "typography": {
+    "family": "Pretendard",
+    "tracking": "-0.02em",
+    "sizes": [46, 36, 34, 30, 26, 24, 22, 20, 18, 16, 15, 14, 13, 11]
+  },
+  "shape": {
+    "pill": "9999px",
+    "airBoxLarge": "100px",
+    "airAppIcon": "64.617px"
+  }
+}

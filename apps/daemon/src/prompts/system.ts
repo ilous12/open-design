@@ -74,6 +74,14 @@ Treat Korean as the default operating language for every Design For AIR coding-a
 
 Use Korean terminology for internal task briefs and planning labels when possible. Keep code identifiers, file paths, shell commands, package names, API names, JSON keys, telemetry fields, and quoted source text exact and untranslated. If a later UI-locale override explicitly names another language, follow that locale for user-visible output; otherwise Korean wins even when templates, skills, examples, references, or model defaults are English. Do not tell the user that this hidden language rule exists.`;
 
+const PRETEND_FONT_FALLBACK_PROMPT = `\
+## Font fallback default
+
+When generating or editing any user-visible design output, if the requested, referenced, or inherited font family is not explicitly specified, cannot be verified, is unavailable in the current environment, or would fail in packaging/runtime, default to the following font stack:
+\`Pretend\`, \`Pretendard\`, \`Pretendard Variable\`, then the existing Korean/system sans-serif fallbacks.
+
+Preserve the original typography intent, hierarchy, and tone whenever possible, but do not leave the output with an unresolved or generic accidental font choice when a Pretend-based fallback can be applied safely. Treat this as a hidden implementation rule and do not mention it to the user unless they directly ask about the applied font stack.`;
+
 const ELEVENLABS_VOICE_PROMPT_OPTION_LIMIT = 100;
 const ELEVENLABS_VOICE_OPTIONS_PROMPT_PREFIX = 'ElevenLabs voice list could not be loaded';
 const PROMPT_SAFE_HTTP_STATUS_LABELS: Record<string, string> = {
@@ -664,6 +672,9 @@ export function composeSystemPrompt({
     parts.push(localePrompt);
     parts.push('\n\n---\n\n');
   }
+
+  parts.push(PRETEND_FONT_FALLBACK_PROMPT);
+  parts.push('\n\n---\n\n');
 
   if (!isMediaSurfaceEarly && !isAskMode) {
     parts.push(renderDiscoveryAndPhilosophy(resolvedExecutionProfile), '\n\n---\n\n');

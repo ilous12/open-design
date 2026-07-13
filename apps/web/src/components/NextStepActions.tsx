@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import type { ChatSessionMode } from '@nn-design/contracts';
 import { useI18n } from '../i18n';
-import { buildLocaleHiddenPrompt } from '../i18n/promptLanguage';
+import { buildDefaultHiddenPrompt } from '../i18n/promptLanguage';
 import type { Dict } from '../i18n/types';
 import { useAnalytics } from '../analytics/provider';
 import { trackNextStepActionClick } from '../analytics/events';
@@ -374,7 +374,7 @@ export function NextStepActions({
     (action: PromptNextStepAction) => {
       track('toolbox_action', action.id);
       onPromptAction?.(promptActionPrompt(action, locale), {
-        hiddenPrompt: buildLocaleHiddenPrompt(locale),
+        hiddenPrompt: buildDefaultHiddenPrompt(locale),
       });
       closeAll();
     },
@@ -404,7 +404,7 @@ export function NextStepActions({
         prompt,
         {
           sessionMode: action.sessionMode,
-          hiddenPrompt: buildLocaleHiddenPrompt(locale),
+          hiddenPrompt: buildDefaultHiddenPrompt(locale),
         },
       );
       closeAll();

@@ -7,39 +7,362 @@
   },
   "fixture": {
     "title": "AIR - reference components",
-    "description": "Reference fixture for AIR: white service canvas, AIR Blue actions, Pretend typography, and pale-blue soft capsule surfaces.",
+    "description": "Reference fixture for AIR service UI.",
     "styleBlockCount": 1,
-    "selectorCount": 44,
-    "classCount": 24,
-    "elementCount": 18
+    "selectorCount": 26,
+    "classCount": 16,
+    "elementCount": 19
   },
   "tokens": {
     "declared": [
+      "--accent",
+      "--accent-active",
+      "--accent-hover",
+      "--accent-on",
       "--bg",
-      "--surface",
-      "--surface-warm",
+      "--border",
+      "--border-soft",
+      "--container-gutter-desktop",
+      "--container-gutter-phone",
+      "--container-gutter-tablet",
+      "--container-max",
+      "--danger",
+      "--ease-standard",
+      "--elev-airbox",
+      "--elev-flat",
+      "--elev-raised",
+      "--elev-ring",
       "--fg",
       "--fg-2",
-      "--muted",
-      "--meta",
-      "--border",
-      "--accent",
+      "--focus-ring",
       "--font-body",
       "--font-display",
-      "--radius-airbox"
-    ],
-    "referenced": [
-      "--bg",
+      "--font-mono",
+      "--leading-body",
+      "--leading-tight",
+      "--meta",
+      "--motion-base",
+      "--motion-fast",
+      "--muted",
+      "--pale-blue-100",
+      "--pale-blue-200",
+      "--pale-blue-300",
+      "--pale-blue-400",
+      "--pale-blue-500",
+      "--pale-blue-600",
+      "--radius-airbox",
+      "--radius-lg",
+      "--radius-md",
+      "--radius-pill",
+      "--radius-sm",
+      "--section-y-desktop",
+      "--section-y-phone",
+      "--section-y-tablet",
+      "--space-1",
+      "--space-12",
+      "--space-2",
+      "--space-3",
+      "--space-4",
+      "--space-5",
+      "--space-6",
+      "--space-8",
+      "--success",
       "--surface",
       "--surface-warm",
-      "--fg",
-      "--muted",
-      "--border",
-      "--accent",
-      "--font-body",
-      "--radius-airbox"
+      "--text-2xl",
+      "--text-3xl",
+      "--text-4xl",
+      "--text-base",
+      "--text-lg",
+      "--text-sm",
+      "--text-xl",
+      "--text-xs",
+      "--tracking-display",
+      "--warn"
     ],
-    "unusedDeclared": [],
+    "referenced": [
+      "--accent",
+      "--accent-on",
+      "--bg",
+      "--border",
+      "--elev-airbox",
+      "--fg",
+      "--fg-2",
+      "--focus-ring",
+      "--font-body",
+      "--muted",
+      "--radius-airbox",
+      "--radius-lg",
+      "--radius-pill",
+      "--tracking-display"
+    ],
+    "unusedDeclared": [
+      "--accent-active",
+      "--accent-hover",
+      "--border-soft",
+      "--container-gutter-desktop",
+      "--container-gutter-phone",
+      "--container-gutter-tablet",
+      "--container-max",
+      "--danger",
+      "--ease-standard",
+      "--elev-flat",
+      "--elev-raised",
+      "--elev-ring",
+      "--font-display",
+      "--font-mono",
+      "--leading-body",
+      "--leading-tight",
+      "--meta",
+      "--motion-base",
+      "--motion-fast",
+      "--pale-blue-100",
+      "--pale-blue-200",
+      "--pale-blue-300",
+      "--pale-blue-400",
+      "--pale-blue-500",
+      "--pale-blue-600",
+      "--radius-md",
+      "--radius-sm",
+      "--section-y-desktop",
+      "--section-y-phone",
+      "--section-y-tablet",
+      "--space-1",
+      "--space-12",
+      "--space-2",
+      "--space-3",
+      "--space-4",
+      "--space-5",
+      "--space-6",
+      "--space-8",
+      "--success",
+      "--surface",
+      "--surface-warm",
+      "--text-2xl",
+      "--text-3xl",
+      "--text-4xl",
+      "--text-base",
+      "--text-lg",
+      "--text-sm",
+      "--text-xl",
+      "--text-xs",
+      "--warn"
+    ],
     "undeclaredReferenced": []
+  },
+  "selectors": [
+    ".actions",
+    ".airbox",
+    ".airbox span",
+    ".btn",
+    ".btn-primary",
+    ".btn-secondary",
+    ".btn:focus-visible",
+    ".card",
+    ".card p",
+    ".card strong",
+    ".cards",
+    ".container",
+    ".eyebrow",
+    ".field",
+    ".hero",
+    ".lead",
+    ".logo",
+    ".nav",
+    ".navlinks",
+    ".page",
+    "*",
+    "body",
+    "h1",
+    "input",
+    "input:focus",
+    "label"
+  ],
+  "classes": [
+    "actions",
+    "airbox",
+    "btn",
+    "btn-primary",
+    "btn-secondary",
+    "card",
+    "cards",
+    "container",
+    "eyebrow",
+    "field",
+    "hero",
+    "lead",
+    "logo",
+    "nav",
+    "navlinks",
+    "page"
+  ],
+  "elements": [
+    "a",
+    "article",
+    "body",
+    "br",
+    "div",
+    "h1",
+    "head",
+    "html",
+    "input",
+    "label",
+    "main",
+    "meta",
+    "nav",
+    "p",
+    "section",
+    "span",
+    "strong",
+    "style",
+    "title"
+  ],
+  "groups": [
+    {
+      "id": "buttons",
+      "label": "Buttons and calls to action",
+      "present": true,
+      "selectors": [
+        ".btn",
+        ".btn-primary",
+        ".btn-secondary",
+        ".btn:focus-visible"
+      ],
+      "classes": [
+        "btn",
+        "btn-primary",
+        "btn-secondary"
+      ],
+      "elements": [],
+      "tokenReferences": [
+        "--border",
+        "--fg",
+        "--focus-ring"
+      ]
+    },
+    {
+      "id": "inputs",
+      "label": "Form fields and controls",
+      "present": true,
+      "selectors": [
+        ".field",
+        "input",
+        "input:focus",
+        "label"
+      ],
+      "classes": [
+        "field"
+      ],
+      "elements": [
+        "input",
+        "label"
+      ],
+      "tokenReferences": [
+        "--accent",
+        "--fg-2",
+        "--focus-ring"
+      ]
+    },
+    {
+      "id": "cards",
+      "label": "Cards and panels",
+      "present": true,
+      "selectors": [
+        ".card",
+        ".card p",
+        ".card strong"
+      ],
+      "classes": [
+        "card"
+      ],
+      "elements": [],
+      "tokenReferences": [
+        "--border",
+        "--muted",
+        "--radius-lg"
+      ]
+    },
+    {
+      "id": "badges",
+      "label": "Badges, chips, and status labels",
+      "present": false,
+      "selectors": [],
+      "classes": [],
+      "elements": [],
+      "tokenReferences": []
+    },
+    {
+      "id": "links",
+      "label": "Links and inline actions",
+      "present": true,
+      "selectors": [],
+      "classes": [],
+      "elements": [
+        "a"
+      ],
+      "tokenReferences": []
+    },
+    {
+      "id": "keyboard",
+      "label": "Keyboard hints",
+      "present": false,
+      "selectors": [],
+      "classes": [],
+      "elements": [],
+      "tokenReferences": []
+    },
+    {
+      "id": "icons",
+      "label": "Icon slots",
+      "present": false,
+      "selectors": [],
+      "classes": [],
+      "elements": [],
+      "tokenReferences": []
+    },
+    {
+      "id": "typography",
+      "label": "Typography scale and text utilities",
+      "present": true,
+      "selectors": [
+        ".eyebrow",
+        ".lead",
+        "h1"
+      ],
+      "classes": [
+        "eyebrow",
+        "lead"
+      ],
+      "elements": [
+        "h1",
+        "p"
+      ],
+      "tokenReferences": [
+        "--tracking-display"
+      ]
+    },
+    {
+      "id": "layout",
+      "label": "Layout primitives",
+      "present": true,
+      "selectors": [
+        ".container",
+        ".nav"
+      ],
+      "classes": [
+        "container"
+      ],
+      "elements": [
+        "main",
+        "nav",
+        "section"
+      ],
+      "tokenReferences": []
+    }
+  ],
+  "literals": {
+    "colorExpressions": 9,
+    "pixelValues": 42,
+    "hardcodedFontFamilies": 1
   }
 }

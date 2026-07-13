@@ -1,12 +1,10 @@
 import { antigravityAgentDef } from './defs/antigravity.js';
-import { amrAgentDef } from './defs/amr.js';
 import { claudeAgentDef } from './defs/claude.js';
 import { codexAgentDef } from './defs/codex.js';
 import { readLocalAgentProfileDefs as readLocalAgentProfileDefsFromFile } from './local-profiles.js';
 import type { RuntimeAgentDef } from './types.js';
 
 const BASE_AGENT_DEFS: RuntimeAgentDef[] = [
-  amrAgentDef,
   codexAgentDef,
   antigravityAgentDef,
   claudeAgentDef,

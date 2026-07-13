@@ -5,7 +5,7 @@
   "category": "Telecom & Lifestyle",
   "description": "AIR design system derived from sktair.com: white canvas, AIR Blue actions, pale-blue soft capsule surfaces, Pretend typography, and readable mobile-first service flows.",
   "source": {
-    "type": "website",
+    "type": "bundled",
     "origin": "https://www.sktair.com"
   },
   "files": {
@@ -15,20 +15,19 @@
     "tailwind": "tailwind-v4.css",
     "components": "components.html"
   },
+  "assetsDir": "assets",
   "usage": "USAGE.md",
   "componentsManifest": "components.manifest.json",
   "importMode": "normalized",
   "craft": {
     "applies": [
-      "telecom-service",
-      "mobile-app",
-      "customer-support",
-      "self-service"
+      "color",
+      "typography",
+      "accessibility-baseline"
     ],
     "suggested": [
-      "color",
-      "accessibility-baseline",
-      "mobile-first-readability"
+      "form-validation",
+      "state-coverage"
     ],
     "exemptions": []
   },
@@ -49,6 +48,11 @@
         "path": "preview/spacing.html",
         "role": "spacing",
         "title": "Spacing"
+      },
+      {
+        "path": "preview/brand-assets.html",
+        "role": "brand-assets",
+        "title": "Brand Assets"
       }
     ]
   },

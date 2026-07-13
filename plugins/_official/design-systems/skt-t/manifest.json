@@ -1,0 +1,67 @@
+{
+  "schemaVersion": "od-design-system-project/v1",
+  "id": "skt-t",
+  "name": "SKT-T",
+  "category": "Telecom & Lifestyle",
+  "description": "SKT-T design system derived from tworld.co.kr: trusted telecom-purple actions, crisp white and mist-gray utility surfaces, compact service cards, and customer-center-first information architecture.",
+  "source": {
+    "type": "website",
+    "origin": "https://www.tworld.co.kr"
+  },
+  "files": {
+    "design": "DESIGN.md",
+    "tokens": "tokens.css",
+    "designTokens": "design-tokens.json",
+    "tailwind": "tailwind-v4.css",
+    "components": "components.html"
+  },
+  "assetsDir": "assets",
+  "usage": "USAGE.md",
+  "componentsManifest": "components.manifest.json",
+  "importMode": "normalized",
+  "craft": {
+    "applies": [
+      "telecom-portal",
+      "self-service-dashboard",
+      "billing-and-usage",
+      "customer-support",
+      "membership-and-roaming"
+    ],
+    "suggested": [
+      "high-readability",
+      "account-first-navigation",
+      "service-status-clarity"
+    ],
+    "exemptions": []
+  },
+  "preview": {
+    "dir": "preview",
+    "pages": [
+      {
+        "path": "preview/colors.html",
+        "role": "colors",
+        "title": "Colors"
+      },
+      {
+        "path": "preview/typography.html",
+        "role": "typography",
+        "title": "Typography"
+      },
+      {
+        "path": "preview/spacing.html",
+        "role": "spacing",
+        "title": "Spacing"
+      },
+      {
+        "path": "preview/brand-assets.html",
+        "role": "brand-assets",
+        "title": "Brand Assets"
+      }
+    ]
+  },
+  "sourceFiles": {
+    "evidence": "source/evidence.md",
+    "tokens": "source/tokens.source.json",
+    "report": "source/token-contract.report.json"
+  }
+}

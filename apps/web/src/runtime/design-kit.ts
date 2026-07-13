@@ -134,6 +134,33 @@ const ASSET_TILES: { kind: string; label: string; file: string }[] = [
   { kind: 'form', label: 'Form page', file: 'system/artifacts/form.html' },
 ];
 
+function staticPreviewAssets(
+  packageInfo: DesignSystemPackageInfo | undefined,
+  staticUrl: (rel: string) => string,
+): KitAsset[] {
+  const previewPages = packageInfo?.manifest?.preview?.pages ?? [];
+  const brandAssetPages = previewPages.filter((page) => {
+    const role = (page.role ?? '').trim().toLowerCase();
+    const title = (page.title ?? '').trim().toLowerCase();
+    const path = (page.path ?? '').trim().toLowerCase();
+    return role === 'brand-assets'
+      || title.includes('brand assets')
+      || /\b(logo|brand-assets|brand_assets)\b/u.test(path);
+  });
+  if (brandAssetPages.length > 0) {
+    return brandAssetPages.map((page, index) => ({
+      kind: page.role?.trim() || `brand-assets-${index + 1}`,
+      label: page.title?.trim() || 'Brand Assets',
+      url: staticUrl(page.path || 'preview/brand-assets.html'),
+    }));
+  }
+  return ASSET_TILES.map((asset) => ({
+    kind: asset.kind,
+    label: asset.label,
+    url: staticUrl(asset.file),
+  }));
+}
+
 function fontList(typography: DesignKit['typography']): KitFont[] {
   return [typography.display, typography.body, typography.mono].filter(
     (f): f is KitFont => Boolean(f),
@@ -453,6 +480,14 @@ export function parsedToKit(parsed: ParsedDesignMd, opts: ParsedKitOptions): Des
   const staticUrl = !opts.editable && opts.designSystemId && opts.packageInfo?.manifest
     ? (rel: string): string => designSystemStaticUrl(opts.designSystemId!, rel)
     : null;
+  const staticLogoSrc = staticUrl ? staticUrl('assets/logo.svg') : null;
+  const staticLogoAlternates = staticUrl
+    ? [staticUrl('assets/logo.png'), staticUrl('assets/logo.webp')]
+    : [];
+  const staticAssets = staticUrl ? staticPreviewAssets(opts.packageInfo, staticUrl) : undefined;
+  const staticLogoNotes = staticLogoSrc
+    ? `${parsed.name?.trim() || opts.title || 'Design system'} bundled logo asset`
+    : undefined;
 
   return {
     designSystemId: opts.designSystemId,
@@ -463,8 +498,9 @@ export function parsedToKit(parsed: ParsedDesignMd, opts: ParsedKitOptions): Des
     projectId: opts.projectId,
     editable: opts.editable,
     canUpload: opts.editable && Boolean(opts.projectId),
-    logoSrc: null,
-    logoAlternates: [],
+    logoSrc: staticLogoSrc,
+    logoAlternates: staticLogoAlternates,
+    logoNotes: staticLogoNotes,
     colors,
     typography,
     fonts: fontList(typography),
@@ -479,9 +515,7 @@ export function parsedToKit(parsed: ParsedDesignMd, opts: ParsedKitOptions): Des
           indexUrl: staticUrl('system/index.html'),
         }
       : undefined,
-    assets: staticUrl
-      ? ASSET_TILES.map((a) => ({ kind: a.kind, label: a.label, url: staticUrl(a.file) }))
-      : undefined,
+    assets: staticAssets,
     showcaseHtml: opts.showcaseHtml ?? null,
   };
 }

@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "format": "od-design-tokens/v1",
+  "contract": "TOKEN_SCHEMA",
+  "generatedAt": "2026-07-09T00:00:00.000Z",
+  "source": {
+    "url": "https://www.tworld.co.kr/web/home",
+    "tokensCss": "tokens.css"
+  },
+  "summary": {
+    "totalTokens": 67,
+    "declaredTokens": 67,
+    "sourceBackedTokens": 67,
+    "sourceBackedA1": 24,
+    "fallbackTokens": 0,
+    "aliasTokens": 0,
+    "score": 100,
+    "grade": "excellent",
+    "recommendRebuild": false
+  },
+  "tokens": [
+    { "name": "--bg", "value": "#ffffff", "type": "color", "layer": "A1-identity", "confidence": "high", "sources": ["tworld common.css header and content background"] },
+    { "name": "--surface-alt", "value": "#f5f5f7", "type": "color", "layer": "A1-identity", "confidence": "high", "sources": ["tworld renewal_main.css .main-content background"] },
+    { "name": "--surface-alt-strong", "value": "#eeeef4", "type": "color", "layer": "B-slot", "confidence": "high", "sources": ["tworld renewal_gnb.css top background variant and secondary panels"] },
+    { "name": "--accent", "value": "#3617ce", "type": "color", "layer": "A1-identity", "confidence": "high", "sources": ["tworld renewal_gnb.css active nav and button color"] },
+    { "name": "--accent-hover", "value": "#4130df", "type": "color", "layer": "A1-identity", "confidence": "medium", "sources": ["tworld renewal_main.css observed accent variant"] },
+    { "name": "--surface-hover", "value": "#f4f3fe", "type": "color", "layer": "B-slot", "confidence": "high", "sources": ["tworld renewal_gnb.css popular-list hover background"] },
+    { "name": "--fg", "value": "#000000", "type": "color", "layer": "A1-identity", "confidence": "high", "sources": ["tworld renewal_main.css headings and nav text"] },
+    { "name": "--fg-muted", "value": "#666666", "type": "color", "layer": "A1-identity", "confidence": "high", "sources": ["tworld renewal_main.css subtitles and secondary labels"] },
+    { "name": "--border", "value": "#e5e5e5", "type": "color", "layer": "A1-structure", "confidence": "high", "sources": ["tworld renewal_gnb.css utility dividers and borders"] },
+    { "name": "--border-strong", "value": "#d9d9d9", "type": "color", "layer": "A1-structure", "confidence": "high", "sources": ["tworld renewal_main.css section title separators"] },
+    { "name": "--font-body", "value": "Pretend, Pretendard, Pretendard Variable, Apple SD Gothic Neo, Roboto, Noto Sans KR, system-ui, sans-serif", "type": "font", "layer": "A1-identity", "confidence": "high", "sources": ["tworld common.css body font stack adapted to service default"] },
+    { "name": "--text-3xl", "value": "40px", "type": "typography", "layer": "A1-structure", "confidence": "high", "sources": ["tworld renewal_main.css .column-title__maintitle"] },
+    { "name": "--text-2xl", "value": "30px", "type": "typography", "layer": "A1-structure", "confidence": "high", "sources": ["tworld renewal_main.css .column-title"] },
+    { "name": "--text-sm", "value": "14px", "type": "typography", "layer": "A1-structure", "confidence": "high", "sources": ["tworld renewal_gnb.css utility links and labels"] },
+    { "name": "--radius-xs", "value": "2px", "type": "radius", "layer": "A1-structure", "confidence": "high", "sources": ["tworld renewal_gnb.css layered panels and badges"] },
+    { "name": "--radius-sm", "value": "5px", "type": "radius", "layer": "A1-structure", "confidence": "high", "sources": ["tworld renewal_gnb.css login button radius"] },
+    { "name": "--radius-pill", "value": "9999px", "type": "radius", "layer": "B-slot", "confidence": "medium", "sources": ["tworld renewal_gnb.css family pill links use fully rounded treatment"] },
+    { "name": "--container-max", "value": "1180px", "type": "layout", "layer": "A1-structure", "confidence": "high", "sources": ["tworld renewal_gnb.css .container width"] },
+    { "name": "--header-top", "value": "60px", "type": "layout", "layer": "A1-structure", "confidence": "high", "sources": ["tworld renewal_gnb.css main-header__top height"] },
+    { "name": "--header-nav", "value": "72px", "type": "layout", "layer": "A1-structure", "confidence": "high", "sources": ["tworld renewal_gnb.css main-header__bottom container height"] }
+  ]
+}

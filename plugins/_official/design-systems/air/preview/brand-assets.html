@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SKT-AIR Brand Assets</title>
+    <link rel="stylesheet" href="../tokens.css" />
+    <style>
+      body { margin: 0; padding: 32px; font-family: var(--font-body); color: var(--fg); background: #fff; }
+      h1 { margin: 0 0 20px; font-size: 28px; letter-spacing: var(--tracking-display); }
+      .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      .card { border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; background: linear-gradient(180deg, rgba(239,245,255,.6), #fff); }
+      .logo-box { min-height: 160px; display: grid; place-items: center; border: 1px dashed var(--border); border-radius: var(--radius-md); background: #fff; }
+      .logo-box img { width: 180px; height: auto; }
+      .pill { display: inline-flex; align-items: center; min-height: 40px; padding: 0 18px; border-radius: var(--radius-pill); background: var(--accent); color: #fff; font-weight: 700; }
+      .meta { margin-top: 12px; color: var(--muted); font-size: 14px; line-height: 1.5; }
+      @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <h1>SKT-AIR Brand Assets</h1>
+    <div class="grid">
+      <section class="card">
+        <div class="logo-box">
+          <img src="../assets/logo.svg" alt="SKT-AIR logo" />
+        </div>
+        <p class="meta">Primary SKT-AIR wordmark reused from the existing AIR service asset.</p>
+      </section>
+      <section class="card">
+        <div class="logo-box">
+          <span class="pill">Browse plans</span>
+        </div>
+        <p class="meta">Primary CTA treatment: rounded capsule, AIR Blue fill, white foreground text.</p>
+      </section>
+    </div>
+  </body>
+  </html>

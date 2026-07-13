@@ -1,4 +1,4 @@
-import { accessSync, constants, existsSync, statSync } from 'node:fs';
+import { accessSync, constants, existsSync, readFileSync, statSync } from 'node:fs';
 import { delimiter } from 'node:path';
 import path from 'node:path';
 import { homedir } from 'node:os';
@@ -14,8 +14,8 @@ const RUNTIME_PROJECT_ROOT = path.resolve(
 );
 
 const AGENT_BIN_ENV_KEYS = new Map<string, string>([
-  ['amr', 'VELA_BIN'],
   ['aider', 'AIDER_BIN'],
+  ['antigravity', 'ANTIGRAVITY_BIN'],
   ['claude', 'CLAUDE_BIN'],
   ['codebuddy', 'CODEBUDDY_BIN'],
   ['codex', 'CODEX_BIN'],
@@ -28,7 +28,6 @@ const AGENT_BIN_ENV_KEYS = new Map<string, string>([
   ['kiro', 'KIRO_BIN'],
   ['kilo', 'KILO_BIN'],
   ['mimo', 'MIMO_BIN'],
-  ['opencode', 'OPENCODE_BIN'],
   ['pi', 'PI_BIN'],
   ['qoder', 'QODER_BIN'],
   ['qwen', 'QWEN_BIN'],
@@ -182,88 +181,12 @@ function configuredExecutableOverride(
   return executableFilePath(configuredEnv?.[envKey]);
 }
 
-export function resolveAmrOpenCodeExecutable(
-  env: Record<string, string | undefined> = process.env,
-): string | null {
-  const configured = executableFilePath(env.VELA_OPENCODE_BIN);
-  if (configured) return configured;
-  // In packaged builds prefer the bundled companion under
-  // `OD_RESOURCE_ROOT/bin/libexec/opencode/opencode` so a stale global
-  // `opencode` on the user's PATH can't override the known-good build that
-  // shipped with this app. PATH is only consulted as a last resort.
-  const resourceRoot = (
-    env.OD_RESOURCE_ROOT ?? process.env.OD_RESOURCE_ROOT
-  )?.trim();
-  if (resourceRoot) {
-    const bundledDir = packagedVelaOpenCodeCompanionTree(resourceRoot);
-    if (bundledDir) {
-      const bundled = executableFilePath(
-        path.join(
-          bundledDir,
-          process.platform === 'win32' ? 'opencode.exe' : 'opencode',
-        ),
-      );
-      if (bundled) return bundled;
-    }
-  }
-  return resolveOnPath('opencode-cli') ?? resolveOnPath('opencode');
-}
-
-// `tools/pack/tests/resources.test.ts` ships the AMR OpenCode companion as a
-// `<resourceRoot>/bin/libexec/opencode/opencode` *executable file*, not just
-// the directory. Treating any directory there as a valid companion produces a
-// false-positive availability path: `detectAgents()` would surface AMR as
-// available even though the first real run can't launch (`vela` would spawn
-// a missing/non-executable inner binary). Verify the inner executable too.
-function packagedVelaOpenCodeCompanionTree(resourceRoot: string): string | null {
-  const candidate = path.join(resourceRoot, 'bin', 'libexec', 'opencode');
-  const exe = path.join(
-    candidate,
-    process.platform === 'win32' ? 'opencode.exe' : 'opencode',
-  );
-  try {
-    if (!statSync(candidate).isDirectory()) return null;
-    if (!statSync(exe).isFile()) return null;
-    if (process.platform === 'win32') {
-      if (!looksExecutableOnWindows(exe)) return null;
-    } else {
-      accessSync(exe, constants.X_OK);
-    }
-    return candidate;
-  } catch {
-    return null;
-  }
-}
-
 function packagedBuiltInExecutable(
   def: RuntimeAgentDef,
-  configuredEnv: Record<string, string> = {},
+  _configuredEnv: Record<string, string> = {},
 ): string | null {
-  if (def.id !== 'amr') return null;
-  const resourceRoot = process.env.OD_RESOURCE_ROOT?.trim();
-  if (!resourceRoot) return null;
-  if (
-    !resolveAmrOpenCodeExecutable({ ...process.env, ...configuredEnv }) &&
-    !packagedVelaOpenCodeCompanionTree(resourceRoot)
-  ) {
-    return null;
-  }
-  const candidate = path.join(
-    resourceRoot,
-    'bin',
-    process.platform === 'win32' ? 'vela.exe' : 'vela',
-  );
-  try {
-    if (!statSync(candidate).isFile()) return null;
-    if (process.platform === 'win32') {
-      if (!looksExecutableOnWindows(candidate)) return null;
-    } else {
-      accessSync(candidate, constants.X_OK);
-    }
-    return candidate;
-  } catch {
-    return null;
-  }
+  void def;
+  return null;
 }
 
 // The official OpenAI Codex desktop app (bundle id `com.openai.codex`) ships
@@ -283,6 +206,23 @@ function codexAppBundleExecutable(def: RuntimeAgentDef): string | null {
     if (resolved) return resolved;
   }
   return null;
+}
+
+function antigravityNativeExecutable(def: RuntimeAgentDef): string | null {
+  if (def?.id !== 'antigravity') return null;
+  const { home } = resolveDetectionHome();
+  return executableFilePath(path.join(home, '.local', 'bin', 'agy'));
+}
+
+function looksLikeBrokenAntigravityWrapper(filePath: string): boolean {
+  try {
+    const header = readFileSync(filePath, 'utf8').slice(0, 512);
+    const match = header.match(/exec ['"]([^'"]+\/antigravity(?:-ide)?)['"] /);
+    if (!match?.[1]) return false;
+    return executableFilePath(match[1]) === null;
+  } catch {
+    return false;
+  }
 }
 
 // Exported for tests: the no-override `/Applications` branch can't be exercised
@@ -343,11 +283,21 @@ export function inspectAgentExecutableResolution(
     }
   }
   const builtInPath = packagedBuiltInExecutable(def, configuredEnv);
+  const preferredPath =
+    def.id === 'antigravity' &&
+    pathResolvedPath &&
+    looksLikeBrokenAntigravityWrapper(pathResolvedPath)
+      ? antigravityNativeExecutable(def)
+      : null;
   const appBundlePath = codexAppBundleExecutable(def);
   return {
     configuredOverridePath,
     pathResolvedPath,
     selectedPath:
-      configuredOverridePath || builtInPath || pathResolvedPath || appBundlePath,
+      configuredOverridePath ||
+      builtInPath ||
+      preferredPath ||
+      pathResolvedPath ||
+      appBundlePath,
   };
 }

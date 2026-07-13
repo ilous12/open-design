@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AIR Design System Kit Dark</title>
+    <link rel="stylesheet" href="../tokens.css" />
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; font-family: var(--font-body); color: #f5f8ff; background: #0f1626; }
+      .shell { max-width: 1180px; margin: 0 auto; padding: 40px 28px 56px; }
+      .panel { border: 1px solid rgba(255,255,255,.08); background: rgba(255,255,255,.04); border-radius: var(--radius-lg); padding: 24px; }
+      h1 { margin: 0 0 12px; font-size: 38px; line-height: 1.15; letter-spacing: var(--tracking-display); }
+      p { margin: 0; color: rgba(245,248,255,.76); line-height: 1.6; }
+      .row { margin-top: 18px; display: flex; gap: 10px; flex-wrap: wrap; }
+      .pill { min-height: 42px; padding: 0 18px; border-radius: var(--radius-pill); background: var(--accent); color: #fff; display: inline-flex; align-items: center; font-weight: 700; }
+      .pill.alt { background: rgba(255,255,255,.08); }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="panel">
+        <h1>AIR dark preview</h1>
+        <p>The core AIR system is centered on bright service screens, but this supporting preview checks whether blue actions and rounded capsule rhythm still hold up in a dark context.</p>
+        <div class="row">
+          <span class="pill">Primary action</span>
+          <span class="pill alt">Secondary action</span>
+        </div>
+      </section>
+    </main>
+  </body>
+  </html>

@@ -257,9 +257,6 @@ case "$RELEASE_TARGET" in
       --to "$RELEASE_BUILD_TARGET"
       --json
     )
-    if [ "${REQUIRE_VELA_CLI:-false}" = "true" ]; then
-      build_args+=(--require-vela-cli)
-    fi
     if [ "$sign_mode" != "no" ]; then
       build_args+=(--signed)
     fi

@@ -2,16 +2,16 @@
   "$schema": "https://open-design.ai/schemas/plugin.v1.json",
   "specVersion": "1.0.0",
   "name": "design-system-air",
-  "title": "AIR",
+  "title": "SKT-AIR",
   "title_i18n": {
-    "en": "AIR",
-    "ko": "AIR"
+    "en": "SKT-AIR",
+    "ko": "SKT-AIR"
   },
   "version": "0.1.0",
-  "description": "SKT AIR-inspired design system with Pretend typography, AIR Blue actions, white service surfaces, and pale-blue soft capsule components.",
+  "description": "Korean-first telecom self-service design system with Pretend typography, rounded content-first cards, trust-blue actions, white and pale-blue surfaces, and SKT-AIR capsule accents.",
   "description_i18n": {
-    "en": "SKT AIR-inspired design system with Pretend typography, AIR Blue actions, white service surfaces, and pale-blue soft capsule components.",
-    "ko": "Pretend 타이포그래피, AIR Blue 액션, 흰 서비스 표면, 페일 블루 소프트 캡슐 컴포넌트를 갖춘 SKT AIR 기반 디자인 시스템입니다."
+    "en": "Korean-first telecom self-service design system with Pretend typography, rounded content-first cards, trust-blue actions, white and pale-blue surfaces, and SKT-AIR capsule accents.",
+    "ko": "Korean-first telecom self-service design system with Pretend typography, rounded content-first cards, trust-blue actions, white and pale-blue surfaces, and SKT-AIR capsule accents."
   },
   "license": "MIT",
   "tags": [
@@ -29,8 +29,8 @@
     "surface": "web",
     "useCase": {
       "query": {
-        "en": "Generate a {{artifactKind}} using the AIR design system. Keep Pretend typography, AIR Blue actions, white/pale-blue surfaces, readable Korean-first hierarchy, and the soft capsule surface language documented in DESIGN.md.",
-        "ko": "AIR 디자인 시스템으로 {{artifactKind}}를 생성하세요. Pretend 타이포그래피, AIR Blue 액션, 흰색/페일 블루 표면, 읽기 쉬운 한국어 우선 계층, DESIGN.md의 소프트 캡슐 표면 언어를 유지하세요."
+        "en": "Generate a {{artifactKind}} using the SKT-AIR design system. Keep Pretend typography, Korean-first readability, content-first rounded cards, trust-blue actions, white and pale-blue service surfaces, and the SKT-AIR capsule language documented in DESIGN.md.",
+        "ko": "Generate a {{artifactKind}} using the SKT-AIR design system. Keep Pretend typography, Korean-first readability, content-first rounded cards, trust-blue actions, white and pale-blue service surfaces, and the SKT-AIR capsule language documented in DESIGN.md."
       }
     },
     "inputs": [
@@ -50,7 +50,7 @@
         "name": "brief",
         "label": "Brief",
         "type": "text",
-        "placeholder": "What AIR service experience should this communicate?"
+        "placeholder": "What SKT-AIR service experience should this communicate?"
       }
     ],
     "context": {

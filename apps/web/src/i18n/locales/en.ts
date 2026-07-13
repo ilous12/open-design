@@ -213,7 +213,7 @@ export const en: Dict = {
   'settings.onboardingRecommended': 'Recommended',
   'settings.onboardingAmrCloudOfficialBadge': 'Official',
   'settings.onboardingLocalTitle': 'Use Local Coding Agent',
-  'settings.onboardingLocalBody': 'Use an installed CLI such as Claude Code, Codex, Cursor, Gemini, or OpenCode.',
+  'settings.onboardingLocalBody': 'Use an installed CLI such as Claude Code CLI, Codex CLI, or Antigravity CLI.',
   'settings.onboardingLocalAction': 'Open CLI settings',
   'settings.onboardingCliScanHint': 'This usually takes 5-10 seconds.',
   'settings.onboardingByokTitle': 'Use API Key',

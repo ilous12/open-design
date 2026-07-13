@@ -4,8 +4,8 @@ button {
   color: var(--text);
   background: var(--bg-panel);
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 6px 12px;
+  border-radius: var(--radius-pill); /* Pill shaped */
+  padding: 8px 16px;
   cursor: pointer;
   transition: background var(--dur-quick) var(--ease-out), border-color var(--dur-quick) var(--ease-out), color var(--dur-quick) var(--ease-out), box-shadow var(--dur-quick) var(--ease-out);
 }
@@ -98,7 +98,7 @@ button.subtle {
 }
 button.subtle:hover:not(:disabled) { background: var(--bg-muted); }
 
-button.icon-btn { padding: 6px 10px; font-size: 13px; }
+button.icon-btn { padding: 8px 14px; font-size: 14px; }
 button:disabled { opacity: 0.5; cursor: not-allowed; }
 
 .od-tooltip {
@@ -133,7 +133,7 @@ input, textarea, select {
   background: var(--bg-panel);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  padding: 7px 10px;
+  padding: 10px 14px;
   width: 100%;
   transition: border-color var(--dur-quick) var(--ease-out), box-shadow var(--dur-quick) var(--ease-out);
 }
@@ -197,12 +197,12 @@ textarea { resize: vertical; font-family: inherit; }
 .od-select-trigger {
   width: 100%;
   min-width: 0;
-  min-height: 36px;
+  min-height: 40px;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: 8px;
-  padding: 7px 10px;
+  padding: 10px 14px;
   font: inherit;
   color: var(--text);
   text-align: left;

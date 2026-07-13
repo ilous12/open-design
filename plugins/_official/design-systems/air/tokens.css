@@ -1,0 +1,75 @@
+/* design-systems/air/tokens.css
+ * AIR token bindings from sktair.com.
+ * White canvas, AIR Blue action, pale-blue soft capsule surfaces, Pretend typography.
+ */
+
+:root {
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface-warm: #eff5ff;
+  --fg: #0a0f0f;
+  --fg-2: #1e2d40;
+  --muted: #68748c;
+  --meta: #5594d3;
+  --border: #dddfe6;
+  --border-soft: #eeeff2;
+  --accent: #2a60f5;
+  --accent-on: #ffffff;
+  --accent-hover: #234fd4;
+  --accent-active: #1c43b8;
+  --success: #29cc6a;
+  --warn: #d97706;
+  --danger: #ff3d60;
+  --pale-blue-100: #eff5ff;
+  --pale-blue-200: #e1ebff;
+  --pale-blue-300: #ceddff;
+  --pale-blue-400: #a7bfef;
+  --pale-blue-500: #77bddc;
+  --pale-blue-600: #5594d3;
+  --font-display: 'Pretend', 'Pretendard', 'Pretendard Variable', 'Noto Sans KR', system-ui, sans-serif;
+  --font-body: 'Pretend', 'Pretendard', 'Pretendard Variable', 'Noto Sans KR', system-ui, sans-serif;
+  --font-mono: 'SF Mono', ui-monospace, Menlo, monospace;
+  --text-xs: 13px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 18px;
+  --text-xl: 24px;
+  --text-2xl: 30px;
+  --text-3xl: 36px;
+  --text-4xl: 46px;
+  --leading-body: 1.5;
+  --leading-tight: 1.12;
+  --tracking-display: -0.02em;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --section-y-desktop: 96px;
+  --section-y-tablet: 72px;
+  --section-y-phone: 48px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-airbox: 64px;
+  --radius-pill: 9999px;
+  --elev-flat: none;
+  --elev-ring: 0 0 0 1px var(--border);
+  --elev-raised: 0 18px 44px rgba(104, 116, 140, 0.12);
+  --elev-airbox:
+    -4px -4px 22px #92acdb inset,
+    -4px -4px 22px #ffffff inset,
+    2px 2px 9px #ffffff inset,
+    42px 42px 70px rgba(204, 216, 238, 0.6);
+  --focus-ring: 0 0 0 4px rgba(42, 96, 245, 0.18);
+  --motion-fast: 150ms;
+  --motion-base: 240ms;
+  --ease-standard: cubic-bezier(0, 0, 0.2, 1);
+  --container-max: 1090px;
+  --container-gutter-desktop: 40px;
+  --container-gutter-tablet: 24px;
+  --container-gutter-phone: 16px;
+}

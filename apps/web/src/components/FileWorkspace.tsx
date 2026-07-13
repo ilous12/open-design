@@ -103,6 +103,7 @@ import { designSystemGithubEvidenceState, repoConnectCopy } from './design-syste
 import { APP_CHROME_FILE_ACTIONS_ID } from './AppChromeHeader';
 import { FileViewer, LiveArtifactViewer } from './FileViewer';
 import { Icon, type IconName } from './Icon';
+import { getSequentialTabPastel } from './tabPastels';
 import { Toast } from './Toast';
 import { TabLauncherMenu } from './workspace/TabLauncherMenu';
 import { buildLauncherActions, type LauncherContext } from './workspace/tab-launcher';
@@ -2219,6 +2220,11 @@ export function FileWorkspace({
     () => orderWorkspaceTabs(tabNames, browserTabs),
     [browserTabs, tabNames],
   );
+  const designFilesTabPastel = getSequentialTabPastel(0);
+  const designSystemTabPastel = getSequentialTabPastel(1);
+  const questionsTabPastel = getSequentialTabPastel(designSystemProject ? 2 : 1);
+  const workspaceDynamicTabPastelOffset =
+    1 + (designSystemProject ? 1 : 0) + (showQuestionsTab ? 1 : 0);
 
   const workspaceTabIds = useMemo(() => {
     const ids: string[] = [];
@@ -2473,6 +2479,7 @@ export function FileWorkspace({
               data-testid="design-system-project-tab"
               onClick={() => setPersistedActive(DESIGN_SYSTEM_TAB)}
               title={t('dsManager.tabDesignSystem')}
+              style={{ '--ws-tab-pastel': designSystemTabPastel } as React.CSSProperties}
             >
               <span className="tab-icon" aria-hidden>
                 <Icon name="blocks" size={13} />
@@ -2489,6 +2496,7 @@ export function FileWorkspace({
             data-testid="design-files-tab"
             onClick={() => setPersistedActive(DESIGN_FILES_TAB)}
             title={t('workspace.designFiles')}
+            style={{ '--ws-tab-pastel': designFilesTabPastel } as React.CSSProperties}
           >
             <span className="tab-icon" aria-hidden>
               <Icon name="grid" size={13} />
@@ -2505,6 +2513,7 @@ export function FileWorkspace({
               data-testid="questions-tab"
               onClick={() => setActiveTab(QUESTIONS_TAB)}
               title={t('questions.tabLabel')}
+              style={{ '--ws-tab-pastel': questionsTabPastel } as React.CSSProperties}
             >
               <span className="tab-icon" aria-hidden>
                 <Icon name="help-circle" size={13} />
@@ -2512,7 +2521,7 @@ export function FileWorkspace({
               <span className="ws-tab-label">{t('questions.tabLabel')}</span>
             </button>
           ) : null}
-          {orderedWorkspaceTabs.map((entry) => {
+          {orderedWorkspaceTabs.map((entry, index) => {
             if (entry.kind === 'browser') {
               const browserTab = entry.browserTab;
               const browserUrl = browserTab.url?.trim() ?? '';
@@ -2523,6 +2532,7 @@ export function FileWorkspace({
                 <Tab
                   key={browserTab.id}
                   label={browserTitle}
+                  pastelIndex={workspaceDynamicTabPastelOffset + index}
                   title={browserUrl ? `${browserTitle}\n${browserUrl}` : browserTitle}
                   active={activeTab === browserTab.id}
                   onActivate={() => setPersistedActive(browserTab.id)}
@@ -2568,6 +2578,7 @@ export function FileWorkspace({
               <Tab
                 key={name}
                 label={label}
+                pastelIndex={workspaceDynamicTabPastelOffset + index}
                 iconNameOverride={iconNameOverride}
                 active={activeTab === name}
                 onActivate={() =>
@@ -5386,6 +5397,7 @@ function escapeDesignSystemPreviewCssUrl(value: string): string {
 
 function Tab({
   label,
+  pastelIndex,
   meta,
   title,
   active,
@@ -5405,6 +5417,7 @@ function Tab({
   onDragEnd,
 }: {
   label: string;
+  pastelIndex: number;
   meta?: string;
   title?: string;
   active: boolean;
@@ -5459,6 +5472,7 @@ function Tab({
       onDragLeave={draggable ? onDragLeave : undefined}
       onDrop={draggable ? onDrop : undefined}
       onDragEnd={draggable ? onDragEnd : undefined}
+      style={{ '--ws-tab-pastel': getSequentialTabPastel(pastelIndex) } as React.CSSProperties}
     >
       {iconName ? (
         <span className="tab-icon" aria-hidden>

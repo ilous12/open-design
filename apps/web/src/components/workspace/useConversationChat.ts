@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { streamViaDaemon } from '../../providers/daemon';
-import { buildLocaleHiddenPrompt } from '../../i18n/promptLanguage';
+import { buildDefaultHiddenPrompt } from '../../i18n/promptLanguage';
 import { listMessages, saveMessage } from '../../state/projects';
 import { appendErrorStatusEvent } from '../../runtime/chat-events';
 import { agentModelDisplayName } from '../../utils/agentLabels';
@@ -198,7 +198,7 @@ export function useConversationChat(
             ...(attachments.length > 0 ? { attachments } : {}),
             ...(commentAttachments.length > 0 ? { commentAttachments } : {}),
           };
-      const executionPrompt = composeExecutionPrompt(prompt, buildLocaleHiddenPrompt(loc));
+      const executionPrompt = composeExecutionPrompt(prompt, buildDefaultHiddenPrompt(loc));
       const executionUserMsg: ChatMessage = retryTarget
         ? { ...retryTarget.userMsg, content: executionPrompt }
         : { ...userMsg, content: executionPrompt };

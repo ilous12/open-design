@@ -24,7 +24,7 @@ import {
 } from '../artifacts/question-form';
 import { parseSubmittedAnswers } from './QuestionForm';
 import { useI18n } from '../i18n';
-import { buildLocaleHiddenPrompt, mergeHiddenPrompts } from '../i18n/promptLanguage';
+import { buildDefaultHiddenPrompt, mergeHiddenPrompts } from '../i18n/promptLanguage';
 import { streamMessage } from '../providers/anthropic';
 import {
   fetchChatRunStatus,
@@ -4435,7 +4435,7 @@ export function ProjectView({
         ? [...retryTarget.priorMessages, userMsg]
         : [...historyBase, userMsg];
       const effectiveHiddenPrompt = mergeHiddenPrompts(
-        buildLocaleHiddenPrompt(locale),
+        buildDefaultHiddenPrompt(locale),
         meta?.hiddenPrompt,
       );
       const executionUserMsg =
@@ -7867,7 +7867,7 @@ export function ProjectView({
           headerActions={(
             <button
               type="button"
-              className="entry-settings-menu__trigger od-tooltip"
+              className="chrome-action chrome-action-secondary chrome-action-icon od-tooltip"
               aria-label={t('entry.openSettingsAria')}
               title={t('entry.openSettingsTitle')}
               data-tooltip={t('entry.openSettingsTitle')}

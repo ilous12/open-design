@@ -566,7 +566,7 @@ export function ComposerPlusMenu({
         aria-haspopup="menu"
         aria-expanded={open}
       >
-        <Icon name="plus" size={16} />
+        <span role="img" aria-label="add" style={{ fontSize: '14px' }}>➕</span>
       </button>
       {open && typeof document !== 'undefined' ? createPortal(
         <div

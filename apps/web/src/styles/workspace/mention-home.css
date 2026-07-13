@@ -280,9 +280,9 @@
    =========================================================== */
 .modal-backdrop {
   position: fixed; inset: 0;
-  background: rgba(28, 27, 26, 0.42);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   -webkit-app-region: no-drag;
   display: flex;
   align-items: center;
@@ -574,7 +574,7 @@
 }
 
 .modal-settings {
-  --modal-padding: 24px;
+  --modal-padding: 32px;
   width: min(920px, calc(100vw - 48px));
   /* Fixed height regardless of which section is active — short sections
      pad out with empty space inside `.settings-content`, long sections
@@ -1161,16 +1161,17 @@
 .settings-nav-item {
   width: 100%;
   border: 1px solid transparent;
-  border-radius: var(--radius);
+  border-radius: var(--radius-md);
   background: transparent;
   color: var(--text);
   display: grid;
   grid-template-columns: 18px minmax(0, 1fr);
-  gap: 10px;
+  gap: 12px;
   align-items: center;
-  padding: 7px 10px;
+  padding: 10px 14px;
   text-align: left;
   cursor: pointer;
+  transition: transform var(--dur-quick) var(--ease-out), background-color var(--dur-quick) var(--ease-out);
 }
 .settings-nav-item:hover {
   background: rgba(0, 0, 0, 0.04);
@@ -1194,7 +1195,7 @@
 }
 .settings-nav-item strong {
   color: currentColor;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
   line-height: 1.3;
   overflow-wrap: anywhere;
@@ -1330,14 +1331,15 @@
 .seg-control {
   display: grid;
   grid-template-columns: repeat(var(--seg-cols, 2), minmax(0, 1fr));
-  gap: 2px;
-  padding: 3px;
+  gap: 0;
+  padding: 0;
   background: var(--bg-subtle);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
   /* Height-match the active sidebar nav-item across the gutter so the
      top of the content area lines up neatly with the picked section. */
-  min-height: 42px;
+  min-height: 48px;
   min-width: 0;
 }
 .seg-btn {
@@ -1345,22 +1347,29 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  padding: 4px 12px;
-  border: 1px solid transparent;
-  border-radius: var(--radius-sm);
+  padding: 8px 16px;
+  border: none;
+  border-right: 1px solid var(--border);
+  border-radius: 0;
   background: transparent;
   cursor: pointer;
   text-align: center;
   min-width: 0;
+  transition: background-color var(--dur-quick) var(--ease-out), color var(--dur-quick) var(--ease-out);
 }
-.seg-btn:hover:not(:disabled):not(.active) { color: var(--text); }
+.seg-btn:last-child {
+  border-right: none;
+}
+.seg-btn:hover:not(:disabled):not(.active) { 
+  color: var(--text); 
+  background: rgba(0, 0, 0, 0.04);
+}
 .seg-btn.active {
   background: var(--bg-panel);
-  border-color: transparent;
-  box-shadow: var(--shadow-xs);
+  color: var(--text-strong);
 }
 .seg-btn .seg-title {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
   color: var(--text);
   white-space: nowrap;
@@ -1376,12 +1385,18 @@
    execution-mode tabs (Local CLI · 2 installed / BYOK · API provider). */
 .seg-btn--inline {
   flex-direction: row;
-  align-items: baseline;
+  align-items: center;
   gap: 8px;
   padding-block: 8px;
 }
 .seg-btn--inline > .seg-title { min-width: 0; flex: 0 0 auto; }
-.seg-btn--inline > .seg-meta { min-width: 0; flex: 1 1 auto; }
+.seg-btn--inline > .seg-meta { 
+  min-width: 0; 
+  flex: 1 1 auto; 
+  text-align: left;
+  font-size: 13px;
+  color: var(--text-muted);
+}
 
 /* Secondary protocol selector — pill chips, wraps to multiple rows */
 .protocol-chips {
@@ -1417,15 +1432,15 @@
   background: transparent;
   border: 1px solid var(--border);
   border-radius: var(--radius-pill);
-  padding: 4px 12px;
-  font-size: 12px;
-  font-weight: 500;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 550;
   color: var(--text-muted);
   cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  transition: background 120ms var(--ease-out), color 120ms var(--ease-out), border-color 120ms var(--ease-out), box-shadow 120ms var(--ease-out);
+  transition: background 120ms var(--ease-out), color 120ms var(--ease-out), border-color 120ms var(--ease-out), box-shadow 120ms var(--ease-out), transform 120ms var(--ease-out);
 }
 .protocol-chip--provider {
   display: inline-flex;
@@ -1477,18 +1492,20 @@
 .project-location-edit {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto auto;
-  gap: 8px;
+  gap: 12px;
   align-items: center;
-  min-height: 58px;
-  padding: 8px 10px;
+  min-height: 64px;
+  padding: 12px 16px;
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-lg);
   background: var(--bg-panel);
-  transition: border-color 120ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 120ms cubic-bezier(0.23, 1, 0.32, 1), background 120ms cubic-bezier(0.23, 1, 0.32, 1);
+  transition: border-color 120ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 120ms cubic-bezier(0.23, 1, 0.32, 1), background 120ms cubic-bezier(0.23, 1, 0.32, 1), transform 120ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 .project-location-card:hover,
 .project-location-edit:hover {
   border-color: var(--border-strong);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
 }
 .project-location-card.is-default,
 .project-location-edit.is-default {

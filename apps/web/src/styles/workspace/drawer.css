@@ -1476,7 +1476,7 @@
   align-items: center;
   gap: 5px;
   padding: 5px 8px;
-  background: transparent;
+  background: var(--ws-tab-pastel, transparent);
   border: none;
   border-radius: var(--radius-sm);
   font-size: 12.5px;
@@ -1494,7 +1494,7 @@
      (see .ws-tab-text override below), so the badges stay fully legible. */
   max-width: 260px;
 }
-.ws-tab:hover { background: var(--bg-subtle); color: var(--text); }
+.ws-tab:hover { background: color-mix(in srgb, var(--ws-tab-pastel, var(--bg-subtle)) 92%, var(--text-strong)); color: var(--text); }
 .ws-tab.draggable { cursor: grab; }
 .ws-tab.dragging {
   cursor: grabbing;
@@ -1515,9 +1515,10 @@
   outline-offset: 2px;
 }
 .ws-tab.active {
-  background: var(--bg-subtle);
+  background: var(--ws-tab-pastel, var(--bg-subtle));
   color: var(--text);
   font-weight: 500;
+  box-shadow: var(--shadow-sm);
 }
 .ws-tab .tab-icon {
   flex: 0 0 auto;

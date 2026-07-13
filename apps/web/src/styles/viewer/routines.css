@@ -893,8 +893,8 @@
   /* Intentional compact-chrome value (26px tab); kept off the radius scale
      and pinned by workspace-tabs-chrome.test.ts. */
   border-radius: var(--radius);
-  border: 1px solid transparent;
-  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--workspace-tab-pastel, var(--bg-subtle)) 52%, transparent);
+  background: color-mix(in srgb, var(--workspace-tab-pastel, var(--bg-subtle)) 70%, var(--bg-panel) 30%);
   box-shadow: none;
 }
 .workspace-shell .workspace-tab + .workspace-tab::before {
@@ -914,26 +914,25 @@
   position: sticky;
   left: 0;
   z-index: 3;
-  background: var(--workspace-tab-bar-bg);
+  background: color-mix(in srgb, var(--workspace-tab-pastel, var(--bg-subtle)) 72%, var(--workspace-tab-bar-bg) 28%);
 }
 .workspace-shell .workspace-tab.is-active {
-  background: color-mix(in srgb, var(--bg-panel) 94%, var(--bg-subtle));
-  border-color: var(--workspace-active-tab-border);
+  background: color-mix(in srgb, var(--workspace-tab-pastel, var(--bg-subtle)) 84%, var(--bg-panel) 16%);
+  border-color: color-mix(
+    in srgb,
+    var(--workspace-tab-pastel, var(--border)) 34%,
+    var(--workspace-active-tab-border) 66%
+  );
   box-shadow:
     0 1px 2px color-mix(in srgb, var(--text) 6%, transparent),
-    0 0 0 0.5px color-mix(in srgb, var(--bg-panel) 82%, transparent) inset;
+    0 0 0 0.5px color-mix(in srgb, var(--workspace-tab-pastel, var(--bg-panel)) 58%, transparent) inset;
   z-index: 2;
 }
 .workspace-shell .workspace-tab:not(.is-active):hover,
 .workspace-shell .workspace-tab:not(.is-active):focus-within {
   border-radius: var(--radius);
-  background:
-    linear-gradient(
-      color-mix(in srgb, var(--bg-panel) 78%, transparent),
-      color-mix(in srgb, var(--bg-panel) 78%, transparent)
-    )
-    0 0 / 100% calc(100% - 2px) no-repeat;
-  border-color: transparent;
+  background: color-mix(in srgb, var(--workspace-tab-pastel, var(--bg-subtle)) 78%, var(--bg-panel) 22%);
+  border-color: color-mix(in srgb, var(--workspace-tab-pastel, var(--border)) 58%, transparent);
   box-shadow:
     inset 0 0 0 1px color-mix(in srgb, var(--border) 58%, transparent),
     0 1px 2px color-mix(in srgb, var(--text) 5%, transparent);
@@ -945,16 +944,10 @@
    affordance is preserved while the tab keeps blocking what scrolls behind it. */
 .workspace-shell .workspace-tab.is-pinned:not(.is-active):hover,
 .workspace-shell .workspace-tab.is-pinned:not(.is-active):focus-within {
-  background:
-    linear-gradient(
-      color-mix(in srgb, var(--bg-panel) 78%, transparent),
-      color-mix(in srgb, var(--bg-panel) 78%, transparent)
-    )
-    0 0 / 100% calc(100% - 2px) no-repeat,
-    var(--workspace-tab-bar-bg);
+  background: color-mix(in srgb, var(--workspace-tab-pastel, var(--bg-subtle)) 82%, var(--workspace-tab-bar-bg) 18%);
 }
 .workspace-shell .workspace-tab.is-dragging {
-  background: var(--bg-panel);
+  background: color-mix(in srgb, var(--workspace-tab-pastel, var(--bg-subtle)) 76%, var(--bg-panel) 24%);
   box-shadow: 0 14px 30px color-mix(in srgb, var(--text) 16%, transparent);
   z-index: 4;
 }

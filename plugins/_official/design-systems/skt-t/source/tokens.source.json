@@ -1,0 +1,24 @@
+{
+  "sourceUrl": "https://www.tworld.co.kr/web/home",
+  "cssEvidence": {
+    "mainContentBackground": "#f5f5f7",
+    "navAccent": "#3617CE",
+    "hoverAccent": "#4130DF",
+    "softTint": "#f4f3fe",
+    "textPrimary": "#000000",
+    "textMuted": "#666666",
+    "border": "#e5e5e5",
+    "borderStrong": "#d9d9d9"
+  },
+  "layoutEvidence": {
+    "containerWidth": "1180px",
+    "headerTopHeight": "60px",
+    "headerNavHeight": "72px"
+  },
+  "typographyEvidence": {
+    "headlineLarge": "40px",
+    "headlineMedium": "30px",
+    "utilityLabel": "14px",
+    "family": "-apple-system, BlinkMacSystemFont, Apple SD Gothic Neo, Roboto, notosans, sans-serif"
+  }
+}

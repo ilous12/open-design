@@ -1,9 +1,10 @@
-import { type DragEvent, useEffect, useMemo, useRef, useState } from 'react';
+import { type CSSProperties, type DragEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useT } from '../i18n';
 import { navigate, type EntryHomeView, type Route } from '../router';
 import type { Project } from '../types';
 import { Icon, type IconName } from './Icon';
+import { getSequentialTabPastel } from './tabPastels';
 
 type WorkspaceChromeTab =
   | {
@@ -65,7 +66,6 @@ const OPEN_WORKSPACE_TAB_EVENT = 'open-design:workspace-tabs:open';
 const MAX_SEARCH_RESULTS = 80;
 const TAB_DRAG_HAPTIC_MS = 8;
 const TAB_DROP_HAPTIC_MS = 12;
-
 function consumeWorkspaceTabShortcut(event: KeyboardEvent) {
   event.preventDefault();
   event.stopPropagation();
@@ -948,9 +948,10 @@ export function WorkspaceTabsBar({ route, projects, onboardingCompleted = false 
             chrome horizontally. The search-tabs popover still acts as
             a keyboard surface for finding a tab that's scrolled out of
             view. */}
-        {state.tabs.map((tab) => {
+        {state.tabs.map((tab, index) => {
           const display = displayTabById.get(tab.id) ?? displayTabFor(tab, projectById, t);
           const active = tab.id === state.activeTabId;
+          const pastelColor = getSequentialTabPastel(index);
           // The single entry tab is permanent and pinned leftmost: it cannot be
           // closed or dragged out of the first slot, whatever section it shows.
           const isPinned = tab.kind === 'entry';
@@ -966,6 +967,7 @@ export function WorkspaceTabsBar({ route, projects, onboardingCompleted = false 
               role="tab"
               aria-selected={active}
               aria-describedby={hoverPreview?.tabId === tab.id ? 'workspace-tab-preview' : undefined}
+              style={{ '--workspace-tab-pastel': pastelColor } as CSSProperties}
               draggable={!isPinned && state.tabs.length > 1}
               onDragStart={(event) => handleTabDragStart(tab.id, event)}
               onDragEnd={handleTabDragEnd}

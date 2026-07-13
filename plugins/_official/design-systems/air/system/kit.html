@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AIR Design System Kit</title>
+    <link rel="stylesheet" href="../tokens.css" />
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; font-family: var(--font-body); color: var(--fg); background: radial-gradient(circle at top right, rgba(223,233,251,.9), transparent 24%), #fff; }
+      .shell { max-width: 1180px; margin: 0 auto; padding: 40px 28px 56px; }
+      .hero { display: grid; grid-template-columns: minmax(0, 1.2fr) 360px; gap: 28px; align-items: center; }
+      .eyebrow { margin: 0 0 10px; font-size: 14px; font-weight: 700; color: var(--accent); }
+      h1 { margin: 0; font-size: var(--text-4xl); line-height: var(--leading-tight); letter-spacing: var(--tracking-display); }
+      .lead { margin: 14px 0 0; max-width: 620px; font-size: var(--text-lg); color: var(--muted); line-height: var(--leading-body); }
+      .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+      .btn { min-height: 48px; padding: 0 22px; border-radius: var(--radius-pill); display: inline-flex; align-items: center; justify-content: center; text-decoration: none; font-weight: 700; }
+      .btn-primary { background: var(--accent); color: #fff; }
+      .btn-secondary { background: #fff; color: var(--fg); border: 1px solid var(--border); }
+      .airbox { aspect-ratio: 1; border-radius: var(--radius-airbox); background: linear-gradient(180deg, rgba(214,223,242,.2), #eff5ff 92%); box-shadow: var(--elev-airbox); display: grid; place-items: center; padding: 24px; }
+      .airbox img { width: 220px; max-width: 100%; height: auto; }
+      .band { margin-top: 32px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+      .card { padding: 24px; border-radius: var(--radius-lg); border: 1px solid var(--border); background: rgba(255,255,255,.92); box-shadow: var(--elev-raised); }
+      .card h2 { margin: 0; font-size: var(--text-xl); letter-spacing: var(--tracking-display); }
+      .card p { margin: 10px 0 0; color: var(--muted); font-size: var(--text-sm); line-height: 1.6; }
+      .tokens { margin-top: 28px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+      .swatch { border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; background: #fff; }
+      .swatch-color { height: 72px; }
+      .swatch-label { padding: 12px; font-size: 13px; font-weight: 700; }
+      @media (max-width: 920px) { .hero, .band, .tokens { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">AIR Design System</p>
+          <h1>A service UI that makes<br />mobile experience feel light</h1>
+          <p class="lead">Built on a white canvas, pale-blue support surfaces, rounded capsule CTAs, and Pretend typography, this system keeps activation, plans, points, and support flows easy to read.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="./artifacts/landing.html">Landing</a>
+            <a class="btn btn-secondary" href="../preview/brand-assets.html">Brand Assets</a>
+          </div>
+        </div>
+        <div class="airbox">
+          <img src="../assets/logo.svg" alt="AIR" />
+        </div>
+      </section>
+
+      <section class="band" aria-label="AIR modules">
+        <article class="card">
+          <h2>Instant activation</h2>
+          <p>Keep the steps short and the status unmistakable so activation can begin without paperwork friction.</p>
+        </article>
+        <article class="card">
+          <h2>Point benefits</h2>
+          <p>Show earning and redemption flows clearly with numbers and card structure so the benefit is immediately understood.</p>
+        </article>
+        <article class="card">
+          <h2>365-day support</h2>
+          <p>Keep inquiry state, quick contact, and application history connected inside one lightweight support flow.</p>
+        </article>
+      </section>
+
+      <section class="tokens" aria-label="AIR tokens">
+        <div class="swatch"><div class="swatch-color" style="background:#2a60f5"></div><div class="swatch-label">AIR Blue</div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#eff5ff"></div><div class="swatch-label">Pale Blue 100</div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#e1ebff"></div><div class="swatch-label">Pale Blue 200</div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#0a0f0f"></div><div class="swatch-label" style="color:#fff">Ink</div></div>
+      </section>
+    </main>
+  </body>
+  </html>

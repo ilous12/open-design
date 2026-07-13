@@ -411,6 +411,7 @@ test('inspectAgentExecutableResolution reports configured and PATH Codex binarie
 
 test('resolveAgentExecutable supports configured binary overrides for non-Codex adapters', () => {
   const cases: Array<[string, string, string]> = [
+    ['antigravity', 'agy', 'ANTIGRAVITY_BIN'],
     ['claude', 'claude', 'CLAUDE_BIN'],
     ['opencode', 'opencode', 'OPENCODE_BIN'],
     ['cursor-agent', 'cursor-agent', 'CURSOR_AGENT_BIN'],
@@ -439,6 +440,43 @@ test('resolveAgentExecutable supports configured binary overrides for non-Codex 
 
         assert.equal(resolved, configured, `expected ${id} to use ${envKey}`);
       }
+    });
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+fsTest('inspectAgentExecutableResolution prefers ~/.local/bin/agy over a broken Antigravity wrapper shim', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'od-antigravity-wrapper-'));
+  try {
+    return withEnvSnapshot(['PATH', 'OD_AGENT_HOME'], () => {
+      const home = join(dir, 'home');
+      const pathDir = join(dir, 'bin');
+      const localBin = join(home, '.local', 'bin');
+      const wrapper = join(dir, 'agy.wrapper.sh');
+      const shim = join(pathDir, 'agy');
+      const nativeAgy = join(localBin, 'agy');
+
+      mkdirSync(pathDir, { recursive: true });
+      mkdirSync(localBin, { recursive: true });
+      writeFileSync(
+        wrapper,
+        "#!/bin/sh\nexec '/Applications/Antigravity.app/Contents/Resources/app/bin/antigravity' \"$@\"\n",
+      );
+      writeFileSync(nativeAgy, '#!/bin/sh\nexit 0\n');
+      chmodSync(wrapper, 0o755);
+      chmodSync(nativeAgy, 0o755);
+      symlinkSync(wrapper, shim);
+
+      process.env.PATH = pathDir;
+      process.env.OD_AGENT_HOME = home;
+
+      const resolution = inspectAgentExecutableResolution(
+        minimalAgentDef({ id: 'antigravity', bin: 'agy' }),
+      );
+
+      assert.equal(resolution.pathResolvedPath, shim);
+      assert.equal(resolution.selectedPath, nativeAgy);
     });
   } finally {
     rmSync(dir, { recursive: true, force: true });

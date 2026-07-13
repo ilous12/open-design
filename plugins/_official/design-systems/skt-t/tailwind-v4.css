@@ -1,0 +1,12 @@
+@theme {
+  --color-skt-t-purple: #3617ce;
+  --color-skt-t-purple-hover: #4130df;
+  --color-skt-t-panel: #f5f5f7;
+  --color-skt-t-panel-strong: #eeeef4;
+  --color-skt-t-soft-tint: #f4f3fe;
+  --color-skt-t-text: #000000;
+  --color-skt-t-muted: #666666;
+  --font-sans: "Pretend", "Pretendard", "Pretendard Variable", "Apple SD Gothic Neo", "Roboto", "Noto Sans KR", system-ui, sans-serif;
+  --radius-skt-card: 20px;
+  --shadow-skt-panel: 0 12px 30px rgba(0, 0, 0, 0.06);
+}

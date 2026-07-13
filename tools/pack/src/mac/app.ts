@@ -18,7 +18,6 @@ import {
   shouldUseMacStandalonePrebundle,
 } from "../mac-prebundle.js";
 import { copyBundledResourceTrees } from "../resources.js";
-import { copyOptionalVelaCliBinary } from "../vela-cli.js";
 import { electronBuilderVersionForAppVersion } from "../versions.js";
 import { runEsbuild, runNpmInstall, runPnpm } from "./commands.js";
 import {
@@ -138,11 +137,6 @@ export async function copyResourceTree(config: ToolPackConfig, paths: MacPaths):
     workspaceRoot: config.workspaceRoot,
     resourceRoot: paths.resourceRoot,
   });
-  await copyOptionalVelaCliBinary({
-    platform: "mac",
-    requireBundled: config.requireVelaCli,
-    resourceRoot: paths.resourceRoot,
-  });
 }
 
 export function renderMacPackagedConfig(options: {
@@ -152,7 +146,6 @@ export function renderMacPackagedConfig(options: {
 }): string {
   return `${JSON.stringify(
     {
-      ...(options.config.amrProfile == null ? {} : { amrProfile: options.config.amrProfile }),
       appVersion: options.appVersion,
       ...(options.usePrebundledStandaloneWeb ? { daemonCliEntryRelative: MAC_PREBUNDLED_DAEMON_CLI_RELATIVE_PATH } : {}),
       ...(options.usePrebundledStandaloneWeb

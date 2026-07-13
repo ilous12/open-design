@@ -25,8 +25,10 @@ import { DesignSystemKitPreview } from './DesignSystemKitPreview';
 import { DesignSystemPreviewModal } from './DesignSystemPreviewModal';
 import { Icon } from './Icon';
 
-// Mirror DesignSystemsTab's user/official split so the picker's grouping lines
-// up exactly with the "你的体系 / 官方预设" tabs in the Design Systems tab.
+// Mirror DesignSystemsTab's user/official split so the picker can keep the
+// same classification logic. The AIR shell now hides "Your systems" and keeps
+// the picker focused on official presets only, but we still use the same test
+// to exclude editable user systems from the visible list.
 function isUserSystem(system: DesignSystemSummary): boolean {
   return system.source === 'user' || system.isEditable === true;
 }
@@ -188,14 +190,13 @@ export function DesignSystemPicker({
     });
   }, [query, designSystems, locale]);
 
-  // Split the filtered list into the same two groups the Design Systems tab
-  // uses, so the picker reads as "your systems" then "official presets".
-  const { userSystems, officialSystems } = useMemo(() => {
-    const mine: DesignSystemSummary[] = [];
-    const official: DesignSystemSummary[] = [];
-    for (const d of filtered) (isUserSystem(d) ? mine : official).push(d);
-    return { userSystems: mine, officialSystems: official };
-  }, [filtered]);
+  // AIR hides "Your systems" in the picker and keeps the visible catalog on
+  // official presets only. User-created systems can still exist elsewhere in
+  // the app, but they should not surface in this popover.
+  const officialSystems = useMemo(
+    () => filtered.filter((d) => !isUserSystem(d)),
+    [filtered],
+  );
 
   const selectDesignSystem = (id: string | null) => {
     onChange(id);
@@ -351,27 +352,8 @@ export function DesignSystemPicker({
                     ) : null}
                   </div>
                 </button>
-                {userSystems.length > 0 ? (
-                  <div
-                    className="project-ds-picker-group-label"
-                    role="presentation"
-                    data-testid="project-ds-picker-group-mine"
-                  >
-                    {t('dsManager.yourSystems')}
-                  </div>
-                ) : null}
-                {userSystems.map(renderOption)}
-                {officialSystems.length > 0 ? (
-                  <div
-                    className="project-ds-picker-group-label"
-                    role="presentation"
-                    data-testid="project-ds-picker-group-official"
-                  >
-                    {t('dsManager.officialPresets')}
-                  </div>
-                ) : null}
                 {officialSystems.map(renderOption)}
-                {filtered.length === 0 ? (
+                {officialSystems.length === 0 ? (
                   <div className="project-ds-picker-empty">{t('designSystemPicker.empty')}</div>
                 ) : null}
               </div>

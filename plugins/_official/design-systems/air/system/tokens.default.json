@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "format": "od-design-tokens/v1",
+  "contract": "TOKEN_SCHEMA",
+  "generatedAt": "2026-07-06T00:00:00.000Z",
+  "source": {
+    "url": "https://www.sktair.com",
+    "tokensCss": "tokens.css"
+  },
+  "summary": {
+    "totalTokens": 64,
+    "declaredTokens": 64,
+    "sourceBackedTokens": 64,
+    "sourceBackedA1": 33,
+    "fallbackTokens": 0,
+    "aliasTokens": 0,
+    "score": 100,
+    "grade": "excellent",
+    "recommendRebuild": false
+  },
+  "tokens": [
+    { "name": "--bg", "value": "#ffffff", "type": "color", "layer": "A1-identity", "confidence": "high", "sources": ["sktair.com CSS --color-white"] },
+    { "name": "--fg", "value": "#0a0f0f", "type": "color", "layer": "A1-identity", "confidence": "high", "sources": ["sktair.com CSS --color-black"] },
+    { "name": "--accent", "value": "#2a60f5", "type": "color", "layer": "A1-identity", "confidence": "high", "sources": ["sktair.com CSS --color-blue"] },
+    { "name": "--surface-warm", "value": "#eff5ff", "type": "color", "layer": "B-slot", "confidence": "high", "sources": ["sktair.com CSS --color-pale-blue-100"] },
+    { "name": "--muted", "value": "#68748c", "type": "color", "layer": "A1-identity", "confidence": "high", "sources": ["sktair.com CSS --color-gray-700"] },
+    { "name": "--font-body", "value": "Pretend, Pretendard, Pretendard Variable, Noto Sans KR, system-ui, sans-serif", "type": "font", "layer": "A1-identity", "confidence": "high", "sources": ["sktair.com @font-face Pretendard"] },
+    { "name": "--tracking-display", "value": "-0.02em", "type": "typography", "layer": "A1-structure", "confidence": "high", "sources": ["sktair.com CSS --letter-spacing-default"] },
+    { "name": "--radius-airbox", "value": "64px", "type": "radius", "layer": "A1-structure", "confidence": "high", "sources": ["sktair.com app icon and AIR box radii"] }
+  ]
+}

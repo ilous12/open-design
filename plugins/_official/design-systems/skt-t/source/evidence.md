@@ -1,0 +1,33 @@
+# SKT-T Evidence
+
+- Source URL: https://www.tworld.co.kr/web/home
+- Retrieved: 2026-07-09
+- Page title: Main | T world
+- Meta description: Official online service center for SK Telecom. Supports data gifting, mobile and broadband plan changes, usage and billing lookup/payment, loss reporting, number changes, and related service flows.
+- Logo asset: `https://cdnw.tworld.co.kr/poc/img/renewal/gnb/logo_tworld.png`
+- Navigation evidence:
+  - Family shortcuts: T Universe, T Roaming, T Membership
+  - Service center framing: my lines, log in, search, global navigation, layered search, and account utility
+- CSS evidence:
+  - Primary accent `#3617CE`
+  - Accent variant `#4130DF`
+  - Main service background `#F5F5F7`
+  - Secondary panel background `#EEEEF4`
+  - Hover tint `#F4F3FE`
+  - Primary text `#000000`
+  - Secondary text `#666666`
+  - Divider and border values `#E5E5E5`, `#D9D9D9`, `#EFEFEF`
+- Typography evidence:
+  - `column-title__maintitle`: 40px
+  - `column-title`: 30px
+  - utility/link labels: 14px
+  - Source stack: Apple SD Gothic Neo, Roboto, notosans
+- Layout evidence:
+  - shared container width: 1180px
+  - top utility bar height: 60px
+  - main navigation bar height: 72px
+- Structural observations:
+  - Strong two-layer header with family-service shortcuts above the primary GNB
+  - Search, login, and my-line utilities are integral to the information architecture
+  - Portal surface is white plus mist-gray with purple used for active state, CTA, underline, and focus
+  - T world behaves more like an account and support hub than a marketing-first landing site

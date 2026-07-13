@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "brandId": "skt-t",
+  "sourceUrl": "https://www.tworld.co.kr/web/home",
+  "status": "complete",
+  "score": 100,
+  "grade": "excellent",
+  "notes": [
+    "Primary accent and structural dimensions were directly observed in T world CSS.",
+    "Typography stack was normalized to the product default used in Design For AIR while preserving T world's source hierarchy.",
+    "Portal utility surfaces prioritize service readability over expressive marketing treatment."
+  ]
+}

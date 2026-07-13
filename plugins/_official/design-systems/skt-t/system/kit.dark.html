@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SKT-T Design System Kit Dark</title>
+    <link rel="stylesheet" href="../tokens.css" />
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; font-family: var(--font-body); color: #fff; background: #15151b; }
+      .shell { max-width: 1180px; margin: 0 auto; padding: 32px 24px 56px; }
+      .hero { display: grid; grid-template-columns: 1.25fr 0.95fr; gap: 16px; }
+      .panel { background: #1f1f29; border: 1px solid rgba(255,255,255,.08); border-radius: var(--radius-card); }
+      .hero-main, .hero-side, .card { padding: 24px 28px; }
+      .eyebrow { margin: 0 0 10px; color: #8f7cff; font-size: 14px; font-weight: 700; }
+      h1 { margin: 0; font-size: 44px; line-height: 1.14; letter-spacing: var(--tracking-tight); }
+      .lead, .card p { color: rgba(255,255,255,.72); }
+      .metric { padding: 16px; border-radius: 16px; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.07); }
+      .metric .label { color: rgba(255,255,255,.6); font-size: 13px; }
+      .metric .value { margin-top: 8px; font-size: 30px; font-weight: 800; }
+      .grid { margin-top: 18px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+      @media (max-width: 920px) { .hero, .grid { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <article class="panel hero-main"><p class="eyebrow">SKT-T Dark Preview</p><h1>Even in operational-console contexts,<br />keep the trusted purple tone and structural readability.</h1><p class="lead">The core design system is light-first, but this supporting kit shows how to adapt it when a night-mode operational screen is required.</p></article>
+        <aside class="panel hero-side"><div class="metric"><div class="label">Requests in progress</div><div class="value">12</div></div><div class="metric" style="margin-top:12px"><div class="label">Resolved today</div><div class="value">28</div></div></aside>
+      </section>
+      <section class="grid">
+        <article class="panel card"><h2>Dark support mode</h2><p>Use this only for night-operation dashboards or focused monitoring surfaces.</p></article>
+        <article class="panel card"><h2>Readable metrics</h2><p>Keep numbers and state highly legible so they do not sink into the dark surface.</p></article>
+        <article class="panel card"><h2>Purple retained</h2><p>Retain the purple accent for key emphasis while avoiding oversaturated competition.</p></article>
+      </section>
+    </main>
+  </body>
+</html>

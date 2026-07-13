@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SKT-T Design System Kit</title>
+    <link rel="stylesheet" href="../tokens.css" />
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; font-family: var(--font-body); color: var(--fg); background: var(--surface-alt); }
+      .shell { max-width: 1180px; margin: 0 auto; padding: 32px 24px 56px; }
+      .hero { display: grid; grid-template-columns: 1.25fr 0.95fr; gap: 16px; }
+      .panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-card); box-shadow: var(--elev-1); }
+      .hero-main { padding: 32px; }
+      .eyebrow { margin: 0 0 10px; font-size: 14px; font-weight: 700; color: var(--accent); }
+      h1 { margin: 0; font-size: 46px; line-height: var(--leading-tight); letter-spacing: var(--tracking-tight); }
+      .lead { margin: 16px 0 0; color: var(--fg-muted); font-size: 17px; line-height: 1.6; max-width: 620px; }
+      .actions { display: flex; gap: 10px; margin-top: 24px; }
+      .btn { min-height: 46px; padding: 0 18px; border-radius: var(--radius-sm); display: inline-flex; align-items: center; justify-content: center; text-decoration: none; font-weight: 700; }
+      .btn-primary { background: var(--accent); color: #fff; }
+      .btn-secondary { background: var(--surface-alt-strong); color: var(--fg); border: 1px solid var(--border); }
+      .hero-side { padding: 24px; display: grid; gap: 12px; background: linear-gradient(180deg, var(--surface-alt-strong), var(--surface)); }
+      .metric { padding: 18px; border-radius: 16px; border: 1px solid var(--border); background: #fff; }
+      .metric .label { font-size: 13px; color: var(--fg-muted); }
+      .metric .value { margin-top: 8px; font-size: 30px; font-weight: 800; letter-spacing: var(--tracking-tight); }
+      .grid { margin-top: 18px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+      .card { padding: 24px; }
+      .card h2 { margin: 0; font-size: 20px; }
+      .card p { margin: 10px 0 0; color: var(--fg-muted); font-size: 14px; }
+      .swatches { margin-top: 20px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+      .swatch { overflow: hidden; border-radius: 16px; border: 1px solid var(--border); background: #fff; }
+      .swatch div:first-child { height: 72px; }
+      .swatch div:last-child { padding: 12px; font-size: 13px; font-weight: 700; }
+      @media (max-width: 920px) { .hero, .grid, .swatches { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <article class="panel hero-main">
+          <p class="eyebrow">SKT-T Design System</p>
+          <h1>Clear, fast, account-centered UI<br />for an official telecom support portal</h1>
+          <p class="lead">Based on the service-portal structure observed in T world, this system keeps billing, usage, line status, support, membership, and roaming flows readable in a single screen.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="./artifacts/landing.html">Landing</a>
+            <a class="btn btn-secondary" href="../preview/brand-assets.html">Brand Assets</a>
+          </div>
+        </article>
+        <aside class="panel hero-side">
+          <div class="metric"><div class="label">My lines</div><div class="value">3 lines</div></div>
+          <div class="metric"><div class="label">This month's bill</div><div class="value">KRW 74,200</div></div>
+          <div class="metric"><div class="label">Support requests</div><div class="value">2</div></div>
+        </aside>
+      </section>
+      <section class="grid">
+        <article class="panel card"><h2>Account-centered structure</h2><p>Bring my lines, my bill, my usage, my benefits, and my inquiries to the front.</p></article>
+        <article class="panel card"><h2>Purple emphasis</h2><p>Use purple only for active state and core CTAs to preserve the official service tone.</p></article>
+        <article class="panel card"><h2>Utility first</h2><p>Prioritize problem-solving functions such as search, quick handling, support contact, and store finder.</p></article>
+      </section>
+      <section class="swatches">
+        <div class="swatch"><div style="background:#3617ce"></div><div>T Purple</div></div>
+        <div class="swatch"><div style="background:#f5f5f7"></div><div>Service Gray</div></div>
+        <div class="swatch"><div style="background:#eeeef4"></div><div>Panel Gray</div></div>
+        <div class="swatch"><div style="background:#f4f3fe"></div><div>Soft Tint</div></div>
+      </section>
+    </main>
+  </body>
+</html>

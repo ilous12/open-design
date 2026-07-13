@@ -17,7 +17,7 @@ button.primary {
   border-color: var(--accent);
   color: white;
   font-weight: 500;
-  box-shadow: 0 1px 0 rgba(180, 90, 59, 0.18) inset, var(--shadow-xs);
+  box-shadow: var(--shadow-sm);
 }
 button.primary:hover:not(:disabled) {
   background: var(--accent-hover);
@@ -96,12 +96,13 @@ input, textarea, select {
   padding: 7px 10px;
   width: 100%;
   transition: border-color 120ms ease, box-shadow 120ms ease;
+  box-shadow: var(--shadow-xs);
 }
 input::placeholder, textarea::placeholder { color: var(--text-faint); }
 input:focus, textarea:focus, select:focus {
   outline: none;
-  border-color: var(--selected);
-  box-shadow: 0 0 0 3px var(--selected-soft);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
 }
 /* Entry sidebar form fields keep a quieter, neutral focus so the orange
    "Create" CTA stays the loudest thing in the panel. A low-opacity black

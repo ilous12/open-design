@@ -10,7 +10,7 @@
    actions, so the entry view does not render `AppChromeHeader`. */
 .entry-shell--no-header {
   grid-template-rows: 1fr;
-  --entry-rail-width: 56px;
+  --entry-rail-width: 64px;
   position: relative;
   overflow: hidden;
   background: #ffffff;
@@ -72,7 +72,8 @@
   --wash-h: 24vh;
   --wash-x: 4vw;
   --wash-y: 8vh;
-  --wash-color: rgba(206, 221, 255, 0.58);
+  --wash-color: color-mix(in srgb, var(--accent-tint) 78%, #ffffff);
+  --wash-opacity: 0.34;
   --wash-duration: 31s;
 }
 .entry-ambient__wash--2 {
@@ -80,7 +81,8 @@
   --wash-h: 28vh;
   --wash-x: 58vw;
   --wash-y: 5vh;
-  --wash-color: rgba(167, 191, 239, 0.34);
+  --wash-color: color-mix(in srgb, var(--bg-subtle) 74%, #ffffff);
+  --wash-opacity: 0.26;
   --wash-duration: 36s;
   animation-name: entry-ambient-drift-alt;
 }
@@ -89,7 +91,8 @@
   --wash-h: 22vh;
   --wash-x: 18vw;
   --wash-y: 44vh;
-  --wash-color: rgba(119, 189, 220, 0.26);
+  --wash-color: color-mix(in srgb, var(--purple-bg) 58%, #ffffff);
+  --wash-opacity: 0.22;
   --wash-duration: 29s;
   animation-delay: -9s;
 }
@@ -98,7 +101,8 @@
   --wash-h: 24vh;
   --wash-x: 73vw;
   --wash-y: 46vh;
-  --wash-color: rgba(239, 245, 255, 0.72);
+  --wash-color: color-mix(in srgb, var(--bg-subtle) 62%, #ffffff);
+  --wash-opacity: 0.3;
   --wash-duration: 33s;
   animation-delay: -14s;
   animation-name: entry-ambient-drift-alt;
@@ -108,7 +112,8 @@
   --wash-h: 18vh;
   --wash-x: 34vw;
   --wash-y: 76vh;
-  --wash-color: rgba(225, 235, 255, 0.52);
+  --wash-color: color-mix(in srgb, var(--accent-tint) 54%, #ffffff);
+  --wash-opacity: 0.24;
   --wash-duration: 38s;
   animation-delay: -21s;
 }
@@ -117,7 +122,8 @@
   --wash-h: 26vh;
   --wash-x: -2vw;
   --wash-y: 68vh;
-  --wash-color: rgba(85, 148, 211, 0.18);
+  --wash-color: color-mix(in srgb, var(--text-faint) 24%, #ffffff);
+  --wash-opacity: 0.18;
   --wash-duration: 34s;
   animation-delay: -16s;
   animation-name: entry-ambient-float;
@@ -127,7 +133,8 @@
   --wash-h: 20vh;
   --wash-x: 48vw;
   --wash-y: 30vh;
-  --wash-color: rgba(167, 191, 239, 0.22);
+  --wash-color: color-mix(in srgb, var(--accent-soft) 36%, #ffffff);
+  --wash-opacity: 0.2;
   --wash-duration: 27s;
   animation-delay: -5s;
   animation-name: entry-ambient-float;
@@ -137,7 +144,8 @@
   --wash-h: 20vh;
   --wash-x: 82vw;
   --wash-y: 20vh;
-  --wash-color: rgba(206, 221, 255, 0.34);
+  --wash-color: color-mix(in srgb, var(--bg-muted) 22%, #ffffff);
+  --wash-opacity: 0.18;
   --wash-duration: 42s;
   animation-delay: -24s;
 }
@@ -146,7 +154,8 @@
   --wash-h: 25vh;
   --wash-x: 6vw;
   --wash-y: 28vh;
-  --wash-color: rgba(119, 189, 220, 0.2);
+  --wash-color: color-mix(in srgb, var(--purple-bg) 46%, #ffffff);
+  --wash-opacity: 0.18;
   --wash-duration: 39s;
   animation-delay: -19s;
   animation-name: entry-ambient-drift-alt;
@@ -156,7 +165,8 @@
   --wash-h: 18vh;
   --wash-x: 65vw;
   --wash-y: 82vh;
-  --wash-color: rgba(225, 235, 255, 0.42);
+  --wash-color: color-mix(in srgb, var(--accent-tint) 48%, #ffffff);
+  --wash-opacity: 0.18;
   --wash-duration: 35s;
   animation-delay: -11s;
   animation-name: entry-ambient-float;
@@ -225,9 +235,8 @@
      Border lives on the `::after` hairline below (from main), not on the box. */
   width: 100%;
   min-width: 0;
-  border-right: 0;
-  background: color-mix(in srgb, #ffffff 90%, var(--accent-tint));
-  backdrop-filter: blur(18px);
+  border-right: 1px solid var(--border);
+  background: var(--bg-panel);
   padding: 8px 0 10px;
   display: flex;
   flex-direction: column;
@@ -812,8 +821,8 @@
 }
 .entry-nav-rail__btn {
   appearance: none;
-  width: 38px;
-  height: 38px;
+  width: 44px;
+  height: 44px;
   border: 1px solid transparent;
   border-radius: var(--radius);
   background: transparent;
@@ -844,13 +853,13 @@
   border-color: transparent;
 }
 .entry-nav-rail__btn.is-active {
-  background: var(--accent-tint);
-  color: var(--accent);
-  border-color: color-mix(in srgb, var(--accent) 18%, transparent);
+  background: var(--bg-muted);
+  color: var(--accent-strong);
+  border-color: transparent;
 }
 .entry-nav-rail__btn.is-active:hover {
-  background: color-mix(in srgb, var(--accent) 8%, var(--bg-panel));
-  border-color: color-mix(in srgb, var(--accent) 12%, var(--bg-panel));
+  background: var(--bg-subtle);
+  border-color: transparent;
 }
 .entry-nav-rail__btn:focus-visible {
   outline: 2px solid var(--accent);
@@ -956,6 +965,48 @@
   z-index: -1;
   pointer-events: none;
   background: color-mix(in srgb, #ffffff 78%, transparent);
+}
+.entry-shell[data-entry-view='home'] .entry-main__topbar {
+  background: transparent;
+  backdrop-filter: none;
+}
+.entry-shell[data-entry-view='home'] .entry-main__topbar::before {
+  inset: 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.96) 0%,
+      color-mix(in srgb, var(--accent-tint) 16%, rgba(255, 255, 255, 0.9)) 42%,
+      rgba(255, 255, 255, 0.44) 76%,
+      rgba(255, 255, 255, 0) 100%
+    );
+}
+.entry-shell[data-entry-view='home'] .entry-main__topbar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 92px;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      circle at 16% 0%,
+      color-mix(in srgb, var(--accent-tint) 34%, transparent),
+      transparent 48%
+    ),
+    radial-gradient(
+      circle at 84% 4%,
+      color-mix(in srgb, var(--bg-subtle) 42%, transparent),
+      transparent 42%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--accent-tint) 34%, rgba(255, 255, 255, 0.92)) 0%,
+      rgba(255, 255, 255, 0.56) 58%,
+      rgba(255, 255, 255, 0) 100%
+    );
 }
 .entry-settings-menu {
   position: relative;

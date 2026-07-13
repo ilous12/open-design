@@ -14,13 +14,12 @@ import {
   projectKindFromMetadataToTracking,
   fidelityToTracking,
 } from '@nn-design/contracts/analytics';
-import type { AmrModelsResponse, ChatSessionMode, RunContextSelection } from '@nn-design/contracts';
+import type { ChatSessionMode, RunContextSelection } from '@nn-design/contracts';
 import { EntryView } from './components/EntryView';
 import type { IntegrationTab } from './components/IntegrationsView';
 import { MarketplaceView } from './components/MarketplaceView';
 import { PluginDetailView } from './components/PluginDetailView';
 import type { CreateInput, ImportClaudeDesignOutcome } from './components/NewProjectPanel';
-import { MemoryToast } from './components/MemoryToast';
 import { Toast } from './components/Toast';
 import { CenteredLoader } from './components/Loading';
 import { PetOverlay, type PetTaskCenter } from './components/pet/PetOverlay';
@@ -58,12 +57,8 @@ import {
 } from './providers/registry';
 import {
   RUNS_CHANGED_EVENT,
-  fetchAmrModels,
-  fetchVelaLoginStatus,
   listProjectRuns,
-  type VelaLoginStatus,
 } from './providers/daemon';
-import { AMR_LOGIN_STATUS_EVENT } from './components/amrLoginPolling';
 import { goBack, navigate, useRoute } from './router';
 import {
   fetchDaemonConfig,
@@ -107,7 +102,6 @@ import { useI18n } from './i18n';
 import { liveArtifactTabId } from './types';
 import type {
   AgentInfo,
-  AgentModelChoice,
   ApiProtocol,
   AppConfig,
   AppVersionInfo,
@@ -140,7 +134,6 @@ type AppCreateProjectInput = Omit<CreateInput, 'metadata'> & {
 
 const APP_CONFIG_CHANGED_EVENT = 'open-design:app-config-changed';
 const AMR_AGENT_ID = 'amr';
-const AMR_PROFILE_ENV_KEY = 'OPEN_DESIGN_AMR_PROFILE';
 const AGENT_FOCUS_REFRESH_THROTTLE_MS = 10_000;
 
 export function shouldSyncMediaProvidersOnSave(
@@ -163,11 +156,6 @@ function normalizeSavedComposioConfig(config: AppConfig['composio']): AppConfig[
   return { ...(config ?? {}) };
 }
 
-function amrProfileForConfig(config: AppConfig): string | null {
-  const profile = config.agentCliEnv?.[AMR_AGENT_ID]?.[AMR_PROFILE_ENV_KEY];
-  return typeof profile === 'string' && profile ? profile : null;
-}
-
 function mergeLinkedDirsIntoMetadata(
   metadata: ProjectMetadata | undefined,
   linkedDirs?: string[] | null,
@@ -179,29 +167,6 @@ function mergeLinkedDirsIntoMetadata(
     ...baseMetadata,
     linkedDirs: Array.from(new Set([...(baseMetadata.linkedDirs ?? []), ...nextDirs])),
   };
-}
-
-function sameAgentModelChoice(
-  left: AgentModelChoice | undefined,
-  right: AgentModelChoice | undefined,
-): boolean {
-  return (left?.model ?? null) === (right?.model ?? null)
-    && (left?.reasoning ?? null) === (right?.reasoning ?? null);
-}
-
-function clearStaleAmrModelChoiceOnProfileChange(
-  previous: AppConfig,
-  next: AppConfig,
-): AppConfig {
-  if (amrProfileForConfig(previous) === amrProfileForConfig(next)) return next;
-
-  const previousChoice = previous.agentModels?.[AMR_AGENT_ID];
-  const nextChoice = next.agentModels?.[AMR_AGENT_ID];
-  if (!nextChoice || !sameAgentModelChoice(previousChoice, nextChoice)) return next;
-
-  const nextAgentModels = { ...(next.agentModels ?? {}) };
-  delete nextAgentModels[AMR_AGENT_ID];
-  return { ...next, agentModels: nextAgentModels };
 }
 
 type ProjectListRequest = {
@@ -273,24 +238,7 @@ export function resolveSettingsCloseConfig(
   return base.onboardingCompleted ? base : { ...base, onboardingCompleted: true };
 }
 
-function mergeAmrModelsIntoAgents(
-  agents: AgentInfo[],
-  amrModels: AmrModelsResponse | null,
-): AgentInfo[] {
-  if (!amrModels || amrModels.models.length === 0) return agents;
-  return agents.map((agent) => {
-    if (agent.id !== 'amr') return agent;
-    const shouldPreferAgentModels =
-      amrModels.source === 'preset' &&
-      Array.isArray(agent.models) &&
-      agent.models.length > 0;
-    if (shouldPreferAgentModels) return agent;
-    return { ...agent, models: amrModels.models, modelsSource: 'live' };
-  });
-}
-
 const CANONICAL_AGENT_ORDER = [
-  'amr',
   'codex',
   'antigravity',
   'claude',
@@ -429,11 +377,8 @@ function AppInner() {
   const [integrationInitialTab, setIntegrationInitialTab] = useState<IntegrationTab>('mcp');
   const [daemonLive, setDaemonLive] = useState(false);
   const [agents, setAgents] = useState<AgentInfo[]>([]);
-  const amrModelsRef = useRef<AmrModelsResponse | null>(null);
-  const amrPollGenerationRef = useRef(0);
   const agentStreamRequestSeqRef = useRef(0);
   const agentFocusRefreshLastRunRef = useRef(Date.now());
-  const [amrPollRestartToken, setAmrPollRestartToken] = useState(0);
   const [providerModelsCache, setProviderModelsCache] = useState<
     Record<string, ProviderModelOption[]>
   >({});
@@ -511,11 +456,6 @@ function AppInner() {
 
   const isCurrentAgentStreamRequest = useCallback((requestId: number) => {
     return agentStreamRequestSeqRef.current === requestId;
-  }, []);
-
-  const restartAmrPolling = useCallback(() => {
-    amrPollGenerationRef.current += 1;
-    setAmrPollRestartToken((current) => current + 1);
   }, []);
 
   // v2 schema removed the standalone `app_launch` event; the initial
@@ -640,11 +580,6 @@ function AppInner() {
     analytics.setIdentity(config.installationId ?? null);
   }, [analytics.setIdentity, config.installationId, config.telemetry?.metrics]);
 
-  // App-level AMR sign-in state — declared here because the configure
-  // globals effect below reads it; the sync effects live next to the
-  // other AMR plumbing further down.
-  const [amrLoginStatus, setAmrLoginStatus] = useState<VelaLoginStatus | null>(null);
-
   // v2 analytics requires every event to carry the configure-state
   // triplet (has_available_configure_cli / configure_type /
   // configure_availability). We push it into the PostHog global register
@@ -674,13 +609,11 @@ function AppInner() {
       agentId: config.agentId,
       agents: agents.map((a) => ({ id: a.id, available: a.available })),
       byokConfigured,
-      amrAuthorized: amrLoginStatus?.loggedIn === true,
     });
     analytics.setConfigureGlobals(globals);
   }, [
     analytics.setConfigureGlobals,
     agentsLoading,
-    amrLoginStatus,
     config.mode,
     config.agentId,
     config.apiKey,
@@ -734,84 +667,6 @@ function AppInner() {
     });
   }, [activeProjectId, activeFileName]);
 
-  useEffect(() => {
-    if (!daemonLive) return;
-    let cancelled = false;
-    let timer: number | null = null;
-    const pollGeneration = amrPollGenerationRef.current + 1;
-    amrPollGenerationRef.current = pollGeneration;
-    const pollDelayMs = 1_000;
-    const maxPresetPolls = 10;
-    let presetPolls = 0;
-
-    const applyAmrModels = async () => {
-      const result = await fetchAmrModels();
-      if (
-        cancelled ||
-        amrPollGenerationRef.current !== pollGeneration ||
-        !result ||
-        !Array.isArray(result.models) ||
-        result.models.length === 0
-      ) {
-        return;
-      }
-      amrModelsRef.current = result;
-      setAgents((current) => mergeAmrModelsIntoAgents(current, result));
-      const shouldPollPreset =
-        result.source === 'preset' &&
-        !result.remoteError &&
-        presetPolls < maxPresetPolls;
-      if (shouldPollPreset) {
-        presetPolls += 1;
-        timer = window.setTimeout(() => {
-          void applyAmrModels();
-        }, pollDelayMs);
-      }
-    };
-
-    void applyAmrModels();
-    return () => {
-      cancelled = true;
-      if (timer !== null) window.clearTimeout(timer);
-    };
-  }, [amrPollRestartToken, daemonLive]);
-
-  // App-level AMR sign-in state. Feeds two analytics globals: the
-  // `amr` configure_type bucket (deriveConfigureGlobals below) and the
-  // `user_id` public param (the AMR account id is the only join key
-  // between this PostHog project and the AMR-side one). Child surfaces
-  // push status changes up via onAmrLoginStatusChange; the global
-  // AMR_LOGIN_STATUS_EVENT covers logins finishing in surfaces that
-  // unmounted before their poll settled.
-  useEffect(() => {
-    let cancelled = false;
-    const sync = async () => {
-      const status = await fetchVelaLoginStatus();
-      if (!cancelled && status) setAmrLoginStatus(status);
-    };
-    void sync();
-    const onStatusEvent = () => {
-      void sync();
-    };
-    window.addEventListener(AMR_LOGIN_STATUS_EVENT, onStatusEvent);
-    return () => {
-      cancelled = true;
-      window.removeEventListener(AMR_LOGIN_STATUS_EVENT, onStatusEvent);
-    };
-  }, [daemonLive]);
-
-  useEffect(() => {
-    analytics.setUserId(
-      amrLoginStatus?.loggedIn === true ? amrLoginStatus.user?.id ?? null : null,
-    );
-  }, [analytics.setUserId, amrLoginStatus]);
-
-  const handleAmrLoginStatusChange = useCallback((status: VelaLoginStatus | null) => {
-    if (status) setAmrLoginStatus(status);
-    if (status?.loggedIn !== true) return;
-    restartAmrPolling();
-  }, [restartAmrPolling]);
-
   // Bootstrap — detect daemon, then fan out independent fetches so each
   // entry-view tab can render the moment its own data lands. Earlier this
   // was one Promise.all behind a global "Loading workspace…" placeholder,
@@ -845,22 +700,12 @@ function AppInner() {
         signal: agentStreamAbort.signal,
         onAgent: (agent) => {
           if (cancelled || !isCurrentAgentStreamRequest(agentRequestId)) return;
-          setAgents((current) =>
-            mergeAmrModelsIntoAgents(
-              upsertAgent(current, agent),
-              amrModelsRef.current,
-            ),
-          );
+          setAgents((current) => upsertAgent(current, agent));
         },
       })
         .then((list) => {
           if (cancelled || !isCurrentAgentStreamRequest(agentRequestId)) return;
-          setAgents(
-            mergeAmrModelsIntoAgents(
-              orderAgentsByRegistry(list),
-              amrModelsRef.current,
-            ),
-          );
+          setAgents(orderAgentsByRegistry(list));
         })
         .catch((err) => {
           if (
@@ -967,10 +812,7 @@ function AppInner() {
           daemonMediaProvidersLoaded,
         );
         const next = mergeDaemonMediaProviders(
-          clearStaleAmrModelChoiceOnProfileChange(
-            baseConfig,
-            mergeDaemonConfig(baseConfig, daemonConfig),
-          ),
+          mergeDaemonConfig(baseConfig, daemonConfig),
           daemonMediaProvidersLoaded,
         );
         const hasLocalComposioKey = Boolean(next.composio?.apiKey?.trim());
@@ -1024,29 +866,19 @@ function AppInner() {
     reconcileFetchedProjects,
   ]);
 
-  // Onboarding completion alone is not enough to skip runtime setup. Imported
-  // or stale configs can say "done" while no Local Coding Agent is selected,
-  // the selected CLI is no longer available, or API mode has no usable key.
-  // In that state the runtime choice screen must own recovery instead of
-  // silently landing the user on Home.
+  // Home -> onboarding redirect is first-run only. Once the user has
+  // completed the CLI/BYOK chooser and reached Home, later runtime edits
+  // (or a temporarily unavailable CLI during rescans/settings changes)
+  // must NOT yank them back into the onboarding chooser.
   useEffect(() => {
     if (!daemonConfigLoaded || agentsLoading) return;
     if (route.kind !== 'home' || route.view === 'onboarding') return;
-    if (config.onboardingCompleted === true && hasUsableRuntimeSelection(config, agents)) {
-      return;
-    }
+    if (config.onboardingCompleted === true) return;
     navigate({ kind: 'home', view: 'onboarding' }, { replace: true });
   }, [
     daemonConfigLoaded,
     agentsLoading,
-    agents,
     route,
-    config.mode,
-    config.agentId,
-    config.apiKey,
-    config.apiProtocol,
-    config.baseUrl,
-    config.model,
     config.onboardingCompleted,
   ]);
 
@@ -1308,11 +1140,10 @@ function AppInner() {
   const refreshAgents = useCallback(
     async (options?: { throwOnError?: boolean; agentCliEnv?: AppConfig['agentCliEnv'] }) => {
       if (options && Object.prototype.hasOwnProperty.call(options, 'agentCliEnv')) {
-        const nextConfig = clearStaleAmrModelChoiceOnProfileChange(config, {
+        const nextConfig = {
           ...config,
           agentCliEnv: options.agentCliEnv ?? {},
-        });
-        amrModelsRef.current = null;
+        };
         saveConfig(nextConfig);
         await syncConfigToDaemon(nextConfig);
         setConfig(nextConfig);
@@ -1323,17 +1154,12 @@ function AppInner() {
         const next = await fetchAgentsStream({
           onAgent: (agent) => {
             if (!isCurrentAgentStreamRequest(agentRequestId)) return;
-            setAgents((current) =>
-              mergeAmrModelsIntoAgents(
-                upsertAgent(current, agent),
-                amrModelsRef.current,
-              ),
-            );
+            setAgents((current) => upsertAgent(current, agent));
           },
         });
         const ordered = orderAgentsByRegistry(next);
         if (isCurrentAgentStreamRequest(agentRequestId)) {
-          setAgents(mergeAmrModelsIntoAgents(ordered, amrModelsRef.current));
+          setAgents(ordered);
           setAgentsLoading(false);
         }
         return ordered;
@@ -1374,21 +1200,16 @@ function AppInner() {
   useEffect(() => {
     const handleAppConfigChanged = () => {
       void fetchDaemonConfig().then((daemonConfig) => {
-        const next = clearStaleAmrModelChoiceOnProfileChange(
-          latestPersistedConfigRef.current,
-          mergeDaemonConfig(latestPersistedConfigRef.current, daemonConfig),
-        );
+        const next = mergeDaemonConfig(latestPersistedConfigRef.current, daemonConfig);
         latestPersistedConfigRef.current = next;
         saveConfig(next);
         setConfig(next);
-        amrModelsRef.current = null;
-        restartAmrPolling();
         void refreshAgents();
       });
     };
     window.addEventListener(APP_CONFIG_CHANGED_EVENT, handleAppConfigChanged);
     return () => window.removeEventListener(APP_CONFIG_CHANGED_EVENT, handleAppConfigChanged);
-  }, [refreshAgents, restartAmrPolling]);
+  }, [refreshAgents]);
 
   const handleCreateProject = useCallback(
     async (
@@ -2438,7 +2259,6 @@ function AppInner() {
             setSettingsHighlight(null);
           }}
           onRefreshAgents={refreshAgents}
-          onAmrLoginStatusChange={handleAmrLoginStatusChange}
           daemonMediaProviders={daemonMediaProviders}
           daemonMediaProvidersFetchState={daemonMediaProvidersFetchState}
           mediaProvidersNotice={mediaProvidersNotice}
@@ -2452,7 +2272,6 @@ function AppInner() {
         />
       ) : null}
       </AnimatePresence>
-      <MemoryToast onOpenMemory={() => openSettings('memory')} />
       {workingDirError ? (
         <Toast
           message={workingDirError}

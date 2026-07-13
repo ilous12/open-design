@@ -146,8 +146,6 @@ import { PrivacySection } from './PrivacySection';
 import { ProjectLocationsSection } from './ProjectLocationsSection';
 import { RoutinesSection } from './RoutinesSection';
 import { ConnectorsBrowser } from './ConnectorsBrowser';
-import { MemoryModelInline } from './MemoryModelInline';
-import { MemorySection } from './MemorySection';
 import { ByokConnectionTestControl } from './byok/ByokConnectionTestControl';
 import { ByokKeyField } from './byok/ByokKeyField';
 import { ByokModelField } from './byok/ByokModelField';
@@ -219,6 +217,7 @@ function visibleSettingsSection(section: SettingsSection): SettingsSection {
     || section === 'pet'
     || section === 'designSystems'
     || section === 'privacy'
+    || section === 'memory'
     ? 'execution'
     : section;
 }
@@ -785,6 +784,8 @@ const AGENT_SHORT_DESCRIPTIONS: Record<string, string> = {
   codex: 'OpenAI Codex CLI',
   antigravity: 'Google Antigravity CLI',
 };
+
+const SUPPORTED_LOCAL_CLI_AGENT_IDS = new Set(['claude', 'codex', 'antigravity']);
 
 function cleanAgentVersionLabel(
   name: string,
@@ -1796,16 +1797,6 @@ export function SettingsDialog({
     };
   }, [initialHighlight, activeSection]);
 
-  const selectedMemoryChatAgent =
-    cfg.mode === 'daemon' && cfg.agentId
-      ? agents.find((agent) => agent.id === cfg.agentId) ?? null
-      : null;
-  const selectedMemoryChatModel =
-    cfg.mode === 'daemon' && cfg.agentId
-      ? cfg.agentModels?.[cfg.agentId]?.model
-      ?? selectedMemoryChatAgent?.models?.[0]?.id
-      ?? null
-    : null;
   const agentChoiceForTest =
     cfg.mode === 'daemon' && cfg.agentId
       ? cfg.agentModels?.[cfg.agentId]
@@ -3377,17 +3368,20 @@ export function SettingsDialog({
       title: t('settings.projectLocations'),
       subtitle: t('settings.projectLocationsHint'),
     },
-    memory: { title: t('settings.memory'), subtitle: t('settings.memoryHint') },
+    memory: { title: t('settings.title'), subtitle: t('settings.subtitle') },
     // 'library' is opened via EntryShell route — SettingsDialog doesn't
     // render it but SettingsSection must accept the token (see type def).
     library: { title: '', subtitle: '' },
     about: { title: t('settings.about'), subtitle: t('settings.aboutHint') },
   };
   const activeHeader = sectionHeader[activeSection];
-  const installedAgents = orderAgentsWithOpenDesignFirst(
-    agents.filter((a) => a.available),
+  const localCliAgents = agents.filter((agent) =>
+    SUPPORTED_LOCAL_CLI_AGENT_IDS.has(agent.id),
   );
-  const unavailableAgents = agents.filter((a) => !a.available);
+  const installedAgents = orderAgentsWithOpenDesignFirst(
+    localCliAgents.filter((a) => a.available),
+  );
+  const unavailableAgents = localCliAgents.filter((a) => !a.available);
   const initialAgentScanRunning = agentsLoading && agents.length === 0;
   const agentModelOptionLabel = (
     model: ProviderModelOption | undefined,
@@ -3760,17 +3754,6 @@ export function SettingsDialog({
               <span>
                 <strong>{t('settings.instructionsTitle')}</strong>
                 <small>{t('settings.instructionsNavSub')}</small>
-              </span>
-            </button>
-            <button
-              type="button"
-              className={`settings-nav-item${activeSection === 'memory' ? ' active' : ''}`}
-              onClick={() => setActiveSection('memory')}
-            >
-              <Icon name="history" size={18} />
-              <span>
-                <strong>{t('settings.memory')}</strong>
-                <small>{t('settings.memoryHint')}</small>
               </span>
             </button>
             {CRITIQUE_THEATER_FEATURE_ENABLED ? (
@@ -4554,49 +4537,6 @@ export function SettingsDialog({
                 </>
               )}
               {(() => {
-                const selected = agents.find(
-                  (a) => a.id === cfg.agentId && a.available,
-                );
-                if (!selected) return null;
-                const hasModels =
-                  Array.isArray(selected.models) && selected.models.length > 0;
-                const choice = cfg.agentModels?.[selected.id] ?? {};
-                const knownModelIds = selected.models?.map((m) => m.id) ?? [];
-                const configuredModel =
-                  typeof choice.model === 'string' && choice.model
-                    ? choice.model
-                    : null;
-                const modelValue =
-                  selected.id === 'amr' &&
-                  configuredModel &&
-                  !knownModelIds.includes(configuredModel)
-                    ? selected.models?.[0]?.id ?? ''
-                    : configuredModel ?? selected.models?.[0]?.id ?? '';
-                return (
-                  <details className="agent-cli-env settings-memory-advanced">
-                    <summary className="agent-cli-env-summary">
-                      <span className="agent-cli-env-summary-title">
-                        {t('settings.memoryModelInlineLabel')}
-                      </span>
-                    </summary>
-                    <div className="agent-cli-env-body">
-                      <MemoryModelInline
-                        mode="daemon"
-                        apiProtocol={apiProtocol}
-                        chatApiKey={cfg.apiKey}
-                        chatBaseUrl={cfg.baseUrl}
-                        chatApiVersion={cfg.apiVersion ?? ''}
-                        chatModel={modelValue}
-                        cliAgentId={selected.id}
-                        cliModelOptions={
-                          hasModels ? selected.models!.map((m) => m.id) : []
-                        }
-                      />
-                    </div>
-                  </details>
-                );
-              })()}
-              {(() => {
                 /*
                   Per-agent CLI environment overrides — proxy URLs, custom
                   config dirs, and a binary path override. The previous
@@ -4986,14 +4926,6 @@ export function SettingsDialog({
                 />
               </div>
             </section>
-          ) : null}
-
-          {activeSection === 'memory' ? (
-            <MemorySection
-              onOpenConnectors={() => setActiveSection('composio')}
-              chatAgentId={cfg.mode === 'daemon' ? cfg.agentId ?? null : null}
-              chatModel={selectedMemoryChatModel}
-            />
           ) : null}
 
           {activeSection === 'privacy' ? (

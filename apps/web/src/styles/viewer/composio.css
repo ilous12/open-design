@@ -1411,8 +1411,8 @@
   position: fixed;
   inset: 0;
   z-index: 1700;
-  background: rgba(28, 27, 26, 0.42);
-  backdrop-filter: blur(2px);
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: none;
   -webkit-app-region: no-drag;
   display: flex;
   align-items: stretch;

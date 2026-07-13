@@ -584,7 +584,6 @@ jobs:
           RELEASE_TARGET: mac_arm64
           RELEASE_VERSION: ${{ needs.metadata.outputs.release_version }}
           RELEASE_WORK_DIR: ${{ runner.temp }}/release-work/mac_arm64
-          REQUIRE_VELA_CLI: "true"
           TOOLS_PACK_CACHE_DIR: ${{ env.MAC_TOOLS_PACK_CACHE_DIR }}
           TOOLS_PACK_DIR: ${{ env.MAC_TOOLS_PACK_DIR }}
         run: |
