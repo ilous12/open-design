@@ -48,7 +48,7 @@
 }
 
 .entry-shell[data-entry-view='home'] .entry-ambient {
-  display: block;
+  display: none;
 }
 
 .entry-ambient__wash {
