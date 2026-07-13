@@ -129,8 +129,14 @@ BUILD_TARGET="${BUILD_TARGET:-all}"
 SIGN_MODE="${SIGN_MODE:-notarize}"
 EXPORT_PUBLIC_RELEASE="${EXPORT_PUBLIC_RELEASE:-true}"
 DEPLOY_PUBLIC_GITHUB="${DEPLOY_PUBLIC_GITHUB:-}"
+AUTO_BUILD_RELEASE_TOOLS="${AUTO_BUILD_RELEASE_TOOLS:-true}"
 
 infer_github_release_defaults
+
+case "$AUTO_BUILD_RELEASE_TOOLS" in
+  true | false) ;;
+  *) echo "AUTO_BUILD_RELEASE_TOOLS must be one of: true, false" >&2; exit 1 ;;
+esac
 
 case "$SIGN_MODE" in
   no | sign-only | notarize) ;;
@@ -158,6 +164,14 @@ fi
 if [ "$EXPORT_PUBLIC_RELEASE" = "true" ]; then
   require_public_origin
   export OD_UPDATE_METADATA_URL="${OD_UPDATE_METADATA_URL:-${RELEASE_PUBLIC_ORIGIN%/}/$RELEASE_CHANNEL/latest/metadata.json}"
+fi
+
+if [ "$AUTO_BUILD_RELEASE_TOOLS" = "true" ]; then
+  echo "Preparing release tool builds"
+  run_pnpm --filter @nn-design/tools-pack build
+  if [ "$EXPORT_PUBLIC_RELEASE" = "true" ]; then
+    run_pnpm --filter @nn-design/tools-release build
+  fi
 fi
 
 build_args=(

@@ -387,6 +387,7 @@ Import-EnvFile $envFile
 
 Set-EnvValue "RELEASE_CHANNEL" (Get-EnvValue "RELEASE_CHANNEL" "stable")
 Set-EnvValue "AUTO_BUMP_PATCH" (Get-EnvValue "AUTO_BUMP_PATCH" "true")
+Set-EnvValue "AUTO_BUILD_RELEASE_TOOLS" (Get-EnvValue "AUTO_BUILD_RELEASE_TOOLS" "true")
 Set-EnvValue "RELEASE_TARGET" (Get-EnvValue "RELEASE_TARGET" "win_x64")
 Set-EnvValue "BUILD_TARGET" (Get-EnvValue "BUILD_TARGET" "nsis")
 Set-EnvValue "SIGN_MODE" (Get-EnvValue "SIGN_MODE" "off")
@@ -407,6 +408,9 @@ if ((Get-EnvValue "SMOKE_MODE") -notin @("skip", "core", "full")) {
 }
 if ((Get-EnvValue "SIGN_MODE") -eq "on") {
   Require-Env "OD_WIN_SIGN_CERT_SHA1"
+}
+if ((Get-EnvValue "AUTO_BUILD_RELEASE_TOOLS") -notin @("true", "false")) {
+  throw "AUTO_BUILD_RELEASE_TOOLS must be one of: true, false"
 }
 
 $script:PnpmCommand = Resolve-PnpmCommand
@@ -443,6 +447,14 @@ if ((Get-EnvValue "EXPORT_PUBLIC_RELEASE") -eq "true") {
   $origin = (Get-EnvValue "RELEASE_PUBLIC_ORIGIN").TrimEnd("/")
   $channel = Get-EnvValue "RELEASE_CHANNEL"
   Set-EnvValue "OD_UPDATE_METADATA_URL" (Get-EnvValue "OD_UPDATE_METADATA_URL" "$origin/$channel/latest/metadata.json")
+}
+
+if ((Get-EnvValue "AUTO_BUILD_RELEASE_TOOLS") -eq "true") {
+  Write-Host "Preparing release tool builds"
+  Invoke-Pnpm -Arguments @("--filter", "@nn-design/tools-pack", "build")
+  if ((Get-EnvValue "EXPORT_PUBLIC_RELEASE") -eq "true") {
+    Invoke-Pnpm -Arguments @("--filter", "@nn-design/tools-release", "build")
+  }
 }
 
 $releaseVersionForLog = Get-EnvValue "RELEASE_VERSION"
