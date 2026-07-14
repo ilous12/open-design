@@ -831,7 +831,7 @@ function createPendingHtml(): string {
       }
       html,
       body {
-        background: #ffffff;
+        background: #f5f5f7;
         font-family: inherit;
         height: 100%;
         margin: 0;
@@ -839,6 +839,9 @@ function createPendingHtml(): string {
       }
       body {
         align-items: center;
+        background:
+          radial-gradient(circle at 50% 18%, rgba(124, 58, 237, 0.1), transparent 34%),
+          #f5f5f7;
         display: flex;
         justify-content: center;
       }
@@ -909,7 +912,7 @@ function createPendingHtml(): string {
       }
       .boot-stage {
         bottom: 56px;
-        color: #7a838a;
+        color: #746c83;
         font-family: inherit;
         font-size: 14px;
         left: 0;
@@ -925,7 +928,7 @@ function createPendingHtml(): string {
         transition-duration: 140ms;
       }
       .boot-stage-step {
-        color: #9aa2a8;
+        color: #9b94aa;
         font-variant-numeric: tabular-nums;
         margin-right: 7px;
       }
