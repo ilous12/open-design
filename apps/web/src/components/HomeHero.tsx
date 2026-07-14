@@ -1915,6 +1915,28 @@ export const HomeHero = forwardRef<HomeHeroHandle, Props>(function HomeHero(
               <SessionModeToggle
                 mode={sessionMode}
                 onChange={onSessionModeChange}
+                onPickExamplePrompt={(example, nextMode) => {
+                  trackHomeChatComposerClick(analytics.track, {
+                    page_name: 'home',
+                    area: 'chat_composer',
+                    element: 'example_prompt',
+                    chip_id: nextMode,
+                  });
+                  setSelectedPromptExample({
+                    label: promptExampleChipLabel(example),
+                    promptText: example,
+                  });
+                  onExamplePromptStatusChange?.({
+                    title: promptExampleChipLabel(example),
+                    artifactType: nextMode,
+                    brief: { session_mode: nextMode },
+                  });
+                  onPromptChange(example);
+                  editorRef.current?.setText(example);
+                  setSelectedIndex(0);
+                  requestAnimationFrame(() => editorRef.current?.focus());
+                  triggerSendAttention();
+                }}
               />
             </div>
             {executionSwitcher ? (

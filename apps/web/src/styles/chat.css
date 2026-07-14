@@ -1793,6 +1793,35 @@
   font-weight: 600;
   line-height: 1.35;
 }
+.session-mode-card__query-button {
+  appearance: none;
+  display: block;
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.session-mode-card__query:has(.session-mode-card__query-button) {
+  transition:
+    background 140ms cubic-bezier(0.23, 1, 0.32, 1),
+    border-color 140ms cubic-bezier(0.23, 1, 0.32, 1),
+    color 140ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.session-mode-card__query:has(.session-mode-card__query-button:hover),
+.session-mode-card__query:has(.session-mode-card__query-button:focus-visible) {
+  border-color: color-mix(in srgb, var(--accent) 32%, var(--border));
+  background: color-mix(in srgb, var(--accent-tint) 48%, var(--bg-panel));
+  color: var(--text-strong);
+}
+.session-mode-card__query-button:focus-visible {
+  outline: none;
+}
 @media (max-width: 700px) {
   .session-mode-toggle__trigger {
     max-width: 138px;
