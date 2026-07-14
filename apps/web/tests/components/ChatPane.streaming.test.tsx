@@ -490,7 +490,7 @@ describe('ChatPane streaming state', () => {
     expect(onSwitchToLocalCli).toHaveBeenCalledTimes(1);
   });
 
-  it('shows the sent mode and applied plugin context on user turns', () => {
+  it('shows the sent mode while keeping applied plugin context out of user turn chrome', () => {
     const messages: ChatMessage[] = [
       {
         id: 'user-1',
@@ -574,19 +574,17 @@ describe('ChatPane streaming state', () => {
 
     expect(screen.getByTestId('msg-session-mode-chip').textContent).toContain('Design Agent');
     expect(screen.getByTestId('msg-workspace-context-chip').textContent).toContain('Dribbble');
-    expect(screen.getByTestId('msg-plugin-chip').textContent)
-      .toContain('A Decade of Refinement Glow-Up');
+    expect(screen.queryByTestId('msg-plugin-chip')).toBeNull();
+    expect(screen.queryByText('A Decade of Refinement Glow-Up')).toBeNull();
+    expect(screen.queryByText('new-generation')).toBeNull();
     fireEvent.click(screen.getByTestId('msg-workspace-context-chip'));
     expect(onRequestOpenFile).toHaveBeenCalledWith('tab-1');
-    fireEvent.click(screen.getByTestId('msg-plugin-chip'));
-    expect(onRequestPluginDetails).toHaveBeenCalledWith('refinement-plugin');
+    expect(onRequestPluginDetails).not.toHaveBeenCalled();
     expect(screen.getByTestId('msg-design-system-chip').textContent).toContain('Neutral Modern');
     fireEvent.click(screen.getByTestId('msg-design-system-chip'));
     expect(onRequestDesignSystemDetails).toHaveBeenCalledWith(activeDesignSystem);
-    // The plugin's resolved context is now collapsed into the single
-    // plugin chip — the per-category (asset/design/skill) fan-out is no
-    // longer rendered in the bubble, even though the full snapshot still
-    // rides the run for the agent.
+    // The plugin snapshot still rides the run for the agent, but plugin
+    // details are not shown in the message chrome.
     expect(screen.queryByText('template.json')).toBeNull();
   });
 
