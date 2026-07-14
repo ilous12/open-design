@@ -45,8 +45,8 @@
   font-size: 15px;
 }
 .home-hero__brand-mark {
-  width: 26px;
-  height: 26px;
+  width: 21px;
+  height: 21px;
   border-radius: var(--radius-md);
   background: linear-gradient(180deg, rgba(214, 223, 242, 0.2), var(--accent-tint) 92%);
   border: 1px solid color-mix(in srgb, var(--accent) 18%, var(--border));
@@ -67,7 +67,7 @@
   font-family: var(--serif);
   font-weight: 750;
   font-size: 17px;
-  color: var(--accent);
+  color: #000;
 }
 .home-hero__title {
   margin: 0;

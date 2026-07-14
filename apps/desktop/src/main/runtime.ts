@@ -852,7 +852,7 @@ function createPendingHtml(): string {
       .splash-logo {
         display: block;
         height: auto;
-        width: 112px;
+        width: 188px;
       }
       .splash-logo svg {
         display: block;
@@ -860,7 +860,7 @@ function createPendingHtml(): string {
         width: 100%;
       }
       .splash-title {
-        color: #111315;
+        color: #000;
         font-family: inherit;
         font-size: 64px;
         font-weight: 700;

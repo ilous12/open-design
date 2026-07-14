@@ -2019,14 +2019,12 @@
   gap: 8px;
 }
 
-/* Brand mark above the title. Uses the monochrome brand glyph masked with
-   --text-strong so it reads as black in light mode and white in dark mode. */
 .onboarding-cloud__logo {
   display: inline-block;
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   flex: 0 0 auto;
-  background-color: var(--text-strong);
+  background-color: #000;
   -webkit-mask: url(/brand-icon.svg) center / contain no-repeat;
   mask: url(/brand-icon.svg) center / contain no-repeat;
 }
@@ -2081,7 +2079,7 @@
 
 .onboarding-cloud__title {
   margin: 0;
-  color: var(--text-strong);
+  color: #000;
   font-size: 30px;
   font-weight: 700;
   line-height: 1.15;
