@@ -2036,6 +2036,7 @@ export const ChatComposer = forwardRef<ChatComposerHandle, Props>(
     // async Clipboard API to recover pasted screenshots that some browsers
     // only surface through `navigator.clipboard.read()`.
     function handlePasteFiles(files: File[]) {
+      if (activeFileContext) return;
       if (files.length > 0) {
         void uploadFiles(files);
         return;
@@ -2046,6 +2047,7 @@ export const ChatComposer = forwardRef<ChatComposerHandle, Props>(
     function handleDrop(e: React.DragEvent<HTMLDivElement>) {
       e.preventDefault();
       setDragActive(false);
+      if (activeFileContext) return;
       const files = Array.from(e.dataTransfer.files ?? []);
       if (files.length > 0) void uploadFiles(files);
     }
@@ -2587,6 +2589,7 @@ export const ChatComposer = forwardRef<ChatComposerHandle, Props>(
         ref={composerRootRef}
         onDragOver={(e) => {
           e.preventDefault();
+          if (activeFileContext) return;
           setDragActive(true);
         }}
         onDragLeave={() => setDragActive(false)}
@@ -2779,186 +2782,190 @@ export const ChatComposer = forwardRef<ChatComposerHandle, Props>(
             />
           </CaretFloatingLayer>
           <div className="composer-row">
-            <input
-              ref={fileInputRef}
-              data-testid="chat-file-input"
-              type="file"
-              multiple
-              style={{ display: 'none' }}
-              onChange={(e) => {
-                const files = Array.from(e.target.files ?? []);
-                void uploadFiles(files);
-                e.target.value = '';
-              }}
-            />
-            <ComposerPlusMenu
-              triggerTestId="chat-plus-trigger"
-              placementPreference="up"
-              onOpen={() => {
-                trackComposerBar({ element: 'plus_menu_open' });
-                setComposerEngaged(true);
-              }}
-              onSubmenuOpen={(submenu) => {
-                // The toolbox flyout tracks its own open (design_toolbox_open).
-                if (submenu === 'toolbox') return;
-                trackComposerBar({
-                  element: 'plus_submenu_open',
-                  resource_kind: PLUS_SUBMENU_RESOURCE_KIND[submenu],
-                });
-              }}
-              onSearchUsed={(submenu) => {
-                trackComposerBar({
-                  element: 'plus_search',
-                  resource_kind: PLUS_SUBMENU_RESOURCE_KIND[submenu],
-                });
-              }}
-              connectors={connectors}
-              onPickConnector={(connector) => {
-                trackComposerBar({
-                  element: 'plus_pick',
-                  resource_kind: 'connector',
-                  resource_id: connector.id,
-                });
-                insertConnectorMention(connector);
-              }}
-              onAddConnector={() => {
-                trackComposerBar({ element: 'plus_add', resource_kind: 'connector' });
-                onOpenConnectors?.();
-              }}
-              plugins={pluginsForComposer}
-              onPickPlugin={(record) => {
-                trackComposerBar({
-                  element: 'plus_pick',
-                  resource_kind: 'plugin',
-                  resource_id: record.id,
-                });
-                void insertPluginMention(record);
-              }}
-              onAddPlugin={() => {
-                trackComposerBar({ element: 'plus_add', resource_kind: 'plugin' });
-                onBrowsePlugins?.();
-              }}
-              skills={skills}
-              onPickSkill={(skill) => {
-                trackComposerBar({
-                  element: 'plus_pick',
-                  resource_kind: 'skill',
-                  resource_id: skill.id,
-                });
-                void insertSkillMention(skill);
-              }}
-              mcpServers={enabledMcpServers}
-              onPickMcp={(server) => {
-                trackComposerBar({
-                  element: 'plus_pick',
-                  resource_kind: 'mcp',
-                  resource_id: server.id,
-                });
-                insertMcpMention(server);
-              }}
-              onAddMcp={() => {
-                trackComposerBar({ element: 'plus_add', resource_kind: 'mcp' });
-                onOpenMcpSettings?.();
-              }}
-              onAttachFiles={() => {
-                trackChatPanelClick(analytics.track, {
-                  page_name: 'chat_panel',
-                  area: 'chat_panel',
-                  element: 'attachment',
-                });
-                fileInputRef.current?.click();
-              }}
-              onReferenceProject={() => {
-                trackComposerBar({ element: 'plus_pick', resource_kind: 'workspace', resource_id: 'reference-project' });
-                trackProjectReferenceModalSurfaceView(analytics.track, {
-                  page_name: 'chat_panel',
-                  area: 'project_reference_modal',
-                  ...(projectId ? { project_id: projectId } : {}),
-                });
-                setProjectReferenceOpen(true);
-              }}
-              onLinkLocalCode={() => {
-                trackComposerBar({ element: 'plus_pick', resource_kind: 'workspace', resource_id: 'local-code' });
-                void handleLinkLocalCodeContext();
-              }}
-              attachLoading={uploading}
-              onSelectFromLibrary={() => {
-                trackChatPanelClick(analytics.track, {
-                  page_name: 'chat_panel',
-                  area: 'chat_panel',
-                  element: 'library',
-                });
-                setLibraryPickerOpen(true);
-              }}
-              onImportFigma={projectId ? () => {
-                trackChatPanelClick(analytics.track, {
-                  page_name: 'chat_panel',
-                  area: 'chat_panel',
-                  element: 'figma_import',
-                });
-                setFigmaModalOpen(true);
-              } : undefined}
-              onShowFigmaHelp={() => {
-                trackChatPanelClick(analytics.track, {
-                  page_name: 'chat_panel',
-                  area: 'chat_panel',
-                  element: 'figma_help',
-                });
-                trackFigmaHelpModalSurfaceView(analytics.track, {
-                  page_name: 'chat_panel',
-                  area: 'figma_help_modal',
-                  ...(projectId ? { project_id: projectId } : {}),
-                });
-                setFigmaHelpOpen(true);
-              }}
-              onOpenDesignSystems={projectId && designSystemPicker ? () => {
-                trackComposerBar({ element: 'design_system_open' });
-                openDesignSystemPicker();
-              } : undefined}
-              toolboxLabel={t('chat.designToolbox.title')}
-              renderToolbox={(close) => (
-                <DesignToolboxPanel
-                  actions={DESIGN_TOOLBOX_ACTIONS}
-                  skills={skills}
-                  plugins={pluginsForComposer}
-                  mcpServers={enabledMcpServers}
-                  mcpTemplates={mcpTemplates}
-                  connectors={connectors}
-                  projectFiles={projectFiles}
-                  activeSkillIds={stagedSkills.map((skill) => skill.id)}
-                  activePluginId={activeAppliedPlugin?.pluginId ?? pinnedPluginId ?? null}
-                  activeMcpServerIds={stagedMcpServers.map((server) => server.id)}
-                  activeConnectorIds={stagedConnectors.map((connector) => connector.id)}
-                  activeFilePaths={staged.map((item) => item.path)}
-                  onOpened={() => trackDesignToolbox({ element: 'design_toolbox_open' })}
-                  onPickAction={(action) => {
-                    trackDesignToolbox({
-                      element: 'design_toolbox_action',
-                      toolbox_action_id: action.id,
-                    });
-                    applyDesignToolboxAction(action);
-                    close();
+            {!activeFileContext ? (
+              <>
+                <input
+                  ref={fileInputRef}
+                  data-testid="chat-file-input"
+                  type="file"
+                  multiple
+                  style={{ display: 'none' }}
+                  onChange={(e) => {
+                    const files = Array.from(e.target.files ?? []);
+                    void uploadFiles(files);
+                    e.target.value = '';
                   }}
+                />
+                <ComposerPlusMenu
+                  triggerTestId="chat-plus-trigger"
+                  placementPreference="up"
+                  onOpen={() => {
+                    trackComposerBar({ element: 'plus_menu_open' });
+                    setComposerEngaged(true);
+                  }}
+                  onSubmenuOpen={(submenu) => {
+                    // The toolbox flyout tracks its own open (design_toolbox_open).
+                    if (submenu === 'toolbox') return;
+                    trackComposerBar({
+                      element: 'plus_submenu_open',
+                      resource_kind: PLUS_SUBMENU_RESOURCE_KIND[submenu],
+                    });
+                  }}
+                  onSearchUsed={(submenu) => {
+                    trackComposerBar({
+                      element: 'plus_search',
+                      resource_kind: PLUS_SUBMENU_RESOURCE_KIND[submenu],
+                    });
+                  }}
+                  connectors={connectors}
+                  onPickConnector={(connector) => {
+                    trackComposerBar({
+                      element: 'plus_pick',
+                      resource_kind: 'connector',
+                      resource_id: connector.id,
+                    });
+                    insertConnectorMention(connector);
+                  }}
+                  onAddConnector={() => {
+                    trackComposerBar({ element: 'plus_add', resource_kind: 'connector' });
+                    onOpenConnectors?.();
+                  }}
+                  plugins={pluginsForComposer}
+                  onPickPlugin={(record) => {
+                    trackComposerBar({
+                      element: 'plus_pick',
+                      resource_kind: 'plugin',
+                      resource_id: record.id,
+                    });
+                    void insertPluginMention(record);
+                  }}
+                  onAddPlugin={() => {
+                    trackComposerBar({ element: 'plus_add', resource_kind: 'plugin' });
+                    onBrowsePlugins?.();
+                  }}
+                  skills={skills}
                   onPickSkill={(skill) => {
-                    trackDesignToolbox({
-                      element: 'design_toolbox_resource',
+                    trackComposerBar({
+                      element: 'plus_pick',
                       resource_kind: 'skill',
                       resource_id: skill.id,
                     });
-                    applyDesignToolboxSkill(skill);
-                    close();
+                    void insertSkillMention(skill);
                   }}
-                  onPickResource={(resource) => {
-                    trackDesignToolbox({
-                      element: 'design_toolbox_resource',
-                      ...designToolboxResourceTracking(resource),
+                  mcpServers={enabledMcpServers}
+                  onPickMcp={(server) => {
+                    trackComposerBar({
+                      element: 'plus_pick',
+                      resource_kind: 'mcp',
+                      resource_id: server.id,
                     });
-                    applyDesignToolboxResource(resource);
-                    close();
+                    insertMcpMention(server);
                   }}
+                  onAddMcp={() => {
+                    trackComposerBar({ element: 'plus_add', resource_kind: 'mcp' });
+                    onOpenMcpSettings?.();
+                  }}
+                  onAttachFiles={() => {
+                    trackChatPanelClick(analytics.track, {
+                      page_name: 'chat_panel',
+                      area: 'chat_panel',
+                      element: 'attachment',
+                    });
+                    fileInputRef.current?.click();
+                  }}
+                  onReferenceProject={() => {
+                    trackComposerBar({ element: 'plus_pick', resource_kind: 'workspace', resource_id: 'reference-project' });
+                    trackProjectReferenceModalSurfaceView(analytics.track, {
+                      page_name: 'chat_panel',
+                      area: 'project_reference_modal',
+                      ...(projectId ? { project_id: projectId } : {}),
+                    });
+                    setProjectReferenceOpen(true);
+                  }}
+                  onLinkLocalCode={() => {
+                    trackComposerBar({ element: 'plus_pick', resource_kind: 'workspace', resource_id: 'local-code' });
+                    void handleLinkLocalCodeContext();
+                  }}
+                  attachLoading={uploading}
+                  onSelectFromLibrary={() => {
+                    trackChatPanelClick(analytics.track, {
+                      page_name: 'chat_panel',
+                      area: 'chat_panel',
+                      element: 'library',
+                    });
+                    setLibraryPickerOpen(true);
+                  }}
+                  onImportFigma={projectId ? () => {
+                    trackChatPanelClick(analytics.track, {
+                      page_name: 'chat_panel',
+                      area: 'chat_panel',
+                      element: 'figma_import',
+                    });
+                    setFigmaModalOpen(true);
+                  } : undefined}
+                  onShowFigmaHelp={() => {
+                    trackChatPanelClick(analytics.track, {
+                      page_name: 'chat_panel',
+                      area: 'chat_panel',
+                      element: 'figma_help',
+                    });
+                    trackFigmaHelpModalSurfaceView(analytics.track, {
+                      page_name: 'chat_panel',
+                      area: 'figma_help_modal',
+                      ...(projectId ? { project_id: projectId } : {}),
+                    });
+                    setFigmaHelpOpen(true);
+                  }}
+                  onOpenDesignSystems={projectId && designSystemPicker ? () => {
+                    trackComposerBar({ element: 'design_system_open' });
+                    openDesignSystemPicker();
+                  } : undefined}
+                  toolboxLabel={t('chat.designToolbox.title')}
+                  renderToolbox={(close) => (
+                    <DesignToolboxPanel
+                      actions={DESIGN_TOOLBOX_ACTIONS}
+                      skills={skills}
+                      plugins={pluginsForComposer}
+                      mcpServers={enabledMcpServers}
+                      mcpTemplates={mcpTemplates}
+                      connectors={connectors}
+                      projectFiles={projectFiles}
+                      activeSkillIds={stagedSkills.map((skill) => skill.id)}
+                      activePluginId={activeAppliedPlugin?.pluginId ?? pinnedPluginId ?? null}
+                      activeMcpServerIds={stagedMcpServers.map((server) => server.id)}
+                      activeConnectorIds={stagedConnectors.map((connector) => connector.id)}
+                      activeFilePaths={staged.map((item) => item.path)}
+                      onOpened={() => trackDesignToolbox({ element: 'design_toolbox_open' })}
+                      onPickAction={(action) => {
+                        trackDesignToolbox({
+                          element: 'design_toolbox_action',
+                          toolbox_action_id: action.id,
+                        });
+                        applyDesignToolboxAction(action);
+                        close();
+                      }}
+                      onPickSkill={(skill) => {
+                        trackDesignToolbox({
+                          element: 'design_toolbox_resource',
+                          resource_kind: 'skill',
+                          resource_id: skill.id,
+                        });
+                        applyDesignToolboxSkill(skill);
+                        close();
+                      }}
+                      onPickResource={(resource) => {
+                        trackDesignToolbox({
+                          element: 'design_toolbox_resource',
+                          ...designToolboxResourceTracking(resource),
+                        });
+                        applyDesignToolboxResource(resource);
+                        close();
+                      }}
+                    />
+                  )}
                 />
-              )}
-            />
+              </>
+            ) : null}
             {designToolboxOpen ? (
               <div className="composer-toolbox-standalone">
                 {/* Click-catcher backdrop. A <div> (not a <button>) so it never

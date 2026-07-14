@@ -467,7 +467,7 @@
   border: none;
   font-size: 11.5px;
   line-height: 1;
-  color: var(--text-muted);
+  color: var(--text);
   max-width: 100%;
   overflow: hidden;
   white-space: nowrap;
@@ -498,6 +498,9 @@
 }
 .msg-plugin-chip--design-system .msg-plugin-chip__dot {
   background: var(--accent);
+}
+.msg-plugin-chip--design-system {
+  background: color-mix(in srgb, var(--accent-tint) 66%, var(--bg-fill-tertiary));
 }
 .msg-plugin-chip__icon {
   display: inline-flex;
@@ -541,11 +544,11 @@
   font-weight: 600;
   font-size: 8.5px;
   flex: 0 0 auto;
-  color: var(--text-faint);
+  color: color-mix(in srgb, var(--accent) 74%, var(--text-strong));
 }
 .msg-plugin-chip__title {
-  color: var(--text);
-  font-weight: 500;
+  color: var(--text-strong);
+  font-weight: 600;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -553,7 +556,8 @@
 }
 .msg-plugin-chip__version,
 .msg-plugin-chip__task {
-  color: var(--text-faint);
+  color: color-mix(in srgb, var(--accent) 58%, var(--text));
+  font-weight: 550;
   font-variant-numeric: tabular-nums;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -596,6 +600,11 @@
 .msg-plugin-context .context-chip-strip__kind {
   font-size: 8.5px;
   letter-spacing: 0.02em;
+  color: color-mix(in srgb, var(--c-hue) 78%, var(--text-strong));
+}
+.msg-plugin-context .context-chip-strip__label {
+  color: var(--text-strong);
+  font-weight: 600;
 }
 .msg-plugin-context .context-chip-strip__remove {
   width: 14px;
@@ -1380,9 +1389,10 @@
 }
 /* Per-kind hue map — set only the two local props; everything above
    derives from them. */
-.composer-inline-mention--plugin    { --m-hue: var(--accent);  --m-tint: var(--accent-tint); }
+.composer-inline-mention--plugin    { --m-hue: var(--purple);  --m-tint: var(--purple-bg); }
 .composer-inline-mention--skill     { --m-hue: var(--accent);  --m-tint: var(--accent-tint); }
 .composer-inline-mention--design,
+.composer-inline-mention--design-system,
 .composer-inline-mention--mcp        { --m-hue: var(--purple);  --m-tint: var(--purple-bg); }
 .composer-inline-mention--file       { --m-hue: var(--blue);    --m-tint: var(--blue-bg); }
 .composer-inline-mention--connector  { --m-hue: var(--green);   --m-tint: var(--green-bg); }
