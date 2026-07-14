@@ -37,7 +37,7 @@
 }
 .home-hero__brand {
   --brand-lockup-font-size: 17px;
-  --brand-lockup-mark-height: calc(var(--brand-lockup-font-size) * 1.1);
+  --brand-lockup-mark-height: calc(var(--brand-lockup-font-size) * 1.65);
 
   position: relative;
   display: inline-flex;
@@ -54,7 +54,7 @@
   height: var(--brand-lockup-mark-height);
   flex: 0 0 auto;
   overflow: hidden;
-  border: 1px solid #005fff;
+  border: 1px solid #000;
   border-radius: 50%;
   background: #fff url(/app-icon.svg) center / cover no-repeat;
 }

@@ -844,7 +844,7 @@ function createPendingHtml(): string {
       }
       .splash-brand {
         --brand-lockup-font-size: 64px;
-        --brand-lockup-mark-height: calc(var(--brand-lockup-font-size) * 1.1);
+        --brand-lockup-mark-height: calc(var(--brand-lockup-font-size) * 1.65);
 
         align-items: center;
         display: flex;
@@ -855,7 +855,7 @@ function createPendingHtml(): string {
       .splash-logo {
         align-items: center;
         background: #fff;
-        border: 1px solid #005fff;
+        border: 1px solid #000;
         border-radius: 50%;
         box-sizing: border-box;
         display: inline-flex;

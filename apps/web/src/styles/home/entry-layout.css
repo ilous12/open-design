@@ -270,8 +270,8 @@
    docked rail can be dismissed Manus-style without a separate chrome control. */
 .entry-nav-rail__brand {
   position: relative;
-  width: 36px;
-  height: 36px;
+  width: 48px;
+  height: 48px;
   flex-shrink: 0;
 }
 .entry-nav-rail .entry-nav-rail__collapse {
@@ -773,8 +773,8 @@
 .entry-nav-rail__logo {
   appearance: none;
   position: relative;
-  width: 36px;
-  height: 36px;
+  width: 48px;
+  height: 48px;
   padding: 0;
   border: 0;
   border-radius: var(--radius);
@@ -811,10 +811,10 @@
   box-sizing: border-box;
   position: absolute;
   inset: auto;
-  width: 31px;
-  height: 31px;
+  width: 47px;
+  height: 47px;
   overflow: hidden;
-  border: 1px solid #005fff;
+  border: 1px solid #000;
   border-radius: 50%;
   background: #fff url(/app-icon.svg) center / cover no-repeat;
   display: block;
@@ -2028,7 +2028,7 @@
   height: var(--brand-lockup-mark-height);
   flex: 0 0 auto;
   overflow: hidden;
-  border: 1px solid #005fff;
+  border: 1px solid #000;
   border-radius: 50%;
   background: #fff url(/app-icon.svg) center / cover no-repeat;
 }
@@ -2083,7 +2083,7 @@
 
 .onboarding-cloud__title {
   --brand-lockup-font-size: 30px;
-  --brand-lockup-mark-height: calc(var(--brand-lockup-font-size) * 1.1);
+  --brand-lockup-mark-height: calc(var(--brand-lockup-font-size) * 1.65);
 
   margin: 0;
   color: #000;
