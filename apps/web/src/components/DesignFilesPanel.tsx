@@ -20,6 +20,9 @@ import { Icon } from './Icon';
 import { LiveArtifactBadges } from './LiveArtifactBadges';
 import { isRenderableSketchJson, SketchPreview } from './SketchPreview';
 
+const SHOW_ASSET_LIBRARY_ENTRY = false;
+const SHOW_PLUGIN_FOLDER_SECTION = false;
+
 type TranslateFn = (key: keyof Dict, vars?: Record<string, string | number>) => string;
 
 export interface DesignFilesNavState {
@@ -763,7 +766,7 @@ export function DesignFilesPanel({
 
   const fileActions = (
     <div className="df-actions">
-      {LIBRARY_UI_VISIBLE && onSelectFromLibrary ? (
+      {SHOW_ASSET_LIBRARY_ENTRY && LIBRARY_UI_VISIBLE && onSelectFromLibrary ? (
         <button
           type="button"
           data-testid="design-files-library-trigger"
@@ -1018,7 +1021,7 @@ export function DesignFilesPanel({
                   ))}
                 </div>
               ) : null}
-              {pluginFolders.length > 0 ? (
+              {SHOW_PLUGIN_FOLDER_SECTION && pluginFolders.length > 0 ? (
                 <div className="df-section" key="plugin-folders">
                   <div className="df-section-label">
                     Plugin folders
