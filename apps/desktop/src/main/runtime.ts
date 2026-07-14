@@ -854,15 +854,18 @@ function createPendingHtml(): string {
       }
       .splash-logo {
         align-items: center;
+        background: #fff;
+        border-radius: 50%;
         display: inline-flex;
         height: var(--brand-lockup-mark-height);
         justify-content: center;
-        width: calc(var(--brand-lockup-mark-height) * 1.636);
+        overflow: hidden;
+        width: var(--brand-lockup-mark-height);
       }
       .splash-logo svg {
         display: block;
-        height: 100%;
-        width: 100%;
+        height: 54%;
+        width: 82%;
       }
       .splash-title {
         color: #000;

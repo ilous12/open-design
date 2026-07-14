@@ -49,12 +49,12 @@
 }
 .home-hero__brand-mark {
   display: inline-block;
-  width: calc(var(--brand-lockup-mark-height) * 1.636);
+  width: var(--brand-lockup-mark-height);
   height: var(--brand-lockup-mark-height);
   flex: 0 0 auto;
-  background-color: #000;
-  -webkit-mask: url(/brand-icon.svg) center / contain no-repeat;
-  mask: url(/brand-icon.svg) center / contain no-repeat;
+  overflow: hidden;
+  border-radius: 50%;
+  background: #fff url(/app-icon.svg) center / cover no-repeat;
 }
 .home-hero__brand-name {
   font-family: var(--serif);
