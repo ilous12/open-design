@@ -843,6 +843,9 @@ function createPendingHtml(): string {
         justify-content: center;
       }
       .splash-brand {
+        --brand-lockup-font-size: 64px;
+        --brand-lockup-mark-height: calc(var(--brand-lockup-font-size) * 1.2);
+
         align-items: center;
         display: flex;
         gap: 18px;
@@ -850,22 +853,24 @@ function createPendingHtml(): string {
         user-select: none;
       }
       .splash-logo {
-        display: block;
-        height: auto;
-        width: 188px;
+        align-items: center;
+        display: inline-flex;
+        height: var(--brand-lockup-mark-height);
+        justify-content: center;
+        width: calc(var(--brand-lockup-mark-height) * 1.636);
       }
       .splash-logo svg {
         display: block;
-        height: auto;
+        height: 100%;
         width: 100%;
       }
       .splash-title {
         color: #000;
         font-family: inherit;
-        font-size: 64px;
+        font-size: var(--brand-lockup-font-size);
         font-weight: 700;
         letter-spacing: 0;
-        line-height: 1.1;
+        line-height: 1;
       }
       .boot-stage {
         bottom: 56px;

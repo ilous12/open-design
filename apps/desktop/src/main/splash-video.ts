@@ -2,7 +2,7 @@
 // before daemon/web sidecars are ready, so packaged builds cannot rely on local
 // HTTP assets or resource-relative file paths.
 
-export const SPLASH_AIR_LOGO_SVG = `<svg width="360" height="220" viewBox="0 0 360 220" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AIR">
+export const SPLASH_AIR_LOGO_SVG = `<svg width="242" height="148" viewBox="56 44 242 148" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AIR">
   <g transform="translate(56 44) scale(13.966)">
     <path d="M11.068 2.62048H9.4248V10.4318H11.068V2.62048Z" fill="black"/>
     <path d="M11.068 0H9.4248V1.62128H11.068V0Z" fill="#005FFF"/>

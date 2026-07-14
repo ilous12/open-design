@@ -810,13 +810,13 @@
 .entry-nav-rail__logo-img {
   position: absolute;
   inset: auto;
-  width: 30px;
-  height: 30px;
-  object-fit: cover;
-  border-radius: var(--radius);
+  width: 32px;
+  height: 20px;
+  background-color: #000;
+  -webkit-mask: url(/brand-icon.svg) center / contain no-repeat;
+  mask: url(/brand-icon.svg) center / contain no-repeat;
   display: block;
   user-select: none;
-  -webkit-user-drag: none;
   pointer-events: none;
 }
 .entry-nav-rail__btn {
@@ -2021,8 +2021,8 @@
 
 .onboarding-cloud__logo {
   display: inline-block;
-  width: 36px;
-  height: 36px;
+  width: calc(var(--brand-lockup-mark-height) * 1.636);
+  height: var(--brand-lockup-mark-height);
   flex: 0 0 auto;
   background-color: #000;
   -webkit-mask: url(/brand-icon.svg) center / contain no-repeat;
@@ -2078,11 +2078,14 @@
 }
 
 .onboarding-cloud__title {
+  --brand-lockup-font-size: 30px;
+  --brand-lockup-mark-height: calc(var(--brand-lockup-font-size) * 1.2);
+
   margin: 0;
   color: #000;
-  font-size: 30px;
+  font-size: var(--brand-lockup-font-size);
   font-weight: 700;
-  line-height: 1.15;
+  line-height: 1;
   letter-spacing: -0.01em;
   display: inline-flex;
   align-items: center;

@@ -115,12 +115,7 @@ export function EntryNavRail({
             aria-label={brandLabel}
             data-testid="entry-nav-logo"
           >
-            <img
-              src="/app-icon.svg"
-              alt=""
-              className="entry-nav-rail__logo-img"
-              draggable={false}
-            />
+            <span className="entry-nav-rail__logo-img" aria-hidden="true" />
           </button>
           <button
             type="button"
