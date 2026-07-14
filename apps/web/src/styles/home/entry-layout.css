@@ -270,8 +270,8 @@
    docked rail can be dismissed Manus-style without a separate chrome control. */
 .entry-nav-rail__brand {
   position: relative;
-  width: 48px;
-  height: 48px;
+  width: 54px;
+  height: 54px;
   flex-shrink: 0;
 }
 .entry-nav-rail .entry-nav-rail__collapse {
@@ -773,8 +773,8 @@
 .entry-nav-rail__logo {
   appearance: none;
   position: relative;
-  width: 48px;
-  height: 48px;
+  width: 54px;
+  height: 54px;
   padding: 0;
   border: 0;
   border-radius: var(--radius);
@@ -811,15 +811,42 @@
   box-sizing: border-box;
   position: absolute;
   inset: auto;
-  width: 47px;
-  height: 47px;
+  width: 53px;
+  height: 53px;
   overflow: hidden;
-  border: 1px solid #000;
   border-radius: 50%;
-  background: #fff url(/app-icon.svg) center / cover no-repeat;
+  background: transparent;
   display: block;
   user-select: none;
   pointer-events: none;
+}
+.entry-nav-rail__logo-img::before,
+.onboarding-cloud__logo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, #ffffff 0deg, #d6d9de 92deg, #9ca3af 178deg, #f7f7f7 270deg, #ffffff 360deg);
+  animation: brand-icon-ring-spin 2.8s linear infinite;
+}
+.entry-nav-rail__logo-img::after,
+.onboarding-cloud__logo::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  background: #fff url(/app-icon.svg) center / cover no-repeat;
+}
+@keyframes brand-icon-ring-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .entry-nav-rail__logo-img::before,
+  .onboarding-cloud__logo::before {
+    animation: none;
+  }
 }
 .entry-nav-rail__btn {
   appearance: none;
@@ -2028,9 +2055,9 @@
   height: var(--brand-lockup-mark-height);
   flex: 0 0 auto;
   overflow: hidden;
-  border: 1px solid #000;
   border-radius: 50%;
-  background: #fff url(/app-icon.svg) center / cover no-repeat;
+  background: transparent;
+  position: relative;
 }
 
 /* Compact, icon-only language switcher used in the cloud landing top bar —
@@ -2083,7 +2110,7 @@
 
 .onboarding-cloud__title {
   --brand-lockup-font-size: 30px;
-  --brand-lockup-mark-height: calc(var(--brand-lockup-font-size) * 1.65);
+  --brand-lockup-mark-height: calc(var(--brand-lockup-font-size) * 1.87);
 
   margin: 0;
   color: #000;

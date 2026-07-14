@@ -37,7 +37,7 @@
 }
 .home-hero__brand {
   --brand-lockup-font-size: 17px;
-  --brand-lockup-mark-height: calc(var(--brand-lockup-font-size) * 1.65);
+  --brand-lockup-mark-height: calc(var(--brand-lockup-font-size) * 1.87);
 
   position: relative;
   display: inline-flex;
@@ -54,9 +54,33 @@
   height: var(--brand-lockup-mark-height);
   flex: 0 0 auto;
   overflow: hidden;
-  border: 1px solid #000;
+  border-radius: 50%;
+  position: relative;
+}
+.home-hero__brand-mark::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, #ffffff 0deg, #d6d9de 92deg, #9ca3af 178deg, #f7f7f7 270deg, #ffffff 360deg);
+  animation: brand-icon-ring-spin 2.8s linear infinite;
+}
+.home-hero__brand-mark::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
   border-radius: 50%;
   background: #fff url(/app-icon.svg) center / cover no-repeat;
+}
+@keyframes brand-icon-ring-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-hero__brand-mark::before {
+    animation: none;
+  }
 }
 .home-hero__brand-name {
   font-family: var(--serif);

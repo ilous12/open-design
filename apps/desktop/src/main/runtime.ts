@@ -844,7 +844,7 @@ function createPendingHtml(): string {
       }
       .splash-brand {
         --brand-lockup-font-size: 64px;
-        --brand-lockup-mark-height: calc(var(--brand-lockup-font-size) * 1.65);
+        --brand-lockup-mark-height: calc(var(--brand-lockup-font-size) * 1.87);
 
         align-items: center;
         display: flex;
@@ -854,20 +854,50 @@ function createPendingHtml(): string {
       }
       .splash-logo {
         align-items: center;
-        background: #fff;
-        border: 1px solid #000;
+        background: transparent;
         border-radius: 50%;
         box-sizing: border-box;
         display: inline-flex;
         height: var(--brand-lockup-mark-height);
+        isolation: isolate;
         justify-content: center;
         overflow: hidden;
+        position: relative;
         width: var(--brand-lockup-mark-height);
+      }
+      .splash-logo::before {
+        animation: brand-icon-ring-spin 2.8s linear infinite;
+        background: conic-gradient(from 0deg, #ffffff 0deg, #d6d9de 92deg, #9ca3af 178deg, #f7f7f7 270deg, #ffffff 360deg);
+        border-radius: 50%;
+        content: '';
+        inset: 0;
+        position: absolute;
+        z-index: 0;
+      }
+      .splash-logo::after {
+        background: #fff;
+        border-radius: 50%;
+        content: '';
+        inset: 4px;
+        position: absolute;
+        z-index: 1;
       }
       .splash-logo svg {
         display: block;
         height: 54%;
+        position: relative;
         width: 82%;
+        z-index: 2;
+      }
+      @keyframes brand-icon-ring-spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .splash-logo::before {
+          animation: none;
+        }
       }
       .splash-title {
         color: #000;
