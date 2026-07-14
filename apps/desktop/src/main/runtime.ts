@@ -864,32 +864,21 @@ function createPendingHtml(): string {
         height: var(--brand-lockup-mark-height);
         isolation: isolate;
         justify-content: center;
-        overflow: hidden;
+        overflow: visible;
         position: relative;
         width: var(--brand-lockup-mark-height);
       }
       .splash-logo::before {
-        animation: brand-icon-ring-spin 2.8s linear infinite;
-        background: conic-gradient(from 0deg, #ffffff 0deg, #d6d9de 92deg, #9ca3af 178deg, #f7f7f7 270deg, #ffffff 360deg);
-        border-radius: 50%;
-        content: '';
-        inset: 0;
-        position: absolute;
-        z-index: 0;
+        content: none;
       }
       .splash-logo::after {
-        background: #fff;
-        border-radius: 50%;
-        content: '';
-        inset: 4px;
-        position: absolute;
-        z-index: 1;
+        content: none;
       }
       .splash-logo svg {
         display: block;
-        height: 54%;
+        height: 70%;
         position: relative;
-        width: 82%;
+        width: 100%;
         z-index: 2;
       }
       @keyframes brand-icon-ring-spin {
