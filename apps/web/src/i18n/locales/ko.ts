@@ -2113,7 +2113,7 @@ export const ko: Dict = {
   'chat.designToolbox.action.anti-ai-polish.title': 'AI 느낌 제거',
   'chat.designToolbox.action.anti-ai-polish.badge': '취향',
   'chat.designToolbox.action.anti-ai-polish.description': '템플릿 느낌, AI 그라데이션, 저렴한 카드 스택, 모호한 카피를 제거합니다.',
-  'chat.designToolbox.action.visual-polish.title': '디자인 다듬기 / 출시 준비 완료',
+  'chat.designToolbox.action.visual-polish.title': '디자인 개선하기',
   'chat.designToolbox.action.visual-polish.badge': '다듬기',
   'chat.designToolbox.action.visual-polish.description': '시각적 위계, 타이포그래피, 간격, 반응형 동작, 접근성, 전달 품질을 점검합니다.',
   'chat.designToolbox.action.image-gen.title': '이미지 / 시각 레퍼런스 생성',

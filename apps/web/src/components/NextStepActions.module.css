@@ -1,13 +1,17 @@
 .root {
+  --next-step-bg: var(--accent);
+  --next-step-hover: var(--accent-hover, var(--accent));
+  --next-step-contrast: var(--accent-contrast, #fff);
+
   display: flex;
   flex-direction: column;
   gap: 8px;
   margin-top: 10px;
   padding: 10px 12px;
-  border: 1px solid color-mix(in srgb, #f06b82 68%, rgba(255, 255, 255, 0.48));
+  border: 1px solid var(--next-step-bg);
   border-radius: var(--radius);
-  background: color-mix(in srgb, #f06b82 76%, #ffd4dc 24%);
-  color: #fff;
+  background: var(--next-step-bg);
+  color: var(--next-step-contrast);
   animation: next-step-in 200ms cubic-bezier(0.23, 1, 0.32, 1) both;
 }
 
@@ -33,7 +37,7 @@
   font-weight: 600;
   letter-spacing: 0.02em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.88);
+  color: color-mix(in srgb, var(--next-step-contrast) 88%, transparent);
 }
 
 /* One flat row: Share + iteration directions all sit at the same level. */
@@ -51,10 +55,10 @@
   gap: 5px;
   padding: 4px 12px;
   font-size: 12px;
-  font-weight: 500;
-  color: var(--accent-strong);
-  background: var(--accent-tint);
-  border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--border));
+  font-weight: 650;
+  color: var(--next-step-contrast);
+  background: color-mix(in srgb, var(--next-step-hover) 72%, var(--next-step-bg) 28%);
+  border: 1px solid color-mix(in srgb, var(--next-step-contrast) 34%, var(--next-step-hover));
   border-radius: 999px;
   cursor: pointer;
   transition:
@@ -63,21 +67,21 @@
 }
 
 .share:hover {
-  background: color-mix(in srgb, var(--accent-tint) 70%, var(--accent) 14%);
-  border-color: var(--accent);
-  color: #fff;
+  background: var(--next-step-hover);
+  border-color: color-mix(in srgb, var(--next-step-contrast) 50%, var(--next-step-hover));
+  color: var(--next-step-contrast);
 }
 
 .share:focus-visible {
-  color: #fff;
-  outline: 2px solid rgba(255, 255, 255, 0.88);
+  color: var(--next-step-contrast);
+  outline: 2px solid color-mix(in srgb, var(--next-step-contrast) 90%, transparent);
   outline-offset: 1px;
 }
 
 .share:active {
-  background: color-mix(in srgb, var(--accent) 58%, #d84f69 42%);
-  border-color: rgba(255, 255, 255, 0.78);
-  color: #fff;
+  background: color-mix(in srgb, var(--next-step-hover) 82%, #000 18%);
+  border-color: color-mix(in srgb, var(--next-step-contrast) 58%, var(--next-step-hover));
+  color: var(--next-step-contrast);
 }
 
 /* Featured design-toolbox follow-up rows — the toolbox's primary entry point
@@ -101,9 +105,9 @@
   width: 100%;
   padding: 6px 8px;
   font-size: 13px;
-  color: #fff;
-  background: color-mix(in srgb, #ee5f79 82%, #ffc7d2 18%);
-  border: 1px solid color-mix(in srgb, #f7a7b7 72%, rgba(255, 255, 255, 0.4));
+  color: var(--next-step-contrast);
+  background: color-mix(in srgb, var(--next-step-hover) 72%, var(--next-step-bg) 28%);
+  border: 1px solid color-mix(in srgb, var(--next-step-contrast) 32%, var(--next-step-hover));
   border-radius: var(--radius);
   cursor: pointer;
   text-align: left;
@@ -114,9 +118,9 @@
 
 .toolboxRow:hover,
 .moreRow:hover {
-  background: color-mix(in srgb, #e14f6a 86%, #ffcad4 14%);
-  border-color: color-mix(in srgb, #ffd4dd 80%, rgba(255, 255, 255, 0.62));
-  color: #fff;
+  background: var(--next-step-hover);
+  border-color: color-mix(in srgb, var(--next-step-contrast) 52%, var(--next-step-hover));
+  color: var(--next-step-contrast);
 }
 
 .toolboxRow:disabled,
@@ -127,22 +131,22 @@
 
 .toolboxRow:disabled:hover,
 .moreRow:disabled:hover {
-  background: color-mix(in srgb, #ee5f79 82%, #ffc7d2 18%);
-  border-color: color-mix(in srgb, #f7a7b7 72%, rgba(255, 255, 255, 0.4));
+  background: color-mix(in srgb, var(--next-step-hover) 72%, var(--next-step-bg) 28%);
+  border-color: color-mix(in srgb, var(--next-step-contrast) 32%, var(--next-step-hover));
 }
 
 .toolboxRow:focus-visible,
 .moreRow:focus-visible {
-  color: #fff;
-  outline: 2px solid rgba(255, 255, 255, 0.9);
+  color: var(--next-step-contrast);
+  outline: 2px solid color-mix(in srgb, var(--next-step-contrast) 92%, transparent);
   outline-offset: 1px;
 }
 
 .toolboxRow:active,
 .moreRow:active {
-  background: color-mix(in srgb, #cf4660 88%, #ffccd6 12%);
-  border-color: rgba(255, 255, 255, 0.82);
-  color: #fff;
+  background: color-mix(in srgb, var(--next-step-hover) 82%, #000 18%);
+  border-color: color-mix(in srgb, var(--next-step-contrast) 58%, var(--next-step-hover));
+  color: var(--next-step-contrast);
 }
 
 .toolboxRow:hover .toolboxRowIcon,
@@ -160,12 +164,12 @@
 .toolboxRow:active .toolboxRowArrow,
 .moreRow:active .toolboxRowTitle,
 .moreRow:active .toolboxRowArrow {
-  color: rgba(255, 255, 255, 0.96);
+  color: color-mix(in srgb, var(--next-step-contrast) 96%, transparent);
 }
 
 .toolboxRowIcon {
   flex: none;
-  color: rgba(255, 255, 255, 0.92);
+  color: color-mix(in srgb, var(--next-step-contrast) 92%, transparent);
 }
 
 .toolboxRowText {
@@ -190,16 +194,16 @@
   white-space: nowrap;
   font-size: 11px;
   line-height: 1.3;
-  color: rgba(255, 255, 255, 0.82);
+  color: color-mix(in srgb, var(--next-step-contrast) 82%, transparent);
 }
 
 .toolboxRowArrow {
   flex: none;
-  color: rgba(255, 255, 255, 0.84);
+  color: color-mix(in srgb, var(--next-step-contrast) 84%, transparent);
 }
 
 .moreRow .toolboxRowTitle {
-  color: rgba(255, 255, 255, 0.9);
+  color: color-mix(in srgb, var(--next-step-contrast) 90%, transparent);
 }
 
 /* Hover detail card — portaled to <body> and fixed-positioned next to the
