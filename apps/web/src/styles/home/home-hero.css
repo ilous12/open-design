@@ -48,11 +48,13 @@
   font-size: var(--brand-lockup-font-size);
 }
 .home-hero__brand-mark {
+  box-sizing: border-box;
   display: inline-block;
   width: var(--brand-lockup-mark-height);
   height: var(--brand-lockup-mark-height);
   flex: 0 0 auto;
   overflow: hidden;
+  border: 1px solid #005fff;
   border-radius: 50%;
   background: #fff url(/app-icon.svg) center / cover no-repeat;
 }

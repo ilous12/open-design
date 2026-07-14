@@ -808,11 +808,13 @@
   border-color: transparent;
 }
 .entry-nav-rail__logo-img {
+  box-sizing: border-box;
   position: absolute;
   inset: auto;
   width: 31px;
   height: 31px;
   overflow: hidden;
+  border: 1px solid #005fff;
   border-radius: 50%;
   background: #fff url(/app-icon.svg) center / cover no-repeat;
   display: block;
@@ -2020,11 +2022,13 @@
 }
 
 .onboarding-cloud__logo {
+  box-sizing: border-box;
   display: inline-block;
   width: var(--brand-lockup-mark-height);
   height: var(--brand-lockup-mark-height);
   flex: 0 0 auto;
   overflow: hidden;
+  border: 1px solid #005fff;
   border-radius: 50%;
   background: #fff url(/app-icon.svg) center / cover no-repeat;
 }
