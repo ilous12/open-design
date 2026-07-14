@@ -845,14 +845,14 @@ function createPendingHtml(): string {
       .splash-brand {
         align-items: center;
         display: flex;
-        gap: 10px;
+        gap: 18px;
         transform: translateY(-18px);
         user-select: none;
       }
       .splash-logo {
         display: block;
         height: auto;
-        width: 48px;
+        width: 112px;
       }
       .splash-logo svg {
         display: block;
@@ -862,7 +862,7 @@ function createPendingHtml(): string {
       .splash-title {
         color: #111315;
         font-family: inherit;
-        font-size: 29px;
+        font-size: 64px;
         font-weight: 700;
         letter-spacing: 0;
         line-height: 1.1;
