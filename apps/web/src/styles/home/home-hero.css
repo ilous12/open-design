@@ -37,7 +37,7 @@
 }
 .home-hero__brand {
   --brand-lockup-font-size: 17px;
-  --brand-lockup-mark-height: calc(var(--brand-lockup-font-size) * 1.2);
+  --brand-lockup-mark-height: calc(var(--brand-lockup-font-size) * 1.1);
 
   position: relative;
   display: inline-flex;
