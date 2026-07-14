@@ -845,15 +845,14 @@ function createPendingHtml(): string {
       .splash-brand {
         align-items: center;
         display: flex;
-        flex-direction: column;
-        gap: 16px;
+        gap: 10px;
         transform: translateY(-18px);
         user-select: none;
       }
       .splash-logo {
         display: block;
         height: auto;
-        width: min(360px, 42vw);
+        width: 48px;
       }
       .splash-logo svg {
         display: block;
@@ -921,8 +920,8 @@ function createPendingHtml(): string {
   </head>
   <body>
     <main class="splash-brand" aria-label="design for air startup">
+      <div class="splash-title">design for</div>
       <div class="splash-logo" aria-hidden="true">${splashLogoMarkup}</div>
-      <div class="splash-title">design for air</div>
     </main>
     <div class="boot-progress" aria-hidden="true">
       <div class="boot-progress-fill" id="boot-progress-fill" data-pct="${initialPct}" style="width: ${initialPct}%;"></div>

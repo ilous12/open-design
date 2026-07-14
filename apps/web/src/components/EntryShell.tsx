@@ -2104,12 +2104,10 @@ function OnboardingView({
         aria-label={t('settings.welcomeTitle')}
       >
         <div className="onboarding-cloud__center">
-          <span
-            className="onboarding-cloud__logo"
-            role="img"
-            aria-label="design for air"
-          />
-          <h1 className="onboarding-cloud__title">{t('settings.onboardingCloudTitle')}</h1>
+          <h1 className="onboarding-cloud__title" aria-label={t('settings.onboardingCloudSignIn')}>
+            <span>design for</span>
+            <span className="onboarding-cloud__logo" aria-hidden />
+          </h1>
           <p className="onboarding-cloud__body">{t('settings.onboardingCloudBody')}</p>
           <div className="onboarding-cloud__choices">
             <button
