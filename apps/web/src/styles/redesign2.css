@@ -179,10 +179,10 @@ select:focus,
 
 .entry-shell[data-entry-view='home'] .home-view {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(292px, 360px);
+  grid-template-columns: minmax(0, 1fr);
   align-items: start;
   gap: var(--home-panel-gap);
-  width: min(100%, 1240px);
+  width: min(100%, 1120px);
   margin: 0 auto;
   padding: 22px 22px 36px;
 }
@@ -262,10 +262,9 @@ select:focus,
 }
 
 .entry-shell[data-entry-view='home'] .recent-projects {
-  position: sticky;
-  top: calc(var(--entry-topbar-h, 56px) + 18px);
-  max-height: calc(100vh - var(--entry-topbar-h, 56px) - 44px);
-  overflow: auto;
+  position: static;
+  max-height: none;
+  overflow: visible;
   padding: 18px;
 }
 
@@ -285,8 +284,8 @@ select:focus,
 }
 
 .entry-shell[data-entry-view='home'] .recent-projects__row {
-  grid-template-columns: 1fr;
-  gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(188px, 1fr));
+  gap: 12px;
 }
 
 .entry-shell[data-entry-view='home'] .recent-projects__card {
@@ -307,7 +306,6 @@ select:focus,
 }
 
 .entry-shell[data-entry-view='home'] .plugins-home {
-  grid-column: 1 / -1;
   padding: 20px;
 }
 
@@ -379,7 +377,6 @@ select:focus,
 }
 
 .entry-shell[data-entry-view='home'] .home-view__copyright {
-  grid-column: 1 / -1;
   max-width: none;
   padding-bottom: 8px;
 }
@@ -410,7 +407,6 @@ select:focus,
 
 @media (max-width: 1040px) {
   .entry-shell[data-entry-view='home'] .home-view {
-    grid-template-columns: 1fr;
     padding-inline: 16px;
   }
 
