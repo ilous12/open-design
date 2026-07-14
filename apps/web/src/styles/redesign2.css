@@ -284,7 +284,7 @@ select:focus,
 }
 
 .entry-shell[data-entry-view='home'] .recent-projects__row {
-  grid-template-columns: repeat(auto-fill, minmax(188px, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 12px;
 }
 
@@ -416,7 +416,7 @@ select:focus,
   }
 
   .entry-shell[data-entry-view='home'] .recent-projects__row {
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(176px, 1fr));
   }
 }
 

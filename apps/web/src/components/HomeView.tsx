@@ -2136,6 +2136,7 @@ export function HomeView({
       <RecentProjectsStrip
         projects={projects}
         designSystems={designSystems}
+        limit={5}
         {...(projectsLoading !== undefined ? { loading: projectsLoading } : {})}
         onOpen={(id) => {
           // P0 ui_click area=recent_projects element=project_card — emit
