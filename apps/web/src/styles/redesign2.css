@@ -198,10 +198,10 @@ select:focus,
   gap: 16px;
   min-height: 430px;
   padding: 32px;
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  background: #ffffff;
-  box-shadow: 0 2px 8px rgba(35, 28, 52, 0.06);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .home-hero__brand,
@@ -241,6 +241,9 @@ select:focus,
 .home-hero__input-card {
   width: min(100%, 760px);
   margin: 6px auto 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .home-hero__type-tabs,
@@ -259,6 +262,24 @@ select:focus,
   border-radius: var(--radius-lg);
   background: var(--redesign-card);
   box-shadow: var(--redesign-soft-shadow);
+}
+
+.home-hero__input-card {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.home-hero__workdir-divider {
+  display: none;
+}
+
+.home-hero__ds-row-trigger:hover,
+.home-hero__ds-row-trigger:focus-visible,
+.home-hero [data-testid='working-dir-trigger']:hover,
+.home-hero [data-testid='working-dir-trigger']:focus-visible {
+  background: transparent;
+  box-shadow: none;
 }
 
 .entry-shell[data-entry-view='home'] .recent-projects {
@@ -382,8 +403,17 @@ select:focus,
 }
 
 .home-hero__input-card:focus-within {
-  border-color: color-mix(in srgb, var(--redesign-primary) 36%, var(--border));
-  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1), var(--redesign-card-shadow);
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.entry-shell[data-entry-view='home'] .home-hero .home-hero__input-card,
+.entry-shell[data-entry-view='home'] .home-hero .home-hero__input-card:focus-within,
+.entry-shell[data-entry-view='home'] .home-hero .home-hero__input-card.is-drag-active {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .home-hero__type-tab,

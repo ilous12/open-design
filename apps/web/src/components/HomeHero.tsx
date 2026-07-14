@@ -1197,10 +1197,6 @@ export const HomeHero = forwardRef<HomeHeroHandle, Props>(function HomeHero(
 
   return (
     <section ref={homeHeroRef} className="home-hero" data-testid="home-hero">
-      <div className="home-hero__brand" aria-hidden>
-        <span className="home-hero__brand-name">design for</span>
-        <span className="home-hero__brand-mark" />
-      </div>
       <h1 className="home-hero__title">{t('homeHero.title')}</h1>
       {t('homeHero.subtitlePrefix') ? (
         <p className="home-hero__subtitle">
