@@ -189,6 +189,7 @@ interface Props {
   autoPreviewDesignArtifacts?: boolean;
   focusMode?: boolean;
   onFocusModeChange?: (next: boolean) => void;
+  workspaceAddSketchOnly?: boolean;
   designSystemProject?: DesignSystemSummary | null;
   designSystemBrandId?: string | null;
   /** False while a brand-extraction design system is still running. */
@@ -564,6 +565,7 @@ export function FileWorkspace({
   autoPreviewDesignArtifacts = false,
   focusMode = false,
   onFocusModeChange,
+  workspaceAddSketchOnly = false,
   designSystemProject = null,
   designSystemBrandId = null,
   designSystemEditable = true,
@@ -2419,6 +2421,9 @@ export function FileWorkspace({
     },
   };
   const launcherActions = buildLauncherActions(launcherContext);
+  const workspaceAddLabel = workspaceAddSketchOnly
+    ? t('designFiles.newSketch')
+    : t('workspace.newTab');
 
   return (
     <div
@@ -2635,13 +2640,20 @@ export function FileWorkspace({
             type="button"
             className="icon-only ws-tab-add od-tooltip"
             data-testid="workspace-add-tab"
-            aria-haspopup="dialog"
-            aria-expanded={launcherOpen}
-            title={t('workspace.newTab')}
-            data-tooltip={t('workspace.newTab')}
+            aria-haspopup={workspaceAddSketchOnly ? undefined : 'dialog'}
+            aria-expanded={workspaceAddSketchOnly ? undefined : launcherOpen}
+            title={workspaceAddLabel}
+            data-tooltip={workspaceAddLabel}
             data-tooltip-placement="bottom"
-            aria-label={t('workspace.newTab')}
-            onClick={() => setLauncherOpen((v) => !v)}
+            aria-label={workspaceAddLabel}
+            onClick={() => {
+              if (workspaceAddSketchOnly) {
+                setLauncherOpen(false);
+                void startNewSketch();
+                return;
+              }
+              setLauncherOpen((v) => !v);
+            }}
           >
             <Icon name="plus" size={15} />
           </button>

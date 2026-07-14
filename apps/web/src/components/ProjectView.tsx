@@ -7822,6 +7822,7 @@ export function ProjectView({
           autoPreviewDesignArtifacts={currentProject.metadata?.importedFrom === 'folder'}
           focusMode={workspaceFocused}
           onFocusModeChange={setWorkspaceFocused}
+          workspaceAddSketchOnly={leftInspectorActive && !workspaceFocused}
           designSystemProject={designSystemProject}
           designSystemBrandId={designSystemBrandId}
           designSystemEditable={designSystemEditable}
