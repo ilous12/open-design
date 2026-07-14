@@ -55,27 +55,14 @@
   flex: 0 0 auto;
   overflow: hidden;
   border-radius: 50%;
+  background: #fff url(/app-icon.svg) center / cover no-repeat;
   position: relative;
 }
 .home-hero__brand-mark::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: conic-gradient(from 0deg, #ffffff 0deg, #d6d9de 92deg, #9ca3af 178deg, #f7f7f7 270deg, #ffffff 360deg);
-  animation: brand-icon-ring-spin 2.8s linear infinite;
+  content: none;
 }
 .home-hero__brand-mark::after {
-  content: '';
-  position: absolute;
-  inset: 2px;
-  border-radius: 50%;
-  background: #fff url(/app-icon.svg) center / cover no-repeat;
-}
-@keyframes brand-icon-ring-spin {
-  to {
-    transform: rotate(360deg);
-  }
+  content: none;
 }
 @media (prefers-reduced-motion: reduce) {
   .home-hero__brand-mark::before {

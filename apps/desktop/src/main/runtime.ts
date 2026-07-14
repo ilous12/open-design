@@ -881,16 +881,6 @@ function createPendingHtml(): string {
         width: 100%;
         z-index: 2;
       }
-      @keyframes brand-icon-ring-spin {
-        to {
-          transform: rotate(360deg);
-        }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        .splash-logo::before {
-          animation: none;
-        }
-      }
       .splash-title {
         color: #000;
         font-family: inherit;
