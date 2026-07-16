@@ -3,13 +3,18 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+DEFAULT_RELEASE_PUBLIC_ORIGIN="https://ilous12.github.io/nn-design-release-feed"
+DEFAULT_RELEASE_PUBLIC_GH_REPO="ilous12/nn-design-release-feed"
+RELEASE_PUBLIC_ORIGIN="${RELEASE_PUBLIC_ORIGIN:-$DEFAULT_RELEASE_PUBLIC_ORIGIN}"
+RELEASE_PUBLIC_GH_REPO="${RELEASE_PUBLIC_GH_REPO:-$DEFAULT_RELEASE_PUBLIC_GH_REPO}"
+DEPLOY_PUBLIC_GITHUB="${DEPLOY_PUBLIC_GITHUB:-true}"
 
-MAC_STAGE="$SCRIPT_DIR/staging/mac"
+PLATFORM_MANIFESTS="$SCRIPT_DIR/manifests"
 WIN_STAGE="$SCRIPT_DIR/staging/win/final/assets"
 PUBLIC_DIR="${RELEASE_PUBLIC_DIR:-$ROOT_DIR/.tmp/release-public}"
 
 echo "Release publish checklist"
-echo "  mac staging: $MAC_STAGE"
+echo "  platform manifests: $PLATFORM_MANIFESTS"
 echo "  win staging: $WIN_STAGE"
 echo "  public dir:   $PUBLIC_DIR"
 

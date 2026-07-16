@@ -12,6 +12,7 @@ Set-StrictMode -Version Latest
 
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $RootDir = Split-Path -Parent $ScriptDir
+$DefaultReleasePublicOrigin = "https://ilous12.github.io/nn-design-release-feed"
 $SigningToExternal = Join-Path $ScriptDir "signing\to-external"
 $StagingDir = Join-Path $ScriptDir "staging\win"
 $SignedAppDir = Join-Path $StagingDir "signed-app"
@@ -81,6 +82,9 @@ $resolvedEnvFile = if ([string]::IsNullOrWhiteSpace($EnvFile)) {
   $EnvFile
 }
 Import-EnvFile $resolvedEnvFile
+if ([string]::IsNullOrWhiteSpace($env:RELEASE_PUBLIC_ORIGIN)) {
+  $env:RELEASE_PUBLIC_ORIGIN = $DefaultReleasePublicOrigin
+}
 if (-not [string]::IsNullOrWhiteSpace($ReleaseVersion)) { $env:RELEASE_VERSION = $ReleaseVersion }
 if (-not [string]::IsNullOrWhiteSpace($ReleaseChannel)) { $env:RELEASE_CHANNEL = $ReleaseChannel }
 if ([string]::IsNullOrWhiteSpace($env:RELEASE_VERSION)) {

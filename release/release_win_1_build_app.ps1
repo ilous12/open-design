@@ -9,6 +9,7 @@ Set-StrictMode -Version Latest
 
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $RootDir = Split-Path -Parent $ScriptDir
+$DefaultReleasePublicOrigin = "https://ilous12.github.io/nn-design-release-feed"
 $SigningToExternal = Join-Path $ScriptDir "signing\to-external"
 $StagingDir = Join-Path $ScriptDir "staging\win"
 $WorkRoot = Join-Path $StagingDir "work"
@@ -16,6 +17,16 @@ $BuildJsonPath = Join-Path $StagingDir "build\build.json"
 $RequestZip = Join-Path $SigningToExternal "app-signing-request.zip"
 
 New-Item -ItemType Directory -Force -Path $SigningToExternal, (Split-Path -Parent $BuildJsonPath), $WorkRoot | Out-Null
+
+Push-Location -LiteralPath $RootDir
+try {
+  & git pull --ff-only
+  if ($LASTEXITCODE -ne 0) {
+    throw "git pull --ff-only failed with exit code $LASTEXITCODE"
+  }
+} finally {
+  Pop-Location
+}
 
 $env:ENV_FILE = if ([string]::IsNullOrWhiteSpace($EnvFile)) { Join-Path $RootDir "env\win-release.env" } else { $EnvFile }
 $env:AUTO_BUMP_PATCH = "false"
@@ -25,6 +36,9 @@ $env:BUILD_TARGET = "dir"
 $env:SMOKE_MODE = "skip"
 $env:WORK_ROOT = $WorkRoot
 $env:BUILD_JSON_PATH = $BuildJsonPath
+if ([string]::IsNullOrWhiteSpace($env:RELEASE_PUBLIC_ORIGIN)) {
+  $env:RELEASE_PUBLIC_ORIGIN = $DefaultReleasePublicOrigin
+}
 if (-not [string]::IsNullOrWhiteSpace($ReleaseVersion)) { $env:RELEASE_VERSION = $ReleaseVersion }
 if (-not [string]::IsNullOrWhiteSpace($ReleaseChannel)) { $env:RELEASE_CHANNEL = $ReleaseChannel }
 if ([string]::IsNullOrWhiteSpace($env:RELEASE_VERSION)) {
