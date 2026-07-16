@@ -2421,9 +2421,7 @@ export function FileWorkspace({
     },
   };
   const launcherActions = buildLauncherActions(launcherContext);
-  const workspaceAddLabel = workspaceAddSketchOnly
-    ? t('designFiles.newSketch')
-    : t('workspace.newTab');
+  const workspaceAddLabel = t('designFiles.newSketch');
 
   return (
     <div
@@ -2640,19 +2638,13 @@ export function FileWorkspace({
             type="button"
             className="icon-only ws-tab-add od-tooltip"
             data-testid="workspace-add-tab"
-            aria-haspopup={workspaceAddSketchOnly ? undefined : 'dialog'}
-            aria-expanded={workspaceAddSketchOnly ? undefined : launcherOpen}
             title={workspaceAddLabel}
             data-tooltip={workspaceAddLabel}
             data-tooltip-placement="bottom"
             aria-label={workspaceAddLabel}
             onClick={() => {
-              if (workspaceAddSketchOnly) {
-                setLauncherOpen(false);
-                void startNewSketch();
-                return;
-              }
-              setLauncherOpen((v) => !v);
+              setLauncherOpen(false);
+              void startNewSketch();
             }}
           >
             <Icon name="plus" size={15} />
@@ -2671,7 +2663,7 @@ export function FileWorkspace({
           ) : null}
         </div>
       </div>
-      {launcherOpen ? (
+      {launcherOpen && !workspaceAddSketchOnly ? (
         <TabLauncherMenu
           anchor={launcherBtnRef.current}
           files={visibleFiles}

@@ -140,7 +140,6 @@ describe('NewProjectPanel design system defaults', () => {
     );
 
     expect(markup).toContain('Clay');
-    expect(markup).toContain('Default');
     expect(markup).not.toContain('Freeform');
   });
 
@@ -157,11 +156,55 @@ describe('NewProjectPanel design system defaults', () => {
       />,
     );
 
-    fireEvent.click(screen.getByTestId('design-system-trigger'));
+    fireEvent.click(screen.getByTestId('home-hero-design-system-trigger'));
 
     expect(screen.queryByRole('option', { name: /Draft Personal DS/i })).toBeNull();
     expect(screen.getByRole('option', { name: /Clay/i })).toBeTruthy();
     expect(screen.getByRole('option', { name: /Editorial Noir/i })).toBeTruthy();
+  });
+
+  it('filters the new project design system picker with the same AIR and SKT-T search terms as home', () => {
+    render(
+      <NewProjectPanel
+        skills={skills}
+        designSystems={[
+          ...designSystems,
+          {
+            id: 'air',
+            title: 'AIR',
+            summary: 'AIR design system',
+            category: 'Telecom & Lifestyle',
+            swatches: ['#ffffff', '#111111'],
+            source: 'user',
+            isEditable: true,
+            status: 'published',
+          },
+          {
+            id: 'skt-t',
+            title: 'SKT-T',
+            summary: 'Korean telecom portal',
+            category: 'Telecom Service Portal',
+            swatches: ['#ffffff', '#e0002a'],
+            source: 'built-in',
+            status: 'published',
+          },
+        ]}
+        defaultDesignSystemId={null}
+        templates={[]}
+        onDeleteTemplate={vi.fn()}
+        promptTemplates={[]}
+        onCreate={vi.fn()}
+      />,
+    );
+
+    fireEvent.click(screen.getByTestId('home-hero-design-system-trigger'));
+    const search = screen.getByTestId('project-ds-picker-search');
+
+    fireEvent.change(search, { target: { value: 'skt t' } });
+    expect(screen.getByRole('option', { name: /SKT-T/i })).toBeTruthy();
+
+    fireEvent.change(search, { target: { value: 'AIR' } });
+    expect(screen.getByRole('option', { name: /AIR/i })).toBeTruthy();
   });
 
   it('keeps media project creation from inheriting a hidden design system pick', () => {

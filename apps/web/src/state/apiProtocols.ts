@@ -40,6 +40,10 @@ export const SUGGESTED_MODELS_BY_PROTOCOL: Record<ApiProtocol, readonly string[]
     'mimo-v2.5-pro',
   ],
   openai: [
+    'gpt-5.6',
+    'gpt-5.6-sol',
+    'gpt-5.6-terra',
+    'gpt-5.6-luna',
     'gpt-5.5',
     'gpt-5.5-pro',
     'gpt-5.4',
@@ -61,15 +65,22 @@ export const SUGGESTED_MODELS_BY_PROTOCOL: Record<ApiProtocol, readonly string[]
     'mimo-v2.5-pro',
   ],
   azure: [
+    'gpt-5.6',
+    'gpt-5.6-sol',
+    'gpt-5.6-terra',
+    'gpt-5.6-luna',
     'gpt-5.5',
     'gpt-5.4',
     'gpt-5.4-mini',
     'gpt-5.3-codex',
   ],
   google: [
+    'gemini-3.5-flash',
+    'gemini-3.1-pro-preview',
+    'gemini-3.1-flash-lite',
+    'gemini-3-flash-preview',
     'gemini-flash-latest',
     'gemini-pro-latest',
-    'gemini-3.5-flash',
     'gemini-2.5-pro',
     'gemini-2.5-flash',
     'gemini-2.5-flash-lite',
@@ -95,16 +106,21 @@ export const SUGGESTED_MODELS_BY_PROTOCOL: Record<ApiProtocol, readonly string[]
     // Anthropic / Gemini / DeepSeek by model name on its side. Listing the
     // headline cross-vendor checkpoints keeps the picker useful without
     // pretending to enumerate the full catalogue — users can type any id
-    // AIHubMix exposes (or fetch the full live list). gpt-5.5 leads as the
+    // AIHubMix exposes (or fetch the full live list). gpt-5.6 leads as the
     // default chat model (an OpenAI-family model keeps in-chat generate_image
     // working through the OpenAI tool loop after protocol routing lands).
+    'gpt-5.6',
+    'gpt-5.6-sol',
+    'gpt-5.6-terra',
+    'gpt-5.6-luna',
     'gpt-5.5',
     'gpt-5.4',
     'gpt-5.3-codex',
     'claude-opus-4-8',
     'claude-sonnet-5',
     'claude-haiku-4-5',
-    'gemini-flash-latest',
+    'gemini-3.5-flash',
+    'gemini-3.1-pro-preview',
     'deepseek-chat',
     'deepseek-reasoner',
   ],

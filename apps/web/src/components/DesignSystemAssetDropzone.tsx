@@ -27,6 +27,7 @@ import {
 } from 'react';
 import { createPortal } from 'react-dom';
 import { LIBRARY_UI_VISIBLE } from '../features/libraryUi';
+import { useI18n } from '../i18n';
 import { Icon, type IconName } from './Icon';
 import styles from './DesignSystemAssetDropzone.module.css';
 
@@ -171,6 +172,7 @@ export function DesignSystemAssetDropzone({
   onRemove,
   onSelectFromLibrary,
 }: Props) {
+  const { t } = useI18n();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [dragOver, setDragOver] = useState(false);
   const [lightbox, setLightbox] = useState<File | null>(null);
@@ -427,7 +429,7 @@ export function DesignSystemAssetDropzone({
     if (kind === 'text') {
       const snippet = texts.get(file);
       if (snippet != null) {
-        return <pre className={styles.lightboxText}>{snippet || '(empty file)'}</pre>;
+        return <pre className={styles.lightboxText}>{snippet || t('dsCreate.assetEmptyFile')}</pre>;
       }
     }
     return (
@@ -439,7 +441,7 @@ export function DesignSystemAssetDropzone({
         <p className={styles.lightboxFallbackMeta}>
           {fileExt(file)} · {formatBytes(file.size) || '—'}
         </p>
-        <p className={styles.lightboxFallbackHint}>No inline preview for this file type.</p>
+        <p className={styles.lightboxFallbackHint}>{t('dsCreate.assetNoPreview')}</p>
       </div>
     );
   }
@@ -452,7 +454,7 @@ export function DesignSystemAssetDropzone({
         className={`${styles.drop}${dragOver ? ` ${styles.dropActive}` : ''}`}
         role="button"
         tabIndex={0}
-        aria-label="Add files — drag and drop, paste, or click to browse"
+        aria-label={t('dsCreate.assetDropAria')}
         data-testid="ds-asset-dropzone"
         onClick={openPicker}
         onKeyDown={handleZoneKey}
@@ -474,16 +476,16 @@ export function DesignSystemAssetDropzone({
           <Icon name="upload" size={19} />
         </span>
         <span className={styles.dropTitle}>
-          Drag &amp; drop, paste, or <span className={styles.dropLink}>browse</span>
+          {t('dsCreate.assetDropTitlePrefix')} <span className={styles.dropLink}>{t('dsCreate.assetDropBrowse')}</span>
         </span>
         <span className={styles.dropHint}>
-          Images, fonts, logos, PDF, slides, HTML — up to 12 MB each
+          {t('dsCreate.assetDropHint')}
         </span>
       </div>
 
       {LIBRARY_UI_VISIBLE && onSelectFromLibrary ? (
         <div className={styles.alt}>
-          <span className={styles.altText}>or reuse an asset you’ve already saved</span>
+          <span className={styles.altText}>{t('dsCreate.assetLibraryHint')}</span>
           <button
             type="button"
             className={styles.libraryBtn}
@@ -491,13 +493,13 @@ export function DesignSystemAssetDropzone({
             onClick={onSelectFromLibrary}
           >
             <Icon name="layers-filled" size={14} />
-            Select from library
+            {t('dsCreate.libraryPickerTitle')}
           </button>
         </div>
       ) : null}
 
       {files.length > 0 ? (
-        <ul className={styles.grid} aria-label="Staged assets">
+        <ul className={styles.grid} aria-label={t('dsCreate.assetStagedAria')}>
           {files.map((file) => {
             const kind = fileKind(file);
             return (
@@ -513,7 +515,7 @@ export function DesignSystemAssetDropzone({
                 <button
                   type="button"
                   className={styles.remove}
-                  aria-label={`Remove ${file.name}`}
+                  aria-label={t('dsCreate.removeSourceLabel', { label: file.name })}
                   onClick={() => onRemove(file)}
                 >
                   <Icon name="close" size={12} />
@@ -549,7 +551,7 @@ export function DesignSystemAssetDropzone({
                     type="button"
                     className={styles.lightboxClose}
                     onClick={() => setLightbox(null)}
-                    aria-label="Close preview"
+                    aria-label={t('dsCreate.assetClosePreview')}
                   >
                     <Icon name="close" size={18} />
                   </button>

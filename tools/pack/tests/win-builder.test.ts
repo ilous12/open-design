@@ -166,6 +166,17 @@ describe("Windows pack artifact boundaries", () => {
     expect(source).toContain("nsisInstallerImplementation");
     expect(source.indexOf("nsisInstallerImplementation")).toBeLessThan(source.indexOf('target: "nsis-installer"'));
   });
+
+  it("has a resume path for externally signed Windows apps", async () => {
+    const cliSource = await readFile(new URL("../src/index.ts", import.meta.url), "utf8");
+    const signedAppSource = await readFile(new URL("../src/win/signed-app.ts", import.meta.url), "utf8");
+    expect(cliSource).toContain("build-from-signed-app");
+    expect(cliSource).toContain("--signed-app-dir <path>");
+    expect(signedAppSource).toContain("packWinFromSignedApp");
+    expect(signedAppSource).toContain("buildCustomWinNsisInstaller");
+    expect(signedAppSource).toContain("buildWinLauncherPayloadArchive");
+    expect(signedAppSource).not.toContain("rewriteWinExecutableVersion");
+  });
 });
 
 describe("launcher runtime sync helper", () => {

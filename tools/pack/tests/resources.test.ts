@@ -7,7 +7,7 @@ import {
   writeFile,
 } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
 import process from "node:process";
 
 import { domToPptxBundleResource } from "../src/dom-to-pptx-resource.js";
@@ -62,6 +62,15 @@ describe("copyBundledResourceTrees", () => {
         "sample",
         "pet.json",
       );
+      const referenceRemixPath = join(
+        workspaceRoot,
+        "apps",
+        "web",
+        "public",
+        "reference-remix",
+        "ai-chatbot-platform",
+        "index.html",
+      );
       const communityRegistryPath = join(
         workspaceRoot,
         "plugins",
@@ -78,6 +87,7 @@ describe("copyBundledResourceTrees", () => {
       await mkdir(join(workspaceRoot, "design-templates", "orbit-general"), {
         recursive: true,
       });
+      await mkdir(dirname(referenceRemixPath), { recursive: true });
       await mkdir(join(workspaceRoot, "design-systems", "sample"), {
         recursive: true,
       });
@@ -99,6 +109,7 @@ describe("copyBundledResourceTrees", () => {
         recursive: true,
       });
       await writeFile(promptTemplatePath, "{\"id\":\"sample\"}\n", "utf8");
+      await writeFile(referenceRemixPath, "<!doctype html><h1>Reference</h1>\n", "utf8");
       await writeFile(
         join(workspaceRoot, "data", "plugin-previews", "manifest.json"),
         "{\"previews\":{}}\n",
@@ -136,6 +147,12 @@ describe("copyBundledResourceTrees", () => {
           "utf8",
         ),
       ).resolves.toBe("# Orbit General\n");
+      await expect(
+        readFile(
+          join(resourceRoot, "apps", "web", "public", "reference-remix", "ai-chatbot-platform", "index.html"),
+          "utf8",
+        ),
+      ).resolves.toBe("<!doctype html><h1>Reference</h1>\n");
       await expect(
         readFile(
           join(resourceRoot, "community-pets", "sample", "pet.json"),

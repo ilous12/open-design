@@ -1,4 +1,5 @@
 export { packWin } from "./build.js";
+export { packWinFromSignedApp } from "./signed-app.js";
 export { validateWinLauncherPayloadArchive } from "./payload.js";
 export {
   cleanupPackedWinNamespace,

@@ -1,4 +1,40 @@
-param()
+param(
+  [string]$EnvFile,
+  [ValidateSet("off", "on")]
+  [string]$SignMode,
+  [string]$WinSignCertSha1,
+  [string]$WinSignPfxPath,
+  [string]$WinSignPfxPassword,
+  [string]$WinSigntoolPath,
+  [string]$WinSignTimestampUrl,
+  [string]$ReleaseVersion,
+  [string]$ReleaseChannel,
+  [ValidateSet("all", "dir", "nsis", "zip")]
+  [string]$BuildTarget,
+  [ValidateSet("skip", "core", "full")]
+  [string]$SmokeMode,
+  [string]$ReleasePublicOrigin,
+  [string]$ReleasePublicGhRepo
+)
+
+<#
+Windows release build entrypoint.
+
+Signed release example:
+  .\build_win.ps1 `
+    -SignMode on `
+    -WinSignCertSha1 "0123456789ABCDEF0123456789ABCDEF01234567" `
+    -WinSignPfxPath "C:\secrets\nn-design-codesign.pfx" `
+    -WinSignPfxPassword $env:NN_DESIGN_CODESIGN_PFX_PASSWORD `
+    -WinSigntoolPath "C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64\signtool.exe" `
+    -ReleaseVersion "0.12.2" `
+    -BuildTarget nsis
+
+Signing model:
+  1. tools-pack signs the app executable before it is packed into the launcher payload.
+  2. tools-pack signs the final NSIS setup.exe after the installer is created.
+  This script verifies both distributed artifacts when SignMode is on.
+#>
 
 $ErrorActionPreference = "Stop"
 Set-StrictMode -Version Latest
@@ -44,6 +80,135 @@ function Import-EnvFile([string]$Path) {
 function Require-Env([string]$Name) {
   if ([string]::IsNullOrWhiteSpace((Get-EnvValue $Name))) {
     throw "$Name is required"
+  }
+}
+
+function Set-EnvFromParameter([string]$Name, [string]$Value) {
+  if (-not [string]::IsNullOrWhiteSpace($Value)) {
+    Set-EnvValue $Name $Value
+  }
+}
+
+function Import-WinSigningCertificate {
+  if ((Get-EnvValue "SIGN_MODE") -ne "on") {
+    return
+  }
+
+  $pfxPath = Get-EnvValue "OD_WIN_SIGN_PFX_PATH" (Get-EnvValue "WIN_SIGN_PFX_PATH")
+  if ([string]::IsNullOrWhiteSpace($pfxPath)) {
+    return
+  }
+  if (-not (Test-Path -LiteralPath $pfxPath)) {
+    throw "Windows signing PFX not found: $pfxPath"
+  }
+
+  $password = Get-EnvValue "OD_WIN_SIGN_PFX_PASSWORD" (Get-EnvValue "WIN_SIGN_PFX_PASSWORD")
+  if ([string]::IsNullOrWhiteSpace($password)) {
+    throw "OD_WIN_SIGN_PFX_PASSWORD is required when OD_WIN_SIGN_PFX_PATH is set"
+  }
+
+  $securePassword = ConvertTo-SecureString -String $password -AsPlainText -Force
+  $imported = Import-PfxCertificate `
+    -FilePath $pfxPath `
+    -CertStoreLocation "Cert:\CurrentUser\My" `
+    -Password $securePassword `
+    -Exportable
+  if ($imported -eq $null) {
+    throw "failed to import Windows signing certificate from $pfxPath"
+  }
+
+  $expectedThumbprint = (Get-EnvValue "OD_WIN_SIGN_CERT_SHA1").Replace(" ", "").ToUpperInvariant()
+  if (-not [string]::IsNullOrWhiteSpace($expectedThumbprint)) {
+    $importedThumbprints = @($imported | ForEach-Object { $_.Thumbprint.ToUpperInvariant() })
+    if ($expectedThumbprint -notin $importedThumbprints) {
+      throw "imported PFX thumbprint does not match OD_WIN_SIGN_CERT_SHA1"
+    }
+  }
+
+  Write-Host "Imported Windows signing certificate into Cert:\CurrentUser\My"
+}
+
+function Test-AuthenticodeSignedFile([string]$Path, [string]$Label) {
+  if ([string]::IsNullOrWhiteSpace($Path) -or -not (Test-Path -LiteralPath $Path)) {
+    throw "expected signed $Label not found at $Path"
+  }
+  $signature = Get-AuthenticodeSignature -LiteralPath $Path
+  if ($signature.Status -ne "Valid") {
+    throw "$Label is not Authenticode-valid: $Path ($($signature.Status): $($signature.StatusMessage))"
+  }
+  $expectedThumbprint = (Get-EnvValue "OD_WIN_SIGN_CERT_SHA1").Replace(" ", "").ToUpperInvariant()
+  if (-not [string]::IsNullOrWhiteSpace($expectedThumbprint)) {
+    $actualThumbprint = $signature.SignerCertificate.Thumbprint.ToUpperInvariant()
+    if ($actualThumbprint -ne $expectedThumbprint) {
+      throw "$Label was signed by unexpected certificate: expected $expectedThumbprint, got $actualThumbprint"
+    }
+  }
+  Write-Host "Verified Authenticode signature: $Label -> $Path"
+}
+
+function Convert-ArchiveRelativePath([string]$Value) {
+  if ([string]::IsNullOrWhiteSpace($Value)) {
+    throw "archive relative path must not be empty"
+  }
+  if ([System.IO.Path]::IsPathRooted($Value) -or $Value.Contains("..")) {
+    throw "unsafe archive relative path: $Value"
+  }
+  return $Value.Replace("/", [System.IO.Path]::DirectorySeparatorChar).Replace("\", [System.IO.Path]::DirectorySeparatorChar)
+}
+
+function Test-SignedPayloadExecutable([string]$PayloadPath) {
+  if ([string]::IsNullOrWhiteSpace($PayloadPath) -or -not (Test-Path -LiteralPath $PayloadPath)) {
+    throw "expected signed launcher payload not found at $PayloadPath"
+  }
+
+  $sevenZipExe = Join-Path $RootDir "tools\pack\resources\win\7zip\7z.exe"
+  if (-not (Test-Path -LiteralPath $sevenZipExe)) {
+    throw "bundled 7z.exe not found at $sevenZipExe"
+  }
+
+  $extractRoot = Join-Path (Get-EnvValue "WORK_ROOT" (Join-Path $RootDir ".tmp\runner\win_x64")) "verify-signed-payload"
+  Remove-Item -LiteralPath $extractRoot -Recurse -Force -ErrorAction SilentlyContinue
+  New-Item -ItemType Directory -Force -Path $extractRoot | Out-Null
+  try {
+    & $sevenZipExe x $PayloadPath "-o$extractRoot" -y | Write-Host
+    if ($LASTEXITCODE -ne 0) {
+      throw "launcher payload extraction failed with exit code $LASTEXITCODE for $PayloadPath"
+    }
+
+    $entryPath = Join-Path $extractRoot (Convert-ArchiveRelativePath "payload/design for air.exe")
+    Test-AuthenticodeSignedFile $entryPath "launcher payload app executable"
+  } finally {
+    Remove-Item -LiteralPath $extractRoot -Recurse -Force -ErrorAction SilentlyContinue
+  }
+}
+
+function Test-WinBuildSignatures {
+  if ((Get-EnvValue "SIGN_MODE") -ne "on") {
+    return
+  }
+  $buildJsonPath = Get-EnvValue "BUILD_JSON_PATH"
+  if ([string]::IsNullOrWhiteSpace($buildJsonPath) -or -not (Test-Path -LiteralPath $buildJsonPath)) {
+    throw "build json missing before Windows signing verification: $buildJsonPath"
+  }
+
+  $build = Get-Content -LiteralPath $buildJsonPath -Raw -Encoding utf8 | ConvertFrom-Json
+  $buildTarget = Get-EnvValue "BUILD_TARGET"
+  if ($buildTarget -in @("all", "nsis", "zip")) {
+    Test-SignedPayloadExecutable ([string]$build.payloadPath)
+  } elseif ($buildTarget -eq "dir") {
+    $unpackedPath = [string]$build.unpackedPath
+    if (-not [string]::IsNullOrWhiteSpace($unpackedPath)) {
+      $exeCandidates = Get-ChildItem -LiteralPath $unpackedPath -Filter "*.exe" -File -ErrorAction SilentlyContinue |
+        Where-Object { $_.Name -notmatch '^Uninstall' } |
+        Sort-Object Name
+      if ($exeCandidates.Count -eq 0) {
+        throw "no unpacked app executable found under $unpackedPath"
+      }
+      Test-AuthenticodeSignedFile $exeCandidates[0].FullName "app executable"
+    }
+  }
+  if ($buildTarget -in @("all", "nsis")) {
+    Test-AuthenticodeSignedFile ([string]$build.installerPath) "NSIS installer"
   }
 }
 
@@ -448,8 +613,26 @@ function Deploy-PublicGitHubRelease {
   Write-Host "Deployed public release feed to https://github.com/$repo"
 }
 
-$envFile = Get-EnvValue "ENV_FILE" (Join-Path $RootDir "env\win-release.env")
-Import-EnvFile $envFile
+$resolvedEnvFile = if ([string]::IsNullOrWhiteSpace($EnvFile)) {
+  Get-EnvValue "ENV_FILE" (Join-Path $RootDir "env\win-release.env")
+} else {
+  $EnvFile
+}
+Set-EnvValue "ENV_FILE" $resolvedEnvFile
+Import-EnvFile $resolvedEnvFile
+
+Set-EnvFromParameter "SIGN_MODE" $SignMode
+Set-EnvFromParameter "OD_WIN_SIGN_CERT_SHA1" $WinSignCertSha1
+Set-EnvFromParameter "OD_WIN_SIGN_PFX_PATH" $WinSignPfxPath
+Set-EnvFromParameter "OD_WIN_SIGN_PFX_PASSWORD" $WinSignPfxPassword
+Set-EnvFromParameter "OD_WIN_SIGNTOOL_PATH" $WinSigntoolPath
+Set-EnvFromParameter "OD_WIN_SIGN_TIMESTAMP_URL" $WinSignTimestampUrl
+Set-EnvFromParameter "RELEASE_VERSION" $ReleaseVersion
+Set-EnvFromParameter "RELEASE_CHANNEL" $ReleaseChannel
+Set-EnvFromParameter "BUILD_TARGET" $BuildTarget
+Set-EnvFromParameter "SMOKE_MODE" $SmokeMode
+Set-EnvFromParameter "RELEASE_PUBLIC_ORIGIN" $ReleasePublicOrigin
+Set-EnvFromParameter "RELEASE_PUBLIC_GH_REPO" $ReleasePublicGhRepo
 
 Set-EnvValue "RELEASE_CHANNEL" (Get-EnvValue "RELEASE_CHANNEL" "stable")
 Set-EnvValue "AUTO_BUMP_PATCH" (Get-EnvValue "AUTO_BUMP_PATCH" "true")
@@ -474,6 +657,7 @@ if ((Get-EnvValue "SMOKE_MODE") -notin @("skip", "core", "full")) {
 }
 if ((Get-EnvValue "SIGN_MODE") -eq "on") {
   Require-Env "OD_WIN_SIGN_CERT_SHA1"
+  Import-WinSigningCertificate
 }
 if ((Get-EnvValue "AUTO_BUILD_RELEASE_TOOLS") -notin @("true", "false")) {
   throw "AUTO_BUILD_RELEASE_TOOLS must be one of: true, false"
@@ -546,6 +730,8 @@ Write-Host "Building $releaseTarget $releaseVersionForLog ($releaseNamespaceForL
 if ($LASTEXITCODE -ne 0) {
   throw "build-platform.ps1 failed"
 }
+
+Test-WinBuildSignatures
 
 if ((Get-EnvValue "EXPORT_PUBLIC_RELEASE") -eq "true") {
   Export-WinReleasePublic

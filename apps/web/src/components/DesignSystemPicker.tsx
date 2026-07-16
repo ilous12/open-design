@@ -14,24 +14,14 @@ import type { KeyboardEvent as ReactKeyboardEvent, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import type { DesignSystemSummary } from '@nn-design/contracts';
 import { useI18n } from '../i18n';
-import {
-  localizeDesignSystemCategory,
-  localizeDesignSystemSummary,
-} from '../i18n/content';
 import { navigate } from '../router';
 import { setPendingDesignSystemCreateEntry } from '../analytics/ds-create-entry';
 import { useBrandsByDesignSystemId } from '../runtime/brands';
+import { isUserSystem } from './design-system-metadata';
 import { DesignSystemKitPreview } from './DesignSystemKitPreview';
 import { DesignSystemPreviewModal } from './DesignSystemPreviewModal';
+import { designSystemMatchesLocalizedSearch } from './design-system-search';
 import { Icon } from './Icon';
-
-// Mirror DesignSystemsTab's user/official split so the picker can keep the
-// same classification logic. The AIR shell now hides "Your systems" and keeps
-// the picker focused on official presets only, but we still use the same test
-// to exclude editable user systems from the visible list.
-function isUserSystem(system: DesignSystemSummary): boolean {
-  return system.source === 'user' || system.isEditable === true;
-}
 
 interface PopoverAnchor {
   left: number;
@@ -42,6 +32,12 @@ interface PopoverAnchor {
   // anchored by `bottom`; otherwise it opens downward, anchored by `top`.
   top?: number;
   bottom?: number;
+}
+
+const INTERNAL_PRESET_IDS = new Set(['air', 'skt-t']);
+
+function isVisibleCatalogSystem(system: DesignSystemSummary): boolean {
+  return INTERNAL_PRESET_IDS.has(system.id) || !isUserSystem(system);
 }
 
 interface Props {
@@ -180,21 +176,14 @@ export function DesignSystemPicker({
   }
 
   const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (q.length === 0) return designSystems;
-    return designSystems.filter((d) => {
-      const localizedSummary = localizeDesignSystemSummary(locale, d);
-      const localizedCategory = localizeDesignSystemCategory(locale, d.category);
-      const haystack = `${d.title} ${d.category} ${d.summary} ${localizedCategory} ${localizedSummary}`.toLowerCase();
-      return haystack.includes(q);
-    });
+    return designSystems.filter((d) => designSystemMatchesLocalizedSearch(d, query, locale));
   }, [query, designSystems, locale]);
 
-  // AIR hides "Your systems" in the picker and keeps the visible catalog on
-  // official presets only. User-created systems can still exist elsewhere in
-  // the app, but they should not surface in this popover.
+  // Keep the visible catalog focused on official presets. AIR/SKT-T are
+  // internal presets and remain visible even when their source metadata is
+  // registered through the editable/user path.
   const officialSystems = useMemo(
-    () => filtered.filter((d) => !isUserSystem(d)),
+    () => filtered.filter(isVisibleCatalogSystem),
     [filtered],
   );
 

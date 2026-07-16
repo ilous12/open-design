@@ -95,7 +95,14 @@ async function assertWebStandaloneOutput(config: ToolPackConfig): Promise<void> 
     if (await pathExists(candidate)) return;
   }
 
-  throw new Error("Next.js standalone server output was not produced under apps/web/.next/standalone");
+  throw new Error(
+    [
+      "Next.js standalone server output was not produced under apps/web/.next/standalone.",
+      `webOutputMode=${config.webOutputMode}`,
+      "Run the web build with OD_WEB_OUTPUT_MODE=standalone before packaging, or let tools-pack run the workspace-build phase.",
+      `checked: ${candidates.join(", ")}`,
+    ].join(" "),
+  );
 }
 
 async function writeWebStandaloneHookConfig(config: ToolPackConfig, paths: WinPaths): Promise<string> {
@@ -217,7 +224,7 @@ async function runElectronBuilderRaw(
       warningsAsErrors: false,
     },
     productName: PRODUCT_NAME,
-    publish: [{ provider: "generic", url: "https://updates.invalid/open-design" }],
+    publish: [{ provider: "generic", url: "https://updates.invalid/design-for-air" }],
     win: {
       artifactName: `${PRODUCT_NAME}-${namespaceToken}.\${ext}`,
       icon: paths.winIconPath,

@@ -19,6 +19,7 @@ import {
   inspectPackedWinApp,
   listPackedWinNamespaces,
   packWin,
+  packWinFromSignedApp,
   readPackedWinLogs,
   resetPackedWinNamespaces,
   startPackedWinApp,
@@ -108,6 +109,7 @@ function addWinLifecycleOptions(command: CacCommand) {
     .option("--remove-logs", "remove packaged logs during uninstall/reset/cleanup")
     .option("--remove-product-user-data", "remove the public Electron app userData root during Windows uninstall/reset/cleanup")
     .option("--remove-sidecars", "remove packaged sidecar runtime during uninstall/reset/cleanup")
+    .option("--signed-app-dir <path>", "build-from-signed-app: externally signed win-unpacked app directory")
     .option("--silent", "run installer/uninstaller silently", { default: true });
 }
 
@@ -152,7 +154,7 @@ addWinLifecycleOptions(
     addSharedOptions(
       cli.command(
         "win <action>",
-        "Windows packaging commands: build|install|start|stop|logs|uninstall|cleanup|list|reset|inspect|diagnose-ipc|validate-payload",
+        "Windows packaging commands: build|build-from-signed-app|install|start|stop|logs|uninstall|cleanup|list|reset|inspect|diagnose-ipc|validate-payload",
       ),
     ),
     "win",
@@ -162,6 +164,9 @@ addWinLifecycleOptions(
   switch (action) {
     case "build":
       printJson(await packWin(config));
+      return;
+    case "build-from-signed-app":
+      printJson(await packWinFromSignedApp(config));
       return;
     case "install":
       printJson(await installPackedWinApp(config));

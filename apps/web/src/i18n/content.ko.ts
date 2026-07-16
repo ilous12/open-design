@@ -1103,6 +1103,8 @@ export const KO_DESIGN_SYSTEM_CATEGORIES: Record<string, string> = {
   'Media & Consumer': '미디어 및 소비자',
   'Modern & Minimal': '모던 및 미니멀',
   'Morphism & Effects': '모피즘 및 이펙트',
+  'Telecom & Lifestyle': '통신 및 라이프스타일',
+  'Telecom Service Portal': '통신 서비스 포털',
   'Productivity & SaaS': '생산성 및 SaaS',
   'Professional & Corporate': '프로페셔널 및 기업용',
   'Retro & Nostalgic': '레트로 및 노스탤지어',

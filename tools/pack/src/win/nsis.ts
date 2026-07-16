@@ -49,10 +49,10 @@ LangString OD_REMOVE_LOCAL_DATA_CHECKBOX 1065 "حذف داده‌های محلی
 
 !macro customUnWelcomePage
   !insertmacro MUI_UNPAGE_WELCOME
-  UninstPage custom un.OpenDesignLocalDataPage un.OpenDesignLocalDataPageLeave
+  UninstPage custom un.DesignForAirLocalDataPage un.DesignForAirLocalDataPageLeave
 !macroend
 
-Function un.OpenDesignLocalDataPage
+Function un.DesignForAirLocalDataPage
   StrCpy $odRemoveLocalData "1"
   StrCpy $odLocalDataRoot "${localDataRoot}"
   nsDialogs::Create 1018
@@ -69,7 +69,7 @@ Function un.OpenDesignLocalDataPage
   nsDialogs::Show
 FunctionEnd
 
-Function un.OpenDesignLocalDataPageLeave
+Function un.DesignForAirLocalDataPageLeave
   \${NSD_GetState} $odRemoveLocalDataCheckbox $0
   \${If} $0 == \${BST_CHECKED}
     StrCpy $odRemoveLocalData "1"

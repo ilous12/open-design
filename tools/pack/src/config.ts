@@ -41,6 +41,7 @@ export type ToolPackCliOptions = {
   removeProductUserData?: boolean;
   removeSidecars?: boolean;
   signed?: boolean;
+  signedAppDir?: string;
   silent?: boolean;
   statusPollCount?: string | number;
   statusPollIntervalMs?: string | number;
@@ -82,6 +83,7 @@ export type ToolPackConfig = {
   roots: ToolPackRoots;
   silent: boolean;
   signed: boolean;
+  signedAppDir?: string;
   telemetryRelayUrl?: string;
   /**
    * PostHog product-analytics ingest key, sourced from process.env.POSTHOG_KEY
@@ -267,6 +269,13 @@ function resolveToolPackUpdateMetadataUrl(value: string | undefined): string | u
   return normalized;
 }
 
+function resolveToolPackSignedAppDir(value: string | undefined): string | undefined {
+  if (value == null) return undefined;
+  const normalized = value.trim();
+  if (normalized.length === 0) throw new Error("--signed-app-dir must not be empty");
+  return resolve(normalized);
+}
+
 function resolveElectronVersion(workspaceRoot: string): string {
   const require = createRequire(join(workspaceRoot, "apps/desktop/package.json"));
   const desktopPackage = require(join(workspaceRoot, "apps/desktop/package.json")) as {
@@ -340,6 +349,7 @@ export function resolveToolPackConfig(
     removeSidecars: options.removeSidecars === true,
     silent: options.silent !== false,
     signed: options.signed === true,
+    signedAppDir: resolveToolPackSignedAppDir(options.signedAppDir),
     telemetryRelayUrl: resolveToolPackTelemetryRelayUrl(process.env.OPEN_DESIGN_TELEMETRY_RELAY_URL),
     updateMetadataUrl: resolveToolPackUpdateMetadataUrl(process.env.OD_UPDATE_METADATA_URL),
     posthogKey: resolveToolPackPosthogKey(process.env.POSTHOG_KEY),

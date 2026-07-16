@@ -1194,10 +1194,22 @@ export const HomeHero = forwardRef<HomeHeroHandle, Props>(function HomeHero(
     contextWorkspaceItems.length > 0;
 
   let optionRenderIndex = 0;
+  const heroTitle = t('homeHero.title');
 
   return (
     <section ref={homeHeroRef} className="home-hero" data-testid="home-hero">
-      <h1 className="home-hero__title">{t('homeHero.title')}</h1>
+      <h1 className="home-hero__title" aria-label={heroTitle}>
+        {Array.from(heroTitle).map((char, index) => (
+          <span
+            key={`${char}-${index}`}
+            className="home-hero__title-char"
+            aria-hidden="true"
+            style={{ '--home-title-char-index': index } as CSSProperties}
+          >
+            {char === ' ' ? '\u00A0' : char}
+          </span>
+        ))}
+      </h1>
       {t('homeHero.subtitlePrefix') ? (
         <p className="home-hero__subtitle">
           {t('homeHero.subtitlePrefix')}
@@ -1860,6 +1872,44 @@ export const HomeHero = forwardRef<HomeHeroHandle, Props>(function HomeHero(
                 openDesignSystemPicker();
               } : undefined}
             />
+            {onDesignSystemChange ? (
+              <DesignSystemPicker
+                variant="home"
+                designSystems={designSystems}
+                selectedId={selectedDesignSystemId}
+                onChange={onDesignSystemChange}
+              />
+            ) : null}
+            {onPickWorkingDir ? (
+              <WorkingDirPicker
+                workingDir={workingDir}
+                recentDirs={recentDirs}
+                onPickDirectory={() => {
+                  trackHomeChatComposerClick(analytics.track, {
+                    page_name: 'home',
+                    area: 'chat_composer',
+                    element: 'working_dir',
+                  });
+                  void onPickWorkingDir();
+                }}
+                onSelectRecent={(dir) => {
+                  trackHomeChatComposerClick(analytics.track, {
+                    page_name: 'home',
+                    area: 'chat_composer',
+                    element: 'working_dir_recent',
+                  });
+                  onSelectRecentWorkingDir?.(dir);
+                }}
+                onClear={() => {
+                  trackHomeChatComposerClick(analytics.track, {
+                    page_name: 'home',
+                    area: 'chat_composer',
+                    element: 'working_dir_clear',
+                  });
+                  onClearWorkingDir?.();
+                }}
+              />
+            ) : null}
             {libraryPickerOpen ? (
               <LibraryPicker
                 onClose={() => setLibraryPickerOpen(false)}
@@ -1958,52 +2008,6 @@ export const HomeHero = forwardRef<HomeHeroHandle, Props>(function HomeHero(
           </div>
         </div>
       </div>
-
-      {onDesignSystemChange || onPickWorkingDir ? (
-        <div className="home-hero__workdir-row">
-          {onDesignSystemChange ? (
-            <DesignSystemPicker
-              variant="home"
-              designSystems={designSystems}
-              selectedId={selectedDesignSystemId}
-              onChange={onDesignSystemChange}
-            />
-          ) : null}
-          {onDesignSystemChange && onPickWorkingDir ? (
-            <span className="home-hero__workdir-divider" aria-hidden />
-          ) : null}
-          {onPickWorkingDir ? (
-            <WorkingDirPicker
-              workingDir={workingDir}
-              recentDirs={recentDirs}
-              onPickDirectory={() => {
-                trackHomeChatComposerClick(analytics.track, {
-                  page_name: 'home',
-                  area: 'chat_composer',
-                  element: 'working_dir',
-                });
-                void onPickWorkingDir();
-              }}
-              onSelectRecent={(dir) => {
-                trackHomeChatComposerClick(analytics.track, {
-                  page_name: 'home',
-                  area: 'chat_composer',
-                  element: 'working_dir_recent',
-                });
-                onSelectRecentWorkingDir?.(dir);
-              }}
-              onClear={() => {
-                trackHomeChatComposerClick(analytics.track, {
-                  page_name: 'home',
-                  area: 'chat_composer',
-                  element: 'working_dir_clear',
-                });
-                onClearWorkingDir?.();
-              }}
-            />
-          ) : null}
-        </div>
-      ) : null}
 
       {HOME_TEMPLATE_START_VISIBLE && !activeCreateChip ? (
         <div className="home-hero__template-section" data-testid="home-hero-template-section">

@@ -1045,7 +1045,7 @@ export function DesignSystemCreationFlow({
         >
           <div className="ds-source-upload-loading__card">
             <Spinner size={18} />
-            <span>Adding source material...</span>
+            <span>{t('dsCreate.sourceProcessing')}</span>
           </div>
         </div>
       ) : null}
@@ -1060,7 +1060,7 @@ export function DesignSystemCreationFlow({
               }}
             >
               <Icon name="arrow-left" />
-              Back
+              {t('dsCreate.back')}
             </Button>
           </div>
           <span className="ds-setup-mark">

@@ -26,7 +26,7 @@ import type { RuntimeAgentDef } from '../types.js';
 //                         (Respects user choice when they switch models
 //                         from `agy` directly.)
 //   - any other id      : the literal display label agy expects (e.g.
-//                         "Gemini 3.1 Pro (High)", "Claude Sonnet 4.6
+//                         "Gemini 3.5 Flash (High)", "Claude Sonnet 4.6
 //                         (Thinking)"). We persist it before spawn.
 //
 // `supportsCustomModel: false` because the label set is a server-side
@@ -34,8 +34,8 @@ import type { RuntimeAgentDef } from '../types.js';
 // `availableModels` cache miss + empty print-mode output, which surfaces
 // to the user as a generic "empty response" error.
 //
-// The 8 model labels mirror what `Switch Model` in agy's TUI lists for
-// consumer-tier accounts as of 2026-05-28. The set is small and stable
+// The model labels mirror what `Switch Model` in agy's TUI lists for
+// consumer-tier accounts. The set is small and stable
 // enough to ship statically until upstream adds a programmatic
 // `agy models` subcommand (also tracked under issue #35).
 const ANTIGRAVITY_SETTINGS_PATH = join(
@@ -173,11 +173,11 @@ export const antigravityAgentDef = {
   versionArgs: ['--version'],
   fallbackModels: [
     DEFAULT_MODEL_OPTION,
-    { id: 'Gemini 3.1 Pro (High)', label: 'Gemini 3.1 Pro (High)' },
-    { id: 'Gemini 3.1 Pro (Low)', label: 'Gemini 3.1 Pro (Low)' },
     { id: 'Gemini 3.5 Flash (High)', label: 'Gemini 3.5 Flash (High)' },
     { id: 'Gemini 3.5 Flash (Medium)', label: 'Gemini 3.5 Flash (Medium)' },
     { id: 'Gemini 3.5 Flash (Low)', label: 'Gemini 3.5 Flash (Low)' },
+    { id: 'Gemini 3.1 Pro (High)', label: 'Gemini 3.1 Pro (High)' },
+    { id: 'Gemini 3.1 Pro (Low)', label: 'Gemini 3.1 Pro (Low)' },
     {
       id: 'Claude Sonnet 4.6 (Thinking)',
       label: 'Claude Sonnet 4.6 (Thinking)',

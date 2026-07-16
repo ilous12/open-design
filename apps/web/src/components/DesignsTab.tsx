@@ -483,8 +483,6 @@ export function DesignsTab({
 		>
 			<div className="tab-panel-toolbar designs-toolbar">
 				<div className="toolbar-left">
-				</div>
-				<div className="toolbar-right">
 					{onNewProject && projects.length > 0 ? (
 						<button
 							type="button"
@@ -503,6 +501,8 @@ export function DesignsTab({
 							<span>{t("entry.navNewProject")}</span>
 						</button>
 					) : null}
+				</div>
+				<div className="toolbar-right">
 					<div className="toolbar-search">
 						<span className="search-icon" aria-hidden>
 							<Icon name="search" size={13} />
