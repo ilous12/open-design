@@ -6,6 +6,7 @@ import { Icon } from './Icon';
 interface Props {
   mode: ChatSessionMode;
   onChange?: (mode: ChatSessionMode) => void;
+  onPickExamplePrompt?: (prompt: string, mode: ChatSessionMode) => void;
   disabled?: boolean;
 }
 
@@ -142,6 +143,7 @@ function ModeDescriptionCard({
   bestForLabel,
   tryLabel,
   costLabel,
+  onPickExamplePrompt,
   className,
   id,
   role,
@@ -151,6 +153,7 @@ function ModeDescriptionCard({
   bestForLabel: string;
   tryLabel: string;
   costLabel: string;
+  onPickExamplePrompt?: (prompt: string, mode: ChatSessionMode) => void;
   className: string;
   id?: string;
   role?: 'tooltip';
@@ -192,7 +195,17 @@ function ModeDescriptionCard({
         <ul className="session-mode-card__queries">
           {item.queries.map((query) => (
             <li key={query} className="session-mode-card__query">
-              {query}
+              {onPickExamplePrompt ? (
+                <button
+                  type="button"
+                  className="session-mode-card__query-button"
+                  onClick={() => onPickExamplePrompt(query, item.mode)}
+                >
+                  {query}
+                </button>
+              ) : (
+                query
+              )}
             </li>
           ))}
         </ul>
@@ -201,7 +214,12 @@ function ModeDescriptionCard({
   );
 }
 
-export function SessionModeToggle({ mode, onChange, disabled = false }: Props) {
+export function SessionModeToggle({
+  mode,
+  onChange,
+  onPickExamplePrompt,
+  disabled = false,
+}: Props) {
   const t = useT();
   const [open, setOpen] = useState(false);
   const [previewMode, setPreviewMode] = useState<ChatSessionMode | null>(null);
@@ -348,6 +366,11 @@ export function SessionModeToggle({ mode, onChange, disabled = false }: Props) {
               bestForLabel={t('chat.mode.cardBestFor')}
               tryLabel={t('chat.mode.cardTry')}
               costLabel={t('chat.mode.cardCost')}
+              onPickExamplePrompt={(prompt, nextMode) => {
+                if (nextMode !== mode) onChange?.(nextMode);
+                onPickExamplePrompt?.(prompt, nextMode);
+                closeMenu();
+              }}
               className="session-mode-toggle__popover-card"
               id={cardId}
               role="tooltip"

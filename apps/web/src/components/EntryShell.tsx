@@ -147,30 +147,6 @@ import {
   type ProviderModelsCache,
 } from './providerModelsCache';
 
-// Persist the entry nav-rail open/collapsed state so it survives both a
-// home -> project -> home navigation (EntryShell unmounts on the project
-// route) and a full reload. Without this the rail always reset to its
-// collapsed default on return.
-const RAIL_OPEN_STORAGE_KEY = 'od.entry.railOpen';
-
-function readStoredRailOpen(): boolean {
-  if (typeof window === 'undefined') return false;
-  try {
-    return window.localStorage.getItem(RAIL_OPEN_STORAGE_KEY) === 'true';
-  } catch {
-    return false;
-  }
-}
-
-function writeStoredRailOpen(open: boolean): void {
-  if (typeof window === 'undefined') return;
-  try {
-    window.localStorage.setItem(RAIL_OPEN_STORAGE_KEY, open ? 'true' : 'false');
-  } catch {
-    /* ignore quota / disabled storage */
-  }
-}
-
 const X_URL = 'https://x.com/OpenDesignHQ';
 const ONBOARDING_DROPDOWN_OPEN_EVENT = 'open-design:onboarding-dropdown-open';
 
@@ -189,8 +165,33 @@ const ONBOARDING_DROPDOWN_OPEN_EVENT = 'open-design:onboarding-dropdown-open';
 const NEWSLETTER_SUBSCRIBE_URL =
   process.env.NEXT_PUBLIC_NEWSLETTER_URL ?? 'https://open-design.ai/subscribe';
 const NEWSLETTER_EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const ONBOARDING_BYOK_AUTO_FETCH_DELAY_MS = 300;
-const ONBOARDING_BYOK_AUTO_TEST_DELAY_MS = 500;
+const ONBOARDING_API_PROTOCOL_TABS = API_PROTOCOL_TABS.filter((tab) =>
+  tab.id === 'anthropic' || tab.id === 'openai' || tab.id === 'google'
+);
+const ONBOARDING_API_PROVIDER_BASE_URLS: Partial<Record<ApiProtocol, string>> = {
+  anthropic: 'https://api.anthropic.com',
+  openai: 'https://api.openai.com/v1',
+  google: 'https://generativelanguage.googleapis.com',
+};
+const ONBOARDING_API_KEY_CONSOLE_LINKS: Record<ApiProtocol, { host: string; url: string } | null> = {
+  anthropic: {
+    host: 'console.anthropic.com',
+    url: 'https://console.anthropic.com/settings/keys',
+  },
+  openai: {
+    host: 'platform.openai.com',
+    url: 'https://platform.openai.com/api-keys',
+  },
+  google: {
+    host: 'aistudio.google.com',
+    url: 'https://aistudio.google.com/apikey',
+  },
+  azure: null,
+  ollama: null,
+  senseaudio: null,
+  aihubmix: null,
+  bedrock: null,
+};
 
 const ONBOARDING_AMR_MODEL_OPTIONS: NonNullable<AgentInfo['models']> = [
   { id: 'claude-opus-4.8', label: 'Claude Opus 4.8' },
@@ -488,16 +489,7 @@ export function EntryShell({
     if (view !== 'design-systems') return;
     void onDesignSystemsRefresh?.();
   }, [onDesignSystemsRefresh, view]);
-  // The entry nav rail is collapsed by default (Manus-style) so the entry
-  // view opens clean and full-width; the panel toggle in the topbar opens it
-  // as an overlay that dismisses on selection / backdrop click / Escape.
-  // Its open/collapsed state is persisted (localStorage) so it survives a
-  // home -> project -> home round trip (EntryShell unmounts on the project
-  // route) and a reload, instead of snapping back to collapsed.
-  const [railOpen, setRailOpen] = useState<boolean>(readStoredRailOpen);
-  useEffect(() => {
-    writeStoredRailOpen(railOpen);
-  }, [railOpen]);
+  const railOpen = true;
   const [localProviderModelsCache, setLocalProviderModelsCache] =
     useState<ProviderModelsCache>({});
   const hasSharedProviderModelsCache =
@@ -767,21 +759,10 @@ export function EntryShell({
             openNewProject();
           }}
           open={railOpen}
-          onClose={() => setRailOpen(false)}
           settingsSlot={settingsButton}
         />
         <main className="entry-main entry-main--scroll" ref={entryMainScrollRef}>
           <div className="entry-main__topbar">
-            <button
-              type="button"
-              className="entry-rail-toggle"
-              onClick={() => setRailOpen((prev) => !prev)}
-              aria-label={t('entry.navExpand')}
-              aria-expanded={railOpen}
-              data-testid="entry-rail-toggle"
-            >
-              <Icon name="panel-left" size={20} />
-            </button>
             <UpdaterPopup />
           </div>
           <div
@@ -1120,17 +1101,17 @@ function OnboardingView({
   const selectedAgent = visibleAgents.find((agent) => agent.id === config.agentId) ?? null;
   const selectedAgentChoice = selectedAgent ? (config.agentModels?.[selectedAgent.id] ?? {}) : {};
   // Connect-step (step 0) gate. Continue may only advance once the selected
-  // runtime is actually usable: AMR signed in, an available local CLI chosen,
-  // or a BYOK provider whose connection test passed. AMR-selected-but-signed-out
-  // is the deliberate exception — there the primary CTA turns into "Sign in to
-  // continue" and must stay enabled so the user can trigger the login that
-  // satisfies the gate (see handlePrimaryAction / amrSelectedAndSignedOut).
-  const byokConnectionVerified =
-    visibleProviderTestState.status === 'done' && visibleProviderTestState.result.ok;
+  // runtime is configured enough to be usable: AMR signed in, an available
+  // local CLI chosen, or the API form has its required fields. The onboarding
+  // API screen intentionally does not run a test request.
+  const byokConfigReady =
+    Boolean(config.apiKey.trim()) &&
+    Boolean(config.baseUrl.trim()) &&
+    Boolean(config.model.trim());
   const connectStepRuntimeReady =
     (runtime === 'amr' && amrSignedIn) ||
     (runtime === 'local' && selectedAgent !== null) ||
-    (runtime === 'byok' && byokConnectionVerified);
+    (runtime === 'byok' && byokConfigReady);
   const connectStepBlocked =
     step === 0 && !amrSelectedAndSignedOut && !connectStepRuntimeReady;
   // Which Connect gate is in the way, for the Continue tooltip. The three
@@ -1472,13 +1453,19 @@ function OnboardingView({
     }
   }
 
-  const byokProviderOptions = [
-    { value: '', label: t('settings.customProvider') },
-    ...KNOWN_PROVIDERS.filter((provider) => provider.protocol === apiProtocol).map((provider) => ({
-      value: provider.baseUrl,
-      label: provider.label,
-    })),
-  ];
+  const onboardingApiProvider = KNOWN_PROVIDERS.find((provider) => (
+    provider.protocol === apiProtocol &&
+    provider.baseUrl === ONBOARDING_API_PROVIDER_BASE_URLS[provider.protocol]
+  )) ?? null;
+  const byokProviderOptions = onboardingApiProvider ? [{
+    value: onboardingApiProvider.baseUrl,
+    label: onboardingApiProvider.label,
+  }] : [];
+  const onboardingSuggestedModelIds =
+    onboardingApiProvider?.models ?? SUGGESTED_MODELS_BY_PROTOCOL[apiProtocol];
+  const selectedOnboardingProvider = selectedProvider?.baseUrl === onboardingApiProvider?.baseUrl
+    ? selectedProvider
+    : null;
   const agentModelOptions =
     selectedAgent?.models?.map((model) => ({
       value: model.id,
@@ -1488,7 +1475,7 @@ function OnboardingView({
     activeProviderModelsCache[providerModelsInputKey] ?? [];
   const byokModelOptions = mergeOnboardingProviderModelOptions(
     fetchedProviderModels,
-    SUGGESTED_MODELS_BY_PROTOCOL[apiProtocol],
+    onboardingSuggestedModelIds,
     config.model,
   ).map((model) => ({
     value: model.id,
@@ -2049,40 +2036,6 @@ function OnboardingView({
     }
   }
 
-  useEffect(() => {
-    if (runtime !== 'byok' || step !== 0) return;
-    if (!canFetchProviderModels) return;
-    if (providerModelsState.status === 'running') return;
-    if (providerModelsAutoFetchKeyRef.current === providerModelsInputKey) return;
-    const timer = window.setTimeout(() => {
-      void fetchProviderModelsInline();
-    }, ONBOARDING_BYOK_AUTO_FETCH_DELAY_MS);
-    return () => window.clearTimeout(timer);
-  }, [
-    canFetchProviderModels,
-    providerModelsInputKey,
-    providerModelsState.status,
-    runtime,
-    step,
-  ]);
-
-  useEffect(() => {
-    if (runtime !== 'byok' || step !== 0) return;
-    if (!canTestProvider) return;
-    if (providerTestState.status === 'running') return;
-    if (providerAutoTestKeyRef.current === providerTestInputKey) return;
-    const timer = window.setTimeout(() => {
-      void testProviderInline();
-    }, ONBOARDING_BYOK_AUTO_TEST_DELAY_MS);
-    return () => window.clearTimeout(timer);
-  }, [
-    canTestProvider,
-    providerTestInputKey,
-    providerTestState.status,
-    runtime,
-    step,
-  ]);
-
   const onboardingNavigationLocked = newsletterSubmitting;
   const primaryActionLabel = isLastStep && newsletterSubmitting
     ? t('common.loading')
@@ -2093,6 +2046,39 @@ function OnboardingView({
     : isLastStep
       ? t('settings.onboardingFinish')
       : t('settings.onboardingContinue');
+  const onboardingActions = (
+    <div className="onboarding-view__actions">
+      {step === 0 && amrLoginError ? (
+        <span className="onboarding-view__action-status is-error" role="alert">
+          {amrLoginError}
+        </span>
+      ) : null}
+      {step === 0 && amrLoginPending ? (
+        <button
+          type="button"
+          className="onboarding-view__secondary"
+          onClick={handleCancelAmrLogin}
+          disabled={amrLoginCancelPending}
+        >
+          {t('settings.amrCancelSignIn')}
+        </button>
+      ) : null}
+      <button
+        type="button"
+        className={`onboarding-view__primary${
+          connectGateTooltip ? ' od-tooltip' : ''
+        }`}
+        onClick={handlePrimaryAction}
+        disabled={amrLoginPending || amrLoginCancelPending || newsletterSubmitting}
+        aria-disabled={connectStepBlocked || undefined}
+        data-tooltip={connectGateTooltip ?? undefined}
+        data-tooltip-placement="top"
+        aria-busy={newsletterSubmitting ? true : undefined}
+      >
+        <span>{primaryActionLabel}</span>
+      </button>
+    </div>
+  );
 
   // Connect step, default face: a minimal, centered runtime chooser. No stepper
   // and no cloud sign-in CTA; users start with either a local coding agent or
@@ -2142,7 +2128,7 @@ function OnboardingView({
           </div>
         </div>
         <footer className="onboarding-cloud__footer">
-          Copyright © 2026 SKT. All rights reserved.
+          design for air
         </footer>
       </section>
     );
@@ -2161,7 +2147,7 @@ function OnboardingView({
       <div className="onboarding-view__body">
         <div className="onboarding-view__content">
           {step === 0 ? (
-            <div className="onboarding-view__panel">
+            <div className="onboarding-view__panel onboarding-view__panel--runtime">
               <button
                 type="button"
                 className="onboarding-view__back-to-cloud"
@@ -2209,7 +2195,7 @@ function OnboardingView({
                     apiKey={config.apiKey}
                     baseUrl={config.baseUrl}
                     model={config.model}
-                    selectedProvider={selectedProvider}
+                    selectedProvider={selectedOnboardingProvider}
                     providerOptions={byokProviderOptions}
                     apiKeyVisible={apiKeyVisible}
                     onToggleApiKey={() => setApiKeyVisible((current) => !current)}
@@ -2217,13 +2203,26 @@ function OnboardingView({
                       onApiProtocolChange(protocol);
                     }}
                     onProviderChange={(baseUrl) => {
-                      const provider = KNOWN_PROVIDERS.find(
-                        (item) => item.protocol === apiProtocol && item.baseUrl === baseUrl,
-                      );
+                      const provider = byokProviderOptions.length > 0
+                        ? KNOWN_PROVIDERS.find(
+                          (item) =>
+                            item.protocol === apiProtocol &&
+                            item.baseUrl === baseUrl &&
+                            item.baseUrl === ONBOARDING_API_PROVIDER_BASE_URLS[item.protocol],
+                        )
+                        : null;
+                      if (!provider) {
+                        updateApiConfig({
+                          baseUrl: '',
+                          model: '',
+                          apiProviderBaseUrl: null,
+                        });
+                        return;
+                      }
                       updateApiConfig({
-                        baseUrl: provider?.baseUrl ?? '',
-                        model: provider?.model ?? '',
-                        apiProviderBaseUrl: provider?.baseUrl ?? null,
+                        baseUrl: provider.baseUrl,
+                        model: provider.model,
+                        apiProviderBaseUrl: provider.baseUrl,
                       });
                     }}
                     onApiKeyChange={(apiKey) => updateApiConfig({ apiKey })}
@@ -2235,18 +2234,12 @@ function OnboardingView({
                       updateApiConfig({ baseUrl, apiProviderBaseUrl: null })
                     }
                     modelOptions={byokModelOptions}
-                    testState={visibleProviderTestState}
-                    canTest={canTestProvider}
-                    onTest={() => void testProviderInline()}
-                    modelsState={visibleProviderModelsState}
-                    canFetchModels={canFetchProviderModels}
-                    onFetchModels={() => void fetchProviderModelsInline()}
                   />
                 ) : null}
               </div>
+              {onboardingActions}
             </div>
           ) : null}
-
           {step === 1 ? (
             <div className="onboarding-view__panel">
               <button
@@ -2462,39 +2455,7 @@ function OnboardingView({
             </div>
           ) : null}
 
-          {step === 3 ? null : (
-            <div className="onboarding-view__actions">
-              {step === 0 && amrLoginError ? (
-                <span className="onboarding-view__action-status is-error" role="alert">
-                  {amrLoginError}
-                </span>
-              ) : null}
-              {step === 0 && amrLoginPending ? (
-                <button
-                  type="button"
-                  className="onboarding-view__secondary"
-                  onClick={handleCancelAmrLogin}
-                  disabled={amrLoginCancelPending}
-                >
-                  {t('settings.amrCancelSignIn')}
-                </button>
-              ) : null}
-              <button
-                type="button"
-                className={`onboarding-view__primary${
-                  connectGateTooltip ? ' od-tooltip' : ''
-                }`}
-                onClick={handlePrimaryAction}
-                disabled={amrLoginPending || amrLoginCancelPending || newsletterSubmitting}
-                aria-disabled={connectStepBlocked || undefined}
-                data-tooltip={connectGateTooltip ?? undefined}
-                data-tooltip-placement="top"
-                aria-busy={newsletterSubmitting ? true : undefined}
-              >
-                <span>{primaryActionLabel}</span>
-              </button>
-            </div>
-          )}
+          {step === 0 || step === 3 ? null : onboardingActions}
         </div>
       </div>
     </section>
@@ -2528,7 +2489,7 @@ function OnboardingCliSetupPanel({
   const scanning = scanStatus === 'scanning';
   const showEmpty = scanStatus === 'done' && agents.length === 0;
   return (
-    <div className="onboarding-view__setup-panel">
+    <div className="onboarding-view__setup-panel onboarding-view__setup-panel--local">
       <div className="onboarding-view__setup-head">
         <div>
           <strong>{t('settings.localCli')}</strong>
@@ -2687,12 +2648,6 @@ function OnboardingByokSetupPanel({
   onModelChange,
   onBaseUrlChange,
   modelOptions,
-  testState,
-  canTest,
-  onTest,
-  modelsState,
-  canFetchModels,
-  onFetchModels,
 }: {
   apiProtocol: ApiProtocol;
   apiKey: string;
@@ -2708,48 +2663,15 @@ function OnboardingByokSetupPanel({
   onApiKeyChange: (apiKey: string) => void;
   onModelChange: (model: string) => void;
   onBaseUrlChange: (baseUrl: string) => void;
-  testState:
-    | { status: 'idle' }
-    | { status: 'running'; inputKey: string }
-    | { status: 'done'; inputKey: string; result: ConnectionTestResponse };
-  canTest: boolean;
-  onTest: () => void;
-  modelsState:
-    | { status: 'idle' }
-    | { status: 'running'; inputKey: string }
-    | { status: 'done'; inputKey: string; result: ProviderModelsResponse };
-  canFetchModels: boolean;
-  onFetchModels: () => void;
 }) {
   const t = useT();
-  const running = testState.status === 'running';
-  const fetchingModels = modelsState.status === 'running';
+  const apiKeyConsoleLink = ONBOARDING_API_KEY_CONSOLE_LINKS[apiProtocol];
   return (
-    <div className="onboarding-view__setup-panel">
+    <div className="onboarding-view__setup-panel onboarding-view__setup-panel--api">
       <div className="onboarding-view__setup-head">
         <div>
           <strong>{t('settings.modeApiMeta')}</strong>
           <p>{t('settings.modeApi')}</p>
-        </div>
-        <div className="onboarding-view__setup-head-actions">
-          <button
-            type="button"
-            className={`onboarding-view__mini-button${fetchingModels ? ' is-loading' : ''}`}
-            onClick={onFetchModels}
-            disabled={fetchingModels || !canFetchModels}
-            title={t('settings.fetchModelsTitle')}
-          >
-            {fetchingModels ? t('settings.fetchModelsRunning') : t('settings.fetchModels')}
-          </button>
-          <button
-            type="button"
-            className={`onboarding-view__mini-button${running ? ' is-loading' : ''}`}
-            onClick={onTest}
-            disabled={running || !canTest}
-            title={t('settings.testTitle')}
-          >
-            {running ? t('settings.testRunning') : t('settings.test')}
-          </button>
         </div>
       </div>
       <div
@@ -2757,7 +2679,7 @@ function OnboardingByokSetupPanel({
         role="tablist"
         aria-label={t('settings.protocolAria')}
       >
-        {API_PROTOCOL_TABS.map((tab) => (
+        {ONBOARDING_API_PROTOCOL_TABS.map((tab) => (
           <button
             key={tab.id}
             type="button"
@@ -2772,7 +2694,7 @@ function OnboardingByokSetupPanel({
       </div>
       <OnboardingDropdown
         label={t('settings.quickFillProvider')}
-        placeholder={t('settings.customProvider')}
+        placeholder={providerOptions[0]?.label ?? t('settings.quickFillProvider')}
         value={selectedProvider?.baseUrl ?? ''}
         options={providerOptions}
         onChange={onProviderChange}
@@ -2791,6 +2713,16 @@ function OnboardingByokSetupPanel({
           <button type="button" onClick={onToggleApiKey}>
             {apiKeyVisible ? t('settings.hide') : t('settings.show')}
           </button>
+          {apiKeyConsoleLink ? (
+            <a
+              className="onboarding-view__field-link"
+              href={apiKeyConsoleLink.url}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {t('settings.apiKeyGetLink', { host: apiKeyConsoleLink.host })}
+            </a>
+          ) : null}
         </span>
       </label>
       <div className="onboarding-view__compact-fields">
@@ -2827,34 +2759,6 @@ function OnboardingByokSetupPanel({
           </label>
         )}
       </div>
-      {modelsState.status === 'running' ? (
-        <p className="onboarding-view__test-status is-running" role="status">
-          {t('settings.fetchModelsRunning')}
-        </p>
-      ) : modelsState.status === 'done' ? (
-        <p
-          className={`onboarding-view__test-status is-${onboardingProviderModelsVariant(
-            modelsState.result,
-          )}`}
-          role={modelsState.result.ok ? 'status' : 'alert'}
-        >
-          {renderOnboardingProviderModelsMessage(t, modelsState.result)}
-        </p>
-      ) : null}
-      {testState.status === 'running' ? (
-        <p className="onboarding-view__test-status is-running" role="status">
-          {t('settings.testRunning')}
-        </p>
-      ) : testState.status === 'done' ? (
-        <p
-          className={`onboarding-view__test-status is-${onboardingTestVariant(
-            testState.result,
-          )}`}
-          role={testState.result.ok ? 'status' : 'alert'}
-        >
-          {renderOnboardingProviderTestMessage(t, testState.result, model)}
-        </p>
-      ) : null}
     </div>
   );
 }

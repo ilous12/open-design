@@ -173,8 +173,8 @@ describe("release workflows", () => {
     expect(prepareMac).toContain('RELEASE_ASSET_SUFFIX="${RELEASE_ASSET_SUFFIX:-}"');
     expect(prepareWin).toContain("[AllowEmptyString()]");
     expect(prepareWin).toContain("$sourcePayload = [string]$build.payloadPath");
-    expect(prepareWin).toContain("open-design-$ReleaseVersion$ReleaseAssetSuffix-win-x64-payload.7z");
-    expect(publishPlatform).toContain("open-design-${releaseVersion}${assetSuffix}-win-x64-payload.7z");
+    expect(prepareWin).toContain("design-for-air-$ReleaseVersion$ReleaseAssetSuffix-win-x64-payload.7z");
+    expect(publishPlatform).toContain("design-for-air-${releaseVersion}${assetSuffix}-win-x64-payload.7z");
     expect(publishPlatform).toContain("payload: assetEntry(payload)");
     expect(publishPlatform).toContain("versionLockObjectKey(releaseVersion, countedReleaseChannel)");
     expect(publishPlatform).toContain("assertCurrentVersionReservation(storage, releaseVersion, versionLockKey, countedReleaseChannel)");

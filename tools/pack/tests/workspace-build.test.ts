@@ -5,6 +5,7 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
 import { ToolPackCache } from "../src/cache.js";
+import type { CacheAcquireResult, CacheMaterializeTarget, CacheNode, CacheSeedSource } from "../src/cache.js";
 import type { ToolPackConfig } from "../src/config.js";
 import { ensureWorkspaceBuildArtifacts } from "../src/workspace-build.js";
 
@@ -268,6 +269,45 @@ describe("ensureWorkspaceBuildArtifacts", () => {
       expect(builds).toBe(1);
       expect(cache.report().entries.map((entry) => entry.status)).toEqual(["miss", "hit"]);
       expect(await readFile(join(root, "packages/host/dist/index.mjs"), "utf8")).toBe("build-1\n");
+    } finally {
+      await rm(root, { force: true, recursive: true });
+    }
+  });
+
+  it("rebuilds when a cache hit does not leave standalone output in the workspace", async () => {
+    const root = await mkdtemp(join(tmpdir(), "open-design-workspace-build-recover-"));
+    const cache = new ToolPackCache(join(root, ".cache"));
+    const config = createConfig(root, cache.root);
+    let builds = 0;
+
+    class DroppingCache extends ToolPackCache {
+      override async acquire<TMetadata>(
+        options: {
+          aliases?: string[];
+          materialize: CacheMaterializeTarget[];
+          node: CacheNode<TMetadata>;
+          seedFrom?: CacheSeedSource[];
+        },
+      ): Promise<CacheAcquireResult<TMetadata>> {
+        const result = await super.acquire<TMetadata>(options);
+        await rm(join(root, "apps/web/.next/standalone"), { force: true, recursive: true });
+        return result;
+      }
+    }
+
+    try {
+      await writeWorkspace(root);
+      await ensureWorkspaceBuildArtifacts(config, cache, async () => {
+        builds += 1;
+        await writeOutputs(root, `build-${builds}`);
+      });
+      await ensureWorkspaceBuildArtifacts(config, new DroppingCache(cache.root), async () => {
+        builds += 1;
+        await writeOutputs(root, `build-${builds}`);
+      });
+
+      expect(builds).toBe(2);
+      expect(await readFile(join(root, "apps/web/.next/standalone/apps/web/server.js"), "utf8")).toBe("build-2\n");
     } finally {
       await rm(root, { force: true, recursive: true });
     }

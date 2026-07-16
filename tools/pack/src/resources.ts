@@ -58,6 +58,11 @@ const BUNDLED_RESOURCE_TREES = [
   // resolves it via DESIGN_TEMPLATES_DIR. Bundle it like any other
   // first-class resource so packaged builds carry the full template set.
   { from: "design-templates", to: "design-templates" },
+  // Reference remix examples are served by the daemon from
+  // <resourceRoot>/apps/web/public/reference-remix in packaged builds.
+  // They are not part of the web standalone output, so bundle them
+  // explicitly or packaged "Remix" actions cannot find the source HTML.
+  { from: join("apps", "web", "public", "reference-remix"), to: join("apps", "web", "public", "reference-remix") },
   { from: "design-systems", to: "design-systems" },
   { from: "craft", to: "craft" },
   { from: join("plugins", "_official"), to: join("plugins", "_official") },

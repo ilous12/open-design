@@ -1,5 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
+import {
+  designSystemMatchesLocalizedSearch,
+  designSystemMatchesSearch,
+} from '../../src/components/design-system-search';
 import { supportedModels } from '../../src/components/NewProjectPanel';
 import { AUDIO_MODELS_BY_KIND, IMAGE_MODELS, VIDEO_MODELS } from '../../src/media/models';
 
@@ -29,5 +33,43 @@ describe('NewProjectPanel image provider visibility', () => {
   it('shows OpenRouter in supported video models', () => {
     const models = supportedModels('video', VIDEO_MODELS);
     expect(models.some((model) => model.provider === 'openrouter')).toBe(true);
+  });
+});
+
+describe('design system search matching', () => {
+  it('matches AIR and SKT-T by id, title, and hyphen-insensitive aliases', () => {
+    const air = {
+      id: 'air',
+      title: 'AIR',
+      category: 'Telecom & Lifestyle',
+      summary: 'AIR design system',
+    };
+    const sktT = {
+      id: 'skt-t',
+      title: 'SKT-T',
+      category: 'Telecom Service Portal',
+      summary: 'Korean telecom portal',
+    };
+
+    expect(designSystemMatchesSearch(air, 'air')).toBe(true);
+    expect(designSystemMatchesSearch(air, 'AIR')).toBe(true);
+    expect(designSystemMatchesSearch(sktT, 'skt-t')).toBe(true);
+    expect(designSystemMatchesSearch(sktT, 'skt t')).toBe(true);
+    expect(designSystemMatchesSearch(sktT, 'sktt')).toBe(true);
+  });
+
+  it('uses the home picker localized search fields for new project design systems', () => {
+    const sktT = {
+      id: 'skt-t',
+      title: 'SKT-T',
+      category: 'Telecom & Lifestyle',
+      summary: 'Korean telecom portal',
+      swatches: [],
+      source: 'built-in',
+      status: 'published',
+    };
+
+    expect(designSystemMatchesLocalizedSearch(sktT, 'skt t', 'ko')).toBe(true);
+    expect(designSystemMatchesLocalizedSearch(sktT, '통신', 'ko')).toBe(true);
   });
 });

@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { access, cp, lstat, mkdir, readdir, readFile, stat, symlink, unlink, writeFile } from "node:fs/promises";
+import { access, cp, lstat, mkdir, readdir, readFile, rm, stat, symlink, unlink, writeFile } from "node:fs/promises";
 import { dirname, join, relative } from "node:path";
 
 import { hashJson, hashPath, ToolPackCache } from "./cache.js";
@@ -283,6 +283,7 @@ async function copyWorkspaceBuildArtifactsToCache(config: ToolPackConfig, entryR
       await hoistStandaloneNextPeerDeps(sourcePath);
     }
     const targetPath = join(entryRoot, artifact.cachePath);
+    await rm(targetPath, { force: true, recursive: true });
     await mkdir(dirname(targetPath), { recursive: true });
     await cp(sourcePath, targetPath, { dereference: true, recursive: true });
   }
@@ -300,6 +301,38 @@ async function missingWorkspaceBuildOutput(config: ToolPackConfig): Promise<stri
     if (!exists) return output;
   }
   return null;
+}
+
+async function buildAndCacheWorkspaceArtifacts(
+  config: ToolPackConfig,
+  entryRoot: string,
+  key: string,
+  build: () => Promise<void>,
+): Promise<WorkspaceBuildMetadata> {
+  await build();
+  const missingOutput = await missingWorkspaceBuildOutput(config);
+  if (missingOutput != null) {
+    throw new Error(`workspace build completed but output is missing: ${missingOutput}`);
+  }
+  await copyWorkspaceBuildArtifactsToCache(config, entryRoot);
+  const outputFiles = workspaceBuildOutputFiles(config);
+  const builtAt = new Date().toISOString();
+  await mkdir(entryRoot, { recursive: true });
+  await writeFile(
+    join(entryRoot, "stamp.json"),
+    `${JSON.stringify(
+      {
+        builtAt,
+        keyHash: hashText(key),
+        outputFiles,
+        webOutputMode: config.webOutputMode,
+      },
+      null,
+      2,
+    )}\n`,
+    "utf8",
+  );
+  return { builtAt, outputFiles };
 }
 
 export async function ensureWorkspaceBuildArtifacts(
@@ -328,7 +361,7 @@ export async function ensureWorkspaceBuildArtifacts(
     reuseRequiredPaths: artifact.requiredPathGroups,
     to: join(config.workspaceRoot, artifact.workspacePath),
   }));
-  await cache.acquire<WorkspaceBuildMetadata>({
+  const result = await cache.acquire<WorkspaceBuildMetadata>({
     aliases: versionFamilyAlias == null ? [] : [versionFamilyAlias],
     materialize,
     node: {
@@ -336,32 +369,12 @@ export async function ensureWorkspaceBuildArtifacts(
       key,
       outputs: ["stamp.json", ...artifacts.map((artifact) => artifact.cachePath)],
       invalidate: async () => null,
-      build: async ({ entryRoot }) => {
-        await build();
-        const missingOutput = await missingWorkspaceBuildOutput(config);
-        if (missingOutput != null) {
-          throw new Error(`workspace build completed but output is missing: ${missingOutput}`);
-        }
-        await copyWorkspaceBuildArtifactsToCache(config, entryRoot);
-        const outputFiles = workspaceBuildOutputFiles(config);
-        await mkdir(entryRoot, { recursive: true });
-        await writeFile(
-          join(entryRoot, "stamp.json"),
-          `${JSON.stringify(
-            {
-              builtAt: new Date().toISOString(),
-              keyHash: hashText(key),
-              outputFiles,
-              webOutputMode: config.webOutputMode,
-            },
-            null,
-            2,
-          )}\n`,
-          "utf8",
-        );
-        return { builtAt: new Date().toISOString(), outputFiles };
-      },
+      build: async ({ entryRoot }) => buildAndCacheWorkspaceArtifacts(config, entryRoot, key, build),
     },
     seedFrom: versionFamilyAlias == null ? [] : [{ aliasKey: versionFamilyAlias, materialize }],
   });
+  const missingOutput = await missingWorkspaceBuildOutput(config);
+  if (missingOutput != null) {
+    await buildAndCacheWorkspaceArtifacts(config, result.entryPath, key, build);
+  }
 }

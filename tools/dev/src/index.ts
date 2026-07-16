@@ -466,6 +466,7 @@ async function spawnWebRuntime(config: ToolDevConfig, options: CliOptions): Prom
   const logHandle = await openAppLog(config, APP_KEYS.WEB);
 
   try {
+    await ensureContractsBuild(config, logHandle);
     await ensureWebDevNodeModules(config);
     await writeWebDevTsconfig(config);
     await logHandle.write(`\n[tools-dev] launching web at ${new Date().toISOString()}\n`);
@@ -523,6 +524,8 @@ async function latestMtimeMs(filePath: string): Promise<number> {
 }
 
 async function ensureDaemonCliBuild(config: ToolDevConfig, logHandle: FileHandle): Promise<void> {
+  await ensureContractsBuild(config, logHandle);
+
   const daemonRoot = path.join(config.workspaceRoot, "apps/daemon");
   const distCliPath = path.join(daemonRoot, "dist/cli.js");
   const distMtime = await latestMtimeMs(distCliPath);
@@ -536,6 +539,45 @@ async function ensureDaemonCliBuild(config: ToolDevConfig, logHandle: FileHandle
   const reason = distMtime > 0 ? "source is newer than apps/daemon/dist/cli.js" : "apps/daemon/dist/cli.js is missing";
   await logHandle.write(`\n[tools-dev] building @nn-design/daemon because ${reason} at ${new Date().toISOString()}\n`);
   const invocation = createPackageManagerInvocation(["--filter", "@nn-design/daemon", "build"], process.env);
+  await runLoggedCommand({
+    args: invocation.args,
+    command: invocation.command,
+    cwd: config.workspaceRoot,
+    env: process.env,
+    logFd: logHandle.fd,
+    windowsVerbatimArguments: invocation.windowsVerbatimArguments,
+  });
+}
+
+async function requiredDistMtimeMs(filePaths: readonly string[]): Promise<number> {
+  const mtimes = await Promise.all(filePaths.map(async (filePath) => {
+    const entry = await lstat(filePath).catch(() => null);
+    return entry?.isFile() === true ? entry.mtimeMs : 0;
+  }));
+  if (mtimes.some((mtime) => mtime === 0)) return 0;
+  return Math.min(...mtimes);
+}
+
+async function ensureContractsBuild(config: ToolDevConfig, logHandle: FileHandle): Promise<void> {
+  const contractsRoot = path.join(config.workspaceRoot, "packages/contracts");
+  const distMtime = await requiredDistMtimeMs([
+    path.join(contractsRoot, "dist/index.mjs"),
+    path.join(contractsRoot, "dist/analytics/index.mjs"),
+    path.join(contractsRoot, "dist/api/connectionTest.mjs"),
+  ]);
+  const sourceMtime = Math.max(
+    await latestMtimeMs(path.join(contractsRoot, "src")),
+    await latestMtimeMs(path.join(contractsRoot, "package.json")),
+    await latestMtimeMs(path.join(contractsRoot, "tsconfig.json")),
+    await latestMtimeMs(path.join(contractsRoot, "esbuild.config.mjs")),
+  );
+  if (distMtime > 0 && distMtime >= sourceMtime) return;
+
+  const reason = distMtime > 0
+    ? "source is newer than packages/contracts/dist"
+    : "packages/contracts/dist is missing required runtime exports";
+  await logHandle.write(`\n[tools-dev] building @nn-design/contracts because ${reason} at ${new Date().toISOString()}\n`);
+  const invocation = createPackageManagerInvocation(["--filter", "@nn-design/contracts", "build"], process.env);
   await runLoggedCommand({
     args: invocation.args,
     command: invocation.command,

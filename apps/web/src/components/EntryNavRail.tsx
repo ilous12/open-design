@@ -5,7 +5,7 @@
 // New project, home, projects, and design systems. Footer controls are reserved
 // for lower-frequency affordances such as settings and the help launcher.
 
-import { useEffect, useRef, type ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import { EntryHelpMenu } from './EntryHelpMenu';
 import { Icon } from './Icon';
 import { useT } from '../i18n';
@@ -29,8 +29,6 @@ interface Props {
   newProjectDisabled?: boolean;
   /** When false the rail is collapsed (hidden off-canvas) on the entry view. */
   open: boolean;
-  /** Collapse the rail — called after a destination is chosen or the user dismisses it. */
-  onClose: () => void;
   /** Optional settings control shown above the help launcher in the footer. */
   settingsSlot?: ReactNode;
 }
@@ -68,7 +66,6 @@ export function EntryNavRail({
   onNewProject,
   newProjectDisabled = false,
   open,
-  onClose,
   settingsSlot,
 }: Props) {
   const t = useT();
@@ -82,26 +79,8 @@ export function EntryNavRail({
     onViewChange(next);
   };
 
-  // While collapsed the rail is visually hidden but its logo + nav buttons
-  // stay mounted. Mark the whole rail `inert` so those controls leave the
-  // keyboard tab order and pointer flow entirely — otherwise a fresh Tab on
-  // the home screen would land on invisible rail controls before the visible
-  // toggle/hero. `inert` is set imperatively to stay compatible across React
-  // versions whose JSX types don't yet declare the attribute.
-  const railRef = useRef<HTMLElement | null>(null);
-  useEffect(() => {
-    const node = railRef.current;
-    if (!node) return;
-    if (open) {
-      node.removeAttribute('inert');
-    } else {
-      node.setAttribute('inert', '');
-    }
-  }, [open]);
-
   return (
     <nav
-      ref={railRef}
       className={`entry-nav-rail${open ? ' is-open' : ''}`}
       aria-label="Primary"
       aria-hidden={open ? undefined : true}
@@ -116,16 +95,6 @@ export function EntryNavRail({
             data-testid="entry-nav-logo"
           >
             <span className="entry-nav-rail__logo-img" aria-hidden="true" />
-          </button>
-          <button
-            type="button"
-            className="entry-nav-rail__collapse"
-            onClick={onClose}
-            aria-label={t('entry.navCollapse')}
-            title={t('entry.navCollapse')}
-            data-testid="entry-nav-collapse"
-          >
-            <Icon name="panel-left" size={20} />
           </button>
         </div>
         <div className="entry-nav-rail__logo-divider" role="separator" aria-hidden="true" />

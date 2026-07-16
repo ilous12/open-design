@@ -3029,6 +3029,13 @@ export const ChatComposer = forwardRef<ChatComposerHandle, Props>(
             <SessionModeToggle
               mode={sessionMode}
               onChange={onSessionModeChange}
+              onPickExamplePrompt={(prompt) => {
+                replaceEditorDraft(prompt);
+                setComposerEngaged(true);
+                setMention(null);
+                setSlash(null);
+                editorRef.current?.focus();
+              }}
             />
             {showStopButton ? (
               <button

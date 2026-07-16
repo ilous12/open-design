@@ -306,6 +306,10 @@ test('codex args keep plugins enabled when OD_CODEX_DISABLE_PLUGINS is not 1', (
 test('codex model picker includes current OpenAI choices in priority order', async () => {
   const expectedModels = [
     'default',
+    'gpt-5.6-sol',
+    'gpt-5.6',
+    'gpt-5.6-terra',
+    'gpt-5.6-luna',
     'gpt-5.5',
     'gpt-5.4',
     'gpt-5.4-mini',
@@ -328,6 +332,7 @@ test('codex model picker includes current OpenAI choices in priority order', asy
     'medium',
     'high',
     'xhigh',
+    'max',
   ]);
 
   const args = codex.buildArgs(

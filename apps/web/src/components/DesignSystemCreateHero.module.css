@@ -6,9 +6,9 @@
 .hero {
   display: grid;
   grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
-  gap: 34px;
+  gap: 24px;
   align-items: center;
-  margin: 4px 0 38px;
+  margin: 0 0 28px;
 }
 @media (max-width: 680px) {
   .hero {
@@ -32,8 +32,13 @@
 .copy {
   min-width: 0;
   display: grid;
-  gap: 16px;
+  gap: 14px;
   align-content: start;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(35, 28, 52, 0.06);
 }
 
 .eyebrow {
@@ -41,22 +46,23 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 4px 11px;
-  border: 1px solid color-mix(in srgb, var(--accent) 24%, var(--border));
-  border-radius: var(--radius-pill);
-  background: color-mix(in srgb, var(--accent) 8%, var(--bg-subtle));
-  color: var(--accent);
-  font-size: 12px;
-  font-weight: 700;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 12.5px;
+  font-weight: 680;
   letter-spacing: 0.01em;
 }
 
 .title {
   margin: 0;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(34px, 4.4vw, 46px);
-  line-height: 1.04;
-  letter-spacing: -0.015em;
+  font-family: var(--sans);
+  font-size: clamp(26px, 3vw, 34px);
+  line-height: 1.12;
+  letter-spacing: 0;
+  font-weight: 760;
   color: var(--text-strong);
 }
 
@@ -94,10 +100,10 @@
 
 .steps {
   list-style: none;
-  margin: 4px 0 0;
+  margin: 2px 0 0;
   padding: 0;
   display: grid;
-  gap: 12px;
+  gap: 8px;
 }
 .step {
   display: grid;
@@ -108,11 +114,11 @@
 .stepNo {
   display: grid;
   place-items: center;
-  width: 26px;
-  height: 26px;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--accent) 12%, var(--bg-subtle));
-  border: 1px solid color-mix(in srgb, var(--accent) 22%, var(--border));
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--accent) 9%, #ffffff);
+  border: 1px solid color-mix(in srgb, var(--accent) 18%, var(--border));
   color: var(--accent);
   font-size: 12.5px;
   font-weight: 750;
@@ -140,29 +146,18 @@
   min-width: 0;
 }
 .showcaseGlow {
-  position: absolute;
-  inset: -14% -8% -22%;
-  z-index: 0;
-  border-radius: var(--radius);
-  background:
-    radial-gradient(60% 60% at 30% 20%, color-mix(in srgb, var(--accent) 24%, transparent), transparent 70%),
-    radial-gradient(50% 50% at 85% 90%, color-mix(in srgb, #14b8a6 22%, transparent), transparent 70%);
-  filter: blur(20px);
-  opacity: 0.7;
-  pointer-events: none;
+  display: none;
 }
 .showcaseCard {
   position: relative;
   z-index: 1;
   display: grid;
-  gap: 16px;
-  padding: 18px;
+  gap: 14px;
+  padding: 16px;
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--bg-panel);
-  box-shadow:
-    0 24px 60px color-mix(in srgb, var(--shadow-color, #000) 12%, transparent),
-    var(--shadow-xs);
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(35, 28, 52, 0.06);
 }
 .showcaseHead {
   display: flex;
@@ -191,7 +186,7 @@
   color: var(--text-muted);
   font-size: 11.5px;
   font-weight: 650;
-  letter-spacing: 0.02em;
+  letter-spacing: 0;
 }
 
 .section {
@@ -202,8 +197,8 @@
   color: var(--text-muted);
   font-size: 10.5px;
   font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .swatches {
@@ -213,7 +208,7 @@
 }
 .swatch {
   height: 34px;
-  border-radius: var(--radius);
+  border-radius: 9px;
   box-shadow: inset 0 0 0 1px color-mix(in srgb, #000 8%, transparent);
 }
 
@@ -222,7 +217,7 @@
   align-items: baseline;
   gap: 14px;
   color: var(--text-strong);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--sans);
 }
 .typeLg {
   font-size: 34px;
@@ -251,7 +246,7 @@
   align-items: center;
   height: 30px;
   padding: 0 14px;
-  border-radius: var(--radius);
+  border-radius: 9px;
   background: var(--accent);
   color: var(--accent-contrast, #fff);
   font-size: 12px;
@@ -262,7 +257,7 @@
   align-items: center;
   height: 30px;
   padding: 0 14px;
-  border-radius: var(--radius);
+  border-radius: 9px;
   border: 1px solid var(--border);
   background: var(--bg-panel);
   color: var(--text);
@@ -276,7 +271,7 @@
   gap: 6px;
   padding: 10px;
   border: 1px solid var(--border-soft);
-  border-radius: var(--radius);
+  border-radius: 9px;
   background: var(--bg-subtle);
 }
 .fauxBar {

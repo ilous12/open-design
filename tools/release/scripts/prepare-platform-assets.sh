@@ -46,9 +46,9 @@ case "$RELEASE_TARGET" in
     source_dmg="$TOOLS_PACK_DIR/out/mac/namespaces/$RELEASE_NAMESPACE/dmg/design for air-$RELEASE_NAMESPACE.dmg"
     source_zip="$TOOLS_PACK_DIR/out/mac/namespaces/$RELEASE_NAMESPACE/zip/design for air-$RELEASE_NAMESPACE.zip"
     source_payload="$TOOLS_PACK_DIR/out/mac/namespaces/$RELEASE_NAMESPACE/payload/design for air-$RELEASE_NAMESPACE-payload.zip"
-    versioned_dmg="open-design-$RELEASE_VERSION$RELEASE_ASSET_SUFFIX-mac-$arch.dmg"
-    versioned_zip="open-design-$RELEASE_VERSION$RELEASE_ASSET_SUFFIX-mac-$arch.zip"
-    versioned_payload="open-design-$RELEASE_VERSION$RELEASE_ASSET_SUFFIX-mac-$arch-payload.zip"
+    versioned_dmg="design-for-air-$RELEASE_VERSION$RELEASE_ASSET_SUFFIX-mac-$arch.dmg"
+    versioned_zip="design-for-air-$RELEASE_VERSION$RELEASE_ASSET_SUFFIX-mac-$arch.zip"
+    versioned_payload="design-for-air-$RELEASE_VERSION$RELEASE_ASSET_SUFFIX-mac-$arch-payload.zip"
 
     if [ ! -f "$source_dmg" ]; then
       echo "expected dmg not found at $source_dmg" >&2

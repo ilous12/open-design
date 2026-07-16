@@ -2136,6 +2136,7 @@ export function HomeView({
       <RecentProjectsStrip
         projects={projects}
         designSystems={designSystems}
+        limit={4}
         {...(projectsLoading !== undefined ? { loading: projectsLoading } : {})}
         onOpen={(id) => {
           // P0 ui_click area=recent_projects element=project_card — emit
@@ -2184,7 +2185,7 @@ export function HomeView({
       </HomeTemplatesReveal>
 
       <footer className="home-view__copyright">
-        Copyright © 2026 SKT. All rights reserved.
+        design for air
       </footer>
 
       <AnimatePresence>

@@ -160,6 +160,7 @@ describe("copyResourceTree", () => {
       const resourceNames = [
         "skills",
         "design-templates",
+        "apps/web/public/reference-remix",
         "design-systems",
         "craft",
         "plugins/_official",

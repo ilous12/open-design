@@ -17,19 +17,17 @@ describe('apiProtocols table consistency', () => {
       'claude-sonnet-5',
       'claude-haiku-4-5-20251001',
     ]);
-    expect(SUGGESTED_MODELS_BY_PROTOCOL.openai.slice(0, 7)).toEqual([
-      'gpt-5.5',
-      'gpt-5.5-pro',
-      'gpt-5.4',
-      'gpt-5.4-pro',
-      'gpt-5.4-mini',
-      'gpt-5.4-nano',
-      'gpt-5.3-codex',
+    expect(SUGGESTED_MODELS_BY_PROTOCOL.openai.slice(0, 4)).toEqual([
+      'gpt-5.6',
+      'gpt-5.6-sol',
+      'gpt-5.6-terra',
+      'gpt-5.6-luna',
     ]);
-    expect(SUGGESTED_MODELS_BY_PROTOCOL.google.slice(0, 3)).toEqual([
-      'gemini-flash-latest',
-      'gemini-pro-latest',
+    expect(SUGGESTED_MODELS_BY_PROTOCOL.google.slice(0, 4)).toEqual([
       'gemini-3.5-flash',
+      'gemini-3.1-pro-preview',
+      'gemini-3.1-flash-lite',
+      'gemini-3-flash-preview',
     ]);
   });
 

@@ -831,7 +831,7 @@ function createPendingHtml(): string {
       }
       html,
       body {
-        background: #ffffff;
+        background: #f5f5f7;
         font-family: inherit;
         height: 100%;
         margin: 0;
@@ -839,12 +839,15 @@ function createPendingHtml(): string {
       }
       body {
         align-items: center;
+        background:
+          radial-gradient(circle at 50% 18%, rgba(124, 58, 237, 0.1), transparent 34%),
+          #f5f5f7;
         display: flex;
         justify-content: center;
       }
       .splash-brand {
         --brand-lockup-font-size: 64px;
-        --brand-lockup-mark-height: calc(var(--brand-lockup-font-size) * 1.87);
+        --brand-lockup-mark-height: calc(var(--brand-lockup-font-size) * 1.28);
 
         align-items: center;
         display: flex;
@@ -861,43 +864,22 @@ function createPendingHtml(): string {
         height: var(--brand-lockup-mark-height);
         isolation: isolate;
         justify-content: center;
-        overflow: hidden;
+        overflow: visible;
         position: relative;
         width: var(--brand-lockup-mark-height);
       }
       .splash-logo::before {
-        animation: brand-icon-ring-spin 2.8s linear infinite;
-        background: conic-gradient(from 0deg, #ffffff 0deg, #d6d9de 92deg, #9ca3af 178deg, #f7f7f7 270deg, #ffffff 360deg);
-        border-radius: 50%;
-        content: '';
-        inset: 0;
-        position: absolute;
-        z-index: 0;
+        content: none;
       }
       .splash-logo::after {
-        background: #fff;
-        border-radius: 50%;
-        content: '';
-        inset: 4px;
-        position: absolute;
-        z-index: 1;
+        content: none;
       }
       .splash-logo svg {
         display: block;
-        height: 54%;
+        height: 70%;
         position: relative;
-        width: 82%;
+        width: 100%;
         z-index: 2;
-      }
-      @keyframes brand-icon-ring-spin {
-        to {
-          transform: rotate(360deg);
-        }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        .splash-logo::before {
-          animation: none;
-        }
       }
       .splash-title {
         color: #000;
@@ -907,54 +889,22 @@ function createPendingHtml(): string {
         letter-spacing: 0;
         line-height: 1;
       }
-      .boot-stage {
-        bottom: 56px;
-        color: #7a838a;
-        font-family: inherit;
-        font-size: 14px;
-        left: 0;
-        letter-spacing: 0;
-        position: fixed;
-        right: 0;
-        text-align: center;
-        transition: opacity 200ms cubic-bezier(0.23, 1, 0.32, 1);
-        user-select: none;
-      }
-      .boot-stage-swapping {
-        opacity: 0;
-        transition-duration: 140ms;
-      }
-      .boot-stage-step {
-        color: #9aa2a8;
-        font-variant-numeric: tabular-nums;
-        margin-right: 7px;
-      }
       .boot-progress {
         background: rgba(122, 131, 138, 0.18);
         border-radius: 999px;
-        bottom: 84px;
-        height: 3px;
+        bottom: 72px;
+        height: 4px;
         left: 50%;
         overflow: hidden;
         position: fixed;
         transform: translateX(-50%);
-        width: 200px;
+        width: 220px;
       }
       .boot-progress-fill {
         background: #7a838a;
         border-radius: 999px;
         height: 100%;
         transition: width 320ms cubic-bezier(0.23, 1, 0.32, 1);
-      }
-      .boot-dots .dot {
-        animation: boot-dot 1.4s cubic-bezier(0.23, 1, 0.32, 1) infinite;
-        display: inline-block;
-      }
-      .boot-dots .dot:nth-child(2) { animation-delay: 0.2s; }
-      .boot-dots .dot:nth-child(3) { animation-delay: 0.4s; }
-      @keyframes boot-dot {
-        0%, 60%, 100% { opacity: 0.25; }
-        30% { opacity: 1; }
       }
     </style>
   </head>
@@ -966,21 +916,12 @@ function createPendingHtml(): string {
     <div class="boot-progress" aria-hidden="true">
       <div class="boot-progress-fill" id="boot-progress-fill" data-pct="${initialPct}" style="width: ${initialPct}%;"></div>
     </div>
-    <div class="boot-stage" id="boot-stage" aria-live="polite">
-      <span class="boot-stage-step" id="boot-stage-step">${start.step}/${start.total}</span><span id="boot-stage-text">${start.label}</span><span class="boot-dots" aria-hidden="true"><span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></span>
-    </div>
     <script>
-      // Accepts the structured { step, total, label } payload (and tolerates a
-      // bare label string for back-compat). The step counter + progress bar give
-      // a slow cold boot a sense of how far along it is; the bar only ever grows
+      // Accepts the structured { step, total } payload. The bar only ever grows
       // so a re-asserted earlier stage cannot make it lurch backwards.
       window.__odSplashSetStage = function (info) {
-        var data = (typeof info === "string") ? { label: info } : (info || {});
-        var wrap = document.getElementById("boot-stage");
-        var text = document.getElementById("boot-stage-text");
-        var stepEl = document.getElementById("boot-stage-step");
+        var data = (typeof info === "string") ? {} : (info || {});
         var fill = document.getElementById("boot-progress-fill");
-        if (!wrap || !text) return;
         var step = (typeof data.step === "number") ? data.step : null;
         var total = (typeof data.total === "number" && data.total > 0) ? data.total : null;
         if (fill && step != null && total != null) {
@@ -991,17 +932,6 @@ function createPendingHtml(): string {
             fill.setAttribute("data-pct", String(pct));
           }
         }
-        var label = (typeof data.label === "string") ? data.label : null;
-        var stepText = (step != null && total != null) ? (step + "/" + total) : null;
-        var labelSame = (label == null) || text.textContent === label;
-        var stepSame = (stepText == null) || !stepEl || stepEl.textContent === stepText;
-        if (labelSame && stepSame) return;
-        wrap.classList.add("boot-stage-swapping");
-        setTimeout(function () {
-          if (label != null) text.textContent = label;
-          if (stepEl && stepText != null) stepEl.textContent = stepText;
-          wrap.classList.remove("boot-stage-swapping");
-        }, 140);
       };
     </script>
   </body>
@@ -2314,8 +2244,12 @@ export async function createDesktopRuntime(options: DesktopRuntimeOptions): Prom
         pendingUrl = null;
         const nextPetUrl = desktopPetUrl(url);
         if (!petWindow.isDestroyed() && nextPetUrl !== currentPetUrl) {
-          await petWindow.loadURL(nextPetUrl);
-          currentPetUrl = nextPetUrl;
+          try {
+            await petWindow.loadURL(nextPetUrl);
+            currentPetUrl = nextPetUrl;
+          } catch (error) {
+            console.warn("[open-design desktop] desktop pet load failed", { error, url: nextPetUrl });
+          }
         }
         if (!revealed) {
           void revealWhenReady();

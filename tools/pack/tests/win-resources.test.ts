@@ -16,6 +16,14 @@ async function createWorkspaceFixture(workspaceRoot: string): Promise<void> {
   await mkdir(join(workspaceRoot, "design-templates", "orbit-general"), {
     recursive: true,
   });
+  await mkdir(join(workspaceRoot, "apps", "web", "public", "reference-remix", "ai-chatbot-platform"), {
+    recursive: true,
+  });
+  await writeFile(
+    join(workspaceRoot, "apps", "web", "public", "reference-remix", "ai-chatbot-platform", "index.html"),
+    "<!doctype html><h1>Reference</h1>\n",
+    "utf8",
+  );
   await mkdir(join(workspaceRoot, "design-systems", "sample"), {
     recursive: true,
   });

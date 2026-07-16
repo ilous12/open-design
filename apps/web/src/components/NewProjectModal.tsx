@@ -1,9 +1,7 @@
 // Modal wrapper around NewProjectPanel.
 //
-// Reuses the existing NewProjectPanel surface so all of the per-kind
-// tabs (prototype / live-artifact / deck / template / image / video /
-// audio / other) and their connector / template / design-system
-// pickers carry over without duplication. The modal closes itself
+// Reuses the existing NewProjectPanel surface so the creation form and
+// design-system picker carry over without duplication. The modal closes itself
 // when the panel calls onCreate and it completes (success path) or when the user
 // clicks the backdrop / Esc.
 
