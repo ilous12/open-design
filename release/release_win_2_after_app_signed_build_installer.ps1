@@ -51,6 +51,18 @@ function Invoke-Checked([string]$FilePath, [string[]]$Arguments, [string]$Workin
   }
 }
 
+function Resolve-CorepackCommand {
+  $corepack = Get-Command corepack.cmd -ErrorAction SilentlyContinue
+  if ($corepack -ne $null) {
+    return $corepack.Source
+  }
+  $corepack = Get-Command corepack.exe -ErrorAction SilentlyContinue
+  if ($corepack -ne $null) {
+    return $corepack.Source
+  }
+  throw "corepack.cmd is required"
+}
+
 if (-not (Test-Path -LiteralPath $SignedAppZip)) {
   throw "signed app zip not found: $SignedAppZip"
 }
@@ -100,8 +112,9 @@ if (-not [string]::IsNullOrWhiteSpace($env:RELEASE_PUBLIC_ORIGIN)) {
 
 Push-Location -LiteralPath $RootDir
 try {
-  Invoke-Checked "corepack" @("pnpm", "--filter", "@nn-design/tools-pack", "build")
-  $json = & corepack pnpm exec tools-pack win build-from-signed-app `
+  $corepackCommand = Resolve-CorepackCommand
+  Invoke-Checked $corepackCommand @("pnpm", "--filter", "@nn-design/tools-pack", "build")
+  $json = & $corepackCommand pnpm exec tools-pack win build-from-signed-app `
     --dir $ToolsPackDir `
     --cache-dir $ToolsPackCacheDir `
     --namespace $env:RELEASE_NAMESPACE `

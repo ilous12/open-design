@@ -231,15 +231,12 @@ function Resolve-PnpmCommand {
   }
   $pnpmVersion = $packageManager -replace '^pnpm@', ''
 
-  if (Get-Command corepack -ErrorAction SilentlyContinue) {
-    Invoke-Checked "corepack" @("prepare", "pnpm@$pnpmVersion", "--activate")
+  $corepack = Get-Command corepack.cmd -ErrorAction SilentlyContinue
+  if ($corepack -ne $null) {
+    Invoke-Checked $corepack.Source @("prepare", "pnpm@$pnpmVersion", "--activate") | Out-Null
   }
 
   $pnpm = Get-Command pnpm.cmd -ErrorAction SilentlyContinue
-  if ($pnpm -ne $null) {
-    return $pnpm.Source
-  }
-  $pnpm = Get-Command pnpm -ErrorAction SilentlyContinue
   if ($pnpm -ne $null) {
     return $pnpm.Source
   }
@@ -247,7 +244,7 @@ function Resolve-PnpmCommand {
   if ($npx -ne $null) {
     return "$($npx.Source)|pnpm@$pnpmVersion"
   }
-  throw "pnpm or corepack is required"
+  throw "pnpm.cmd or npx.cmd is required"
 }
 
 function Invoke-Pnpm([string[]]$Arguments) {

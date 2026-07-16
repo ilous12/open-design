@@ -45,6 +45,18 @@ function Invoke-Checked([string]$FilePath, [string[]]$Arguments, [string]$Workin
   }
 }
 
+function Resolve-CorepackCommand {
+  $corepack = Get-Command corepack.cmd -ErrorAction SilentlyContinue
+  if ($corepack -ne $null) {
+    return $corepack.Source
+  }
+  $corepack = Get-Command corepack.exe -ErrorAction SilentlyContinue
+  if ($corepack -ne $null) {
+    return $corepack.Source
+  }
+  throw "corepack.cmd is required"
+}
+
 function Copy-RequiredFile([string]$Source, [string]$Destination) {
   if (-not (Test-Path -LiteralPath $Source)) {
     throw "expected file not found: $Source"
@@ -173,8 +185,9 @@ Set-EnvValue "RELEASE_SIGNED" ($(if ($AllowUnsignedTest) { "false" } else { "tru
 Set-EnvValue "RELEASE_TARGET" "win_x64"
 Set-EnvValue "RELEASE_VERSION" ([string]$context.releaseVersion)
 Set-EnvValue "WIN_INCLUDE_ZIP" "false"
-Invoke-Checked "corepack" @("pnpm", "--filter", "@nn-design/tools-release", "build")
-Invoke-Checked "corepack" @("pnpm", "exec", "tools-release", "publish-platform")
+$corepackCommand = Resolve-CorepackCommand
+Invoke-Checked $corepackCommand @("pnpm", "--filter", "@nn-design/tools-release", "build")
+Invoke-Checked $corepackCommand @("pnpm", "exec", "tools-release", "publish-platform")
 
 $enableMacArm64 = Test-Path -LiteralPath (Join-Path $ManifestDir "mac_arm64.json")
 $enableMacX64 = Test-Path -LiteralPath (Join-Path $ManifestDir "mac_x64.json")
@@ -189,7 +202,7 @@ Set-EnvValue "LINUX_X64_RESULT" "skipped"
 Set-EnvValue "RELEASE_METADATA_DIR" $MetadataDir
 Set-EnvValue "RELEASE_OUTPUTS_PATH" (Join-Path $OutputsDir "metadata-outputs.json")
 Set-EnvValue "STATE_SOURCE" "local-public-export"
-Invoke-Checked "corepack" @("pnpm", "exec", "tools-release", "publish-metadata")
+Invoke-Checked $corepackCommand @("pnpm", "exec", "tools-release", "publish-metadata")
 
 $versionPrefix = "$([string]$context.releaseChannel)\versions\$([string]$context.releaseVersion)"
 $latestPrefix = "$([string]$context.releaseChannel)\latest"
