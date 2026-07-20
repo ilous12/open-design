@@ -128,6 +128,24 @@ require_var() {
   fi
 }
 
+expand_local_path() {
+  local value="$1"
+  case "$value" in
+    '$HOME'/*) printf '%s/%s\n' "$HOME" "${value#'$HOME'/}" ;;
+    '${HOME}'/*) printf '%s/%s\n' "$HOME" "${value#'${HOME}'/}" ;;
+    '~'/*) printf '%s/%s\n' "$HOME" "${value#'~'/}" ;;
+    /*) printf '%s\n' "$value" ;;
+    *) printf '%s/%s\n' "$ROOT_DIR" "$value" ;;
+  esac
+}
+
+normalize_path_var() {
+  local name="$1"
+  if [ -n "${!name:-}" ]; then
+    export "$name=$(expand_local_path "${!name}")"
+  fi
+}
+
 require_public_origin() {
   if [ -n "${RELEASE_PUBLIC_ORIGIN:-}" ]; then
     return 0
@@ -216,6 +234,7 @@ case "$BUILD_TARGET" in
 esac
 
 if [ "$SIGN_MODE" != "no" ]; then
+  normalize_path_var CSC_LINK
   require_var CSC_LINK
   require_var CSC_KEY_PASSWORD
 fi
