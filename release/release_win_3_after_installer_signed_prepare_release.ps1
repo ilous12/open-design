@@ -74,6 +74,19 @@ function Expand-ZipWithSevenZip([string]$ZipPath, [string]$DestinationDir) {
   }
 }
 
+function Find-SetupExecutable([string]$Directory) {
+  $candidates = @()
+  $candidates += Get-ChildItem -LiteralPath $Directory -File -Filter "*.exe" -ErrorAction Stop |
+    Where-Object { $_.Name -match "setup" }
+
+  foreach ($childDir in Get-ChildItem -LiteralPath $Directory -Directory -ErrorAction Stop) {
+    $candidates += Get-ChildItem -LiteralPath $childDir.FullName -File -Filter "*.exe" -ErrorAction SilentlyContinue |
+      Where-Object { $_.Name -match "setup" }
+  }
+
+  return $candidates | Sort-Object FullName | Select-Object -First 1
+}
+
 function Copy-RequiredFile([string]$Source, [string]$Destination) {
   if (-not (Test-Path -LiteralPath $Source)) {
     throw "expected file not found: $Source"
@@ -118,10 +131,7 @@ Remove-Item -LiteralPath $FinalDir -Recurse -Force -ErrorAction SilentlyContinue
 New-Item -ItemType Directory -Force -Path $ReleaseAssetsDir, $SignedInstallerDir | Out-Null
 Expand-ZipWithSevenZip -ZipPath $SignedInstallerZip -DestinationDir $SignedInstallerDir
 
-$installer = Get-ChildItem -LiteralPath $SignedInstallerDir -Recurse -File -Filter "*.exe" |
-  Where-Object { $_.Name -match "setup" } |
-  Sort-Object FullName |
-  Select-Object -First 1
+$installer = Find-SetupExecutable -Directory $SignedInstallerDir
 if ($null -eq $installer) {
   throw "signed setup.exe not found in $SignedInstallerZip"
 }

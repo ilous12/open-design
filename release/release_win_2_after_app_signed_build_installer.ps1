@@ -96,6 +96,19 @@ function Compress-FileWithSevenZip([string]$SourceFile, [string]$DestinationZip)
   }
 }
 
+function Find-AppExecutable([string]$Directory) {
+  $candidates = @()
+  $candidates += Get-ChildItem -LiteralPath $Directory -File -Filter "*.exe" -ErrorAction Stop |
+    Where-Object { $_.Name -notmatch '^Uninstall' }
+
+  foreach ($childDir in Get-ChildItem -LiteralPath $Directory -Directory -ErrorAction Stop) {
+    $candidates += Get-ChildItem -LiteralPath $childDir.FullName -File -Filter "*.exe" -ErrorAction SilentlyContinue |
+      Where-Object { $_.Name -notmatch '^Uninstall' }
+  }
+
+  return $candidates | Sort-Object FullName | Select-Object -First 1
+}
+
 if (-not (Test-Path -LiteralPath $SignedAppZip)) {
   throw "signed app zip not found: $SignedAppZip"
 }
@@ -105,10 +118,7 @@ Remove-Item -LiteralPath $SignedAppDir -Recurse -Force -ErrorAction SilentlyCont
 New-Item -ItemType Directory -Force -Path $SignedAppDir | Out-Null
 Expand-ZipWithSevenZip -ZipPath $SignedAppZip -DestinationDir $SignedAppDir
 
-$exe = Get-ChildItem -LiteralPath $SignedAppDir -Recurse -File -Filter "*.exe" |
-  Where-Object { $_.Name -notmatch '^Uninstall' } |
-  Sort-Object FullName |
-  Select-Object -First 1
+$exe = Find-AppExecutable -Directory $SignedAppDir
 if ($null -eq $exe) {
   throw "no signed app executable found under $SignedAppDir"
 }
