@@ -63,6 +63,39 @@ function Resolve-CorepackCommand {
   throw "corepack.cmd is required"
 }
 
+function Resolve-SevenZipCommand {
+  $sevenZipExe = Join-Path $RootDir "tools\pack\resources\win\7zip\7z.exe"
+  if (-not (Test-Path -LiteralPath $sevenZipExe)) {
+    throw "bundled 7z.exe not found at $sevenZipExe"
+  }
+  return $sevenZipExe
+}
+
+function Expand-ZipWithSevenZip([string]$ZipPath, [string]$DestinationDir) {
+  $sevenZipExe = Resolve-SevenZipCommand
+  New-Item -ItemType Directory -Force -Path $DestinationDir | Out-Null
+  & $sevenZipExe x "-o$DestinationDir" "-y" $ZipPath
+  if ($LASTEXITCODE -ne 0) {
+    throw "7z failed to extract zip with exit code ${LASTEXITCODE}: $ZipPath"
+  }
+}
+
+function Compress-FileWithSevenZip([string]$SourceFile, [string]$DestinationZip) {
+  $sevenZipExe = Resolve-SevenZipCommand
+  $sourceDir = Split-Path -Parent $SourceFile
+  $sourceName = Split-Path -Leaf $SourceFile
+  Remove-Item -LiteralPath $DestinationZip -Force -ErrorAction SilentlyContinue
+  Push-Location -LiteralPath $sourceDir
+  try {
+    & $sevenZipExe a -tzip $DestinationZip $sourceName
+    if ($LASTEXITCODE -ne 0) {
+      throw "7z failed to create zip with exit code ${LASTEXITCODE}: $DestinationZip"
+    }
+  } finally {
+    Pop-Location
+  }
+}
+
 if (-not (Test-Path -LiteralPath $SignedAppZip)) {
   throw "signed app zip not found: $SignedAppZip"
 }
@@ -70,7 +103,7 @@ if (-not (Test-Path -LiteralPath $SignedAppZip)) {
 New-Item -ItemType Directory -Force -Path $SigningToExternal, $StagingDir, (Split-Path -Parent $BuildJsonPath), $WorkRoot | Out-Null
 Remove-Item -LiteralPath $SignedAppDir -Recurse -Force -ErrorAction SilentlyContinue
 New-Item -ItemType Directory -Force -Path $SignedAppDir | Out-Null
-Expand-Archive -LiteralPath $SignedAppZip -DestinationPath $SignedAppDir -Force
+Expand-ZipWithSevenZip -ZipPath $SignedAppZip -DestinationDir $SignedAppDir
 
 $exe = Get-ChildItem -LiteralPath $SignedAppDir -Recurse -File -Filter "*.exe" |
   Where-Object { $_.Name -notmatch '^Uninstall' } |
@@ -140,7 +173,7 @@ if ([string]::IsNullOrWhiteSpace([string]$build.payloadPath) -or -not (Test-Path
 }
 
 Remove-Item -LiteralPath $InstallerRequestZip -Force -ErrorAction SilentlyContinue
-Compress-Archive -LiteralPath ([string]$build.installerPath) -DestinationPath $InstallerRequestZip -Force
+Compress-FileWithSevenZip -SourceFile ([string]$build.installerPath) -DestinationZip $InstallerRequestZip
 
 @{
   buildJsonPath = $BuildJsonPath

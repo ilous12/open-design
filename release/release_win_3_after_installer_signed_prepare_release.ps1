@@ -57,6 +57,23 @@ function Resolve-CorepackCommand {
   throw "corepack.cmd is required"
 }
 
+function Resolve-SevenZipCommand {
+  $sevenZipExe = Join-Path $RootDir "tools\pack\resources\win\7zip\7z.exe"
+  if (-not (Test-Path -LiteralPath $sevenZipExe)) {
+    throw "bundled 7z.exe not found at $sevenZipExe"
+  }
+  return $sevenZipExe
+}
+
+function Expand-ZipWithSevenZip([string]$ZipPath, [string]$DestinationDir) {
+  $sevenZipExe = Resolve-SevenZipCommand
+  New-Item -ItemType Directory -Force -Path $DestinationDir | Out-Null
+  & $sevenZipExe x "-o$DestinationDir" "-y" $ZipPath
+  if ($LASTEXITCODE -ne 0) {
+    throw "7z failed to extract zip with exit code ${LASTEXITCODE}: $ZipPath"
+  }
+}
+
 function Copy-RequiredFile([string]$Source, [string]$Destination) {
   if (-not (Test-Path -LiteralPath $Source)) {
     throw "expected file not found: $Source"
@@ -99,7 +116,7 @@ if (-not (Test-Path -LiteralPath $SignedInstallerZip)) {
 
 Remove-Item -LiteralPath $FinalDir -Recurse -Force -ErrorAction SilentlyContinue
 New-Item -ItemType Directory -Force -Path $ReleaseAssetsDir, $SignedInstallerDir | Out-Null
-Expand-Archive -LiteralPath $SignedInstallerZip -DestinationPath $SignedInstallerDir -Force
+Expand-ZipWithSevenZip -ZipPath $SignedInstallerZip -DestinationDir $SignedInstallerDir
 
 $installer = Get-ChildItem -LiteralPath $SignedInstallerDir -Recurse -File -Filter "*.exe" |
   Where-Object { $_.Name -match "setup" } |
