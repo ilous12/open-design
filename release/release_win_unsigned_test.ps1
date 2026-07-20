@@ -13,12 +13,12 @@ $ToExternal = Join-Path $ScriptDir "signing\to-external"
 
 New-Item -ItemType Directory -Force -Path $FromExternal, $ToExternal | Out-Null
 
-$stage1Args = @()
-if (-not [string]::IsNullOrWhiteSpace($EnvFile)) { $stage1Args += @("-EnvFile", $EnvFile) }
-if (-not [string]::IsNullOrWhiteSpace($ReleaseVersion)) { $stage1Args += @("-ReleaseVersion", $ReleaseVersion) }
-if (-not [string]::IsNullOrWhiteSpace($ReleaseChannel)) { $stage1Args += @("-ReleaseChannel", $ReleaseChannel) }
+$stage1Params = @{}
+if (-not [string]::IsNullOrWhiteSpace($EnvFile)) { $stage1Params.EnvFile = $EnvFile }
+if (-not [string]::IsNullOrWhiteSpace($ReleaseVersion)) { $stage1Params.ReleaseVersion = $ReleaseVersion }
+if (-not [string]::IsNullOrWhiteSpace($ReleaseChannel)) { $stage1Params.ReleaseChannel = $ReleaseChannel }
 
-& (Join-Path $ScriptDir "release_win_1_build_app.ps1") @stage1Args
+& (Join-Path $ScriptDir "release_win_1_build_app.ps1") @stage1Params
 
 $appSigningRequestZip = Join-Path $ToExternal "app-signing-request.zip"
 if (-not (Test-Path -LiteralPath $appSigningRequestZip)) {
@@ -29,15 +29,15 @@ Copy-Item `
   -Destination (Join-Path $FromExternal "signed-app.zip") `
   -Force
 
-$stage2Args = @(
-  "-SignedAppZip", (Join-Path $FromExternal "signed-app.zip"),
-  "-AllowUnsignedTest"
-)
-if (-not [string]::IsNullOrWhiteSpace($EnvFile)) { $stage2Args += @("-EnvFile", $EnvFile) }
-if (-not [string]::IsNullOrWhiteSpace($ReleaseVersion)) { $stage2Args += @("-ReleaseVersion", $ReleaseVersion) }
-if (-not [string]::IsNullOrWhiteSpace($ReleaseChannel)) { $stage2Args += @("-ReleaseChannel", $ReleaseChannel) }
+$stage2Params = @{
+  SignedAppZip = Join-Path $FromExternal "signed-app.zip"
+  AllowUnsignedTest = $true
+}
+if (-not [string]::IsNullOrWhiteSpace($EnvFile)) { $stage2Params.EnvFile = $EnvFile }
+if (-not [string]::IsNullOrWhiteSpace($ReleaseVersion)) { $stage2Params.ReleaseVersion = $ReleaseVersion }
+if (-not [string]::IsNullOrWhiteSpace($ReleaseChannel)) { $stage2Params.ReleaseChannel = $ReleaseChannel }
 
-& (Join-Path $ScriptDir "release_win_2_after_app_signed_build_installer.ps1") @stage2Args
+& (Join-Path $ScriptDir "release_win_2_after_app_signed_build_installer.ps1") @stage2Params
 
 $installerSigningRequestZip = Join-Path $ToExternal "installer-signing-request.zip"
 if (-not (Test-Path -LiteralPath $installerSigningRequestZip)) {
