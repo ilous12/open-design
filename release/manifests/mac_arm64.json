@@ -3,23 +3,23 @@
   "artifacts": {
     "dmg": {
       "contentType": "application/x-apple-diskimage",
-      "name": "design-for-air-0.12.6-mac-arm64.dmg",
-      "size": 179860804,
-      "url": "https://github.com/ilous12/nn-design-release-feed/releases/download/v0.12.6/design-for-air-0.12.6-mac-arm64.dmg",
-      "sha256Url": "https://github.com/ilous12/nn-design-release-feed/releases/download/v0.12.6/design-for-air-0.12.6-mac-arm64.dmg.sha256"
+      "name": "design-for-air-0.12.9-mac-arm64.dmg",
+      "size": 147051165,
+      "url": "https://github.com/ilous12/nn-design-release-feed/releases/download/v0.12.9/design-for-air-0.12.9-mac-arm64.dmg",
+      "sha256Url": "https://github.com/ilous12/nn-design-release-feed/releases/download/v0.12.9/design-for-air-0.12.9-mac-arm64.dmg.sha256"
     },
     "payload": {
       "contentType": "application/zip",
-      "name": "design-for-air-0.12.6-mac-arm64-payload.zip",
-      "size": 194695410,
-      "url": "https://github.com/ilous12/nn-design-release-feed/releases/download/v0.12.6/design-for-air-0.12.6-mac-arm64-payload.zip",
-      "sha256Url": "https://github.com/ilous12/nn-design-release-feed/releases/download/v0.12.6/design-for-air-0.12.6-mac-arm64-payload.zip.sha256"
+      "name": "design-for-air-0.12.9-mac-arm64-payload.zip",
+      "size": 155968696,
+      "url": "https://github.com/ilous12/nn-design-release-feed/releases/download/v0.12.9/design-for-air-0.12.9-mac-arm64-payload.zip",
+      "sha256Url": "https://github.com/ilous12/nn-design-release-feed/releases/download/v0.12.9/design-for-air-0.12.9-mac-arm64-payload.zip.sha256"
     }
   },
   "channel": "stable",
   "enabled": true,
   "feed": null,
-  "generatedAt": "2026-07-16T02:56:54.753Z",
+  "generatedAt": "2026-07-20T04:09:21.813Z",
   "github": {
     "branch": "",
     "commit": "",
@@ -40,10 +40,10 @@
     "latestManifestUrl": "https://ilous12.github.io/nn-design-release-feed/stable/latest/platforms/mac_arm64.json",
     "latestPrefix": "stable/latest",
     "publicOrigin": "https://ilous12.github.io/nn-design-release-feed",
-    "versionManifestUrl": "https://ilous12.github.io/nn-design-release-feed/stable/versions/0.12.6/platforms/mac_arm64.json",
-    "versionPrefix": "stable/versions/0.12.6"
+    "versionManifestUrl": "https://ilous12.github.io/nn-design-release-feed/stable/versions/0.12.9/platforms/mac_arm64.json",
+    "versionPrefix": "stable/versions/0.12.9"
   },
-  "releaseVersion": "0.12.6",
+  "releaseVersion": "0.12.9",
   "signed": true,
   "status": "published",
   "version": 1

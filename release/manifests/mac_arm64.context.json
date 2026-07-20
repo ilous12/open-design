@@ -3,7 +3,7 @@
   "releaseNamespace": "release-stable",
   "releasePublicOrigin": "https://ilous12.github.io/nn-design-release-feed",
   "releaseTarget": "mac_arm64",
-  "releaseVersion": "0.12.6",
+  "releaseVersion": "0.12.9",
   "releaseAssetSuffix": "",
   "releaseArtifactMode": "dmg-and-payload",
   "signed": true
