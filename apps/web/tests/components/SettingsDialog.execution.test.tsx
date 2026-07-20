@@ -2329,6 +2329,9 @@ describe('SettingsDialog execution settings Local CLI interactions', () => {
 
     fireEvent.click(screen.getByRole('tab', { name: /Local CLI.*0 installed/i }));
     expect(screen.getByText(/No agents detected yet/i)).toBeTruthy();
+    expect(screen.getAllByRole('link', { name: /Claude Code CLI/i }).length).toBeGreaterThan(0);
+    expect(screen.getAllByRole('link', { name: /Codex CLI/i }).length).toBeGreaterThan(0);
+    expect(screen.getAllByRole('link', { name: /Antigravity CLI/i }).length).toBeGreaterThan(0);
   });
 
   it('labels the memory model default with the selected Local CLI', async () => {

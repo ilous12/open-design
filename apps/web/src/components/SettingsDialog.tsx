@@ -784,6 +784,32 @@ const AGENT_SHORT_DESCRIPTIONS: Record<string, string> = {
 };
 
 const SUPPORTED_LOCAL_CLI_AGENT_IDS = new Set(['claude', 'codex', 'antigravity']);
+const FALLBACK_LOCAL_CLI_INSTALL_AGENTS: AgentInfo[] = [
+  {
+    id: 'claude',
+    name: 'Claude Code CLI',
+    bin: 'claude',
+    available: false,
+    installUrl: 'https://docs.anthropic.com/en/docs/claude-code/setup',
+    docsUrl: 'https://docs.anthropic.com/en/docs/claude-code',
+  },
+  {
+    id: 'codex',
+    name: 'Codex CLI',
+    bin: 'codex',
+    available: false,
+    installUrl: 'https://github.com/openai/codex',
+    docsUrl: 'https://developers.openai.com/codex',
+  },
+  {
+    id: 'antigravity',
+    name: 'Antigravity CLI',
+    bin: 'agy',
+    available: false,
+    installUrl: 'https://antigravity.google/cli',
+    docsUrl: 'https://antigravity.google/docs/cli-overview',
+  },
+];
 
 function cleanAgentVersionLabel(
   name: string,
@@ -3378,6 +3404,12 @@ export function SettingsDialog({
     localCliAgents.filter((a) => a.available),
   );
   const unavailableAgents = localCliAgents.filter((a) => !a.available);
+  const installGuideAgents =
+    unavailableAgents.length > 0
+      ? unavailableAgents
+      : localCliAgents.length === 0
+        ? FALLBACK_LOCAL_CLI_INSTALL_AGENTS
+        : [];
   const initialAgentScanRunning = agentsLoading && agents.length === 0;
   const showCliEnvOverrides = false;
   const updateAgentModelChoice = (
@@ -3843,8 +3875,33 @@ export function SettingsDialog({
                   </div>
                 </div>
               ) : agents.length === 0 ? (
-                <div className="empty-card">
-                  {t('settings.noAgentsDetected')}
+                <div className="empty-card agent-empty-card">
+                  <p>{t('settings.noAgentsDetected')}</p>
+                  <div
+                    className="agent-empty-links"
+                    aria-label={t('settings.agentInstallGroup', {
+                      count: installGuideAgents.length,
+                    })}
+                  >
+                    {installGuideAgents.map((agent) => {
+                      const installUrl = sanitizeHttpsUrl(agent.installUrl);
+                      if (!installUrl) return null;
+                      const agentName = displayAgentName(agent);
+                      return (
+                        <a
+                          key={agent.id}
+                          href={installUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="agent-empty-link"
+                          onClick={() => markAgentInstallIntent()}
+                        >
+                          <AgentIcon id={agent.id} size={18} />
+                          <span>{agentName}</span>
+                        </a>
+                      );
+                    })}
+                  </div>
                 </div>
               ) : (
                 <>
@@ -4319,72 +4376,97 @@ export function SettingsDialog({
                         })}
                       </div>
                     ) : (
-                      <div className="empty-card">
-                        {t('settings.noAgentsDetected')}
+                      <div className="empty-card agent-empty-card">
+                        <p>{t('settings.noAgentsDetected')}</p>
+                        <div
+                          className="agent-empty-links"
+                          aria-label={t('settings.agentInstallGroup', {
+                            count: installGuideAgents.length,
+                          })}
+                        >
+                          {installGuideAgents.map((agent) => {
+                            const installUrl = sanitizeHttpsUrl(agent.installUrl);
+                            if (!installUrl) return null;
+                            const agentName = displayAgentName(agent);
+                            return (
+                              <a
+                                key={agent.id}
+                                href={installUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="agent-empty-link"
+                                onClick={() => markAgentInstallIntent()}
+                              >
+                                <AgentIcon id={agent.id} size={18} />
+                                <span>{agentName}</span>
+                              </a>
+                            );
+                          })}
+                        </div>
                       </div>
                     )}
                   </div>
-                  {unavailableAgents.length > 0 ? (
+                  {installGuideAgents.length > 0 ? (
                     <div className="agent-install-panel">
                       <div className="agent-install-panel-head">
                         <span>
                           {t('settings.agentInstallGroup', {
-                            count: unavailableAgents.length,
+                            count: installGuideAgents.length,
                           })}
                         </span>
                       </div>
                       <div className="agent-grid agent-grid-unavailable">
-	                        {unavailableAgents.map((a) => {
-	                          const installUrl = sanitizeHttpsUrl(a.installUrl);
-	                          const agentName = displayAgentName(a);
-	                          const description = AGENT_SHORT_DESCRIPTIONS[a.id];
-	                          const cardLabel = description
-	                            ? `${agentName} · ${description}`
-	                            : `${agentName} · ${t('common.notInstalled')}`;
-	                          return (
-	                            <div
-	                              key={a.id}
-	                              className="agent-card disabled agent-card-unavailable"
+                        {installGuideAgents.map((a) => {
+                          const installUrl = sanitizeHttpsUrl(a.installUrl);
+                          const agentName = displayAgentName(a);
+                          const description = AGENT_SHORT_DESCRIPTIONS[a.id];
+                          const cardLabel = description
+                            ? `${agentName} · ${description}`
+                            : `${agentName} · ${t('common.notInstalled')}`;
+                          return (
+                            <div
+                              key={a.id}
+                              className="agent-card disabled agent-card-unavailable"
                               role="group"
                               aria-label={cardLabel}
                             >
-	                              <div className="agent-card-unavailable-row">
-	                                <AgentIcon id={a.id} size={30} />
-	                                <div className="agent-card-body">
-	                                  <div className="agent-card-name">
-	                                    {agentName}
-	                                  </div>
-	                                  {description ? (
-	                                    <div className="agent-card-meta">
-	                                      {description}
-	                                    </div>
-	                                  ) : null}
-	                                </div>
-	                                {installUrl ? (
-	                                  <div className="agent-card-actions agent-card-actions--inline">
-	                                    <a
-	                                      href={installUrl}
-	                                      target="_blank"
-	                                      rel="noopener noreferrer"
-	                                      className="agent-card-link agent-card-link--ghost"
-	                                      onClick={(event) => {
-	                                        markAgentInstallIntent();
-	                                        if (a.id === 'amr') {
-	                                          event.currentTarget.href = attributedAmrSettingsUrl(
-	                                            installUrl,
-	                                            'settings_amr_install',
-	                                          );
-	                                        }
-	                                      }}
-	                                    >
-	                                      {t('settings.agentInstall.install')}
-	                                    </a>
-	                                  </div>
-	                                ) : null}
-	                              </div>
-	                            </div>
-	                          );
-	                        })}
+                              <div className="agent-card-unavailable-row">
+                                <AgentIcon id={a.id} size={30} />
+                                <div className="agent-card-body">
+                                  <div className="agent-card-name">
+                                    {agentName}
+                                  </div>
+                                  {description ? (
+                                    <div className="agent-card-meta">
+                                      {description}
+                                    </div>
+                                  ) : null}
+                                </div>
+                                {installUrl ? (
+                                  <div className="agent-card-actions agent-card-actions--inline">
+                                    <a
+                                      href={installUrl}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="agent-card-link agent-card-link--ghost"
+                                      onClick={(event) => {
+                                        markAgentInstallIntent();
+                                        if (a.id === 'amr') {
+                                          event.currentTarget.href = attributedAmrSettingsUrl(
+                                            installUrl,
+                                            'settings_amr_install',
+                                          );
+                                        }
+                                      }}
+                                    >
+                                      {t('settings.agentInstall.install')}
+                                    </a>
+                                  </div>
+                                ) : null}
+                              </div>
+                            </div>
+                          );
+                        })}
                       </div>
                     </div>
                   ) : null}
