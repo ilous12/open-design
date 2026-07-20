@@ -20,8 +20,12 @@ if (-not [string]::IsNullOrWhiteSpace($ReleaseChannel)) { $stage1Args += @("-Rel
 
 & (Join-Path $ScriptDir "release_win_1_build_app.ps1") @stage1Args
 
+$appSigningRequestZip = Join-Path $ToExternal "app-signing-request.zip"
+if (-not (Test-Path -LiteralPath $appSigningRequestZip)) {
+  throw "app signing request zip was not created: $appSigningRequestZip"
+}
 Copy-Item `
-  -LiteralPath (Join-Path $ToExternal "app-signing-request.zip") `
+  -LiteralPath $appSigningRequestZip `
   -Destination (Join-Path $FromExternal "signed-app.zip") `
   -Force
 
@@ -35,8 +39,12 @@ if (-not [string]::IsNullOrWhiteSpace($ReleaseChannel)) { $stage2Args += @("-Rel
 
 & (Join-Path $ScriptDir "release_win_2_after_app_signed_build_installer.ps1") @stage2Args
 
+$installerSigningRequestZip = Join-Path $ToExternal "installer-signing-request.zip"
+if (-not (Test-Path -LiteralPath $installerSigningRequestZip)) {
+  throw "installer signing request zip was not created: $installerSigningRequestZip"
+}
 Copy-Item `
-  -LiteralPath (Join-Path $ToExternal "installer-signing-request.zip") `
+  -LiteralPath $installerSigningRequestZip `
   -Destination (Join-Path $FromExternal "signed-installer.zip") `
   -Force
 

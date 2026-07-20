@@ -16,6 +16,19 @@ $WorkRoot = Join-Path $StagingDir "work"
 $BuildJsonPath = Join-Path $StagingDir "build\build.json"
 $RequestZip = Join-Path $SigningToExternal "app-signing-request.zip"
 
+function Compress-DirectoryContents([string]$SourceDir, [string]$DestinationZip) {
+  $entries = @(Get-ChildItem -LiteralPath $SourceDir -Force)
+  if ($entries.Count -eq 0) {
+    throw "cannot create signing request from empty directory: $SourceDir"
+  }
+
+  Remove-Item -LiteralPath $DestinationZip -Force -ErrorAction SilentlyContinue
+  Compress-Archive -LiteralPath ($entries | ForEach-Object { $_.FullName }) -DestinationPath $DestinationZip -Force
+  if (-not (Test-Path -LiteralPath $DestinationZip)) {
+    throw "failed to create signing request zip: $DestinationZip"
+  }
+}
+
 New-Item -ItemType Directory -Force -Path $SigningToExternal, (Split-Path -Parent $BuildJsonPath), $WorkRoot | Out-Null
 
 Push-Location -LiteralPath $RootDir
@@ -73,8 +86,7 @@ if ([string]::IsNullOrWhiteSpace($unpackedPath) -or -not (Test-Path -LiteralPath
   throw "unpacked app path not found in build json: $unpackedPath"
 }
 
-Remove-Item -LiteralPath $RequestZip -Force -ErrorAction SilentlyContinue
-Compress-Archive -LiteralPath (Join-Path $unpackedPath "*") -DestinationPath $RequestZip -Force
+Compress-DirectoryContents -SourceDir $unpackedPath -DestinationZip $RequestZip
 
 Write-Host "Created external app signing request:"
 Write-Host "  send:    $RequestZip"
