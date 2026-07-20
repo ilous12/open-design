@@ -207,6 +207,22 @@ function Validate-WinLauncherPayloadArchive([string]$PayloadPath, [string]$Expec
   }
 }
 
+function Validate-WinUnpackedApp([string]$UnpackedPath, [string]$Label) {
+  if ([string]::IsNullOrWhiteSpace($UnpackedPath) -or -not (Test-Path -LiteralPath $UnpackedPath)) {
+    throw "expected unpacked app path for $Label not found at $UnpackedPath"
+  }
+
+  $entryPath = Join-Path $UnpackedPath "design for air.exe"
+  if (-not (Test-Path -LiteralPath $entryPath)) {
+    throw "expected unpacked app executable for $Label not found at $entryPath"
+  }
+
+  $configPath = Join-Path $UnpackedPath "resources\app\package.json"
+  if (-not (Test-Path -LiteralPath $configPath)) {
+    throw "expected unpacked app package for $Label not found at $configPath"
+  }
+}
+
 function Resolve-LocalUpdateVersion([string]$Channel, [string]$Version) {
   if ($Channel -eq "stable") {
     $stableMatch = [System.Text.RegularExpressions.Regex]::Match($Version, "^(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)$")
@@ -258,12 +274,16 @@ try {
     }
     $buildOutput | Set-Content -LiteralPath $BuildJsonPath -Encoding utf8
   }
-  Measure-Step "validate launcher payload artifact" {
+  Measure-Step "validate primary Windows artifact" {
     $build = Read-BuildJson
     if ($build -eq $null) {
-      throw "build json missing before launcher payload validation: $BuildJsonPath"
+      throw "build json missing before primary artifact validation: $BuildJsonPath"
     }
-    Validate-WinLauncherPayloadArchive -PayloadPath ([string]$build.payloadPath) -ExpectedVersion $ReleaseVersion -Label "primary"
+    if ($BuildTarget -eq "dir") {
+      Validate-WinUnpackedApp -UnpackedPath ([string]$build.unpackedPath) -Label "primary"
+    } else {
+      Validate-WinLauncherPayloadArchive -PayloadPath ([string]$build.payloadPath) -ExpectedVersion $ReleaseVersion -Label "primary"
+    }
   }
 
   $localUpdateArtifactPath = $null
