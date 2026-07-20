@@ -23,7 +23,6 @@ export const ELECTRON_BUILDER_FILE_PATTERNS = [
 ] as const;
 export const NSIS_INSTALLER_LANGUAGE_BY_WEB_LOCALE = {
   en: "en_US",
-  fa: "fa_IR",
   "pt-BR": "pt_BR",
   ru: "ru_RU",
   "zh-CN": "zh_CN",
