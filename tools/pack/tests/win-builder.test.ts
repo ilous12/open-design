@@ -144,6 +144,16 @@ describe("Windows pack artifact boundaries", () => {
     );
   });
 
+  it("materializes cached dir builds before exposing the unpacked path", async () => {
+    const source = await readFile(new URL("../src/win/build.ts", import.meta.url), "utf8");
+    expect(source).toContain('config.to === "dir" && builtApp?.cacheEntryPath != null');
+    expect(source).toContain('runPhase("dir-unpacked-materialize"');
+    expect(source).toContain("materializeCachedUnpackedForInstaller(builtApp.unpackedRoot, paths, packagedVersion)");
+    expect(source.indexOf('runPhase("dir-unpacked-materialize"')).toBeLessThan(
+      source.indexOf("if (hasLauncherPayloadTarget)"),
+    );
+  });
+
   it("keeps NSIS payload archives on the fast LZMA2 path", async () => {
     const source = await readFile(new URL("../src/win/custom-installer.ts", import.meta.url), "utf8");
     expect(source).toContain('"nsis:payload-base-7z"');

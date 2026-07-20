@@ -121,6 +121,13 @@ export async function packWin(config: ToolPackConfig): Promise<WinPackResult> {
     await writeLocalLatestYml(config, paths);
   });
   let builtApp = await readBuiltAppManifest(paths);
+  if (config.to === "dir" && builtApp?.cacheEntryPath != null) {
+    const cachedBuiltApp = builtApp;
+    builtApp = await runPhase("dir-unpacked-materialize", async () => {
+      const packagedVersion = await readPackagedVersion(config);
+      return materializeCachedUnpackedForInstaller(cachedBuiltApp.unpackedRoot, paths, packagedVersion);
+    });
+  }
   if (hasLauncherPayloadTarget) {
     builtApp = await runPhase("payload-unpacked-materialize", async () => {
       if (builtApp == null) throw new Error("cannot build Windows launcher payload without a built app manifest");
