@@ -22,8 +22,21 @@ function Compress-DirectoryContents([string]$SourceDir, [string]$DestinationZip)
     throw "cannot create signing request from empty directory: $SourceDir"
   }
 
+  $sevenZipExe = Join-Path $RootDir "tools\pack\resources\win\7zip\7z.exe"
+  if (-not (Test-Path -LiteralPath $sevenZipExe)) {
+    throw "bundled 7z.exe not found at $sevenZipExe"
+  }
+
   Remove-Item -LiteralPath $DestinationZip -Force -ErrorAction SilentlyContinue
-  Compress-Archive -LiteralPath ($entries | ForEach-Object { $_.FullName }) -DestinationPath $DestinationZip -Force
+  Push-Location -LiteralPath $SourceDir
+  try {
+    & $sevenZipExe a -tzip $DestinationZip ".\*"
+    if ($LASTEXITCODE -ne 0) {
+      throw "7z failed to create signing request zip with exit code $LASTEXITCODE"
+    }
+  } finally {
+    Pop-Location
+  }
   if (-not (Test-Path -LiteralPath $DestinationZip)) {
     throw "failed to create signing request zip: $DestinationZip"
   }
