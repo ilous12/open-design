@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if [ -d /usr/bin ]; then
-  PATH="/usr/bin:$PATH"
-fi
-
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 DEFAULT_RELEASE_PUBLIC_ORIGIN="https://ilous12.github.io/nn-design-release-feed"
@@ -28,7 +24,7 @@ if [ ! -d "$PUBLIC_DIR" ]; then
   exit 1
 fi
 
-/usr/bin/find "$PUBLIC_DIR" -maxdepth 4 -type f | sort
+find "$PUBLIC_DIR" -maxdepth 4 -type f | sort
 
 if [ "${DEPLOY_PUBLIC_GITHUB:-false}" = "true" ]; then
   : "${RELEASE_PUBLIC_GH_REPO:?RELEASE_PUBLIC_GH_REPO is required when DEPLOY_PUBLIC_GITHUB=true}"
