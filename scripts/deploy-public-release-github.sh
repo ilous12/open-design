@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+if [ -d /usr/bin ]; then
+  PATH="/usr/bin:$PATH"
+fi
+
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT_DIR"
 
@@ -40,7 +44,7 @@ replace_text_in_feed() {
 
   while IFS= read -r -d '' feed_file; do
     SEARCH="$search" REPLACEMENT="$replacement" perl -0pi -e 's/\Q$ENV{SEARCH}\E/$ENV{REPLACEMENT}/g' "$feed_file"
-  done < <(find "$CLONE_DIR" -type f \( -name '*.json' -o -name '*.yml' -o -name '*.yaml' -o -name '*.md' \) -print0)
+  done < <(/usr/bin/find "$CLONE_DIR" -type f \( -name '*.json' -o -name '*.yml' -o -name '*.yaml' -o -name '*.md' \) -print0)
 }
 
 is_release_feed_metadata_file() {
@@ -56,7 +60,7 @@ release_tag_for_version() {
 }
 
 release_version_dirs() {
-  find "$CLONE_DIR" -mindepth 3 -maxdepth 3 -type d -path '*/versions/*' -print | sort
+  /usr/bin/find "$CLONE_DIR" -mindepth 3 -maxdepth 3 -type d -path '*/versions/*' -print | sort
 }
 
 upload_version_assets_to_github_release() {
@@ -95,7 +99,7 @@ upload_version_assets_to_github_release() {
       replace_text_in_feed "$feed_origin/$rel" "$asset_url"
       rm -f "$file"
       uploaded_count=$((uploaded_count + 1))
-    done < <(find "$version_dir" -maxdepth 1 -type f -print0)
+    done < <(/usr/bin/find "$version_dir" -maxdepth 1 -type f -print0)
   done < <(release_version_dirs)
 
   if [ "$uploaded_count" -gt 0 ]; then
@@ -110,7 +114,7 @@ fail_if_release_assets_remain() {
 
   local remaining
   remaining="$(while IFS= read -r version_dir; do
-    find "$version_dir" -maxdepth 1 -type f \
+    /usr/bin/find "$version_dir" -maxdepth 1 -type f \
       ! -name '*.json' \
       ! -name '*.yml' \
       ! -name '*.yaml' \
@@ -131,7 +135,7 @@ EOF
 
 fail_if_large_git_files_remain() {
   local remaining
-  remaining="$(find "$CLONE_DIR" -type f -size +"$GIT_FILE_SIZE_LIMIT_BYTES"c -not -path "$CLONE_DIR/.git/*" -print | sort)"
+  remaining="$(/usr/bin/find "$CLONE_DIR" -type f -size +"$GIT_FILE_SIZE_LIMIT_BYTES"c -not -path "$CLONE_DIR/.git/*" -print | sort)"
   if [ -n "$remaining" ]; then
     cat >&2 <<EOF
 GitHub blocks regular Git pushes containing files over $GIT_FILE_SIZE_LIMIT_BYTES bytes.
@@ -161,7 +165,7 @@ git clone "https://github.com/${RELEASE_PUBLIC_GH_REPO}.git" "$CLONE_DIR"
 (
   cd "$CLONE_DIR"
   git checkout -B "$GH_PAGES_BRANCH"
-  find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+  /usr/bin/find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
 )
 
 (
